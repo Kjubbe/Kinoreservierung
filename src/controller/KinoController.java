@@ -1,5 +1,9 @@
 package controller;
 
+import java.awt.event.*;
+
+import javax.swing.JButton;
+
 import model.KinoModel;
 import view.KinoView;
 
@@ -10,7 +14,7 @@ import view.KinoView;
  * @author Marcel Sauer
  */
 
-public class KinoController {
+public class KinoController implements ActionListener {
     
     // References to view and model
     private KinoView view;
@@ -24,5 +28,10 @@ public class KinoController {
     public KinoController(KinoView view, KinoModel model) {
         this.view = view;
         this.model = model;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() instanceof JButton) view.proceed();
     }
 }
