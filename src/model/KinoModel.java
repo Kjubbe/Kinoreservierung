@@ -43,8 +43,13 @@ public class KinoModel {
     public static final String proceedButtonLabel = "Fortfahren";
     public static final String finishButtonLabel = "Reservieren";
 
-    private static final List<Film> availableFilms = new ArrayList<>();
-    private static final List<Catering> availableCaterings = new ArrayList<>();
+    public static final List<Film> availableFilms = new ArrayList<>();
+    public static final List<Catering> availableCaterings = new ArrayList<>();
+
+    public Film chosenFilm; // Speichert den ausgewählten Film
+    public Showtime chosenTime; // Speichert die ausgewählten Zeiten
+    public List<Seat> chosenSeats;
+    public List<Catering> chosenCatering;
 
     /**
      * Constructor

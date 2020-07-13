@@ -15,4 +15,9 @@ public class Film {
         this.fsk = fsk;
         this.showtimes = showtimes;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

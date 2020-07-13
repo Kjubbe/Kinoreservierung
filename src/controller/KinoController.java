@@ -1,10 +1,8 @@
 package controller;
 
 import java.awt.event.*;
-
-import model.KinoModel;
-import view.KinoView;
-import view.Tab;
+import model.*;
+import view.*;
 
 /**
  * Controller class, acts as an intermediary between view
@@ -13,7 +11,7 @@ import view.Tab;
  * @author Marcel Sauer
  */
 
-public class KinoController implements ActionListener {
+public class KinoController implements ActionListener, ItemListener {
     
     // References to view and model
     private KinoView view;
@@ -42,5 +40,11 @@ public class KinoController implements ActionListener {
     public void quit() {
         System.out.println("Tschüss!");
         System.exit(0);
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        model.chosenFilm = (Film)((FilmTab)view.tabs[1]).dropdown.getSelectedItem();
+        view.update();
     }
 }

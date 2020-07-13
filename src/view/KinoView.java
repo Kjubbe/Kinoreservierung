@@ -24,7 +24,7 @@ public class KinoView {
     private KinoController ctrl = new KinoController(this, model);
 
     // Create frame and tabbed Pane
-    private JFrame frame = new JFrame(model.softwareName);
+    private JFrame frame = new JFrame(KinoModel.softwareName);
     private JTabbedPane tabbedPane = new JTabbedPane();
     private JPanel priceContainer = new JPanel();
     
@@ -47,12 +47,12 @@ public class KinoView {
     }
 
     public void setup() {
-        int tabCount = model.tabNames.length;
+        int tabCount = KinoModel.tabNames.length;
         for (int i = 0; i < tabCount; i++) {
             String name = null;
             Tab tab = null;
             try {
-                name = model.tabNames[i];
+                name = KinoModel.tabNames[i];
                 tab = tabs[i];
                 addTab(name, tab);
             } catch (Exception ex) {
@@ -96,6 +96,7 @@ public class KinoView {
         tabbedPane.setSelectedIndex(index);
         tabbedPane.setEnabledAt(index, true);
         disableFollowingTabs(index);
+        frame.pack();
     }
 
     public void disableFollowingTabs(int index) {
@@ -104,8 +105,10 @@ public class KinoView {
         }
     }
 
-    public void updatePrice() {
-        priceContainer.add(new JLabel(String.valueOf(model.getPrice())));
+    public void update() {
+        tabs[tabbedPane.getSelectedIndex()].update();
+        //priceContainer.add(new JLabel(String.valueOf(model.getPrice())));
+        frame.pack();
     }
 
     private void finish() {
