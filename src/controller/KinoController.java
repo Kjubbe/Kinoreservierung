@@ -1,9 +1,6 @@
 package controller;
 
 import java.awt.event.*;
-import java.util.Arrays;
-
-import javax.swing.JButton;
 
 import model.KinoModel;
 import view.KinoView;
@@ -37,12 +34,13 @@ public class KinoController implements ActionListener {
         Object source = e.getSource();
         for (Tab t : view.tabs) {
             if (t.backButton == source) view.goBack();
-            else if (t.exitButton == source) quit();
+            else if (t.abortButton == source) quit();
             else if (t.proceedButton == source) view.proceed();
         }
     }
 
     public void quit() {
+        System.out.println("Tschüss!");
         System.exit(0);
     }
 }

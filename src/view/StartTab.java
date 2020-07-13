@@ -12,6 +12,7 @@ public class StartTab extends Tab {
     @Override
     protected void build() {
         backButton.setEnabled(false);
+        abortButton.setText(KinoModel.exitButtonLabel);
         add(instructionContainer);
         add(buttonContainer);
     }

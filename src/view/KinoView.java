@@ -1,12 +1,10 @@
 package view;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
 
@@ -31,7 +29,7 @@ public class KinoView {
     private JPanel priceContainer = new JPanel();
     
     // This array holds all panels and buttons to proceed to each panel
-    public Tab[] tabs = 
+    public final Tab[] tabs = 
     {
         new StartTab(model, ctrl, 0),
         new FilmTab(model, ctrl, 1),
@@ -111,6 +109,11 @@ public class KinoView {
     }
 
     private void finish() {
+        JDialog dialog = new JDialog(frame, "Vielen Dank!");
+        dialog.setLocationRelativeTo(frame);
+        dialog.add(new JLabel("Ihre Reservierung war erfolgreich"));
+        dialog.setVisible(true);
+        dialog.pack();
         switchTabTo(0);
         System.out.println("Reservierung erfolgreich");
     }

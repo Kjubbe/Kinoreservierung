@@ -19,9 +19,9 @@ public abstract class Tab extends JPanel {
 
     protected JPanel instructionContainer = new JPanel();
     protected JPanel buttonContainer = new JPanel();
-    public JButton backButton;
-    public JButton exitButton;
-    public JButton proceedButton;
+    public final JButton backButton;
+    public final JButton abortButton;
+    public final JButton proceedButton;
 
     public Tab(KinoModel model, KinoController ctrl, int index) {
         this.model = model;
@@ -29,20 +29,20 @@ public abstract class Tab extends JPanel {
         this.index = index;
 
         try {
-            instructionContainer.add(new JLabel(model.instructions[index]));
+            instructionContainer.add(new JLabel(KinoModel.instructions[index]));
         } catch (Exception e) {
             System.out.println("No message set");
         }
 
-        backButton = new JButton(model.backButtonLabel);
+        backButton = new JButton(KinoModel.backButtonLabel);
         backButton.addActionListener(ctrl);
-        exitButton = new JButton(model.exitButtonLabel);
-        exitButton.addActionListener(ctrl);
-        proceedButton = new JButton(model.proceedButtonLabel);
+        abortButton = new JButton(KinoModel.abortButtonLabel);
+        abortButton.addActionListener(ctrl);
+        proceedButton = new JButton(KinoModel.proceedButtonLabel);
         proceedButton.addActionListener(ctrl);
 
         buttonContainer.add(backButton);
-        buttonContainer.add(exitButton);
+        buttonContainer.add(abortButton);
         buttonContainer.add(proceedButton);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

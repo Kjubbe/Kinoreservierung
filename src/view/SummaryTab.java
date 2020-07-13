@@ -11,7 +11,7 @@ public class SummaryTab extends Tab {
 
     @Override
     protected void build() {
-        proceedButton.setText(model.finishButtonLabel);
+        proceedButton.setText(KinoModel.finishButtonLabel);
         add(instructionContainer);
         add(buttonContainer);
     }
