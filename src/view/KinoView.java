@@ -9,8 +9,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.BorderLayout;
-import java.util.ArrayList;
-import java.util.List;
 
 import controller.KinoController;
 import model.KinoModel;
@@ -32,12 +30,16 @@ public class KinoView {
     private JTabbedPane tabbedPane = new JTabbedPane();
     private JPanel priceContainer = new JPanel();
     
-    // This array holds all panels
-    private JPanel[] panels;
-    private JButton[] buttons;
-
-    // Structuring
-    private EmptyBorder defaultBorder = new EmptyBorder(15, 15, 15, 15);
+    // This array holds all panels and buttons to proceed to each panel
+    public Tab[] tabs = 
+    {
+        new StartTab(model, ctrl, 0),
+        new FilmTab(model, ctrl, 1),
+        new TimesTab(model, ctrl, 2),
+        new SeatingTab(model, ctrl, 3),
+        new CateringTab(model, ctrl, 4),
+        new SummaryTab(model, ctrl, 5)
+    };
 
     /**
      * Constructor, builds the frame
@@ -47,22 +49,22 @@ public class KinoView {
     }
 
     public void setup() {
-        panels = new JPanel[model.tabNames.length];
-        buttons = new JButton[model.tabNames.length];
-        for (int i = 0; i < model.tabNames.length; i++) {
-            JPanel panel = new JPanel();
-            String buttonLabel = (i == model.tabNames.length - 1) ? model.finishButtonLabel : model.proceedButtonLabel;
-            JButton button = new JButton(buttonLabel);
-            button.addActionListener(ctrl);
-            panels[i] = panel;
-            buttons[i] = button;
-            addTab(model.tabNames[i], panel);
+        int tabCount = model.tabNames.length;
+        for (int i = 0; i < tabCount; i++) {
+            String name = null;
+            Tab tab = null;
+            try {
+                name = model.tabNames[i];
+                tab = tabs[i];
+                addTab(name, tab);
+            } catch (Exception ex) {
+                if (name == null) addTab("Tab" + i, tabs[i]);
+            }
         }
-        
         switchTabTo(0);
 
         frame.setLayout(new BorderLayout());
-        frame.add(new JLabel("Hello World"));
+
         frame.add(tabbedPane, BorderLayout.CENTER);
         frame.add(priceContainer, BorderLayout.NORTH);
 
@@ -72,10 +74,8 @@ public class KinoView {
         frame.pack();
     }
 
-    public void addTab(String title, JPanel panel) {
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(defaultBorder);
-        tabbedPane.addTab(title, panel);
+    public void addTab(String title, Tab tab) {
+        tabbedPane.addTab(title, tab);
         tabbedPane.setEnabledAt(tabbedPane.getTabCount() - 1, false);
     }
 
@@ -88,42 +88,13 @@ public class KinoView {
         }
     }
 
+    public void goBack() {
+        int activeTab = tabbedPane.getSelectedIndex();
+        tabbedPane.setSelectedIndex(activeTab - 1);
+    }
+
     public void switchTabTo(int index) {
-        panels[index].removeAll();
-        switch (index) {
-            case 0:
-
-                break;
-            
-            case 1:
-                
-                break;
-            
-            case 2:
-                
-                break;
-                
-            case 3:
-                
-                break;
-            
-            case 4:
-                
-                break;
-
-            case 5:
-                
-                break;
-        
-            default:
-                System.out.println("Your tab is not implemented");
-                break;
-        }
-        JPanel buttonContainer = new JPanel();
-        //proceedButton.setEnabled(false);
-        buttonContainer.add(buttons[index]);
-        panels[index].add(buttonContainer); // Last Component is the button
-
+        tabs[index].build();
         tabbedPane.setSelectedIndex(index);
         tabbedPane.setEnabledAt(index, true);
         disableFollowingTabs(index);
@@ -139,12 +110,8 @@ public class KinoView {
         priceContainer.add(new JLabel(String.valueOf(model.getPrice())));
     }
 
-    public void ableToProceed() {
-        buttons[tabbedPane.getSelectedIndex()].setEnabled(true);
-    }
-
     private void finish() {
-        // TODO
+        switchTabTo(0);
         System.out.println("Reservierung erfolgreich");
     }
 }

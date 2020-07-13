@@ -1,11 +1,13 @@
 package controller;
 
 import java.awt.event.*;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 
 import model.KinoModel;
 import view.KinoView;
+import view.Tab;
 
 /**
  * Controller class, acts as an intermediary between view
@@ -32,6 +34,15 @@ public class KinoController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton) view.proceed();
+        Object source = e.getSource();
+        for (Tab t : view.tabs) {
+            if (t.backButton == source) view.goBack();
+            else if (t.exitButton == source) quit();
+            else if (t.proceedButton == source) view.proceed();
+        }
+    }
+
+    public void quit() {
+        System.exit(0);
     }
 }
