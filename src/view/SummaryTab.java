@@ -1,7 +1,7 @@
 package view;
 
-import controller.KinoController;
-import model.KinoModel;
+import controller.*;
+import model.*;
 
 public class SummaryTab extends Tab {
 
@@ -13,6 +13,7 @@ public class SummaryTab extends Tab {
     protected void build() {
         reset();
         proceedButton.setText(KinoModel.finishButtonLabel);
+        proceedButton.setEnabled(true);
         add(instructionContainer);
         add(buttonContainer);
     }

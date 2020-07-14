@@ -1,6 +1,6 @@
 package model;
 
-import model.enums.Prices;
+import model.enums.*;
 
 public class BeachChairSeat extends Seat {
 

@@ -5,6 +5,7 @@ import model.enums.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Model class, manages calculations
@@ -35,6 +36,7 @@ public class KinoModel {
     };
 
     public static final String defaultTabName = "Tab";
+    public static final String licensePlateLabel = "Kennz.:";
 
     public static final String backButtonLabel = "Zurück";
     public static final String abortButtonLabel = "Abbrechen";
@@ -52,8 +54,9 @@ public class KinoModel {
 
     public Seat[][] availableSeats;
     public List<Seat> chosenSeats;
+    public int carSeatCount;
 
-    public List<Catering> chosenCatering;
+    public Map<Catering, Integer> chosenCatering;
 
     /**
      * Constructor
@@ -127,10 +130,31 @@ public class KinoModel {
     }
 
     public void setSeats(List<Seat> seats) {
+        System.out.println("Seat set");
         chosenSeats = seats;
+        carSeatCount = 0;
+        for (Seat s : chosenSeats) {
+            if (s instanceof CarSeat) carSeatCount++;
+        }
     }
 
-    public double getPrice() {
-        return 9.0; // TODO
+    public void setCatering(Map<Catering, Integer> cateringCounts) {
+        System.out.println("Caterings: " + cateringCounts);
+        chosenCatering = cateringCounts;
+    }
+
+    public double calculatePrice() {
+        double price = 0.0;
+        if (chosenSeats != null) {
+            for (Seat s : chosenSeats) {
+                price += s.price;
+            }
+        }
+        if (chosenCatering != null) {
+            for (Map.Entry<Catering, Integer> entry : chosenCatering.entrySet()) {
+                price += entry.getKey().price * entry.getValue();
+            }
+        }
+        return Math.round(price * 100.0) / 100.0;
     }
 }

@@ -1,13 +1,15 @@
 package view;
 
+import java.awt.Component;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.KinoController;
-import model.KinoModel;
+import controller.*;
+import model.*;
 
 public abstract class Tab extends JPanel {
     
@@ -53,6 +55,12 @@ public abstract class Tab extends JPanel {
     protected void reset() {
         removeAll();
         proceedButton.setEnabled(false);
+    }
+
+    protected JPanel putInContainer(Component comp) {
+        JPanel container = new JPanel();
+        container.add(comp);
+        return container;
     }
 
     protected abstract void build();

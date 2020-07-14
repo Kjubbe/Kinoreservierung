@@ -5,9 +5,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import controller.KinoController;
-import model.KinoModel;
-import model.Showtime;
+import controller.*;
+import model.*;
 
 public class TimesTab extends Tab {
 
@@ -21,20 +20,18 @@ public class TimesTab extends Tab {
     protected void build() {
         reset();
         JPanel buttonPanelContainer = new JPanel();
-        ButtonGroup group = new ButtonGroup();
         buttonPanelContainer.setLayout(new BoxLayout(buttonPanelContainer, BoxLayout.Y_AXIS));
+        ButtonGroup group = new ButtonGroup();
 
         Showtime[] times = model.availableTimes;
         int timeCount = times.length;
         rbs = new JRadioButton[timeCount];
         for (int i = 0; i < timeCount; i++) {
-            JPanel buttonContainer = new JPanel();
             JRadioButton rb = new JRadioButton(times[i].toString());
             rb.addActionListener(ctrl);
             group.add(rb);
             rbs[i] = rb;
-            buttonContainer.add(rb);
-            buttonPanelContainer.add(buttonContainer);
+            buttonPanelContainer.add(putInContainer(rb));
         }
         add(instructionContainer);
         add(buttonPanelContainer);

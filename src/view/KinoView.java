@@ -1,15 +1,18 @@
 package view;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
-import java.awt.BorderLayout;
+import model.*;
+import controller.*;
 
-import controller.KinoController;
-import model.KinoModel;
 
 /**
  * View class, manages and generates UI Components
@@ -27,6 +30,7 @@ public class KinoView {
     private JFrame frame = new JFrame(KinoModel.softwareName);
     private JTabbedPane tabbedPane = new JTabbedPane();
     private JPanel priceContainer = new JPanel();
+    private JTextField priceDisplay = new JTextField();
     
     // This array holds all panels and buttons to proceed to each panel
     public final Tab[] tabs = 
@@ -60,6 +64,10 @@ public class KinoView {
             }
         }
         switchTabTo(0);
+        update();
+
+        priceDisplay.setEditable(false);
+        priceContainer.add(priceDisplay);
 
         frame.setLayout(new BorderLayout());
 
@@ -73,7 +81,7 @@ public class KinoView {
     }
 
     public void addTab(String title, Tab tab) {
-        tabbedPane.addTab(title, tab);
+        tabbedPane.addTab(title, new JScrollPane(tab));
         tabbedPane.setEnabledAt(tabbedPane.getTabCount() - 1, false);
     }
 
@@ -96,6 +104,7 @@ public class KinoView {
         tabs[index].build();
         tabbedPane.setSelectedIndex(index);
         tabbedPane.setEnabledAt(index, true);
+
         disableFollowingTabs(index);
         frame.pack();
     }
@@ -109,8 +118,9 @@ public class KinoView {
     public void update() {
         int activeTab = tabbedPane.getSelectedIndex();
         tabs[activeTab].update();
+        priceDisplay.setText("Gesamtpreis: " + model.calculatePrice() + "€");
+
         disableFollowingTabs(activeTab);
-        //priceContainer.add(new JLabel(String.valueOf(model.getPrice())));
         frame.pack();
     }
 
@@ -121,6 +131,7 @@ public class KinoView {
         dialog.setVisible(true);
         dialog.pack();
         switchTabTo(0);
+        update();
         System.out.println("Reservierung erfolgreich");
     }
 }

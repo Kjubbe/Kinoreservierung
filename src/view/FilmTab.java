@@ -1,12 +1,13 @@
 package view;
 
+import java.awt.FlowLayout;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import controller.KinoController;
-import model.Film;
-import model.KinoModel;
+
+import controller.*;
+import model.*;
 
 public class FilmTab extends Tab {
 
@@ -21,8 +22,7 @@ public class FilmTab extends Tab {
     protected void build() {
         reset();
         description = new JLabel();
-        JPanel dropdownContainer = new JPanel();
-        dropdownContainer.setLayout(new FlowLayout());
+        JPanel dropdownContainer = new JPanel(new FlowLayout());
         dropdownContainer.add(dropdown);
         dropdownContainer.add(description);
         for (Film f : KinoModel.availableFilms) {
