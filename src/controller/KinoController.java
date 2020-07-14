@@ -1,6 +1,13 @@
 package controller;
 
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
+
 import model.*;
 import view.*;
 
@@ -30,10 +37,16 @@ public class KinoController implements ActionListener, ItemListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        for (Tab t : view.tabs) {
-            if (t.backButton == source) view.goBack();
-            else if (t.abortButton == source) quit();
-            else if (t.proceedButton == source) view.proceed();
+        if (source instanceof JButton) {
+            for (Tab t : view.tabs) {
+                if (source == t.backButton) view.goBack();
+                else if (source == t.abortButton) quit();
+                else if (source == t.proceedButton) view.proceed();
+            }
+        } else if (source instanceof JRadioButton) {
+            timeChosen();
+        } else if (source instanceof JCheckBox) {
+            seatChosen();
         }
     }
 
@@ -44,7 +57,47 @@ public class KinoController implements ActionListener, ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        model.chosenFilm = (Film)((FilmTab)view.tabs[1]).dropdown.getSelectedItem();
+        filmChosen();
+    }
+
+    private void filmChosen() {
+        FilmTab tab = (FilmTab) view.tabs[1];
+        Film film = (Film) tab.dropdown.getSelectedItem();
+        if (film != null) {
+            model.setFilm(film);
+            view.update();
+        }
+    }
+
+    private void timeChosen() {
+        TimesTab tab = (TimesTab) view.tabs[2];
+        JRadioButton[] rbs = tab.rbs;
+        for (int i = 0; i < rbs.length; i++) {
+            if (rbs[i].isSelected()) {
+                model.setTime(model.availableTimes[i]);
+                break;
+            }
+        }
+        view.update();
+    }
+
+    private void seatChosen() {
+        SeatingTab tab = (SeatingTab) view.tabs[3];
+        JCheckBox[][] cbs = tab.cbs;
+        int rowCount = cbs.length;
+        int columnCount = cbs[0].length;
+
+        List<Seat> seats = new ArrayList<>();
+        for (int row = 0; row < rowCount; row++) {
+            for (int column = 0; column < columnCount; column++) {
+                JCheckBox currentCB = cbs[row][column];
+                Seat equivalentSeat = model.availableSeats[row][column];
+                if (currentCB.isSelected()) {
+                    seats.add(equivalentSeat);
+                }
+            }
+        }
+        model.setSeats(seats);
         view.update();
     }
 }

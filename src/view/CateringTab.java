@@ -11,6 +11,7 @@ public class CateringTab extends Tab {
 
     @Override
     protected void build() {
+        reset();
         add(instructionContainer);
         add(buttonContainer);
     }

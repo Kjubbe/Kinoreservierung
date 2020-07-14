@@ -92,6 +92,7 @@ public class KinoView {
     }
 
     public void switchTabTo(int index) {
+        System.out.println("Switched Tab to index " + index);
         tabs[index].build();
         tabbedPane.setSelectedIndex(index);
         tabbedPane.setEnabledAt(index, true);
@@ -106,7 +107,9 @@ public class KinoView {
     }
 
     public void update() {
-        tabs[tabbedPane.getSelectedIndex()].update();
+        int activeTab = tabbedPane.getSelectedIndex();
+        tabs[activeTab].update();
+        disableFollowingTabs(activeTab);
         //priceContainer.add(new JLabel(String.valueOf(model.getPrice())));
         frame.pack();
     }

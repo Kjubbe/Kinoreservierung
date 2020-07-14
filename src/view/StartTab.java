@@ -1,5 +1,8 @@
 package view;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import controller.KinoController;
 import model.KinoModel;
 
@@ -11,9 +14,15 @@ public class StartTab extends Tab {
 
     @Override
     protected void build() {
+        reset();
         backButton.setEnabled(false);
         abortButton.setText(KinoModel.exitButtonLabel);
+        proceedButton.setEnabled(true);
+        JPanel textContainer = new JPanel();
+        textContainer.add(new JLabel("Bitte fahren Sie fort, um mit der Reservierung zu beginnen"));
+
         add(instructionContainer);
+        add(textContainer);
         add(buttonContainer);
     }
 

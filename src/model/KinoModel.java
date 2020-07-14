@@ -31,8 +31,7 @@ public class KinoModel {
         "Zeiten",
         "Plätze",
         "Essen",
-        "Zusammenfassung",
-        "Test"
+        "Bestellen"
     };
 
     public static final String defaultTabName = "Tab";
@@ -46,9 +45,14 @@ public class KinoModel {
     public static final List<Film> availableFilms = new ArrayList<>();
     public static final List<Catering> availableCaterings = new ArrayList<>();
 
-    public Film chosenFilm; // Speichert den ausgewählten Film
-    public Showtime chosenTime; // Speichert die ausgewählten Zeiten
+    public Film chosenFilm;
+
+    public Showtime[] availableTimes;
+    public Showtime chosenTime;
+
+    public Seat[][] availableSeats;
     public List<Seat> chosenSeats;
+
     public List<Catering> chosenCatering;
 
     /**
@@ -62,32 +66,40 @@ public class KinoModel {
     public void createFilms() {
         Film[] f = new Film[] {
             new Film("Terminator", Genres.Action, FSK.FSK_18, new Showtime[] {
-                new Showtime(Date.Sa, Time.PM_7_30, 5, 5),
-                new Showtime(Date.Mo, Time.PM_6_30, 5, 5)
+                new Showtime(Date.Sa, Time.PM_7_30, 6, 5),
+                new Showtime(Date.Mo, Time.PM_6_30, 5, 8),
+                new Showtime(Date.Mo, Time.PM_4_30, 7, 3),
+                new Showtime(Date.Mo, Time.PM_9_30, 5, 2)
             }),
             new Film("Findet Nemo", Genres.Familie, FSK.FSK_0, new Showtime[] {
                 new Showtime(Date.Di, Time.PM_6_30, 5, 5),
-                new Showtime(Date.Sa, Time.PM_5, 5, 5)
+                new Showtime(Date.Sa, Time.PM_5, 4, 5)
             }),
             new Film("Abduction 2", Genres.Thriller, FSK.FSK_12, new Showtime[] {
-                new Showtime(Date.Sa, Time.PM_9_30, 5, 5),
-                new Showtime(Date.Sa, Time.PM_7, 5, 5)
+                new Showtime(Date.Sa, Time.PM_9_30, 5, 8),
+                new Showtime(Date.Sa, Time.PM_7, 7, 6),
+                new Showtime(Date.Sa, Time.PM_5_30, 5, 3),
             }),
             new Film("Wintertime", Genres.Familie, FSK.FSK_16, new Showtime[] {
                 new Showtime(Date.Mo, Time.PM_5, 5, 5),
-                new Showtime(Date.Fr, Time.PM_9_30, 5, 5)
+                new Showtime(Date.Fr, Time.PM_9_30, 7, 5),
+                new Showtime(Date.Sa, Time.PM_7, 6, 3),
+                new Showtime(Date.Sa, Time.PM_5, 3, 6),
+                new Showtime(Date.Sa, Time.PM_6, 5, 3),
             }),
             new Film("Dueness", Genres.Horror, FSK.FSK_18, new Showtime[] {
-                new Showtime(Date.Sa, Time.PM_7, 5, 5),
-                new Showtime(Date.Mo, Time.PM_7_30, 5, 5)
+                new Showtime(Date.Sa, Time.PM_7, 5, 3),
+                new Showtime(Date.Mo, Time.PM_7_30, 5, 6)
             }),
             new Film("The Operator", Genres.Action, FSK.FSK_16, new Showtime[] {
-                new Showtime(Date.Sa, Time.PM_5, 5, 5),
-                new Showtime(Date.So, Time.PM_10, 5, 5)
+                new Showtime(Date.Sa, Time.PM_5, 3, 5),
+                new Showtime(Date.So, Time.PM_10, 9, 5),
+                new Showtime(Date.Mo, Time.PM_8_30, 7, 6),
+                new Showtime(Date.Mo, Time.PM_7_30, 5, 3)
             }),
             new Film("Missing Throne", Genres.Western, FSK.FSK_12, new Showtime[] {
                 new Showtime(Date.Do, Time.PM_9_30, 5, 5),
-                new Showtime(Date.Sa, Time.PM_5_30, 5, 5)
+                new Showtime(Date.Sa, Time.PM_5_30, 4, 5)
             })
         };
         availableFilms.addAll(Arrays.asList(f));
@@ -102,6 +114,20 @@ public class KinoModel {
             new Catering("Eis", Prices.SMALL_SNACK),
         };
         availableCaterings.addAll(Arrays.asList(c));
+    }
+
+    public void setFilm(Film f) {
+        chosenFilm = f;
+        availableTimes = f.showtimes;
+    }
+
+    public void setTime(Showtime t) {
+        chosenTime = t;
+        availableSeats = t.seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        chosenSeats = seats;
     }
 
     public double getPrice() {

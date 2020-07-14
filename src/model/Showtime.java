@@ -29,4 +29,9 @@ public class Showtime {
         }
     }
 
+    @Override
+    public String toString() {
+        return date + ", " + time.getTime();
+    }
+
 }

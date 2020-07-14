@@ -11,7 +11,7 @@ import model.KinoModel;
 public class FilmTab extends Tab {
 
     public JComboBox<Film> dropdown = new JComboBox<Film>();
-    public JLabel description = new JLabel();
+    public JLabel description;
 
     public FilmTab(KinoModel model, KinoController ctrl, int index) {
         super(model, ctrl, index);
@@ -19,6 +19,8 @@ public class FilmTab extends Tab {
 
     @Override
     protected void build() {
+        reset();
+        description = new JLabel();
         JPanel dropdownContainer = new JPanel();
         dropdownContainer.setLayout(new FlowLayout());
         dropdownContainer.add(dropdown);
@@ -35,7 +37,11 @@ public class FilmTab extends Tab {
 
     @Override
     protected void update() {
-        // TODO Auto-generated method stub
-
+        if (dropdown.getSelectedItem() != null) {
+            proceedButton.setEnabled(true);
+            description.setText(model.chosenFilm.getDescription());
+        } else {
+            proceedButton.setEnabled(false);
+        }
     } 
 }

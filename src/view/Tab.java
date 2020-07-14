@@ -39,6 +39,7 @@ public abstract class Tab extends JPanel {
         abortButton = new JButton(KinoModel.abortButtonLabel);
         abortButton.addActionListener(ctrl);
         proceedButton = new JButton(KinoModel.proceedButtonLabel);
+        proceedButton.setEnabled(false);
         proceedButton.addActionListener(ctrl);
 
         buttonContainer.add(backButton);
@@ -47,6 +48,11 @@ public abstract class Tab extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(new EmptyBorder(15, 15, 15, 15));
+    }
+
+    protected void reset() {
+        removeAll();
+        proceedButton.setEnabled(false);
     }
 
     protected abstract void build();
