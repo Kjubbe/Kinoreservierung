@@ -11,4 +11,8 @@ public class BeachChairSeat extends Seat {
         super(isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT, isVip, name);
     }
     
+    @Override
+    public String toString() {
+        return name;
+    }
 }

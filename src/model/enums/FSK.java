@@ -1,8 +1,20 @@
 package model.enums;
 
+/**
+ * This enum defines the available FSK ratings for movies
+ * Holds all FSKs from 0 up to 18
+ * 
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public enum FSK {
     FSK_0, FSK_6, FSK_12, FSK_16, FSK_18, FSK_UNRATED;
 
+	/**
+	 * converts the enum to a string
+	 * @return FSK as a readable String
+	 */
 	public String getFSK() {
 		switch (this) {
 			case FSK_0:

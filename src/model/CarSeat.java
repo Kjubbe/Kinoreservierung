@@ -14,4 +14,8 @@ public class CarSeat extends Seat {
         this.forSUV = forSUV;
     }
     
+    @Override
+    public String toString() {
+        return forSUV ? suvName : pkwName;
+    }
 }

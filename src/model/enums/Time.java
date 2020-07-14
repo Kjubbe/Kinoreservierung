@@ -1,5 +1,13 @@
 package model.enums;
 
+/**
+ * This enum defines the available prices
+ * Holds prices for seats and catering options
+ * 
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public enum Time {
     PM_3,
     PM_3_30,
@@ -17,6 +25,10 @@ public enum Time {
     PM_9_30,
     PM_10;
 
+    /**
+	 * converts the enum to a string
+	 * @return time as a readable String in HH:MM Uhr format
+	 */
     public String getTime() {
 		switch (this) {
             case PM_3:

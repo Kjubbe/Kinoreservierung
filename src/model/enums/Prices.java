@@ -1,5 +1,13 @@
 package model.enums;
 
+/**
+ * This enum defines the available prices
+ * Holds prices for seats and catering options
+ * 
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public enum Prices {
     NORMAL_CAR_SEAT,
     VIP_CAR_SEAT,
@@ -12,6 +20,10 @@ public enum Prices {
     MEDIUM_SNACK,
     LARGE_SNACK;
 
+    /**
+	 * converts the enum to a double
+	 * @return price as a number for calculation
+	 */
     public double getPrice() {
 		switch (this) {
 			case NORMAL_CAR_SEAT:
