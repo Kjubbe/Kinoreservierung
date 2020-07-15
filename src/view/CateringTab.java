@@ -47,7 +47,7 @@ public class CateringTab extends Tab {
         reset(); // reset before building to avoid duplications
 
         spinnerModels = new ArrayList<>(); // new List for the NumberSpinnerModels
-        JPanel cateringPanel = new JPanel(new GridLayout(KinoModel.availableCaterings.size(), 2)); // new panel, holds JSpinners
+        JPanel cateringPanel = new JPanel(new GridLayout(KinoModel.availableCaterings.size(), 2)); // new panel, holds JSpinners TODO the layout does not work well for this
 
         for (Catering c : KinoModel.availableCaterings) { // go through every catering
             SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel

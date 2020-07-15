@@ -31,6 +31,6 @@ public class Catering {
      */
     @Override
     public String toString() {
-        return name + " (" + price + Vocabulary.currency + ")";
+        return name + " (" + price + Vocabulary.currency + ")"; // TODO catering option should not be tied to the price, maybe two accessors?
     }
 }

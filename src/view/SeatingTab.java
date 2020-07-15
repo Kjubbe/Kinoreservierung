@@ -89,7 +89,7 @@ public class SeatingTab extends Tab {
                     cb.setEnabled(false); // disable the checkbox
                     cb.setToolTipText(Vocabulary.reservedTooltip); // new tooltip
                 }
-                else if (currentSeat.isVip) color = Color.ORANGE; // else if the seat is for vip the color is set to orange
+                else if (currentSeat.isVip) color = Color.ORANGE; // else if the seat is for vip the color is set to orange TODO other way to differentiate between vip beach chairs and vip car seats? they look the same
                 else if (currentSeat instanceof BeachChairSeat) color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
                 else if (currentSeat instanceof CarSeat) { // else if the seat is a CarSeat
                    if (((CarSeat)currentSeat).isForSUV) color = lightBlue; // if the CarSeat is for suv the color is set to light blue
@@ -107,7 +107,7 @@ public class SeatingTab extends Tab {
         // build the tab
         add(instructionPanel); // instructions first
         add(screenPanel); // screen second
-        add(checkboxPanel); // checkboxes third
+        add(checkboxPanel); // checkboxes third TODO spacing below checkboxes would be good
         add(licensePlatePanel); // license plate textfields second last
         add(buttonPanel); // buttons last
     }

@@ -41,7 +41,7 @@ public class KinoView {
         new TimesTab(model, ctrl, 2),
         new SeatingTab(model, ctrl, 3),
         new CateringTab(model, ctrl, 4),
-        new SummaryTab(model, ctrl, 5),
+        new SummaryTab(model, ctrl, 5)
     };
 
     /**
@@ -132,7 +132,7 @@ public class KinoView {
         tabbedPane.setSelectedIndex(index); // set tab as selected
         tabbedPane.setEnabledAt(index, true); // enable tab
         disableFollowingTabs(index); // disable all following tabs
-        frame.pack();
+        frame.pack(); // TODO this is not working as intended, because the frame is packed over all tabs not just the active one. solution? dont know
     }
 
     /**
@@ -157,12 +157,13 @@ public class KinoView {
         tabs[activeTab].update(); // force this tab to update
         priceDisplay.setText(Vocabulary.priceLabel + ": " + model.calculatePrice() + Vocabulary.currency); // update the price TODO this needs to be reset after finshing the order
         disableFollowingTabs(activeTab); // disable all following tabs
-        frame.pack();
+        frame.pack(); // TODO this is not working as intended, because the frame is packed over all tabs not just the active one. solution? dont know
     }
 
     /**
      * invoked from the controller when finishing the order
      * shows dialog for feedback
+     * TODO this needs work!
      */
     public void finish() {
         System.out.println("DEBUG: " + "view: success"); // DEBUG TODO remove this

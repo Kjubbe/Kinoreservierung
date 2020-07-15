@@ -51,7 +51,7 @@ public class MovieTab extends Tab {
         for (Movie m : KinoModel.availableMovies) { // go through all movies
             dropdown.addItem(m); // add movie in the dropdown
         }
-        dropdown.setSelectedItem(null); // no selected movie
+        dropdown.setSelectedItem(null); // no selected movie TODO is there another solution, this one looks bad :(
         dropdown.addItemListener(ctrl); // add listener TODO this calls twice? look at the debugs when changing a movie multiple times
 
         // build the panel
@@ -60,7 +60,7 @@ public class MovieTab extends Tab {
 
         // build the tab
         add(instructionPanel); // instructions first
-        add(dropdownPanel); // movie dropdown in the middle
+        add(dropdownPanel); // movie dropdown in the middle TODO better spacing above and below the dropdown
         add(buttonPanel); // buttons last
     }
 

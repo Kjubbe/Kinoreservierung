@@ -51,7 +51,7 @@ public class SummaryTab extends Tab {
         // part 3: the seats // TODO move this to the model
         String seatPrint = "";
         for (Seat s : model.chosenSeats) { // go through every seat
-            seatPrint += s.toString() + ", "; // add all seats to the print
+            seatPrint += s.toString() + ", "; // add all seats to the print TODO seat AMOUNT should be shown, not just a list of strings + seat price INDIVIDUALLY and TOTAL
         }
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.seatsLabel + ": " + seatPrint.substring(0, seatPrint.length() - 2)))); // remove last comma
 
@@ -65,13 +65,15 @@ public class SummaryTab extends Tab {
                 }
                 cateringPrint += (entry.getValue() + "x " + entry.getKey()); // add the catering name and price with their amount to the print
                 if (entry.getValue() != 1) { // check if the catering is not chosen only once
-                    cateringPrint += " für insg. " + entry.getKey().price * entry.getValue() + Vocabulary.currency + ", "; // add the sum of the price to the print TODO Math.round and this should also display total of all chosen caterings and add vocab
+                    cateringPrint += " für insg. " + entry.getKey().price * entry.getValue() + Vocabulary.currency + ", "; // add the sum of the price to the print TODO Math.round + this should also display total of all chosen caterings + add vocab
                 } else { // catering is only chosen once
                     cateringPrint += ", "; // no calculations needed
                 }
             }
         }
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.cateringLabel + ": " + cateringPrint.substring(0, cateringPrint.length() - 2)))); // remove last comma
+
+        // TODO total price should be displayed
 
         // build the tab
         add(instructionPanel); // instructions first

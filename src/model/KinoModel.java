@@ -50,39 +50,39 @@ public class KinoModel {
     private void createMovies() {
         Movie[] f = new Movie[] { // create array with all movies
             new Movie("Terminator", Genres.Action, FSKs.FSK_18, new Showtime[] {
-                new Showtime(Dates.Sa, Times.PM_7_30, 6, 5),
+                new Showtime(Dates.Sa, Times.PM_7_30, 6, 5), // TODO these times should be sortet
                 new Showtime(Dates.Mo, Times.PM_6_30, 5, 8),
                 new Showtime(Dates.Mo, Times.PM_4_30, 7, 3),
                 new Showtime(Dates.Mo, Times.PM_9_30, 5, 2)
             }),
             new Movie("Findet Nemo", Genres.Familie, FSKs.FSK_0, new Showtime[] {
-                new Showtime(Dates.Di, Times.PM_6_30, 5, 5),
+                new Showtime(Dates.Di, Times.PM_6_30, 5, 5), // TODO these times should be sortet
                 new Showtime(Dates.Sa, Times.PM_5, 4, 5)
             }),
             new Movie("Abduction 2", Genres.Thriller, FSKs.FSK_12, new Showtime[] {
-                new Showtime(Dates.Sa, Times.PM_9_30, 5, 8),
+                new Showtime(Dates.Sa, Times.PM_9_30, 5, 8), // TODO these times should be sortet
                 new Showtime(Dates.Sa, Times.PM_7, 7, 6),
                 new Showtime(Dates.Sa, Times.PM_5_30, 5, 3),
             }),
             new Movie("Wintertime", Genres.Familie, FSKs.FSK_16, new Showtime[] {
-                new Showtime(Dates.Mo, Times.PM_5, 5, 5),
+                new Showtime(Dates.Mo, Times.PM_5, 5, 5), // TODO these times should be sortet
                 new Showtime(Dates.Fr, Times.PM_9_30, 7, 5),
                 new Showtime(Dates.Sa, Times.PM_7, 6, 3),
                 new Showtime(Dates.Sa, Times.PM_5, 3, 6),
                 new Showtime(Dates.Sa, Times.PM_6, 5, 3),
             }),
             new Movie("Dueness", Genres.Horror, FSKs.FSK_18, new Showtime[] {
-                new Showtime(Dates.Sa, Times.PM_7, 5, 3),
+                new Showtime(Dates.Sa, Times.PM_7, 5, 3), // TODO these times should be sortet
                 new Showtime(Dates.Mo, Times.PM_7_30, 5, 6)
             }),
             new Movie("The Operator", Genres.Action, FSKs.FSK_16, new Showtime[] {
-                new Showtime(Dates.Sa, Times.PM_5, 3, 5),
+                new Showtime(Dates.Sa, Times.PM_5, 3, 5), // TODO these times should be sortet
                 new Showtime(Dates.So, Times.PM_10, 9, 5),
                 new Showtime(Dates.Mo, Times.PM_8_30, 7, 6),
                 new Showtime(Dates.Mo, Times.PM_7_30, 5, 3)
             }),
             new Movie("Missing Throne", Genres.Western, FSKs.FSK_12, new Showtime[] {
-                new Showtime(Dates.Do, Times.PM_9_30, 5, 5),
+                new Showtime(Dates.Do, Times.PM_9_30, 5, 5), // TODO these times should be sortet
                 new Showtime(Dates.Sa, Times.PM_5_30, 4, 5)
             })
         };

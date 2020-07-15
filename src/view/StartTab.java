@@ -17,7 +17,7 @@ import model.*;
 public class StartTab extends Tab {
 
     // label
-    private JLabel label = new JLabel("Bitte fahren Sie fort, um mit der Reservierung zu beginnen"); // TODO put in vocab
+    private JLabel label = new JLabel("Bitte fahren Sie fort, um mit der Reservierung zu beginnen"); // TODO put in vocab, maybe change it?
 
     /**
      * constructor, calls super constructor
@@ -40,7 +40,7 @@ public class StartTab extends Tab {
 
         // build the tab
         add(instructionPanel); // instructions first
-        add(putInContainer(label)); // JLabel with text in the middle
+        add(putInContainer(label)); // JLabel with text in the middle TODO this label should have some spacing above and below
         add(buttonPanel); // buttons last
 
         backButton.setEnabled(false); // cant go back on the first panel
