@@ -20,7 +20,6 @@ import view.*;
 /**
  * Controller class, acts as an intermediary between view and model defines what
  * should happen on user interaction
- * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -33,7 +32,6 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
 
     /**
      * Constructor, assigns references to view and model
-     * 
      * @param view reference to the view object
      * @param model reference to the model object
      */
@@ -71,7 +69,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
-        filmChosen();
+        movieChosen();
     }
 
     /**
@@ -102,15 +100,15 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     }
 
     /**
-     * invoked from event, gets chosen film from view
-     * advises model to change chosen film
+     * invoked from event, gets chosen movie from view
+     * advises model to change chosen movie
      * updates view
      */
-    private void filmChosen() {
-        FilmTab tab = (FilmTab) view.tabs[1];
-        Film film = (Film) tab.dropdown.getSelectedItem();
-        if (film != null) {
-            model.setFilm(film);
+    private void movieChosen() {
+        MovieTab tab = (MovieTab) view.tabs[1];
+        Movie movie = (Movie) tab.dropdown.getSelectedItem();
+        if (movie != null) {
+            model.setMovie(movie);
             view.update();
         }
     }

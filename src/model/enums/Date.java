@@ -1,9 +1,8 @@
 package model.enums;
 
 /**
- * This enum defines the available weekdays for Showtimes for films
+ * This enum defines the available weekdays for Showtimes for movies
  * Holds all 7 days
- * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */

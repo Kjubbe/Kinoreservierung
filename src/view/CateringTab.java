@@ -13,14 +13,33 @@ import javax.swing.SpinnerNumberModel;
 import controller.*;
 import model.*;
 
+/**
+ * child class of Tab, contains data for the tab displaying information about the catering
+ * holds JSpinner to choose the amount of catering options
+ * inherites from the Tab class
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public class CateringTab extends Tab {
 
+    // List of all spinnermodels, which contain chosen Number
     public List<SpinnerNumberModel> spinnerModels;
 
+    /**
+     * constructor, calls super constructor
+     * @param model reference to the model object
+     * @param ctrl reference to the ctrl object
+     * @param index position of the tab in the tabbed panel in the frame
+     */
     public CateringTab(KinoModel model, KinoController ctrl, int index) {
         super(model, ctrl, index);
     }
 
+    /**
+     * invoked when switching to this tab via the proceed button in another tab
+     * adds JSpinner for catering options from the model
+     */
     @Override
     protected void build() {
         reset();
@@ -42,9 +61,12 @@ public class CateringTab extends Tab {
         proceedButton.setEnabled(true);
     }
 
+    /**
+     * invoked when changing something / interacting with something on the tab
+     * does nothing, because the catering tab has no conditions for proceeding or new information to update/display
+     */
     @Override
     protected void update() {
-        // TODO Auto-generated method stub
-
+        // Do nothing
     } 
 }

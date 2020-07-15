@@ -36,7 +36,7 @@ public class KinoView {
     public final Tab[] tabs = 
     {
         new StartTab(model, ctrl, 0),
-        new FilmTab(model, ctrl, 1),
+        new MovieTab(model, ctrl, 1),
         new TimesTab(model, ctrl, 2),
         new SeatingTab(model, ctrl, 3),
         new CateringTab(model, ctrl, 4),

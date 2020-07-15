@@ -15,18 +15,39 @@ import javax.swing.JTextField;
 import controller.*;
 import model.*;
 
+/**
+ * child class of Tab, contains data for the tab displaying information about the seats
+ * holds JCheckBoxes to choose seats
+ * inherites from the Tab class
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public class SeatingTab extends Tab {
 
+    // Components
     public JCheckBox[][] cbs;
     public ArrayList<JTextField> tfs;
     private JPanel licensePlatePanelContainer = new JPanel();
+
+    // Colors
     private Color lightRed = new Color(255, 100, 100);
     private Color lightBlue = new Color(135, 206, 250);
 
+    /**
+     * constructor, calls super constructor
+     * @param model reference to the model object
+     * @param ctrl reference to the ctrl object
+     * @param index position of the tab in the tabbed panel in the frame
+     */
     public SeatingTab(KinoModel model, KinoController ctrl, int index) {
         super(model, ctrl, index);
     }
 
+    /**
+     * invoked when switching to this tab via the proceed button in another tab
+     * adds JCheckBox for every seat from the model in a grid layout
+     */
     @Override
     protected void build() {
         reset();
@@ -65,6 +86,11 @@ public class SeatingTab extends Tab {
         add(buttonContainer);
     }
 
+    /**
+     * invoked when clicking a JCheckbox
+     * adds JTextFields proportionally to the number of chosen car seats
+     * user is able to proceed, if a at least one seat is chosen and no displayed JTextField is missing a license plate input
+     */
     @Override
     protected void update() {
         int rowCount = cbs.length;
@@ -91,6 +117,12 @@ public class SeatingTab extends Tab {
         proceedButton.setEnabled(checkBoxChecked && !licensePlateMissing); 
     }
 
+    /**
+     * invoked from update
+     * manages amount of JTextFields
+     * removes JTextFields when there are too many (more than needed)
+     * adds JTextFields when there are some missing (less than needed)
+     */
     public void changeTextFields(int targetCount) {
         System.out.println("TargetCount " + targetCount);
         while (tfs.size() != targetCount) {
@@ -113,6 +145,11 @@ public class SeatingTab extends Tab {
         }
     }
 
+    /**
+     * checks if the JTextField has an acceptable amount of text in it
+     * @param tf the JTextField to be checked
+     * @return if the input suffices
+     */
     public boolean checkInput(JTextField tf) {
         String text = tf.getText().replaceAll("\\s+", "");
         return text.length() >= 4 && text.length() <= 8;

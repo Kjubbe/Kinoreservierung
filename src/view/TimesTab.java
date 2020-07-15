@@ -8,14 +8,33 @@ import javax.swing.JRadioButton;
 import controller.*;
 import model.*;
 
+/**
+ * child class of Tab, contains data for the tab displaying information about the times
+ * holds JRadioButtons to choose one of the showtimes contained in the movie
+ * inherites from the Tab class
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public class TimesTab extends Tab {
 
+    // Array of all radiobuttons on the tab
     public JRadioButton[] rbs;
 
+    /**
+     * constructor, calls super constructor
+     * @param model reference to the model object
+     * @param ctrl reference to the ctrl object
+     * @param index position of the tab in the tabbed panel in the frame
+     */
     public TimesTab(KinoModel model, KinoController ctrl, int index) {
         super(model, ctrl, index);
     }
 
+    /**
+     * invoked when switching to this tab via the proceed button in another tab
+     * adds JRadioButtons for time options from the movie from the model
+     */
     @Override
     protected void build() {
         reset();
@@ -38,6 +57,10 @@ public class TimesTab extends Tab {
         add(buttonContainer);
     }
 
+    /**
+     * invoked when clicking a JRadioButton
+     * user is able to proceed, if a JRadioButton is selected
+     */
     @Override
     protected void update() {
         for (JRadioButton b : rbs) {

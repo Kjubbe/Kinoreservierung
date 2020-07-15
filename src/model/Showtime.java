@@ -2,13 +2,28 @@ package model;
 
 import model.enums.*;
 
+/**
+ * contains data for a showtime and seating
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public class Showtime {
     
+    // Data fields
     protected Date date;
     protected Time time;
 
     protected Seat[][] seats;
     
+    /**
+     * constructor, assigns data fields
+     * builds rows and columns of seats
+     * @param date date for the showtime
+     * @param time time for the showtime
+     * @param seatRowCount amount of rows of seats for the showtime
+     * @param seatColumnCount amount of columns of seats for the showtime
+     */
     public Showtime(Date date, Time time, int seatRowCount, int seatColumnCount) {
         this.date = date;
         this.time = time;
@@ -29,6 +44,10 @@ public class Showtime {
         }
     }
 
+    /**
+     * toString
+     * @return date and time in one string
+     */
     @Override
     public String toString() {
         return date + ", " + time.getTime();

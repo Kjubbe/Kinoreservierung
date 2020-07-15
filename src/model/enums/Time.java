@@ -2,8 +2,7 @@ package model.enums;
 
 /**
  * This enum defines the available prices
- * Holds prices for seats and catering options
- * 
+ * Holds times from 3pm to 10pm in 1/2h steps
  * @author Kjell Treder
  * @author Marcel Sauer
  */

@@ -3,7 +3,6 @@ package model.enums;
 /**
  * This enum defines the available prices
  * Holds prices for seats and catering options
- * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */

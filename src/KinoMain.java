@@ -9,7 +9,7 @@ import view.KinoView;
 public class KinoMain {
 
     /**
-     * main method, gets called when program runs, creates view
+     * main method, gets called when program runs, creates new view
      * @param args cmd parameters, unused
      */
     public static void main(String[] args) {

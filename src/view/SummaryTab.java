@@ -9,12 +9,30 @@ import javax.swing.JPanel;
 import controller.*;
 import model.*;
 
+/**
+ * child class of Tab, contains data for the tab displaying information about the summary
+ * holds JLabels to display order information
+ * inherites from the Tab class
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public class SummaryTab extends Tab {
 
+    /**
+     * constructor, calls super constructor
+     * @param model reference to the model object
+     * @param ctrl reference to the ctrl object
+     * @param index position of the tab in the tabbed panel in the frame
+     */
     public SummaryTab(KinoModel model, KinoController ctrl, int index) {
         super(model, ctrl, index);
     }
 
+    /**
+     * invoked when switching to this tab via the proceed button in another tab
+     * adds JLabels for displaying all information about the order from the model
+     */
     @Override
     protected void build() {
         reset();
@@ -24,7 +42,7 @@ public class SummaryTab extends Tab {
         JPanel summaryContainer = new JPanel();
         summaryContainer.setLayout(new BoxLayout(summaryContainer, BoxLayout.Y_AXIS)); 
 
-        summaryContainer.add(putInContainer(new JLabel("Film: " + model.chosenFilm)));
+        summaryContainer.add(putInContainer(new JLabel("Film: " + model.chosenMovie)));
         summaryContainer.add(putInContainer(new JLabel("Zeit: " + model.chosenTime)));
         String seatPrint = "";
         for (Seat s : model.chosenSeats) {
@@ -50,9 +68,12 @@ public class SummaryTab extends Tab {
         add(buttonContainer);
     }
 
+    /**
+     * invoked when changing something / interacting with something on the tab
+     * does nothing, because the summary tab has no conditions for proceeding or new information to update/display
+     */
     @Override
     protected void update() {
-        // TODO Auto-generated method stub
-
+        // Does nothing
     } 
 }
