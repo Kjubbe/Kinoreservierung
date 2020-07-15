@@ -23,13 +23,13 @@ import model.*;
  * @author Marcel Sauer
  */
 
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class SeatingTab extends Tab {
 
     // Components
     public JCheckBox[][] cbs;
     public ArrayList<JTextField> tfs;
-    private JPanel licensePlatePanelContainer = new JPanel();
+    private JPanel licensePlatePanel = new JPanel();
 
     // Colors
     private Color lightRed = new Color(255, 100, 100);
@@ -51,40 +51,49 @@ public class SeatingTab extends Tab {
      */
     @Override
     protected void build() {
-        reset();
+        reset(); // reset before building to avoid duplications
 
-        licensePlatePanelContainer.removeAll();
-        licensePlatePanelContainer.setLayout(new BoxLayout(licensePlatePanelContainer, BoxLayout.Y_AXIS));
-        tfs = new ArrayList<>();
-        Seat[][] seats = model.availableSeats;
-        int seatRowCount = seats.length;
-        int seatColumnCount = seats[0].length;
+        licensePlatePanel.removeAll(); // remove all components from the panel to avoid duplicates
+        licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS)); // set layout for the panel TODO: move somewhere else?
+        tfs = new ArrayList<>(); // new List for the JTextFields
 
-        cbs = new JCheckBox[seatRowCount][seatColumnCount];
-        JPanel checkboxPanelContainer = new JPanel(new GridLayout(seatRowCount, seatColumnCount));
+        Seat[][] seats = model.availableSeats; // get the available seats from the model
+        int seatRowCount = seats.length; // amount of rows of seats
+        int seatColumnCount = seats[0].length; // amount of columns of seats
 
-        for (int row = 0; row < seatRowCount; row++) {
-            for (int column = 0; column < seatColumnCount; column++) {
-                Seat currentSeat = seats[row][column];
-                JCheckBox cb = new JCheckBox();
-                cb.addActionListener(ctrl);
-                cb.setToolTipText(currentSeat.tooltip);
-                Color color = Color.WHITE;
-                if (currentSeat.isReserved) color = lightRed;
-                else if (currentSeat.isVip) color = Color.ORANGE;
-                else if (currentSeat instanceof BeachChairSeat) color = Color.YELLOW;
-                else if (currentSeat instanceof CarSeat) {
-                   if (((CarSeat)currentSeat).forSUV) color = lightBlue;
+        cbs = new JCheckBox[seatRowCount][seatColumnCount]; // create JCheckBox array with row- and column count
+        JPanel checkboxPanel = new JPanel(new GridLayout(seatRowCount, seatColumnCount)); // new panel, holds all JCheckBoxes
+
+        for (int row = 0; row < seatRowCount; row++) { // every row
+            for (int column = 0; column < seatColumnCount; column++) { // checks every column of every row
+                Seat currentSeat = seats[row][column]; // get the seat at the current position
+                JCheckBox cb = new JCheckBox(); // create a new JCheckBox
+                cb.addActionListener(ctrl); // add listener
+                cb.setToolTipText(currentSeat.tooltip); // add tooltip from the current seat
+
+                // Coloring
+                Color color = Color.WHITE; // default Color is white
+                if (currentSeat.isReserved) color = lightRed; // if seat is reserved the color is set to light red
+                else if (currentSeat.isVip) color = Color.ORANGE; // else if the seat is for vip the color is set to orange
+                else if (currentSeat instanceof BeachChairSeat) color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
+                else if (currentSeat instanceof CarSeat) { // else if the seat is a CarSeat
+                   if (((CarSeat)currentSeat).forSUV) color = lightBlue; // if the CarSeat is for suv the color is set to light blue
+                   // normal non-suv car seats have no special color
                 }
-                cb.setBackground(color);
-                cbs[row][column] = cb;;
-                checkboxPanelContainer.add(putInContainer(cb));
+                cb.setBackground(color); // set background color of the checkbox to the color specified
+
+                cbs[row][column] = cb; // add JCheckBox to the array
+
+                // build the panel
+                checkboxPanel.add(putInContainer(cb));
             }
         }
-        add(instructionContainer);
-        add(checkboxPanelContainer);
-        add(licensePlatePanelContainer);
-        add(buttonContainer);
+
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(checkboxPanel); // checkboxes second
+        add(licensePlatePanel); // license plate textfields third
+        add(buttonPanel); // buttons last
     }
 
     /**
@@ -94,28 +103,37 @@ public class SeatingTab extends Tab {
      */
     @Override
     protected void update() {
-        int rowCount = cbs.length;
-        int columnCount = cbs[0].length;
-        changeTextFields(model.carSeatCount);
+        changeTextFields(model.carSeatCount); // update amount of textfields
 
-        boolean checkBoxChecked = false;
-        for (int row = 0; row < rowCount; row++) {
-            for (int column = 0; column < columnCount; column++) {
-                JCheckBox currentCB = cbs[row][column];
-                if (currentCB.isSelected()) {
-                    checkBoxChecked = true;
-                    break;
+        // condition 1: at least one checkbox must be selected
+        boolean checkBoxSelected = false; // by default no checkbox is selected
+        int rowCount = cbs.length; // amount of rows
+        int columnCount = cbs[0].length; // amount of columns
+        for (int row = 0; row < rowCount; row++) { // every row
+            for (int column = 0; column < columnCount; column++) { // checks every column of every row
+                JCheckBox currentCB = cbs[row][column]; // get the JCheckBox at the current position
+                if (currentCB.isSelected()) { // check if the checkbox is selected
+                    checkBoxSelected = true; // condition is met
+                    break; // break out of the inner loop, because only at least one selected JCheckBox is needed
                 }
             }
+            if (checkBoxSelected) break; // break the outer loop if the condition is met
         }
-        boolean licensePlateMissing = false;
-        for (JTextField tf : tfs) {
-            if (!checkInput(tf)) {
-                licensePlateMissing = true;
-                break;
+
+        // condition 2: all input for license plates must suffice
+        boolean licensePlateMissing = false; // by default no license plate is missing
+        for (JTextField tf : tfs) { // checks every JTextField
+            if (!checkInput(tf)) { // check if the JTextField "passes the test"
+                // "test" not passed
+                licensePlateMissing = true; // condition is met
+                break; // break out of the loop, because one missing license plate means failure
             }
         }
-        proceedButton.setEnabled(checkBoxChecked && !licensePlateMissing); 
+        // button gets enabled when
+        // 1. the checkbox condition is met (at least one JCheckBox selected)
+        // 2. the license plate condition is NOT met (no license plate missing)
+        // else it gets deactivated
+        proceedButton.setEnabled(checkBoxSelected && !licensePlateMissing);
     }
 
     /**
@@ -125,23 +143,24 @@ public class SeatingTab extends Tab {
      * adds JTextFields when there are some missing (less than needed)
      */
     public void changeTextFields(int targetCount) {
-        System.out.println("TargetCount " + targetCount);
-        while (tfs.size() != targetCount) {
-            if (tfs.size() < targetCount) {
-                JTextField tf = new JTextField(7);
-                tf.addKeyListener(ctrl);
-                tfs.add(tf);
-                JPanel licensePlateContainer = new JPanel(new FlowLayout());
-                licensePlateContainer.add(new JLabel(KinoModel.licensePlateLabel));
-                licensePlateContainer.add(tf);
-                licensePlatePanelContainer.add(licensePlateContainer);
-            } else {
-                try {
-                    tfs.remove(tfs.size() - 1);
-                    licensePlatePanelContainer.remove(licensePlatePanelContainer.getComponentCount() - 1);
-                } catch (Exception e) {
-                    System.out.println(e + " at license");
-                }
+        while (tfs.size() != targetCount) { // loop till amount of needed JTextFields is achieved
+            
+            // possibility 1
+            if (tfs.size() < targetCount) { // there are less JCheckBoxes than needed
+                JTextField tf = new JTextField(7); // create a new JTextField
+                tf.addKeyListener(ctrl); // add listener
+                tfs.add(tf); // add JTextField to the list
+
+                JPanel container = new JPanel(new FlowLayout()); // new container, holds one JLabel and one JTextField
+                container.add(new JLabel(KinoModel.licensePlateLabel)); // add new JLabel with the text from the model
+                container.add(tf); // add the JTextField
+                licensePlatePanel.add(container); // add the container to the panel
+
+            }
+            // possibility 2
+            else { // there are more JCheckBoxes than needed
+                tfs.remove(tfs.size() - 1); // remove the last JTextField from the list
+                licensePlatePanel.remove(licensePlatePanel.getComponentCount() - 1); // remove the last JTextField from the panel
             }
         }
     }
@@ -152,7 +171,7 @@ public class SeatingTab extends Tab {
      * @return if the input suffices
      */
     public boolean checkInput(JTextField tf) {
-        String text = tf.getText().replaceAll("\\s+", "");
-        return text.length() >= 4 && text.length() <= 8;
+        String text = tf.getText().replaceAll("\\s+", ""); // get text from the JTextField and remove all whitespaces
+        return text.length() >= 4 && text.length() <= 8; // input only suffices if the length of the text is greater than 4 and less than 8
     }
 }

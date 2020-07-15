@@ -20,22 +20,23 @@ import model.*;
  * @author Marcel Sauer
  */
 
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public abstract class Tab extends JPanel {
     
-    // References
+    // references
     protected KinoModel model;
     protected KinoController ctrl;
 
-    // Data fields
+    // data fields
     protected int index;
     protected String name;
 
-    protected JPanel instructionContainer = new JPanel();
-    protected JPanel buttonContainer = new JPanel();
-    public final JButton backButton;
-    public final JButton abortButton;
-    public final JButton proceedButton;
+    protected JPanel instructionPanel = new JPanel(); // panel for JLabel for displaying instruction text
+    protected JPanel buttonPanel = new JPanel(); // panel for all three JButtons
+
+    public final JButton backButton; // back
+    public final JButton abortButton; // abort
+    public final JButton proceedButton; // proceed
 
     /**
      * constructor, assigns data references and an index
@@ -49,23 +50,30 @@ public abstract class Tab extends JPanel {
         this.index = index;
 
         try {
-            instructionContainer.add(new JLabel(KinoModel.instructions[index]));
-        } catch (Exception e) {
-            System.out.println("No message set");
+            instructionPanel.add(new JLabel(KinoModel.instructions[index])); // try to add instructions from the model
+        } catch (Exception e) { // no instructions at the specified index
+            System.out.println("No message set"); // do not add a label
         }
 
-        backButton = new JButton(KinoModel.backButtonLabel);
-        backButton.addActionListener(ctrl);
-        abortButton = new JButton(KinoModel.abortButtonLabel);
-        abortButton.addActionListener(ctrl);
-        proceedButton = new JButton(KinoModel.proceedButtonLabel);
-        proceedButton.setEnabled(false);
-        proceedButton.addActionListener(ctrl);
+        // back button
+        backButton = new JButton(KinoModel.backButtonLabel); // set the label to the String from the model
+        backButton.addActionListener(ctrl); // add listener
 
-        buttonContainer.add(backButton);
-        buttonContainer.add(abortButton);
-        buttonContainer.add(proceedButton);
+        // abort button
+        abortButton = new JButton(KinoModel.abortButtonLabel); // set the label to the String from the model
+        abortButton.addActionListener(ctrl); // add listener
 
+        // proceed button
+        proceedButton = new JButton(KinoModel.proceedButtonLabel); // set the label to the String from the model
+        proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
+        proceedButton.addActionListener(ctrl); // add listener
+
+        // build the panel
+        buttonPanel.add(backButton);
+        buttonPanel.add(abortButton);
+        buttonPanel.add(proceedButton);
+
+        // configure this (the tab)
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(new EmptyBorder(15, 15, 15, 15));
     }
@@ -76,8 +84,8 @@ public abstract class Tab extends JPanel {
      * this method should be called before building a tab (again)
      */
     protected void reset() {
-        removeAll();
-        proceedButton.setEnabled(false);
+        removeAll(); // removes all components from the tab
+        proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
     }
 
     /**
@@ -86,9 +94,9 @@ public abstract class Tab extends JPanel {
      * @return container JPanel for the component
      */
     protected JPanel putInContainer(Component comp) {
-        JPanel container = new JPanel();
-        container.add(comp);
-        return container;
+        JPanel container = new JPanel(); // new container
+        container.add(comp); // add component to the container
+        return container; // return the container which holds the component
     }
 
     /**

@@ -14,7 +14,7 @@ public class Movie {
     protected String title;
     protected Genres genre;
     protected FSK fsk;
-    public Showtime[] showtimes;
+    public Showtime[] showtimes; // contains all available showtimes for this movie
 
     /**
      * constructor, sets data fields

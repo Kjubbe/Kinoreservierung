@@ -14,7 +14,7 @@ public class CarSeat extends Seat {
     // Data fields
     protected static final String pkwName = "PKW-Stellplatz";
     protected static final String suvName = "SUV-Stellplatz";
-    protected String licensePlate = null;
+    protected String licensePlate = null; // holds license plate number
     public boolean forSUV;
 
     /**
@@ -23,6 +23,7 @@ public class CarSeat extends Seat {
      * @param forSUV if the seat is meant for suvs
      */
     public CarSeat(boolean isVip, boolean forSUV) {
+        // price is determined by the isVip boolean
         super(isVip ? Prices.VIP_CAR_SEAT : Prices.NORMAL_CAR_SEAT, isVip, forSUV ? suvName : pkwName);
         this.forSUV = forSUV;
     }
@@ -33,6 +34,7 @@ public class CarSeat extends Seat {
      */
     @Override
     public String toString() {
+        // name is determined by the forSUV boolean
         return forSUV ? suvName : pkwName;
     }
 }

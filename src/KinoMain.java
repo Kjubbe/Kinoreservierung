@@ -1,7 +1,7 @@
 import view.KinoView;
 
 /**
- * Main, creates the view
+ * main, creates the view
  * @author Kjell Treder
  * @author Marcel Sauer
  */

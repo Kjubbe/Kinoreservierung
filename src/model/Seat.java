@@ -14,7 +14,7 @@ public class Seat {
     public boolean isReserved = false;
     public double price;
     public boolean isVip;
-    public String tooltip = "";
+    public String tooltip = ""; // tooltip for hovering over a seat
 
     /**
      * constructor, assigns data fields
@@ -25,7 +25,7 @@ public class Seat {
     public Seat(Prices price, boolean isVip, String tooltip) {
         this.price = price.getPrice();
         this.isVip = isVip;
-        if (isVip) this.tooltip += "[VIP] ";
+        if (isVip) this.tooltip += "[VIP] "; // update tooltip to give more information when seat is vip
         this.tooltip += tooltip;
     }
 }

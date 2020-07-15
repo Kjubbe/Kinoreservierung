@@ -13,13 +13,14 @@ public class BeachChairSeat extends Seat {
 
     // Data fields
     protected static final String name = "Strandkorb";
-    protected String ticketNr = null;
+    protected String ticketNr = null; // holds ticket number
 
     /**
      * constructor, calls super constructor
      * @param isVip if the seat is a vip seat
      */
     public BeachChairSeat(boolean isVip) {
+        // price is determined by the isVip boolean
         super(isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT, isVip, name);
     }
     

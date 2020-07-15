@@ -21,7 +21,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class CateringTab extends Tab {
 
     // List of all spinnermodels, which contain chosen Number
@@ -43,23 +43,29 @@ public class CateringTab extends Tab {
      */
     @Override
     protected void build() {
-        reset();
-        spinnerModels = new ArrayList<>();
-        JPanel cateringPanelContainer = new JPanel(new GridLayout(KinoModel.availableCaterings.size(), 2));
-        for (Catering c : KinoModel.availableCaterings) {
-            SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1);
-            spinnerModels.add(spinnerModel);
-            JSpinner spinner = new JSpinner(spinnerModel);
+        reset(); // reset before building to avoid duplications
+
+        spinnerModels = new ArrayList<>(); // new List for the NumberSpinnerModels
+        JPanel cateringPanel = new JPanel(new GridLayout(KinoModel.availableCaterings.size(), 2)); // new panel, holds JSpinners
+
+        for (Catering c : KinoModel.availableCaterings) { // go through every catering
+            SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
+            spinnerModels.add(spinnerModel); // add model to the list
+            JSpinner spinner = new JSpinner(spinnerModel); // create a new JSpinner with the SpinnerNumberModel
             spinner.setEditor(new JSpinner.DefaultEditor(spinner)); // set to non-editable
-            spinner.addChangeListener(ctrl);
-            cateringPanelContainer.add(putInContainer(spinner));
-            cateringPanelContainer.add(putInContainer(new JLabel(c.toString())));
+            spinner.addChangeListener(ctrl); // add listener
+
+            // build the panel
+            cateringPanel.add(putInContainer(spinner));
+            cateringPanel.add(putInContainer(new JLabel(c.toString())));
         }
 
-        add(instructionContainer);
-        add(cateringPanelContainer);
-        add(buttonContainer);
-        proceedButton.setEnabled(true);
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(cateringPanel); // JSpinners in the middle
+        add(buttonPanel); // buttons last
+
+        proceedButton.setEnabled(true); // proceed button is enabled by default, because the user does not have to choose anything
     }
 
     /**

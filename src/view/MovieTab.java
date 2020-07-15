@@ -17,7 +17,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class MovieTab extends Tab {
 
     // Components
@@ -41,19 +41,25 @@ public class MovieTab extends Tab {
      */
     @Override
     protected void build() {
-        reset();
-        description = new JLabel();
-        JPanel dropdownContainer = new JPanel(new FlowLayout());
-        dropdownContainer.add(dropdown);
-        dropdownContainer.add(description);
-        for (Movie f : KinoModel.availableMovies) {
-            dropdown.addItem(f);
+        reset(); // reset before building to avoid duplications
+
+        description = new JLabel(); // new JLabel for the description
+        JPanel dropdownPanel = new JPanel(new FlowLayout()); // new panel, holds JComboBox for movies and JLabel for the description
+
+        for (Movie m : KinoModel.availableMovies) { // go through all movies
+            dropdown.addItem(m); // add movie in the dropdown
         }
-        dropdown.setSelectedItem(null);
-        dropdown.addItemListener(ctrl);
-        add(instructionContainer);
-        add(dropdownContainer);
-        add(buttonContainer);
+        dropdown.setSelectedItem(null); // no selected movie
+        dropdown.addItemListener(ctrl); // add listener
+
+        // build the panel
+        dropdownPanel.add(dropdown);
+        dropdownPanel.add(description);
+
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(dropdownPanel); // movie dropdown in the middle
+        add(buttonPanel); // buttons last
     }
 
     /**
@@ -63,10 +69,10 @@ public class MovieTab extends Tab {
      */
     @Override
     protected void update() {
-        if (dropdown.getSelectedItem() != null) {
+        if (dropdown.getSelectedItem() != null) { // check if a film is selected
             proceedButton.setEnabled(true);
-            description.setText(model.chosenMovie.getDescription());
-        } else {
+            description.setText(model.chosenMovie.getDescription()); // set JLabel for description to display the description of the movie
+        } else { // no film selected
             proceedButton.setEnabled(false);
         }
     } 

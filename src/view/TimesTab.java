@@ -16,7 +16,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class TimesTab extends Tab {
 
     // Array of all radiobuttons on the tab
@@ -38,24 +38,29 @@ public class TimesTab extends Tab {
      */
     @Override
     protected void build() {
-        reset();
-        JPanel buttonPanelContainer = new JPanel();
-        buttonPanelContainer.setLayout(new BoxLayout(buttonPanelContainer, BoxLayout.Y_AXIS));
-        ButtonGroup group = new ButtonGroup();
+        reset(); // reset before building to avoid duplications
 
-        Showtime[] times = model.availableTimes;
-        int timeCount = times.length;
-        rbs = new JRadioButton[timeCount];
-        for (int i = 0; i < timeCount; i++) {
-            JRadioButton rb = new JRadioButton(times[i].toString());
-            rb.addActionListener(ctrl);
-            group.add(rb);
-            rbs[i] = rb;
-            buttonPanelContainer.add(putInContainer(rb));
+        JPanel radioButtonPanel = new JPanel(); // new panel, holds JRadioButtons
+        radioButtonPanel.setLayout(new BoxLayout(radioButtonPanel, BoxLayout.Y_AXIS)); // set layout for the panel TODO: move somewhere else?
+        ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
+
+        Showtime[] times = model.availableTimes; // get the available showtimes from the model
+        int timeCount = times.length; // amount of times
+        rbs = new JRadioButton[timeCount]; // create JRadioButton array with length = amount
+        for (int i = 0; i < timeCount; i++) { // go through all times
+            JRadioButton rb = new JRadioButton(times[i].toString()); // new JRadioButton with time as text
+            rb.addActionListener(ctrl); // add listener
+            group.add(rb); // add button to the group
+            rbs[i] = rb; // add JRadioButton to the list
+
+            // build the panel
+            radioButtonPanel.add(putInContainer(rb));
         }
-        add(instructionContainer);
-        add(buttonPanelContainer);
-        add(buttonContainer);
+
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(radioButtonPanel); // radio buttons in the middle
+        add(buttonPanel); // buttons last
     }
 
     /**
@@ -64,12 +69,13 @@ public class TimesTab extends Tab {
      */
     @Override
     protected void update() {
-        for (JRadioButton b : rbs) {
-            if (b.isSelected()) {
+        for (JRadioButton b : rbs) { // check every JRadioButton
+            if (b.isSelected()) { // check if the JRadioButton is selected
                 proceedButton.setEnabled(true);
-                return;
+                return; // return since a selected button has been found
             }
         }
+        // no selected button found
         proceedButton.setEnabled(false);
     } 
 }

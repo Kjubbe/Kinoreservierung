@@ -13,7 +13,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class StartTab extends Tab {
 
     /**
@@ -32,14 +32,16 @@ public class StartTab extends Tab {
      */
     @Override
     protected void build() {
-        reset();
-        backButton.setEnabled(false);
-        abortButton.setText(KinoModel.exitButtonLabel);
-        proceedButton.setEnabled(true);
+        reset(); // reset before building to avoid duplications
 
-        add(instructionContainer);
-        add(putInContainer(new JLabel("Bitte fahren Sie fort, um mit der Reservierung zu beginnen")));
-        add(buttonContainer);
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(putInContainer(new JLabel("Bitte fahren Sie fort, um mit der Reservierung zu beginnen"))); // JLabel with text in the middle
+        add(buttonPanel); // buttons last
+
+        backButton.setEnabled(false); // cant go back on the first panel
+        abortButton.setText(KinoModel.exitButtonLabel); // this button has a different label
+        proceedButton.setEnabled(true); // proceed button is enabled by default, because the user does not have to do anything to be able to proceed
     }
 
     /**
