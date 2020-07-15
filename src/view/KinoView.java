@@ -50,7 +50,7 @@ public class KinoView {
         setup();
     }
 
-    public void setup() {
+    private void setup() {
         int tabCount = KinoModel.tabNames.length;
         for (int i = 0; i < tabCount; i++) {
             String name = null;
@@ -80,7 +80,7 @@ public class KinoView {
         frame.pack();
     }
 
-    public void addTab(String title, Tab tab) {
+    private void addTab(String title, Tab tab) {
         tabbedPane.addTab(title, new JScrollPane(tab));
         tabbedPane.setEnabledAt(tabbedPane.getTabCount() - 1, false);
     }
@@ -99,7 +99,7 @@ public class KinoView {
         tabbedPane.setSelectedIndex(activeTab - 1);
     }
 
-    public void switchTabTo(int index) {
+    private void switchTabTo(int index) {
         System.out.println("Switched Tab to index " + index);
         tabs[index].build();
         tabbedPane.setSelectedIndex(index);
@@ -109,7 +109,7 @@ public class KinoView {
         frame.pack();
     }
 
-    public void disableFollowingTabs(int index) {
+    private void disableFollowingTabs(int index) {
         for (int i = index + 1; i < tabbedPane.getTabCount(); i++) {
             tabbedPane.setEnabledAt(i, false);
         }
@@ -118,7 +118,7 @@ public class KinoView {
     public void update() {
         int activeTab = tabbedPane.getSelectedIndex();
         tabs[activeTab].update();
-        priceDisplay.setText("Gesamtpreis: " + model.calculatePrice() + "€");
+        priceDisplay.setText("Gesamtpreis: " + model.calculatePrice() + "€"); // TODO this needs to be reset after finshing the order
 
         disableFollowingTabs(activeTab);
         frame.pack();

@@ -20,7 +20,7 @@ import model.*;
 public class TimesTab extends Tab {
 
     // Array of all radiobuttons on the tab
-    public JRadioButton[] rbs;
+    private JRadioButton[] rbs;
 
     /**
      * constructor, calls super constructor
@@ -78,4 +78,12 @@ public class TimesTab extends Tab {
         // no selected button found
         proceedButton.setEnabled(false);
     } 
+
+    /**
+     * get the array of radiobuttons
+     * @return array of radiobuttons
+     */
+    public JRadioButton[] getRadioButtons() {
+        return rbs;
+    }
 }

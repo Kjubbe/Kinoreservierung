@@ -7,6 +7,6 @@ package model.enums;
  * @author Marcel Sauer
  */
 
-public enum Date {
+public enum Dates {
     Mo, Di, Mi, Do, Fr, Sa, So
 }

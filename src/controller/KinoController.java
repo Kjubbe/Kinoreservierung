@@ -47,19 +47,19 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if (source instanceof JButton) { // source from JButton > source is either back-, abort or proceedbutton
+        if (source instanceof JButton) { // source from JButton > source is either back-, quit or proceedbutton
             for (Tab t : view.tabs) { // check every tab for input
-                if (source == t.backButton) // source is backbutton
+                if (source == t.backButton) // source is back button
                     view.goBack();
-                else if (source == t.abortButton) // source is abortbutton
+                else if (source == t.quitButton) // source is quit button
                     quit();
-                else if (source == t.proceedButton) // source is proceedbutton
+                else if (source == t.proceedButton) // source is proceed button
                     view.proceed();
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
-            timeChosen();
+            timeChanged();
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
-            seatChosen();
+            seatChanged();
         }
     }
 
@@ -69,7 +69,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
-        movieChosen(); // source is from JComboBox > source from movie tab
+        movieChanged(); // source is from JComboBox > source from movie tab
     }
 
     /**
@@ -87,7 +87,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void stateChanged(ChangeEvent e) {
-        cateringChosen(); // source is from JSpinner > source from catering tab
+        cateringChanged(); // source is from JSpinner > source from catering tab
     }
 
     /**
@@ -104,10 +104,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * advises model to change chosen movie
      * updates view
      */
-    private void movieChosen() {
+    private void movieChanged() {
         System.out.println("Movie chosen"); // DEBUG TODO
         MovieTab tab = (MovieTab) view.tabs[1]; // get reference to the movie tab from the view
-        Movie movie = (Movie) tab.dropdown.getSelectedItem(); // get the selected movie from the JComboBox
+        Movie movie = (Movie) tab.getDropdown().getSelectedItem(); // get the selected movie from the JComboBox
         if (movie != null) { // check if an actual movie is selected
             model.setMovie(movie); // model receives the movie
             view.update();
@@ -119,10 +119,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * advises model to change chosen time
      * updates view
      */
-    private void timeChosen() {
+    private void timeChanged() {
         System.out.println("Time chosen"); // DEBUG TODO
         TimesTab tab = (TimesTab) view.tabs[2]; // get reference to the times tab from the view
-        JRadioButton[] rbs = tab.rbs; // get reference to the JRadioButtons from the tab
+        JRadioButton[] rbs = tab.getRadioButtons(); // get reference to the JRadioButtons from the tab
         for (int i = 0; i < rbs.length; i++) { // check every JRadioButton
             if (rbs[i].isSelected()) { // JRadioButton is selected
                 Showtime equivalentTime = model.availableTimes[i]; // get the time at index i from the model, which is equivalent to the index of the JRadioButton
@@ -138,10 +138,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * advises model to change chosen seats
      * updates view
      */
-    private void seatChosen() {
+    private void seatChanged() {
         System.out.println("Seat chosen"); // DEBUG TODO
         SeatingTab tab = (SeatingTab) view.tabs[3]; // get reference to the seating tab from the view
-        JCheckBox[][] cbs = tab.cbs; // get reference to all JCheckBoxes from the tab
+        JCheckBox[][] cbs = tab.getCheckBoxes(); // get reference to all JCheckBoxes from the tab
         int rowCount = cbs.length; // amount of rows of JCheckBoxes
         int columnCount = cbs[0].length; // amount of columns of JCheckBoxes
 
@@ -164,10 +164,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * advises model to change chosen caterings
      * updates view
      */
-    private void cateringChosen() {
+    private void cateringChanged() {
         System.out.println("Catering chosen");
         CateringTab tab = (CateringTab) view.tabs[4]; // get reference to the catering tab from the view
-        List<SpinnerNumberModel> spinnerModels = tab.spinnerModels; // get reference to all SpinnerNumberModels from the view
+        List<SpinnerNumberModel> spinnerModels = tab.getSpinnerModels(); // get reference to all SpinnerNumberModels from the view
 
         Map<Catering, Integer> cateringCounts = new HashMap<>(); // create a new map, which will contain every catering option with their desired amount
         for (int i = 0; i < spinnerModels.size(); i++) { // check every SpinnerNumberModel

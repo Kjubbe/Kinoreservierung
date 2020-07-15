@@ -12,8 +12,8 @@ import model.enums.*;
 public class Catering {
     
     // Data fields
-    public double price;
-    public String name;
+    public final double price; // TODO is this correct?
+    private String name;
 
     /**
      * constructor, sets data fields

@@ -12,8 +12,8 @@ import model.enums.*;
 public class BeachChairSeat extends Seat {
 
     // Data fields
-    protected static final String name = "Strandkorb";
-    protected String ticketNr = null; // holds ticket number
+    private static final String name = "Strandkorb";
+    private String ticketNr = null; // holds ticket number
 
     /**
      * constructor, calls super constructor

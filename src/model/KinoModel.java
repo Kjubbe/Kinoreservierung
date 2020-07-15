@@ -41,7 +41,7 @@ public class KinoModel {
 
     // Buttons labels
     public static final String backButtonLabel = "Zurück"; // back
-    public static final String abortButtonLabel = "Abbrechen"; // abort
+    public static final String quitButtonLabel = "Abbrechen"; // quit
     public static final String exitButtonLabel = "Beenden"; // exit
     public static final String proceedButtonLabel = "Fortfahren"; // proceed
     public static final String finishButtonLabel = "Reservieren"; // reserve/order
@@ -74,43 +74,43 @@ public class KinoModel {
      * invoked when creating this
      * creates movie examples and puts them in the list
      */
-    public void createMovies() {
+    private void createMovies() {
         Movie[] f = new Movie[] { // create array with all movies
-            new Movie("Terminator", Genres.Action, FSK.FSK_18, new Showtime[] {
-                new Showtime(Date.Sa, Time.PM_7_30, 6, 5),
-                new Showtime(Date.Mo, Time.PM_6_30, 5, 8),
-                new Showtime(Date.Mo, Time.PM_4_30, 7, 3),
-                new Showtime(Date.Mo, Time.PM_9_30, 5, 2)
+            new Movie("Terminator", Genres.Action, FSKs.FSK_18, new Showtime[] {
+                new Showtime(Dates.Sa, Times.PM_7_30, 6, 5),
+                new Showtime(Dates.Mo, Times.PM_6_30, 5, 8),
+                new Showtime(Dates.Mo, Times.PM_4_30, 7, 3),
+                new Showtime(Dates.Mo, Times.PM_9_30, 5, 2)
             }),
-            new Movie("Findet Nemo", Genres.Familie, FSK.FSK_0, new Showtime[] {
-                new Showtime(Date.Di, Time.PM_6_30, 5, 5),
-                new Showtime(Date.Sa, Time.PM_5, 4, 5)
+            new Movie("Findet Nemo", Genres.Familie, FSKs.FSK_0, new Showtime[] {
+                new Showtime(Dates.Di, Times.PM_6_30, 5, 5),
+                new Showtime(Dates.Sa, Times.PM_5, 4, 5)
             }),
-            new Movie("Abduction 2", Genres.Thriller, FSK.FSK_12, new Showtime[] {
-                new Showtime(Date.Sa, Time.PM_9_30, 5, 8),
-                new Showtime(Date.Sa, Time.PM_7, 7, 6),
-                new Showtime(Date.Sa, Time.PM_5_30, 5, 3),
+            new Movie("Abduction 2", Genres.Thriller, FSKs.FSK_12, new Showtime[] {
+                new Showtime(Dates.Sa, Times.PM_9_30, 5, 8),
+                new Showtime(Dates.Sa, Times.PM_7, 7, 6),
+                new Showtime(Dates.Sa, Times.PM_5_30, 5, 3),
             }),
-            new Movie("Wintertime", Genres.Familie, FSK.FSK_16, new Showtime[] {
-                new Showtime(Date.Mo, Time.PM_5, 5, 5),
-                new Showtime(Date.Fr, Time.PM_9_30, 7, 5),
-                new Showtime(Date.Sa, Time.PM_7, 6, 3),
-                new Showtime(Date.Sa, Time.PM_5, 3, 6),
-                new Showtime(Date.Sa, Time.PM_6, 5, 3),
+            new Movie("Wintertime", Genres.Familie, FSKs.FSK_16, new Showtime[] {
+                new Showtime(Dates.Mo, Times.PM_5, 5, 5),
+                new Showtime(Dates.Fr, Times.PM_9_30, 7, 5),
+                new Showtime(Dates.Sa, Times.PM_7, 6, 3),
+                new Showtime(Dates.Sa, Times.PM_5, 3, 6),
+                new Showtime(Dates.Sa, Times.PM_6, 5, 3),
             }),
-            new Movie("Dueness", Genres.Horror, FSK.FSK_18, new Showtime[] {
-                new Showtime(Date.Sa, Time.PM_7, 5, 3),
-                new Showtime(Date.Mo, Time.PM_7_30, 5, 6)
+            new Movie("Dueness", Genres.Horror, FSKs.FSK_18, new Showtime[] {
+                new Showtime(Dates.Sa, Times.PM_7, 5, 3),
+                new Showtime(Dates.Mo, Times.PM_7_30, 5, 6)
             }),
-            new Movie("The Operator", Genres.Action, FSK.FSK_16, new Showtime[] {
-                new Showtime(Date.Sa, Time.PM_5, 3, 5),
-                new Showtime(Date.So, Time.PM_10, 9, 5),
-                new Showtime(Date.Mo, Time.PM_8_30, 7, 6),
-                new Showtime(Date.Mo, Time.PM_7_30, 5, 3)
+            new Movie("The Operator", Genres.Action, FSKs.FSK_16, new Showtime[] {
+                new Showtime(Dates.Sa, Times.PM_5, 3, 5),
+                new Showtime(Dates.So, Times.PM_10, 9, 5),
+                new Showtime(Dates.Mo, Times.PM_8_30, 7, 6),
+                new Showtime(Dates.Mo, Times.PM_7_30, 5, 3)
             }),
-            new Movie("Missing Throne", Genres.Western, FSK.FSK_12, new Showtime[] {
-                new Showtime(Date.Do, Time.PM_9_30, 5, 5),
-                new Showtime(Date.Sa, Time.PM_5_30, 4, 5)
+            new Movie("Missing Throne", Genres.Western, FSKs.FSK_12, new Showtime[] {
+                new Showtime(Dates.Do, Times.PM_9_30, 5, 5),
+                new Showtime(Dates.Sa, Times.PM_5_30, 4, 5)
             })
         };
         availableMovies.addAll(Arrays.asList(f)); // add array in the list
@@ -120,7 +120,7 @@ public class KinoModel {
      * invoked when creating this
      * creates catering examples and puts them in the list
      */
-    public void createCaterings() {
+    private void createCaterings() {
         Catering[] c = new Catering[] { // create array with all catering options
             new Catering("Cola", Prices.MEDIUM_DRINK),
             new Catering("Popcorn", Prices.LARGE_SNACK),

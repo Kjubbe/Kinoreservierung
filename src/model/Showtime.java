@@ -11,10 +11,10 @@ import model.enums.*;
 public class Showtime {
     
     // Data fields
-    protected Date date;
-    protected Time time;
+    private Dates date;
+    private Times time;
 
-    protected Seat[][] seats; // contains all available seats for this showtime
+    public final Seat[][] seats; // contains all available seats for this showtime
     
     /**
      * constructor, assigns data fields
@@ -24,7 +24,7 @@ public class Showtime {
      * @param seatRowCount amount of rows of seats for the showtime
      * @param seatColumnCount amount of columns of seats for the showtime
      */
-    public Showtime(Date date, Time time, int seatRowCount, int seatColumnCount) {
+    public Showtime(Dates date, Times time, int seatRowCount, int seatColumnCount) {
         this.date = date;
         this.time = time;
         seats = new Seat[seatRowCount][seatColumnCount]; // create seat array with row- and column count

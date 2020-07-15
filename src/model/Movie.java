@@ -11,10 +11,10 @@ import model.enums.*;
 public class Movie {
 
     // Data fields
-    protected String title;
-    protected Genres genre;
-    protected FSK fsk;
-    public Showtime[] showtimes; // contains all available showtimes for this movie
+    private String title;
+    private Genres genre;
+    private FSKs fsk;
+    public final Showtime[] showtimes; // contains all available showtimes for this movie TODO is this correct?
 
     /**
      * constructor, sets data fields
@@ -23,7 +23,7 @@ public class Movie {
      * @param fsk fsk of which the movie is rated
      * @param showtimes the available showtimes for movie
      */
-    public Movie(String title, Genres genre, FSK fsk, Showtime[] showtimes) {
+    public Movie(String title, Genres genre, FSKs fsk, Showtime[] showtimes) {
         this.title = title;
         this.genre = genre;
         this.fsk = fsk;

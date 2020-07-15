@@ -27,15 +27,11 @@ public abstract class Tab extends JPanel {
     protected KinoModel model;
     protected KinoController ctrl;
 
-    // data fields
-    protected int index;
-    protected String name;
-
     protected JPanel instructionPanel = new JPanel(); // panel for JLabel for displaying instruction text
     protected JPanel buttonPanel = new JPanel(); // panel for all three JButtons
 
     public final JButton backButton; // back
-    public final JButton abortButton; // abort
+    public final JButton quitButton; // quit
     public final JButton proceedButton; // proceed
 
     /**
@@ -47,7 +43,6 @@ public abstract class Tab extends JPanel {
     public Tab(KinoModel model, KinoController ctrl, int index) {
         this.model = model;
         this.ctrl = ctrl;
-        this.index = index;
 
         try {
             instructionPanel.add(new JLabel(KinoModel.instructions[index])); // try to add instructions from the model
@@ -59,9 +54,9 @@ public abstract class Tab extends JPanel {
         backButton = new JButton(KinoModel.backButtonLabel); // set the label to the String from the model
         backButton.addActionListener(ctrl); // add listener
 
-        // abort button
-        abortButton = new JButton(KinoModel.abortButtonLabel); // set the label to the String from the model
-        abortButton.addActionListener(ctrl); // add listener
+        // quit button
+        quitButton = new JButton(KinoModel.quitButtonLabel); // set the label to the String from the model
+        quitButton.addActionListener(ctrl); // add listener
 
         // proceed button
         proceedButton = new JButton(KinoModel.proceedButtonLabel); // set the label to the String from the model
@@ -70,7 +65,7 @@ public abstract class Tab extends JPanel {
 
         // build the panel
         buttonPanel.add(backButton);
-        buttonPanel.add(abortButton);
+        buttonPanel.add(quitButton);
         buttonPanel.add(proceedButton);
 
         // configure this (the tab)

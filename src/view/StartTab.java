@@ -40,7 +40,7 @@ public class StartTab extends Tab {
         add(buttonPanel); // buttons last
 
         backButton.setEnabled(false); // cant go back on the first panel
-        abortButton.setText(KinoModel.exitButtonLabel); // this button has a different label
+        quitButton.setText(KinoModel.exitButtonLabel); // this button has a different label
         proceedButton.setEnabled(true); // proceed button is enabled by default, because the user does not have to do anything to be able to proceed
     }
 

@@ -7,7 +7,7 @@ package model.enums;
  * @author Marcel Sauer
  */
 
-public enum Time {
+public enum Times {
     PM_3,
     PM_3_30,
     PM_4,

@@ -25,7 +25,7 @@ import model.*;
 public class CateringTab extends Tab {
 
     // List of all spinnermodels, which contain chosen Number
-    public List<SpinnerNumberModel> spinnerModels;
+    private List<SpinnerNumberModel> spinnerModels;
 
     /**
      * constructor, calls super constructor
@@ -75,5 +75,13 @@ public class CateringTab extends Tab {
     @Override
     protected void update() {
         // Do nothing
-    } 
+    }
+
+    /**
+     * get the list of spinner models
+     * @return list with spinner models
+     */
+    public List<SpinnerNumberModel> getSpinnerModels() {
+        return spinnerModels;
+    }
 }

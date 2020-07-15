@@ -27,8 +27,8 @@ import model.*;
 public class SeatingTab extends Tab {
 
     // Components
-    public JCheckBox[][] cbs;
-    public ArrayList<JTextField> tfs;
+    private JCheckBox[][] cbs;
+    private ArrayList<JTextField> tfs;
     private JPanel licensePlatePanel = new JPanel();
 
     // Colors
@@ -69,15 +69,15 @@ public class SeatingTab extends Tab {
                 Seat currentSeat = seats[row][column]; // get the seat at the current position
                 JCheckBox cb = new JCheckBox(); // create a new JCheckBox
                 cb.addActionListener(ctrl); // add listener
-                cb.setToolTipText(currentSeat.tooltip); // add tooltip from the current seat
+                cb.setToolTipText(currentSeat.getTooltip()); // add tooltip from the current seat
 
                 // Coloring
                 Color color = Color.WHITE; // default Color is white
-                if (currentSeat.isReserved) color = lightRed; // if seat is reserved the color is set to light red
+                if (currentSeat.getIsReserved()) color = lightRed; // if seat is reserved the color is set to light red
                 else if (currentSeat.isVip) color = Color.ORANGE; // else if the seat is for vip the color is set to orange
                 else if (currentSeat instanceof BeachChairSeat) color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
                 else if (currentSeat instanceof CarSeat) { // else if the seat is a CarSeat
-                   if (((CarSeat)currentSeat).forSUV) color = lightBlue; // if the CarSeat is for suv the color is set to light blue
+                   if (((CarSeat)currentSeat).isForSUV) color = lightBlue; // if the CarSeat is for suv the color is set to light blue
                    // normal non-suv car seats have no special color
                 }
                 cb.setBackground(color); // set background color of the checkbox to the color specified
@@ -141,8 +141,9 @@ public class SeatingTab extends Tab {
      * manages amount of JTextFields
      * removes JTextFields when there are too many (more than needed)
      * adds JTextFields when there are some missing (less than needed)
+     * TODO: move this to the model ?
      */
-    public void changeTextFields(int targetCount) {
+    private void changeTextFields(int targetCount) {
         while (tfs.size() != targetCount) { // loop till amount of needed JTextFields is achieved
             
             // possibility 1
@@ -170,8 +171,16 @@ public class SeatingTab extends Tab {
      * @param tf the JTextField to be checked
      * @return if the input suffices
      */
-    public boolean checkInput(JTextField tf) {
+    private boolean checkInput(JTextField tf) {
         String text = tf.getText().replaceAll("\\s+", ""); // get text from the JTextField and remove all whitespaces
         return text.length() >= 4 && text.length() <= 8; // input only suffices if the length of the text is greater than 4 and less than 8
+    }
+
+    /**
+     * get the array of checkboxes
+     * @return array of checkboxes
+     */
+    public JCheckBox[][] getCheckBoxes() {
+        return cbs;
     }
 }

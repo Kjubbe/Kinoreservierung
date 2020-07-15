@@ -62,7 +62,7 @@ public class SummaryTab extends Tab {
             }
             cateringPrint += (entry.getValue() + "x " + entry.getKey()); // add the catering name and price with their amount to the print
             if (entry.getValue() != 1) { // check if the catering is not chosen only once
-                cateringPrint += " für insg. " + entry.getKey().price * entry.getValue() + "€, "; // add the sum of the price to the print
+                cateringPrint += " für insg. " + entry.getKey().price * entry.getValue() + "€, "; // add the sum of the price to the print TODO Math.round and this should also display total of all chosen caterings
             } else { // catering is only chosen once
                 cateringPrint += ", "; // no calculations needed
             }

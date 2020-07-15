@@ -7,7 +7,7 @@ package model.enums;
  * @author Marcel Sauer
  */
 
-public enum FSK {
+public enum FSKs {
     FSK_0, FSK_6, FSK_12, FSK_16, FSK_18, FSK_UNRATED;
 
 	/**

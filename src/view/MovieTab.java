@@ -21,8 +21,8 @@ import model.*;
 public class MovieTab extends Tab {
 
     // Components
-    public JComboBox<Movie> dropdown = new JComboBox<Movie>();
-    public JLabel description;
+    private JComboBox<Movie> dropdown = new JComboBox<Movie>();
+    private JLabel description;
 
     /**
      * constructor, calls super constructor
@@ -75,5 +75,13 @@ public class MovieTab extends Tab {
         } else { // no film selected
             proceedButton.setEnabled(false);
         }
-    } 
+    }
+
+    /**
+     * get the JComboBox containing the movies
+     * @return JComboBox with the movies
+     */
+    public JComboBox<Movie> getDropdown() {
+        return dropdown;
+    }
 }
