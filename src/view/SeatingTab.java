@@ -23,6 +23,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
+@SuppressWarnings("serial")
 public class SeatingTab extends Tab {
 
     // Components

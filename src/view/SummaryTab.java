@@ -17,6 +17,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
+@SuppressWarnings("serial")
 public class SummaryTab extends Tab {
 
     /**

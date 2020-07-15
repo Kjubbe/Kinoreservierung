@@ -21,6 +21,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
+@SuppressWarnings("serial")
 public class CateringTab extends Tab {
 
     // List of all spinnermodels, which contain chosen Number

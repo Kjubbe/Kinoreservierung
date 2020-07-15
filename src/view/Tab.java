@@ -20,6 +20,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
+@SuppressWarnings("serial")
 public abstract class Tab extends JPanel {
     
     // References

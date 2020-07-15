@@ -16,6 +16,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
+@SuppressWarnings("serial")
 public class TimesTab extends Tab {
 
     // Array of all radiobuttons on the tab

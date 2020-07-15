@@ -13,6 +13,7 @@ import model.*;
  * @author Marcel Sauer
  */
 
+@SuppressWarnings("serial")
 public class StartTab extends Tab {
 
     /**
