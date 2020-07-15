@@ -31,6 +31,6 @@ public class Catering {
      */
     @Override
     public String toString() {
-        return name + " (" + price + "€)";
+        return name + " (" + price + Vocabulary.currency + ")";
     }
 }

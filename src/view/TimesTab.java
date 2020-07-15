@@ -20,7 +20,7 @@ import model.*;
 public class TimesTab extends Tab {
 
     // Array of all radiobuttons on the tab
-    private JRadioButton[] rbs;
+    private JRadioButton[] rbs; // TODO is there a better way? just pull all rbs from the panel mb?
 
     /**
      * constructor, calls super constructor
@@ -38,10 +38,11 @@ public class TimesTab extends Tab {
      */
     @Override
     protected void build() {
+        System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
         JPanel radioButtonPanel = new JPanel(); // new panel, holds JRadioButtons
-        radioButtonPanel.setLayout(new BoxLayout(radioButtonPanel, BoxLayout.Y_AXIS)); // set layout for the panel TODO: move somewhere else?
+        radioButtonPanel.setLayout(new BoxLayout(radioButtonPanel, BoxLayout.Y_AXIS)); // set layout for the panel
         ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
 
         Showtime[] times = model.availableTimes; // get the available showtimes from the model
@@ -69,6 +70,7 @@ public class TimesTab extends Tab {
      */
     @Override
     protected void update() {
+        System.out.println("DEBUG: " + "tab: updating times tab..."); // DEBUG TODO remove this
         for (JRadioButton b : rbs) { // check every JRadioButton
             if (b.isSelected()) { // check if the JRadioButton is selected
                 proceedButton.setEnabled(true);

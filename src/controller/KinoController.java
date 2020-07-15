@@ -48,17 +48,26 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (source instanceof JButton) { // source from JButton > source is either back-, quit or proceedbutton
-            for (Tab t : view.tabs) { // check every tab for input
+            System.out.println("DEBUG: " + "ctrl: button pressed..."); // DEBUG TODO remove
+            for (int i = 0; i < view.tabs.length; i++) { // check every tab for input
+                Tab t = view.tabs[i];
                 if (source == t.backButton) // source is back button
                     view.goBack();
                 else if (source == t.quitButton) // source is quit button
                     quit();
                 else if (source == t.proceedButton) // source is proceed button
-                    view.proceed();
+                    if (i != view.tabs.length - 1) view.proceed(); // TODO maybe change this logic?
+                    else {  
+                        view.finish();
+                        model.order();
+                        view.update();
+                    }
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
+            System.out.println("DEBUG: " + "ctrl: radio-button pressed..."); // DEBUG TODO remove
             timeChanged();
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
+            System.out.println("DEBUG: " + "ctrl: checkbox clicked..."); // DEBUG TODO remove
             seatChanged();
         }
     }
@@ -78,6 +87,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void keyTyped(KeyEvent e) {
+        System.out.println("DEBUG: " + "ctrl: key typed..."); // DEBUG TODO remove
         view.update(); // source is from JTextField > source from seat tab
     }
 
@@ -95,7 +105,8 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * invoked by pressing the JButton for exiting
      */
     public void quit() {
-        System.out.println("quitting...");
+        System.out.println("DEBUG: " + "quitting..."); // DEBUG TODO remove this
+        model.reset();
         System.exit(0); // terminate the program
     }
 
@@ -105,7 +116,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      */
     private void movieChanged() {
-        System.out.println("Movie chosen"); // DEBUG TODO
+        System.out.println("DEBUG: " + "ctrl: Movie chosen"); // DEBUG TODO remove
         MovieTab tab = (MovieTab) view.tabs[1]; // get reference to the movie tab from the view
         Movie movie = (Movie) tab.getDropdown().getSelectedItem(); // get the selected movie from the JComboBox
         if (movie != null) { // check if an actual movie is selected
@@ -120,7 +131,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      */
     private void timeChanged() {
-        System.out.println("Time chosen"); // DEBUG TODO
+        System.out.println("DEBUG: " + "ctrl: Time chosen"); // DEBUG TODO remove
         TimesTab tab = (TimesTab) view.tabs[2]; // get reference to the times tab from the view
         JRadioButton[] rbs = tab.getRadioButtons(); // get reference to the JRadioButtons from the tab
         for (int i = 0; i < rbs.length; i++) { // check every JRadioButton
@@ -139,7 +150,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      */
     private void seatChanged() {
-        System.out.println("Seat chosen"); // DEBUG TODO
+        System.out.println("DEBUG: " + "ctrl: Seat chosen"); // DEBUG TODO remove
         SeatingTab tab = (SeatingTab) view.tabs[3]; // get reference to the seating tab from the view
         JCheckBox[][] cbs = tab.getCheckBoxes(); // get reference to all JCheckBoxes from the tab
         int rowCount = cbs.length; // amount of rows of JCheckBoxes
@@ -165,7 +176,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      */
     private void cateringChanged() {
-        System.out.println("Catering chosen");
+        System.out.println("DEBUG: " + "ctrl: Catering chosen"); // DEBUG TODO remove this
         CateringTab tab = (CateringTab) view.tabs[4]; // get reference to the catering tab from the view
         List<SpinnerNumberModel> spinnerModels = tab.getSpinnerModels(); // get reference to all SpinnerNumberModels from the view
 

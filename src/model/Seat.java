@@ -11,7 +11,7 @@ import model.enums.*;
 public class Seat {
     
     // Data fields
-    private boolean isReserved = false;
+    public boolean isReserved = false; // TODO visibility?
     private String tooltip = ""; // tooltip for hovering over a seat
     public final double price; // TODO is this correct?
     public final boolean isVip;
@@ -25,16 +25,8 @@ public class Seat {
     public Seat(Prices price, boolean isVip, String tooltip) {
         this.price = price.getPrice();
         this.isVip = isVip;
-        if (isVip) this.tooltip += "[VIP] "; // update tooltip to give more information when seat is vip
+        if (isVip) this.tooltip += Vocabulary.vipTooltip + " "; // update tooltip to give more information when seat is vip
         this.tooltip += tooltip;
-    }
-
-    /**
-     * get is the seat is reserved
-     * @return if the seat is reserved
-     */
-    public final boolean getIsReserved() {
-        return isReserved;
     }
 
     /**

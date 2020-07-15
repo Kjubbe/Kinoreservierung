@@ -12,8 +12,8 @@ import model.enums.*;
 public class BeachChairSeat extends Seat {
 
     // Data fields
-    private static final String name = "Strandkorb";
-    private String ticketNr = null; // holds ticket number
+    private static final String name = Vocabulary.beachChairTooltip;
+    private String ticketNr = null; // holds ticket number TODO add logic to add this
 
     /**
      * constructor, calls super constructor

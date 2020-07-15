@@ -12,10 +12,10 @@ import model.enums.*;
 public class CarSeat extends Seat {
 
     // Data fields
-    private static final String pkwName = "PKW-Stellplatz";
-    private static final String suvName = "SUV-Stellplatz";
+    private static final String pkwTooltip = Vocabulary.pkwTooltip;
+    private static final String suvTooltip = Vocabulary.suvTooltip;
     public final boolean isForSUV;
-    private String licensePlateNr = null; // holds license plate number
+    private String licensePlateNr = null; // holds license plate number TODO add logic to add this
 
     /**
      * constructor, calls super constructor and sets suv data field
@@ -24,17 +24,17 @@ public class CarSeat extends Seat {
      */
     public CarSeat(boolean isVip, boolean isForSUV) {
         // price is determined by the isVip boolean
-        super(isVip ? Prices.VIP_CAR_SEAT : Prices.NORMAL_CAR_SEAT, isVip, isForSUV ? suvName : pkwName);
+        super(isVip ? Prices.VIP_CAR_SEAT : Prices.NORMAL_CAR_SEAT, isVip, isForSUV ? suvTooltip : pkwTooltip);
         this.isForSUV = isForSUV;
     }
     
     /**
      * toString
-     * @return the name of the seat
+     * @return the tooltip of the seat
      */
     @Override
     public String toString() {
         // name is determined by the forSUV boolean
-        return isForSUV ? suvName : pkwName;
+        return isForSUV ? suvTooltip : pkwTooltip;
     }
 }

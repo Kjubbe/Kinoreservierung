@@ -21,7 +21,7 @@ import model.*;
 public class MovieTab extends Tab {
 
     // Components
-    private JComboBox<Movie> dropdown = new JComboBox<Movie>();
+    private JComboBox<Movie> dropdown;
     private JLabel description;
 
     /**
@@ -41,16 +41,18 @@ public class MovieTab extends Tab {
      */
     @Override
     protected void build() {
+        System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
         description = new JLabel(); // new JLabel for the description
         JPanel dropdownPanel = new JPanel(new FlowLayout()); // new panel, holds JComboBox for movies and JLabel for the description
 
+        dropdown = new JComboBox<Movie>(); // new JComboBox for movies
         for (Movie m : KinoModel.availableMovies) { // go through all movies
             dropdown.addItem(m); // add movie in the dropdown
         }
         dropdown.setSelectedItem(null); // no selected movie
-        dropdown.addItemListener(ctrl); // add listener
+        dropdown.addItemListener(ctrl); // add listener TODO this calls twice? look at the debugs when changing a movie multiple times
 
         // build the panel
         dropdownPanel.add(dropdown);
@@ -69,6 +71,7 @@ public class MovieTab extends Tab {
      */
     @Override
     protected void update() {
+        System.out.println("DEBUG: " + "tab: updating movie tab..."); // DEBUG TODO remove this
         if (dropdown.getSelectedItem() != null) { // check if a film is selected
             proceedButton.setEnabled(true);
             description.setText(model.chosenMovie.getDescription()); // set JLabel for description to display the description of the movie

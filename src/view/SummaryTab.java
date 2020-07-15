@@ -36,45 +36,49 @@ public class SummaryTab extends Tab {
      */
     @Override
     protected void build() {
+        System.out.println("DEBUG: " + "tab: building summary tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
         JPanel summaryPanel = new JPanel(); // new panel, holds all JLabels
-        summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS)); // set layout for the panel TODO: move somewhere else?
+        summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS)); // set layout for the panel
 
         // part 1: the movie
-        summaryPanel.add(putInContainer(new JLabel("Film: " + model.chosenMovie))); // get chosen movie from model
+        summaryPanel.add(putInContainer(new JLabel(Vocabulary.movieLabel + ": " + model.chosenMovie))); // get chosen movie from model
 
         // part 2: the time
-        summaryPanel.add(putInContainer(new JLabel("Zeit: " + model.chosenTime))); // get chosen time from model
+        summaryPanel.add(putInContainer(new JLabel(Vocabulary.timeLabel + ": " + model.chosenTime))); // get chosen time from model
 
         // part 3: the seats // TODO move this to the model
         String seatPrint = "";
         for (Seat s : model.chosenSeats) { // go through every seat
             seatPrint += s.toString() + ", "; // add all seats to the print
         }
-        summaryPanel.add(putInContainer(new JLabel("Plätze: " + seatPrint.substring(0, seatPrint.length() - 2)))); // remove last comma
+        summaryPanel.add(putInContainer(new JLabel(Vocabulary.seatsLabel + ": " + seatPrint.substring(0, seatPrint.length() - 2)))); // remove last comma
 
         // part 4: the catering // TODO move this to the model
-        String cateringPrint = "";
-        for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every catering-value pair
-            if (entry.getValue() == 0) { // check if the catering is chosen, if not skip
-                continue; // skip this entry
-            }
-            cateringPrint += (entry.getValue() + "x " + entry.getKey()); // add the catering name and price with their amount to the print
-            if (entry.getValue() != 1) { // check if the catering is not chosen only once
-                cateringPrint += " für insg. " + entry.getKey().price * entry.getValue() + "€, "; // add the sum of the price to the print TODO Math.round and this should also display total of all chosen caterings
-            } else { // catering is only chosen once
-                cateringPrint += ", "; // no calculations needed
+        String cateringPrint = Vocabulary.noneLabels[0] + "  "; // TODO this is bad
+        if (model.chosenCatering != null) { // check if catering was chosen
+            cateringPrint = "";
+            for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every catering-value pair
+                if (entry.getValue() == 0) { // check if the catering is chosen, if not skip
+                    continue; // skip this entry
+                }
+                cateringPrint += (entry.getValue() + "x " + entry.getKey()); // add the catering name and price with their amount to the print
+                if (entry.getValue() != 1) { // check if the catering is not chosen only once
+                    cateringPrint += " für insg. " + entry.getKey().price * entry.getValue() + Vocabulary.currency + ", "; // add the sum of the price to the print TODO Math.round and this should also display total of all chosen caterings and add vocab
+                } else { // catering is only chosen once
+                    cateringPrint += ", "; // no calculations needed
+                }
             }
         }
-        summaryPanel.add(putInContainer(new JLabel("Essen: " + cateringPrint.substring(0, cateringPrint.length() - 2)))); // remove last comma
+        summaryPanel.add(putInContainer(new JLabel(Vocabulary.cateringLabel + ": " + cateringPrint.substring(0, cateringPrint.length() - 2)))); // remove last comma
 
         // build the tab
         add(instructionPanel); // instructions first
         add(summaryPanel); // summary in the middle
         add(buttonPanel); // buttons last
 
-        proceedButton.setText(KinoModel.finishButtonLabel);
+        proceedButton.setText(Vocabulary.finishButtonLabel);
         proceedButton.setEnabled(true);
     }
 

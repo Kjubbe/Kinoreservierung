@@ -4,6 +4,7 @@ import model.enums.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,37 +15,9 @@ import java.util.Map;
  */
 
 public class KinoModel {
-    
-    // Data fields with Strings
-    public static final String softwareName = "Kinoreservierung"; // String for the frame
-    public static final String[] instructions = // Strings for instructions on every tab in order
-    {
-        "Willkommen zum Autokinoreservierungssystem der TH Lübeck",
-        "Bitte wählen Sie einen Film aus",
-        "Bitte wählen Sie eine Vorstellungszeit für ihren Film aus",
-        "Bitte wählen Sie die Plätze aus, die Sie reservieren möchten",
-        "Möchten sie noch etwas dazubestellen?",
-        "Bitte überprüfen sie ihre Bestellung"
-    };
-    public static final String[] tabNames = // Strings for names of the tab in order
-    {
-        "Start",
-        "Filme",
-        "Zeiten",
-        "Plätze",
-        "Essen",
-        "Bestellen"
-    };
 
-    public static final String defaultTabName = "Tab"; // String for default Tab name, used, when no name is set
-    public static final String licensePlateLabel = "Kennz.:"; // String for the license plate JTextField in the seating tab
-
-    // Buttons labels
-    public static final String backButtonLabel = "Zurück"; // back
-    public static final String quitButtonLabel = "Abbrechen"; // quit
-    public static final String exitButtonLabel = "Beenden"; // exit
-    public static final String proceedButtonLabel = "Fortfahren"; // proceed
-    public static final String finishButtonLabel = "Reservieren"; // reserve/order
+    // This list holds all orders
+    private List<Order> orders = new LinkedList<Order>();
 
     // data
     public static final List<Movie> availableMovies = new ArrayList<>(); // contains all existing movies
@@ -138,9 +111,12 @@ public class KinoModel {
      * @param m movie which was chosen
      */
     public void setMovie(Movie m) {
-        System.out.println("Movie set, Movie: " + m); // DEBUG TODO
+        System.out.println("DEBUG: " + "model: Movie set, Movie: " + m); // DEBUG TODO remove
         chosenMovie = m; // set chosen movie
         availableTimes = m.showtimes; // set available times to the times contained in the movie
+        chosenTime = null; // reset chosen time, because new movie got chosen // TODO is this good?
+        chosenSeats = null; // reset chosen seats, because new movie got chosen // TODO is this good?
+        chosenCatering = null; // reset chosen catering, because new movie got chosen // TODO is this good?
     }
 
     /**
@@ -150,9 +126,11 @@ public class KinoModel {
      * @param t time which was chosen
      */
     public void setTime(Showtime t) {
-        System.out.println("Time set, Time: " + t); // DEBUG TODO
+        System.out.println("DEBUG: " + "model: Time set, Time: " + t); // DEBUG TODO remove
         chosenTime = t; // set chosen time
         availableSeats = t.seats; // set available seats to the seats contained in the showtime
+        chosenSeats = null; // reset chosen seats, because new time got chosen // TODO is this good?
+        chosenCatering = null; // reset chosen catering, because new time got chosen // TODO is this good?
     }
 
     /**
@@ -162,12 +140,13 @@ public class KinoModel {
      * @param seats list of seats which were chosen
      */
     public void setSeats(List<Seat> seats) {
-        System.out.println("Seat set, Seats: " + seats); // DEBUG TODO
+        System.out.println("DEBUG: " + "model: Seat set, Seats: " + seats); // DEBUG TODO remove
         chosenSeats = seats; // set chosen seats
         carSeatCount = 0; // reset the counter
         for (Seat s : chosenSeats) { // check every seat
             if (s instanceof CarSeat) carSeatCount++; // if seat is an instance of CarSeat increase the counter
         }
+        chosenCatering = null; // reset chosen catering, because new seats got chosen // TODO is this good?
     }
 
     /**
@@ -176,7 +155,7 @@ public class KinoModel {
      * @param cateringCounts
      */
     public void setCatering(Map<Catering, Integer> cateringCounts) {
-        System.out.println("Catering set, Caterings: " + cateringCounts); // DEBUG TODO
+        System.out.println("DEBUG: " + "model: Catering set, Caterings: " + cateringCounts); // DEBUG TODO remove
         chosenCatering = cateringCounts; // set chosen caterings
     }
 
@@ -197,5 +176,32 @@ public class KinoModel {
             }
         }
         return Math.round(price * 100.0) / 100.0; // round price to two decimal places
+    }
+
+    /**
+     * resets all user input
+     */
+    public void reset() {
+        System.out.println("DEBUG: " + "model: Input reset"); // DEBUG TODO remove this
+        chosenMovie = null;
+        availableTimes = null;
+        chosenTime = null;
+        availableSeats = null;
+        chosenSeats = null;
+        carSeatCount = 0;
+        chosenCatering = null;
+    }
+
+    /**
+     * finish an order
+     */
+    public void order() {
+        for (Seat s : chosenSeats) {
+            s.isReserved = true;
+        }
+        orders.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering));
+        
+        reset();
+        System.out.println("DEBUG: model: " + orders); // DEBUG TODO remove this
     }
 }

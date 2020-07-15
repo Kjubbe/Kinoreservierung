@@ -43,6 +43,7 @@ public class CateringTab extends Tab {
      */
     @Override
     protected void build() {
+        System.out.println("DEBUG: " + "tab: building catering tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
         spinnerModels = new ArrayList<>(); // new List for the NumberSpinnerModels
