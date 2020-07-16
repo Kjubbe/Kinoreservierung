@@ -12,7 +12,7 @@ import model.enums.*;
 public class Catering {
     
     // Data fields
-    public final double price; // TODO is this final correct?
+    public final Prices price; // TODO is this final correct?
     private String name;
 
     /**
@@ -21,13 +21,13 @@ public class Catering {
      * @param price price of the catering option
      */
     public Catering(String name, Prices price) {
-        this.price = price.getPrice();
+        this.price = price;
         this.name = name;
     }
 
     /**
      * toString
-     * @return the name and price in parentheses
+     * @return the name
      */
     @Override
     public String toString() {

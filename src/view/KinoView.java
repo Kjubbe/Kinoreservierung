@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import model.*;
 import controller.*;
@@ -128,7 +130,12 @@ public class KinoView {
      */
     private void switchTabTo(int index) {
         System.out.println("DEBUG: " + "view: switched tab to index " + index); // DEBUG TODO remove this
-        tabs[index].build(); // call the build function of the tab
+        try {
+            tabs[index].build(); // call the build function of the tab
+        } catch (NullPointerException ex) {
+            createDialog(Vocabulary.ERROR_DIALOG_NAME, ex.getMessage()); // create a dialog displaying the error
+            return; // skip following code
+        }
         tabbedPane.setSelectedIndex(index); // set tab as selected
         tabbedPane.setEnabledAt(index, true); // enable tab
         disableFollowingTabs(index); // disable all following tabs
@@ -167,14 +174,28 @@ public class KinoView {
      */
     public void finish() {
         System.out.println("DEBUG: " + "view: showing dialog"); // DEBUG TODO remove this
-        JDialog dialog = new JDialog(frame, Vocabulary.DIALOG_NAME); // create dialog
-        dialog.setLocationRelativeTo(frame);
-        dialog.add(new JLabel(Vocabulary.FINISH_MSG));
-        dialog.setVisible(true);
-        dialog.pack();
+        createDialog(Vocabulary.FINISH_DIALOG_NAME, Vocabulary.FINISH_MSG);
         for (Tab t : tabs) {
             t.reset(); // reset all tabs // TODO is this good?
         }
         switchTabTo(0); // switch back to the first tab
+    }
+
+    /**
+     * creates a dialog with frame as the owner with the specified title and content
+     * @param title title of the dialog
+     * @param content content in a JLabel for the dialog
+     * @return the created dialog
+     */
+    public JDialog createDialog(String title, String content) {
+        JDialog dialog = new JDialog(frame, title); // create dialog
+        dialog.setLocationRelativeTo(frame);
+        JPanel panel = new JPanel();
+        panel.setBorder(new EmptyBorder(15, 15, 15, 15));
+        panel.add(new JLabel(content));
+        dialog.add(panel);
+        dialog.setVisible(true);
+        dialog.pack();
+        return dialog;
     }
 }

@@ -41,7 +41,7 @@ public class MovieTab extends Tab {
      * adds JLabel for displaying movie information from the movie
      */
     @Override
-    protected void build() {
+    protected void build() throws NullPointerException {
         System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
@@ -50,8 +50,8 @@ public class MovieTab extends Tab {
         moviePanel.setBorder(new EmptyBorder(15, 0, 15, 0));
 
         dropdown = new JComboBox<Movie>(); // new JComboBox for movies
-        for (Movie m : KinoModel.availableMovies) { // go through all movies
-            dropdown.addItem(m); // add movie in the dropdown
+        for (Movie m : KinoModel.ALL_MOVIES) { // go through all movies
+            if (m != null) dropdown.addItem(m); // add movie in the dropdown
         }
         dropdown.setSelectedItem(null); // no selected movie
         dropdown.addItemListener(ctrl); // add listener TODO this calls twice? look at the debugs when changing a movie multiple times

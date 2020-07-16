@@ -13,7 +13,7 @@ public class Seat {
     // Data fields
     public boolean isReserved = false; // TODO visibility?
     private String tooltip = ""; // tooltip for hovering over a seat
-    public final double price; // TODO is this final correct?
+    public final Prices price; // TODO is this final correct?
     public final boolean isVip;
 
     /**
@@ -23,7 +23,7 @@ public class Seat {
      * @param tooltip tooltip shows when hovering over a seat
      */
     public Seat(Prices price, boolean isVip, String tooltip) {
-        this.price = price.getPrice();
+        this.price = price;
         this.isVip = isVip;
         if (isVip) this.tooltip += Vocabulary.VIP_TOOLTIP + " "; // update tooltip to give more information when seat is vip
         this.tooltip += tooltip;

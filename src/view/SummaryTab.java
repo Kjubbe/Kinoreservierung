@@ -35,7 +35,7 @@ public class SummaryTab extends Tab {
      * adds JLabels for displaying all information about the order from the model
      */
     @Override
-    protected void build() {
+    protected void build() throws NullPointerException {
         System.out.println("DEBUG: " + "tab: building summary tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
@@ -61,12 +61,14 @@ public class SummaryTab extends Tab {
         if (model.chosenCatering != null) { // check if catering was chosen
             cateringPrint = "";
             for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every catering-value pair
-                if (entry.getValue() == 0) { // check if the catering is chosen, if not skip
+                Catering c = entry.getKey();
+                Integer i = entry.getValue();
+                if (i == 0) { // check if the catering is chosen, if not skip
                     continue; // skip this entry
                 }
-                cateringPrint += (entry.getValue() + "x " + entry.getKey()); // add the catering name and price with their amount to the print
-                if (entry.getValue() != 1) { // check if the catering is not chosen only once
-                    cateringPrint += " für insg. " + entry.getKey().price * entry.getValue() + Vocabulary.CURRENCY + ", "; // add the sum of the price to the print TODO Math.round + this should also display total of all chosen caterings + add vocab
+                cateringPrint += (i + "x " + c); // add the catering name and price with their amount to the print
+                if (i != 1) { // check if the catering is not chosen only once
+                    cateringPrint += " für insg. " + c.price.getPrice() * i + Vocabulary.CURRENCY + ", "; // add the sum of the price to the print TODO Math.round + this should also display total of all chosen caterings + add vocab
                 } else { // catering is only chosen once
                     cateringPrint += ", "; // no calculations needed
                 }

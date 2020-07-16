@@ -53,7 +53,7 @@ public class SeatingTab extends Tab {
      * adds JCheckBox for every seat from the model in a grid layout
      */
     @Override
-    protected void build() {
+    protected void build() throws NullPointerException {
         System.out.println("DEBUG: " + "tab: building seating tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
@@ -70,7 +70,9 @@ public class SeatingTab extends Tab {
 
         Seat[][] seats = model.availableSeats; // get the available seats from the model
         int seatRowCount = seats.length; // amount of rows of seats
+        if (seatRowCount == 0) throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
         int seatColumnCount = seats[0].length; // amount of columns of seats
+        if (seatColumnCount == 0) throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
 
         cbs = new JCheckBox[seatRowCount][seatColumnCount]; // create JCheckBox array with row- and column count
         JPanel seatingPanel = new JPanel(new GridLayout(seatRowCount, seatColumnCount)); // new panel, holds all JCheckBoxes

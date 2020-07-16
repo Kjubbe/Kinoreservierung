@@ -61,7 +61,7 @@ public abstract class Tab extends JPanel {
         quitButton.addActionListener(ctrl); // add listener
 
         // proceed button
-        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON_LABEL); // set the label to the String from the model
+        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON_LABEL); // set the label to the String from the model // TODO maybe add indicators on each tab on what to do to proceed, in most cases this is redundant
         proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
         proceedButton.addActionListener(ctrl); // add listener
 
@@ -101,7 +101,7 @@ public abstract class Tab extends JPanel {
      * abstract method build is invoked when switching to a tab via the proceed button in another tab
      * building of each tab can differ, thus the abstract method
      */
-    protected abstract void build();
+    protected abstract void build() throws NullPointerException;
 
     /**
      * abstract method update is invoked when changing something / interacting with something on the tab

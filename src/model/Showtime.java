@@ -13,8 +13,9 @@ public class Showtime {
     // Data fields
     private Dates date;
     private Times time;
+    private boolean isSoldOut = false; // if the showtime is sold out
 
-    public final Seat[][] seats; // contains all available seats for this showtime // TODO is this final correct?
+    public final Seat[][] seats; // contains all available seats for this showtime // TODO is this final correct?  
     
     /**
      * constructor, assigns data fields
@@ -56,7 +57,30 @@ public class Showtime {
      */
     @Override
     public String toString() {
-        return date + ", " + time.getTime();
+        return date.toString() + ", " + time.getTime();
+    }
+
+    /**
+     * checks availibility of this showtime
+     * if no seat is available the show is sold out
+     */
+    protected void checkAvailability() {
+        if (!isSoldOut) { // only check is the show is not sold out already
+            for (Seat[] column : seats) {
+                for (Seat s : column) { // check every seat
+                    if (!s.isReserved) return; // if the seat is not reserved return > show not sold out
+                }
+            }
+            isSoldOut = true; // no unreserved seat was found > show sold out
+        }
+    }
+
+    /**
+     * get if the showtime is sold out
+     * @return if sold out
+     */
+    public boolean isSoldOut() {
+        return isSoldOut;
     }
 
 }

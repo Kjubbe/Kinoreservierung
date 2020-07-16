@@ -20,8 +20,8 @@ public class KinoModel {
     private List<Order> orders = new LinkedList<Order>();
 
     // data
-    public static final List<Movie> availableMovies = new ArrayList<>(); // contains all existing movies
-    public static final List<Catering> availableCaterings = new ArrayList<>(); // contains all existing catering options
+    public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
+    public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing catering options
 
     // Datafields, which change during runtime
     public Movie chosenMovie; // set based on user input in the movie tab
@@ -33,7 +33,7 @@ public class KinoModel {
     public List<Seat> chosenSeats; // set based on user input in the seat tab
     public int carSeatCount; // contains number of CarSeats in chosenSeats
 
-    public Map<Catering, Integer> chosenCatering; // set based on user input in the catering tab
+    public Map<Catering, Integer> chosenCatering; // set based on user input in the catering tab TODO this is null when not choosing any catering, when choosing its the map, even when its zeros everywhere
 
     /**
      * Constructor, creates movies and catering options
@@ -107,9 +107,30 @@ public class KinoModel {
                 new Showtime(Dates.Do, Times.PM_5_30, 8, 9),
                 new Showtime(Dates.Do, Times.PM_7, 6, 8),
                 new Showtime(Dates.Sa, Times.PM_8, 7, 9)
-            })
+            }),
+            new Movie("Broken Movie 1", null, FSKs.FSK_12, new Showtime[] { // TODO remove
+                new Showtime(Dates.Mi, Times.PM_6_30, 8, 9),
+                new Showtime(Dates.Mi, Times.PM_8, 7, 7),
+                new Showtime(Dates.Do, Times.PM_5_30, 8, 9),
+                new Showtime(Dates.Do, Times.PM_7, 6, 8),
+                new Showtime(Dates.Sa, Times.PM_8, 7, 9)
+            }),
+            new Movie("Broken Movie 2", Genres.Western, null, null // TODO remove
+            ),
+            new Movie(null, Genres.Western, FSKs.FSK_12, null // TODO remove
+            ),
+            new Movie("Broken Movie 3", Genres.Western, FSKs.FSK_12, new Showtime[] { // TODO remove
+                new Showtime(null, Times.PM_6_30, 8, 9),
+                new Showtime(Dates.Mi, null, 7, 7),
+                null,
+                new Showtime(null, null, 6, 8),
+                new Showtime(Dates.Sa, Times.PM_8, 0, 9),
+                new Showtime(Dates.Sa, Times.PM_8, 0, 0),
+                new Showtime(null, null, 0, 0),
+            }),
+            null // TODO remove
         };
-        availableMovies.addAll(Arrays.asList(f)); // add array in the list
+        ALL_MOVIES.addAll(Arrays.asList(f)); // add array in the list
     }
 
     /**
@@ -123,8 +144,9 @@ public class KinoModel {
             new Catering("1l Wasser", Prices.MEDIUM_DRINK),
             new Catering("Nachos", Prices.MEDIUM_SNACK),
             new Catering("Eis", Prices.SMALL_SNACK),
+            new Catering(null, null) // TODO remove
         };
-        availableCaterings.addAll(Arrays.asList(c)); // add array in the list
+        ALL_CATERINGS.addAll(Arrays.asList(c)); // add array in the list
     }
 
     /**
@@ -190,12 +212,14 @@ public class KinoModel {
         double price = 0.0; // local variable, holds the price
         if (chosenSeats != null) { // check, if there are chosen seats
             for (Seat s : chosenSeats) { // check every seat
-                price += s.price; // add price of the seat to the total amount
+                price += s.price.getPrice(); // add price of the seat to the total amount
             }
         }
         if (chosenCatering != null) { // check, if there are chosen caterings
             for (Map.Entry<Catering, Integer> entry : chosenCatering.entrySet()) { // check every entry of the map
-                price += entry.getKey().price * entry.getValue(); // add price of the catering options multiplied by its amount to the total amount
+                Catering c = entry.getKey();
+                Integer i = entry.getValue();
+                price += c.price.getPrice() * i; // add price of the catering options multiplied by its amount to the total amount
             }
         }
         return Math.round(price * 100.0) / 100.0; // round price to two decimal places
@@ -216,12 +240,23 @@ public class KinoModel {
     }
 
     /**
+     * Quits the application
+     * invoked from controller by pressing the JButton for exiting
+     */
+    public void quit() {
+        System.out.println("\n" + "DEBUG: " + "quitting..."); // DEBUG TODO remove this
+        reset();
+        System.exit(0); // terminate the program TODO is this
+    }
+
+    /**
      * finish an order
      */
     public void order() {
         for (Seat s : chosenSeats) {
             System.out.println("DEBUG: model: reserved seat " + s); // DEBUG TODO remove this
             s.isReserved = true;
+            chosenTime.checkAvailability();
         }
         orders.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering));
         System.out.println("\n" + "DEBUG: model: All orders are: \n" + orders + "\n"); // DEBUG TODO remove this

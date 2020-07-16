@@ -37,7 +37,7 @@ public class TimesTab extends Tab {
      * adds JRadioButtons for time options from the movie from the model
      */
     @Override
-    protected void build() {
+    protected void build() throws NullPointerException {
         System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
@@ -45,18 +45,29 @@ public class TimesTab extends Tab {
         timesPanel.setLayout(new BoxLayout(timesPanel, BoxLayout.Y_AXIS)); // set layout for the panel
         timesPanel.setBorder(topDownBorder);
         ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
-
+        
         Showtime[] times = model.availableTimes; // get the available showtimes from the model
-        int timeCount = times.length; // amount of times
+        if (times == null) throw new NullPointerException(Vocabulary.NO_TIMES_ERROR);
+        
+        int timeCount = times.length;
         rbs = new JRadioButton[timeCount]; // create JRadioButton array with length = amount
-        for (int i = 0; i < timeCount; i++) { // go through all times
-            JRadioButton rb = new JRadioButton(times[i].toString()); // new JRadioButton with time as text
-            rb.addActionListener(ctrl); // add listener
-            group.add(rb); // add button to the group
-            rbs[i] = rb; // add JRadioButton to the list
 
-            // build the panel
-            timesPanel.add(putInContainer(rb));
+        for (int i = 0; i < timeCount; i++) { // go through all times
+            try { // catch corrupted showtimes missing a date or time
+                JRadioButton rb = new JRadioButton(times[i].toString()); // new JRadioButton with time as text
+                if (times[i].isSoldOut()) { // check if showtime is sold out
+                    rb.setEnabled(false); // disable the button
+                    rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);
+                }
+                rb.addActionListener(ctrl); // add listener
+                group.add(rb); // add button to the group
+                rbs[i] = rb; // add JRadioButton to the list
+
+                // build the panel
+                timesPanel.add(putInContainer(rb));
+            } catch (NullPointerException ex) { // corrupted showtime found
+                continue; // skip this corrupted showtime
+            }
         }
 
         // build the tab
@@ -73,7 +84,7 @@ public class TimesTab extends Tab {
     protected void update() {
         System.out.println("DEBUG: " + "tab: updating times tab..."); // DEBUG TODO remove this
         for (JRadioButton b : rbs) { // check every JRadioButton
-            if (b.isSelected()) { // check if the JRadioButton is selected
+            if (b != null && b.isSelected()) { // check if the JRadioButton is selected
                 proceedButton.setEnabled(true);
                 return; // return since a selected button has been found
             }

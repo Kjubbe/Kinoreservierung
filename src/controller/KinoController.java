@@ -54,11 +54,11 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
                 if (source == t.backButton) // source is back button
                     view.goBack();
                 else if (source == t.quitButton) // source is quit button
-                    quit();
+                    model.quit();
                 else if (source == t.proceedButton) // source is proceed button
                     if (i != view.tabs.length - 1) view.proceed(); // TODO maybe change this logic?
                     else {  
-                        view.finish();
+                        view.finish(); // TODO this is not really needed, UNLESS you want to display information in the dialog
                         model.order();
                         view.update();
                     }
@@ -101,16 +101,6 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     }
 
     /**
-     * Quits the application
-     * invoked by pressing the JButton for exiting
-     */
-    public void quit() {
-        System.out.println("\n" + "DEBUG: " + "quitting..."); // DEBUG TODO remove this
-        model.reset();
-        System.exit(0); // terminate the program TODO is this
-    }
-
-    /**
      * invoked from event, gets chosen movie from view
      * advises model to change chosen movie
      * updates view
@@ -135,7 +125,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         TimesTab tab = (TimesTab) view.tabs[2]; // get reference to the times tab from the view
         JRadioButton[] rbs = tab.getRadioButtons(); // get reference to the JRadioButtons from the tab
         for (int i = 0; i < rbs.length; i++) { // check every JRadioButton
-            if (rbs[i].isSelected()) { // JRadioButton is selected
+            if (rbs[i] != null && rbs[i].isSelected()) { // JRadioButton is selected
                 Showtime equivalentTime = model.availableTimes[i]; // get the time at index i from the model, which is equivalent to the index of the JRadioButton
                 model.setTime(equivalentTime); // model receives the time
                 break;
@@ -183,7 +173,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         Map<Catering, Integer> cateringCounts = new HashMap<>(); // create a new map, which will contain every catering option with their desired amount
         for (int i = 0; i < spinnerModels.size(); i++) { // check every SpinnerNumberModel
             SpinnerNumberModel currentModel = spinnerModels.get(i); // get the current SpinnerNumberModel at index
-            Catering equivalentCatering = KinoModel.availableCaterings.get(i); // get the catering at index from the model, which is equivalent to the index of the SpinnerNumberModel
+            Catering equivalentCatering = KinoModel.ALL_CATERINGS.get(i); // get the catering at index from the model, which is equivalent to the index of the SpinnerNumberModel
             int value = (Integer)(currentModel.getValue()); // get the selected amount from the SpinnerNumberModel
             cateringCounts.put(equivalentCatering, value); // put catering as key with the selected amount as a value
         }
