@@ -48,6 +48,7 @@ public class CateringTab extends Tab {
 
         spinnerModels = new ArrayList<>(); // new List for the NumberSpinnerModels
         JPanel cateringPanel = new JPanel(new GridLayout(KinoModel.availableCaterings.size(), 2)); // new panel, holds JSpinners TODO the layout does not work well for this
+        cateringPanel.setBorder(topDownBorder);
 
         for (Catering c : KinoModel.availableCaterings) { // go through every catering
             SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
@@ -58,7 +59,7 @@ public class CateringTab extends Tab {
 
             // build the panel
             cateringPanel.add(putInContainer(spinner));
-            cateringPanel.add(putInContainer(new JLabel(c.toString())));
+            cateringPanel.add(putInContainer(new JLabel(c.toString() + "(" + c.price + Vocabulary.currency + ")")));
         }
 
         // build the tab

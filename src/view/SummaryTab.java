@@ -41,6 +41,7 @@ public class SummaryTab extends Tab {
 
         JPanel summaryPanel = new JPanel(); // new panel, holds all JLabels
         summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS)); // set layout for the panel
+        summaryPanel.setBorder(topDownBorder);
 
         // part 1: the movie
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.movieLabel + ": " + model.chosenMovie))); // get chosen movie from model

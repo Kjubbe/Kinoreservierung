@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import controller.*;
 import model.*;
@@ -45,22 +46,23 @@ public class MovieTab extends Tab {
         reset(); // reset before building to avoid duplications
 
         description = new JLabel(); // new JLabel for the description
-        JPanel dropdownPanel = new JPanel(new FlowLayout()); // new panel, holds JComboBox for movies and JLabel for the description
+        JPanel moviePanel = new JPanel(new FlowLayout()); // new panel, holds JComboBox for movies and JLabel for the description
+        moviePanel.setBorder(new EmptyBorder(15, 0, 15, 0));
 
         dropdown = new JComboBox<Movie>(); // new JComboBox for movies
         for (Movie m : KinoModel.availableMovies) { // go through all movies
             dropdown.addItem(m); // add movie in the dropdown
         }
-        dropdown.setSelectedItem(null); // no selected movie TODO is there another solution, this one looks bad :(
+        dropdown.setSelectedItem(null); // no selected movie
         dropdown.addItemListener(ctrl); // add listener TODO this calls twice? look at the debugs when changing a movie multiple times
 
         // build the panel
-        dropdownPanel.add(dropdown);
-        dropdownPanel.add(description);
+        moviePanel.add(dropdown);
+        moviePanel.add(description);
 
         // build the tab
         add(instructionPanel); // instructions first
-        add(dropdownPanel); // movie dropdown in the middle TODO better spacing above and below the dropdown
+        add(moviePanel); // movie dropdown in the middle TODO better spacing above and below the dropdown
         add(buttonPanel); // buttons last
     }
 

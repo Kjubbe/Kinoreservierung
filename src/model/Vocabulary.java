@@ -8,12 +8,12 @@ public class Vocabulary {
 
     public static final String[] instructions = // Strings for instructions on every tab in order
     {
-        "Willkommen zum Autokinoreservierungssystem der TH Lübeck",
-        "Bitte wählen Sie einen Film aus",
-        "Bitte wählen Sie eine Vorstellungszeit für ihren Film aus",
-        "Bitte wählen Sie die Plätze aus, die Sie reservieren möchten",
+        "Willkommen zum Autokinoreservierungssystem der TH Lübeck!",
+        "Bitte wählen Sie einen Film aus:",
+        "Bitte wählen Sie eine Vorstellungszeit für ihren Film aus:",
+        "Bitte wählen Sie die Plätze aus, die Sie reservieren möchten:",
         "Möchten sie noch etwas dazubestellen?",
-        "Bitte überprüfen sie ihre Bestellung"
+        "Bitte überprüfen sie ihre Bestellung:"
     };
     public static final String[] tabNames = // Strings for names of the tab in order
     {

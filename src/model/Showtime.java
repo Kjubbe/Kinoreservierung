@@ -14,7 +14,7 @@ public class Showtime {
     private Dates date;
     private Times time;
 
-    public final Seat[][] seats; // contains all available seats for this showtime
+    public final Seat[][] seats; // contains all available seats for this showtime // TODO is this final correct?
     
     /**
      * constructor, assigns data fields

@@ -14,7 +14,7 @@ public class Movie {
     private String title;
     private Genres genre;
     private FSKs fsk;
-    public final Showtime[] showtimes; // contains all available showtimes for this movie TODO is this correct?
+    public final Showtime[] showtimes; // contains all available showtimes for this movie TODO is this final correct?
 
     /**
      * constructor, sets data fields

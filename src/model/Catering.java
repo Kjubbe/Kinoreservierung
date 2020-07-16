@@ -12,7 +12,7 @@ import model.enums.*;
 public class Catering {
     
     // Data fields
-    public final double price; // TODO is this correct?
+    public final double price; // TODO is this final correct?
     private String name;
 
     /**
@@ -31,6 +31,6 @@ public class Catering {
      */
     @Override
     public String toString() {
-        return name + " (" + price + Vocabulary.currency + ")"; // TODO catering option should not be tied to the price, maybe two accessors?
+        return name;
     }
 }

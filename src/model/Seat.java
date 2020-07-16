@@ -13,7 +13,7 @@ public class Seat {
     // Data fields
     public boolean isReserved = false; // TODO visibility?
     private String tooltip = ""; // tooltip for hovering over a seat
-    public final double price; // TODO is this correct?
+    public final double price; // TODO is this final correct?
     public final boolean isVip;
 
     /**

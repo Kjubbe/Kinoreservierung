@@ -50,40 +50,63 @@ public class KinoModel {
     private void createMovies() {
         Movie[] f = new Movie[] { // create array with all movies
             new Movie("Terminator", Genres.Action, FSKs.FSK_18, new Showtime[] {
-                new Showtime(Dates.Sa, Times.PM_7_30, 6, 5), // TODO these times should be sortet
-                new Showtime(Dates.Mo, Times.PM_6_30, 5, 8),
-                new Showtime(Dates.Mo, Times.PM_4_30, 7, 3),
-                new Showtime(Dates.Mo, Times.PM_9_30, 5, 2)
+                new Showtime(Dates.Mo, Times.PM_8, 5, 7),
+                new Showtime(Dates.Di, Times.PM_10, 6, 7),
+                new Showtime(Dates.Do, Times.PM_9_30, 7, 8),
+                new Showtime(Dates.Fr, Times.PM_7, 6, 8),
+                new Showtime(Dates.Fr, Times.PM_8_30, 6, 7),
+                new Showtime(Dates.Fr, Times.PM_10, 6, 9),
+                new Showtime(Dates.Sa, Times.PM_7, 5, 6),
+                new Showtime(Dates.Sa, Times.PM_8, 7, 8),
+                new Showtime(Dates.Sa, Times.PM_9, 6, 7),
+                new Showtime(Dates.Sa, Times.PM_10, 7, 9),
+                new Showtime(Dates.So, Times.PM_3, 9, 7),
+                new Showtime(Dates.So, Times.PM_5, 7, 8)
             }),
             new Movie("Findet Nemo", Genres.Familie, FSKs.FSK_0, new Showtime[] {
-                new Showtime(Dates.Di, Times.PM_6_30, 5, 5), // TODO these times should be sortet
-                new Showtime(Dates.Sa, Times.PM_5, 4, 5)
+                new Showtime(Dates.Mi, Times.PM_5, 7, 8),
+                new Showtime(Dates.Mi, Times.PM_5_30, 8, 9),
+                new Showtime(Dates.Fr, Times.PM_4, 6, 7),
+                new Showtime(Dates.Fr, Times.PM_6_30, 6, 9),
+                new Showtime(Dates.Sa, Times.PM_3, 8, 8),
+                new Showtime(Dates.Sa, Times.PM_4_30, 7, 7),
+                new Showtime(Dates.Sa, Times.PM_5, 8, 9),
+                new Showtime(Dates.So, Times.PM_3, 7, 9),
+                new Showtime(Dates.So, Times.PM_5_30, 7, 8)
             }),
             new Movie("Abduction 2", Genres.Thriller, FSKs.FSK_12, new Showtime[] {
-                new Showtime(Dates.Sa, Times.PM_9_30, 5, 8), // TODO these times should be sortet
-                new Showtime(Dates.Sa, Times.PM_7, 7, 6),
-                new Showtime(Dates.Sa, Times.PM_5_30, 5, 3),
+                new Showtime(Dates.Mi, Times.PM_7, 6, 7),
+                new Showtime(Dates.Fr, Times.PM_8_30, 6, 7),
+                new Showtime(Dates.Sa, Times.PM_5, 8, 8),
+                new Showtime(Dates.Sa, Times.PM_7_30, 6, 6),
+                new Showtime(Dates.So, Times.PM_7, 6, 8)
             }),
-            new Movie("Wintertime", Genres.Familie, FSKs.FSK_16, new Showtime[] {
-                new Showtime(Dates.Mo, Times.PM_5, 5, 5), // TODO these times should be sortet
-                new Showtime(Dates.Fr, Times.PM_9_30, 7, 5),
-                new Showtime(Dates.Sa, Times.PM_7, 6, 3),
-                new Showtime(Dates.Sa, Times.PM_5, 3, 6),
-                new Showtime(Dates.Sa, Times.PM_6, 5, 3),
+            new Movie("Wintertime", Genres.Familie, FSKs.FSK_6, new Showtime[] {
+                new Showtime(Dates.Mo, Times.PM_5, 9, 7),
+                new Showtime(Dates.Fr, Times.PM_6_30, 7, 8),
+                new Showtime(Dates.So, Times.PM_5, 6, 7),
+                new Showtime(Dates.So, Times.PM_7, 7, 6),
+                new Showtime(Dates.So, Times.PM_7_30, 7, 6)
             }),
             new Movie("Dueness", Genres.Horror, FSKs.FSK_18, new Showtime[] {
-                new Showtime(Dates.Sa, Times.PM_7, 5, 3), // TODO these times should be sortet
-                new Showtime(Dates.Mo, Times.PM_7_30, 5, 6)
+                new Showtime(Dates.Mo, Times.PM_10, 9, 6),
+                new Showtime(Dates.Sa, Times.PM_9_30, 7, 9),
+                new Showtime(Dates.Sa, Times.PM_10, 8, 7)
             }),
             new Movie("The Operator", Genres.Action, FSKs.FSK_16, new Showtime[] {
-                new Showtime(Dates.Sa, Times.PM_5, 3, 5), // TODO these times should be sortet
-                new Showtime(Dates.So, Times.PM_10, 9, 5),
-                new Showtime(Dates.Mo, Times.PM_8_30, 7, 6),
-                new Showtime(Dates.Mo, Times.PM_7_30, 5, 3)
+                new Showtime(Dates.Di, Times.PM_7_30, 7, 6),
+                new Showtime(Dates.Do, Times.PM_8_30, 8, 6),
+                new Showtime(Dates.Fr, Times.PM_5, 5, 6),
+                new Showtime(Dates.Sa, Times.PM_8_30, 9, 9),
+                new Showtime(Dates.Sa, Times.PM_10, 7, 6),
+                new Showtime(Dates.So, Times.PM_7_30, 7, 5)
             }),
             new Movie("Missing Throne", Genres.Western, FSKs.FSK_12, new Showtime[] {
-                new Showtime(Dates.Do, Times.PM_9_30, 5, 5), // TODO these times should be sortet
-                new Showtime(Dates.Sa, Times.PM_5_30, 4, 5)
+                new Showtime(Dates.Mi, Times.PM_6_30, 8, 9),
+                new Showtime(Dates.Mi, Times.PM_8, 7, 7),
+                new Showtime(Dates.Do, Times.PM_5_30, 8, 9),
+                new Showtime(Dates.Do, Times.PM_7, 6, 8),
+                new Showtime(Dates.Sa, Times.PM_8, 7, 9)
             })
         };
         availableMovies.addAll(Arrays.asList(f)); // add array in the list
@@ -114,9 +137,9 @@ public class KinoModel {
         System.out.println("DEBUG: " + "model: Movie set, Movie: " + m); // DEBUG TODO remove
         chosenMovie = m; // set chosen movie
         availableTimes = m.showtimes; // set available times to the times contained in the movie
-        chosenTime = null; // reset chosen time, because new movie got chosen // TODO is this good?
-        chosenSeats = null; // reset chosen seats, because new movie got chosen // TODO is this good?
-        chosenCatering = null; // reset chosen catering, because new movie got chosen // TODO is this good?
+        chosenTime = null; // reset chosen time, because new movie got chosen // TODO is this way of resetting the data fields good?
+        chosenSeats = null; // reset chosen seats, because new movie got chosen
+        chosenCatering = null; // reset chosen catering, because new movie got chosen
     }
 
     /**
@@ -129,8 +152,8 @@ public class KinoModel {
         System.out.println("DEBUG: " + "model: Time set, Time: " + t); // DEBUG TODO remove
         chosenTime = t; // set chosen time
         availableSeats = t.seats; // set available seats to the seats contained in the showtime
-        chosenSeats = null; // reset chosen seats, because new time got chosen // TODO is this good?
-        chosenCatering = null; // reset chosen catering, because new time got chosen // TODO is this good?
+        chosenSeats = null; // reset chosen seats, because new time got chosen // TODO is this way of resetting the data fields good?
+        chosenCatering = null; // reset chosen catering, because new time got chosen
     }
 
     /**
@@ -146,7 +169,7 @@ public class KinoModel {
         for (Seat s : chosenSeats) { // check every seat
             if (s instanceof CarSeat) carSeatCount++; // if seat is an instance of CarSeat increase the counter
         }
-        chosenCatering = null; // reset chosen catering, because new seats got chosen // TODO is this good?
+        chosenCatering = null; // reset chosen catering, because new seats got chosen // TODO is this way of resetting the data fields good?
     }
 
     /**

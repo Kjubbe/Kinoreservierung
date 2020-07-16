@@ -61,6 +61,7 @@ public class SeatingTab extends Tab {
 
         licensePlatePanel = new JPanel(); // new panel, holds JTextFields for license plates
         licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS));
+        licensePlatePanel.setBorder(new EmptyBorder(0, 0, 15, 0));
         tfs = new ArrayList<>(); // new List for the JTextFields
 
         JPanel screenPanel = new JPanel(new FlowLayout());
@@ -72,8 +73,8 @@ public class SeatingTab extends Tab {
         int seatColumnCount = seats[0].length; // amount of columns of seats
 
         cbs = new JCheckBox[seatRowCount][seatColumnCount]; // create JCheckBox array with row- and column count
-        JPanel checkboxPanel = new JPanel(new GridLayout(seatRowCount, seatColumnCount)); // new panel, holds all JCheckBoxes
-        checkboxPanel.setBorder(new EmptyBorder(15, 0, 0, 0));
+        JPanel seatingPanel = new JPanel(new GridLayout(seatRowCount, seatColumnCount)); // new panel, holds all JCheckBoxes
+        seatingPanel.setBorder(topDownBorder);
 
         for (int row = 0; row < seatRowCount; row++) { // every row
             for (int column = 0; column < seatColumnCount; column++) { // checks every column of every row
@@ -100,14 +101,14 @@ public class SeatingTab extends Tab {
                 cbs[row][column] = cb; // add JCheckBox to the array
 
                 // build the panel
-                checkboxPanel.add(putInContainer(cb));
+                seatingPanel.add(putInContainer(cb));
             }
         }
 
         // build the tab
         add(instructionPanel); // instructions first
         add(screenPanel); // screen second
-        add(checkboxPanel); // checkboxes third TODO spacing below checkboxes would be good
+        add(seatingPanel); // checkboxes third TODO spacing below checkboxes would be good
         add(licensePlatePanel); // license plate textfields second last
         add(buttonPanel); // buttons last
     }

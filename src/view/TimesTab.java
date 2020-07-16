@@ -41,8 +41,9 @@ public class TimesTab extends Tab {
         System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
-        JPanel radioButtonPanel = new JPanel(); // new panel, holds JRadioButtons
-        radioButtonPanel.setLayout(new BoxLayout(radioButtonPanel, BoxLayout.Y_AXIS)); // set layout for the panel
+        JPanel timesPanel = new JPanel(); // new panel, holds JRadioButtons
+        timesPanel.setLayout(new BoxLayout(timesPanel, BoxLayout.Y_AXIS)); // set layout for the panel
+        timesPanel.setBorder(topDownBorder);
         ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
 
         Showtime[] times = model.availableTimes; // get the available showtimes from the model
@@ -55,12 +56,12 @@ public class TimesTab extends Tab {
             rbs[i] = rb; // add JRadioButton to the list
 
             // build the panel
-            radioButtonPanel.add(putInContainer(rb));
+            timesPanel.add(putInContainer(rb));
         }
 
         // build the tab
         add(instructionPanel); // instructions first
-        add(radioButtonPanel); // radio buttons in the middle
+        add(timesPanel); // radio buttons in the middle
         add(buttonPanel); // buttons last
     }
 

@@ -30,6 +30,8 @@ public abstract class Tab extends JPanel {
     protected JPanel instructionPanel = new JPanel(); // panel for JLabel for displaying instruction text
     protected JPanel buttonPanel = new JPanel(); // panel for all three JButtons
 
+    protected EmptyBorder topDownBorder = new EmptyBorder(15, 0, 15, 0);
+
     public final JButton backButton; // back
     public final JButton quitButton; // quit
     public final JButton proceedButton; // proceed
@@ -78,7 +80,7 @@ public abstract class Tab extends JPanel {
      * disables button to proceed
      * this method should be called before building a tab (again)
      */
-    protected void reset() {
+    public void reset() {
         System.out.println("DEBUG: " + "parent-tab: resetting tab..."); // DEBUG TODO remove this
         removeAll(); // removes all components from the tab
         proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed

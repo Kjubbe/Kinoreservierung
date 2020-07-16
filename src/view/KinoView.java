@@ -132,7 +132,7 @@ public class KinoView {
         tabbedPane.setSelectedIndex(index); // set tab as selected
         tabbedPane.setEnabledAt(index, true); // enable tab
         disableFollowingTabs(index); // disable all following tabs
-        frame.pack(); // TODO this is not working as intended, because the frame is packed over all tabs not just the active one. solution? dont know
+        frame.pack();
     }
 
     /**
@@ -157,7 +157,7 @@ public class KinoView {
         tabs[activeTab].update(); // force this tab to update
         priceDisplay.setText(Vocabulary.priceLabel + ": " + model.calculatePrice() + Vocabulary.currency); // update the price TODO this needs to be reset after finshing the order
         disableFollowingTabs(activeTab); // disable all following tabs
-        frame.pack(); // TODO this is not working as intended, because the frame is packed over all tabs not just the active one. solution? dont know
+        frame.pack(); // TODO this is not that good?
     }
 
     /**
@@ -172,6 +172,9 @@ public class KinoView {
         dialog.add(new JLabel("Ihre Reservierung war erfolgreich"));  // TODO change to vocab
         dialog.setVisible(true);
         dialog.pack();
+        for (Tab t : tabs) {
+            t.reset(); // reset all tabs // TODO is this good?
+        }
         switchTabTo(0); // switch back to the first tab
     }
 }
