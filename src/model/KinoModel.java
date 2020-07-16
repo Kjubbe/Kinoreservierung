@@ -205,7 +205,7 @@ public class KinoModel {
      * resets all user input
      */
     public void reset() {
-        System.out.println("DEBUG: " + "model: Input reset"); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "model: resetting input..."); // DEBUG TODO remove this
         chosenMovie = null;
         availableTimes = null;
         chosenTime = null;
@@ -220,11 +220,11 @@ public class KinoModel {
      */
     public void order() {
         for (Seat s : chosenSeats) {
+            System.out.println("DEBUG: model: reserved seat " + s); // DEBUG TODO remove this
             s.isReserved = true;
         }
         orders.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering));
-        
+        System.out.println("\n" + "DEBUG: model: All orders are: \n" + orders + "\n"); // DEBUG TODO remove this
         reset();
-        System.out.println("DEBUG: model: " + orders); // DEBUG TODO remove this
     }
 }

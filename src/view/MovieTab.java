@@ -62,7 +62,7 @@ public class MovieTab extends Tab {
 
         // build the tab
         add(instructionPanel); // instructions first
-        add(moviePanel); // movie dropdown in the middle TODO better spacing above and below the dropdown
+        add(moviePanel); // movie dropdown in the middle
         add(buttonPanel); // buttons last
     }
 

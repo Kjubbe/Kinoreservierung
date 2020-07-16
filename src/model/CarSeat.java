@@ -12,8 +12,8 @@ import model.enums.*;
 public class CarSeat extends Seat {
 
     // Data fields
-    private static final String pkwTooltip = Vocabulary.pkwTooltip;
-    private static final String suvTooltip = Vocabulary.suvTooltip;
+    private static final String pkwTooltip = Vocabulary.PKW_TOOLTIP;
+    private static final String suvTooltip = Vocabulary.SUV_TOOLTIP;
     public final boolean isForSUV;
     private String licensePlateNr = null; // holds license plate number TODO add logic to add this
 

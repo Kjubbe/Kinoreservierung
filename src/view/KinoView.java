@@ -27,11 +27,11 @@ public class KinoView {
     private KinoController ctrl = new KinoController(this, model);
 
     // Create frame and tabbed Pane
-    private JFrame frame = new JFrame(Vocabulary.frameName);
+    private JFrame frame = new JFrame(Vocabulary.FRAME_NAME);
     private JTabbedPane tabbedPane = new JTabbedPane(); // tabbed pane manages tabs
 
     private JPanel pricePanel = new JPanel(); // this panel holds the price
-    private JTextField priceDisplay = new JTextField(Vocabulary.priceLabel + ": " + 0.0 + Vocabulary.currency); // JTextField for displaying the price
+    private JTextField priceDisplay = new JTextField(Vocabulary.PRICE_LABEL + ": " + 0.0 + Vocabulary.CURRENCY); // JTextField for displaying the price
     
     // This array holds tabs
     public final Tab[] tabs = 
@@ -61,11 +61,11 @@ public class KinoView {
             String name = null;
             Tab tab = null;
             try {
-                name = Vocabulary.tabNames[i]; // *try* to get the name for the tab
+                name = Vocabulary.TAB_NAMES[i]; // *try* to get the name for the tab
                 tab = tabs[i]; // get the tab from the array
                 addTab(name, tab); // add the tab
             } catch (Exception ex) { // there is no name for the tab set
-                if (name == null) addTab(Vocabulary.defaultTabName + i, tabs[i]); // add the tab either way, just with the default name
+                if (name == null) addTab(Vocabulary.DEFAULT_TAB_NAME + i, tabs[i]); // add the tab either way, just with the default name
             }
         }
 
@@ -152,10 +152,10 @@ public class KinoView {
      * forces an update on the active tab aswell
      */
     public void update() {
-        System.out.println("DEBUG: " + "view: view updated"); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "view: forcing update..."); // DEBUG TODO remove this
         int activeTab = tabbedPane.getSelectedIndex(); // get index of selected tab
         tabs[activeTab].update(); // force this tab to update
-        priceDisplay.setText(Vocabulary.priceLabel + ": " + model.calculatePrice() + Vocabulary.currency); // update the price TODO this needs to be reset after finshing the order
+        priceDisplay.setText(Vocabulary.PRICE_LABEL + ": " + model.calculatePrice() + Vocabulary.CURRENCY); // update the price
         disableFollowingTabs(activeTab); // disable all following tabs
         frame.pack(); // TODO this is not that good?
     }
@@ -166,10 +166,10 @@ public class KinoView {
      * TODO this needs work!
      */
     public void finish() {
-        System.out.println("DEBUG: " + "view: success"); // DEBUG TODO remove this
-        JDialog dialog = new JDialog(frame, Vocabulary.dialogName); // create dialog
+        System.out.println("DEBUG: " + "view: showing dialog"); // DEBUG TODO remove this
+        JDialog dialog = new JDialog(frame, Vocabulary.DIALOG_NAME); // create dialog
         dialog.setLocationRelativeTo(frame);
-        dialog.add(new JLabel("Ihre Reservierung war erfolgreich"));  // TODO change to vocab
+        dialog.add(new JLabel(Vocabulary.FINISH_MSG));
         dialog.setVisible(true);
         dialog.pack();
         for (Tab t : tabs) {

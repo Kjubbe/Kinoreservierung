@@ -37,13 +37,13 @@ public class Order {
      */
     @Override
     public String toString() {
-        String moviePrint = Vocabulary.movieLabel + ": " + movie;
-        String timePrint = Vocabulary.timeLabel + ": " + time;
-        String seatPrint = Vocabulary.seatsLabel + ": ";
+        String moviePrint = Vocabulary.MOVIE_LABEL + ": " + movie;
+        String timePrint = Vocabulary.TIME_LABEL + ": " + time;
+        String seatPrint = Vocabulary.SEATS_LABEL + ": ";
         for (Seat s : seats) { // go through every seat
             seatPrint += s.toString() + ", "; // add all seats to the print
         }
-        String cateringPrint = Vocabulary.cateringLabel + ": " + caterings; // TODO this must be better
-        return moviePrint + "\n" + timePrint + "\n" + seatPrint.substring(0, seatPrint.length() - 2) + "\n" + cateringPrint;
+        String cateringPrint = Vocabulary.CATERING_LABEL + ": " + caterings; // TODO this must be better
+        return "\n" + moviePrint + "\n" + timePrint + "\n" + seatPrint.substring(0, seatPrint.length() - 2) + "\n" + cateringPrint + "\n"; // TODO change this
     }
 }

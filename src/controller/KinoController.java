@@ -46,9 +46,9 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG TODO remove
         Object source = e.getSource();
         if (source instanceof JButton) { // source from JButton > source is either back-, quit or proceedbutton
-            System.out.println("DEBUG: " + "ctrl: button pressed..."); // DEBUG TODO remove
             for (int i = 0; i < view.tabs.length; i++) { // check every tab for input
                 Tab t = view.tabs[i];
                 if (source == t.backButton) // source is back button
@@ -64,10 +64,8 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
                     }
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
-            System.out.println("DEBUG: " + "ctrl: radio-button pressed..."); // DEBUG TODO remove
             timeChanged();
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
-            System.out.println("DEBUG: " + "ctrl: checkbox clicked..."); // DEBUG TODO remove
             seatChanged();
         }
     }
@@ -78,6 +76,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
+        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG TODO remove
         movieChanged(); // source is from JComboBox > source from movie tab
     }
 
@@ -87,7 +86,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println("DEBUG: " + "ctrl: key typed..."); // DEBUG TODO remove
+        System.out.println("\n" + "DEBUG: " + "ctrl: key type registered..."); // DEBUG TODO remove
         view.update(); // source is from JTextField > source from seat tab
     }
 
@@ -97,6 +96,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void stateChanged(ChangeEvent e) {
+        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG TODO remove
         cateringChanged(); // source is from JSpinner > source from catering tab
     }
 
@@ -105,9 +105,9 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * invoked by pressing the JButton for exiting
      */
     public void quit() {
-        System.out.println("DEBUG: " + "quitting..."); // DEBUG TODO remove this
+        System.out.println("\n" + "DEBUG: " + "quitting..."); // DEBUG TODO remove this
         model.reset();
-        System.exit(0); // terminate the program
+        System.exit(0); // terminate the program TODO is this
     }
 
     /**

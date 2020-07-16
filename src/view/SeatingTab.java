@@ -88,7 +88,7 @@ public class SeatingTab extends Tab {
                 if (currentSeat.isReserved) {
                     color = lightRed; // if seat is reserved the color is set to light red
                     cb.setEnabled(false); // disable the checkbox
-                    cb.setToolTipText(Vocabulary.reservedTooltip); // new tooltip
+                    cb.setToolTipText(Vocabulary.RESERVED_TOOLTIP); // new tooltip
                 }
                 else if (currentSeat.isVip) color = Color.ORANGE; // else if the seat is for vip the color is set to orange TODO other way to differentiate between vip beach chairs and vip car seats? they look the same
                 else if (currentSeat instanceof BeachChairSeat) color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
@@ -108,7 +108,7 @@ public class SeatingTab extends Tab {
         // build the tab
         add(instructionPanel); // instructions first
         add(screenPanel); // screen second
-        add(seatingPanel); // checkboxes third TODO spacing below checkboxes would be good
+        add(seatingPanel); // checkboxes third
         add(licensePlatePanel); // license plate textfields second last
         add(buttonPanel); // buttons last
     }
@@ -173,7 +173,7 @@ public class SeatingTab extends Tab {
                 tfs.add(tf); // add JTextField to the list
 
                 JPanel container = new JPanel(new FlowLayout()); // new container, holds one JLabel and one JTextField
-                container.add(new JLabel(Vocabulary.licensePlateLabel + ":")); // add new JLabel with the text from the model
+                container.add(new JLabel(Vocabulary.LICENSE_PLATE_LABEL + ":")); // add new JLabel with the text from the model
                 container.add(tf); // add the JTextField
                 licensePlatePanel.add(container); // add the container to the panel
 

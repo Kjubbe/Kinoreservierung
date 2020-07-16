@@ -47,21 +47,21 @@ public abstract class Tab extends JPanel {
         this.ctrl = ctrl;
 
         try {
-            instructionPanel.add(new JLabel(Vocabulary.instructions[index])); // try to add instructions from the model
+            instructionPanel.add(new JLabel(Vocabulary.INSTRUCTION_TEXTS[index])); // try to add instructions from the model
         } catch (Exception e) { // no instructions at the specified index
             System.out.println("No message set"); // do not add a label
         }
 
         // back button
-        backButton = new JButton(Vocabulary.backButtonLabel); // set the label to the String from the model
+        backButton = new JButton(Vocabulary.BACK_BUTTON_LABEL); // set the label to the String from the model
         backButton.addActionListener(ctrl); // add listener
 
         // quit button
-        quitButton = new JButton(Vocabulary.quitButtonLabel); // set the label to the String from the model
+        quitButton = new JButton(Vocabulary.QUIT_BUTTON_LABEL); // set the label to the String from the model
         quitButton.addActionListener(ctrl); // add listener
 
         // proceed button
-        proceedButton = new JButton(Vocabulary.proceedButtonLabel); // set the label to the String from the model
+        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON_LABEL); // set the label to the String from the model
         proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
         proceedButton.addActionListener(ctrl); // add listener
 
@@ -81,7 +81,7 @@ public abstract class Tab extends JPanel {
      * this method should be called before building a tab (again)
      */
     public void reset() {
-        System.out.println("DEBUG: " + "parent-tab: resetting tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: resetting tab..."); // DEBUG TODO remove this
         removeAll(); // removes all components from the tab
         proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
     }

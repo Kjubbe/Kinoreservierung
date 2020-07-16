@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import controller.*;
 import model.*;
@@ -17,7 +18,7 @@ import model.*;
 public class StartTab extends Tab {
 
     // label
-    private JLabel label = new JLabel("Bitte fahren Sie fort, um mit der Reservierung zu beginnen"); // TODO put in vocab, maybe change it?
+    private JLabel label = new JLabel(Vocabulary.START_MSG);
 
     /**
      * constructor, calls super constructor
@@ -38,13 +39,16 @@ public class StartTab extends Tab {
         System.out.println("DEBUG: " + "tab: building start tab..."); // DEBUG TODO remove this
         reset(); // reset before building to avoid duplications
 
+        JPanel messagePanel = putInContainer(label);
+        messagePanel.setBorder(topDownBorder);
+
         // build the tab
         add(instructionPanel); // instructions first
-        add(putInContainer(label)); // JLabel with text in the middle TODO this label should have some spacing above and below
+        add(messagePanel); // JLabel with text in the middle
         add(buttonPanel); // buttons last
 
         backButton.setEnabled(false); // cant go back on the first panel
-        quitButton.setText(Vocabulary.exitButtonLabel); // this button has a different label
+        quitButton.setText(Vocabulary.EXIT_BUTTON_LABEL); // this button has a different label
         proceedButton.setEnabled(true); // proceed button is enabled by default, because the user does not have to do anything to be able to proceed
     }
 

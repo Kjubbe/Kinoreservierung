@@ -25,7 +25,7 @@ public class Seat {
     public Seat(Prices price, boolean isVip, String tooltip) {
         this.price = price.getPrice();
         this.isVip = isVip;
-        if (isVip) this.tooltip += Vocabulary.vipTooltip + " "; // update tooltip to give more information when seat is vip
+        if (isVip) this.tooltip += Vocabulary.VIP_TOOLTIP + " "; // update tooltip to give more information when seat is vip
         this.tooltip += tooltip;
     }
 

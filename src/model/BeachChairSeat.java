@@ -12,7 +12,7 @@ import model.enums.*;
 public class BeachChairSeat extends Seat {
 
     // Data fields
-    private static final String name = Vocabulary.beachChairTooltip;
+    private static final String name = Vocabulary.BEACH_CHAIR_TOOLTIP;
     private String ticketNr = null; // holds ticket number TODO add logic to add this
 
     /**

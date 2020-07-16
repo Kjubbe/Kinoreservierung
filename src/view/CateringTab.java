@@ -59,7 +59,7 @@ public class CateringTab extends Tab {
 
             // build the panel
             cateringPanel.add(putInContainer(spinner));
-            cateringPanel.add(putInContainer(new JLabel(c.toString() + "(" + c.price + Vocabulary.currency + ")")));
+            cateringPanel.add(putInContainer(new JLabel(c.toString() + " (" + c.price + Vocabulary.CURRENCY + ")")));
         }
 
         // build the tab
