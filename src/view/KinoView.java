@@ -57,7 +57,7 @@ public class KinoView {
      * invoked when creating the view, builds the frame, the panel for the price and tabs
      */
     private void setup() {
-        System.out.println("DEBUG: " + "view: setting up view"); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "view: setting up view"); // DEBUG
         // part 1: preparing tabs
         for (int i = 0; i < tabs.length; i++) { // go through the tabs
             String name = null;
@@ -73,7 +73,6 @@ public class KinoView {
 
         // part 2: build the tab
         switchTabTo(0); // switch to the first tab
-        // update(); // force an update // TODO REENABLE
 
         // part 3: adjust the price panel
         priceDisplay.setEditable(false);
@@ -98,7 +97,7 @@ public class KinoView {
      * @param tab tab for this tabbedPane
      */
     private void addTab(String title, Tab tab) {
-        System.out.println("DEBUG: " + "view: added tab " + title); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "view: added tab " + title); // DEBUG
         tabbedPane.addTab(title, new JScrollPane(tab)); // put the tab in a JScrollPane and add it to the tab
         tabbedPane.setEnabledAt(tabbedPane.getTabCount() - 1, false); // disable the added tab
     }
@@ -108,7 +107,7 @@ public class KinoView {
      * changes the active tab to the following tab
      */
     public void proceed() {
-        System.out.println("DEBUG: " + "view: proceeded"); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "view: proceeded"); // DEBUG
         int activeTab = tabbedPane.getSelectedIndex(); // get index of the selected tab
         switchTabTo(activeTab + 1); // switch tab to index + 1
     }
@@ -118,7 +117,7 @@ public class KinoView {
      * changes the active tab to the previous tab
      */
     public void goBack() {
-        System.out.println("DEBUG: " + "view: gone back"); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "view: gone back"); // DEBUG
         int activeTab = tabbedPane.getSelectedIndex(); // get index of the selected tab
         tabbedPane.setSelectedIndex(activeTab - 1); // set the previous tab as the selected tab
     }
@@ -129,7 +128,7 @@ public class KinoView {
      * @param index
      */
     private void switchTabTo(int index) {
-        System.out.println("DEBUG: " + "view: switched tab to index " + index); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "view: switched tab to index " + index); // DEBUG
         try {
             tabs[index].build(); // call the build function of the tab
         } catch (NullPointerException ex) {
@@ -147,7 +146,7 @@ public class KinoView {
      * @param index index of the tab of which all following tabs should be disabled
      */
     private void disableFollowingTabs(int index) {
-        System.out.println("DEBUG: " + "view: disabling following tabs from " + index); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "view: disabling following tabs from " + index); // DEBUG
         for (int i = index + 1; i < tabbedPane.getTabCount(); i++) { // go through all tabs following the tab at index
             tabbedPane.setEnabledAt(i, false); // disable the tab
         }
@@ -159,24 +158,24 @@ public class KinoView {
      * forces an update on the active tab aswell
      */
     public void update() {
-        System.out.println("DEBUG: " + "view: forcing update..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "view: forcing update..."); // DEBUG
         int activeTab = tabbedPane.getSelectedIndex(); // get index of selected tab
         tabs[activeTab].update(); // force this tab to update
         priceDisplay.setText(Vocabulary.PRICE_LABEL + ": " + model.calculatePrice() + Vocabulary.CURRENCY); // update the price
         disableFollowingTabs(activeTab); // disable all following tabs
-        frame.pack(); // TODO this is not that good?
+        frame.pack(); // FIXME the frame packing is not that good, because it "resets" the window (especially noticable when changing the size of the window)
     }
 
     /**
      * invoked from the controller when finishing the order
      * shows dialog for feedback
-     * TODO this needs work!
+     * TODO the finishing dialog should contain more information (and maybe a picture?)
      */
     public void finish() {
-        System.out.println("DEBUG: " + "view: showing dialog"); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "view: showing dialog"); // DEBUG
         createDialog(Vocabulary.FINISH_DIALOG_NAME, Vocabulary.FINISH_MSG);
         for (Tab t : tabs) {
-            t.reset(); // reset all tabs // TODO is this good?
+            t.reset(); // reset all tabs // FIXME maybe find a better way to reset the tabs? they are reset here, because that solves the problem, that the frame is packed over all tabs
         }
         switchTabTo(0); // switch back to the first tab
     }
@@ -191,7 +190,7 @@ public class KinoView {
         JDialog dialog = new JDialog(frame, title); // create dialog
         dialog.setLocationRelativeTo(frame);
         JPanel panel = new JPanel();
-        panel.setBorder(new EmptyBorder(15, 15, 15, 15));
+        panel.setBorder(new EmptyBorder(5, 5, 5, 5));
         panel.add(new JLabel(content));
         dialog.add(panel);
         dialog.setVisible(true);

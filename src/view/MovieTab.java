@@ -42,7 +42,7 @@ public class MovieTab extends Tab {
      */
     @Override
     protected void build() throws NullPointerException {
-        System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
         description = new JLabel(); // new JLabel for the description
@@ -54,7 +54,7 @@ public class MovieTab extends Tab {
             if (m != null) dropdown.addItem(m); // add movie in the dropdown
         }
         dropdown.setSelectedItem(null); // no selected movie
-        dropdown.addItemListener(ctrl); // add listener TODO this calls twice? look at the debugs when changing a movie multiple times
+        dropdown.addItemListener(ctrl); // add listener FIXME this calls twice? no idea why... look at the debugs when changing a movie multiple times
 
         // build the panel
         moviePanel.add(dropdown);
@@ -73,7 +73,7 @@ public class MovieTab extends Tab {
      */
     @Override
     protected void update() {
-        System.out.println("DEBUG: " + "tab: updating movie tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: updating movie tab..."); // DEBUG
         if (dropdown.getSelectedItem() != null) { // check if a film is selected
             proceedButton.setEnabled(true);
             description.setText(model.chosenMovie.getDescription()); // set JLabel for description to display the description of the movie

@@ -17,10 +17,10 @@ import model.*;
  */
 
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
-public class TimesTab extends Tab {
+public class TimesTab extends Tab { // TODO maybe add a table or list to choose from? (overkill!)
 
     // Array of all radiobuttons on the tab
-    private JRadioButton[] rbs; // TODO is there a better way? just pull all rbs from the panel mb?
+    private JRadioButton[] rbs; // FIXME is there a better way? just pull all rbs from the panel mb?
 
     /**
      * constructor, calls super constructor
@@ -38,7 +38,7 @@ public class TimesTab extends Tab {
      */
     @Override
     protected void build() throws NullPointerException {
-        System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
         JPanel timesPanel = new JPanel(); // new panel, holds JRadioButtons
@@ -82,7 +82,7 @@ public class TimesTab extends Tab {
      */
     @Override
     protected void update() {
-        System.out.println("DEBUG: " + "tab: updating times tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: updating times tab..."); // DEBUG
         for (JRadioButton b : rbs) { // check every JRadioButton
             if (b != null && b.isSelected()) { // check if the JRadioButton is selected
                 proceedButton.setEnabled(true);

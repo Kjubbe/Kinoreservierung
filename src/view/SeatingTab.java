@@ -28,8 +28,8 @@ import model.*;
 public class SeatingTab extends Tab {
 
     // Components
-    private JCheckBox[][] cbs; // TODO is there a better way? just pull all cbs from the panel mb? -> here its complicated bc two dimensional array
-    private ArrayList<JTextField> tfs; // TODO is there a better way? just pull all tfs from the panel mb?
+    private JCheckBox[][] cbs; // FIXME is there a better way? just pull all cbs from the panel mb? -> here its complicated bc two dimensional array
+    private ArrayList<JTextField> tfs; // FIXME is there a better way? just pull all tfs from the panel mb?
     private JPanel licensePlatePanel;
     private JLabel screenLabel = new JLabel("Leinwand");
 
@@ -54,7 +54,7 @@ public class SeatingTab extends Tab {
      */
     @Override
     protected void build() throws NullPointerException {
-        System.out.println("DEBUG: " + "tab: building seating tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: building seating tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
         instructionPanel.setBorder(new EmptyBorder(0, 0, 15, 0));
@@ -92,7 +92,7 @@ public class SeatingTab extends Tab {
                     cb.setEnabled(false); // disable the checkbox
                     cb.setToolTipText(Vocabulary.RESERVED_TOOLTIP); // new tooltip
                 }
-                else if (currentSeat.isVip) color = Color.ORANGE; // else if the seat is for vip the color is set to orange TODO other way to differentiate between vip beach chairs and vip car seats? they look the same
+                else if (currentSeat.isVip) color = Color.ORANGE; // else if the seat is for vip the color is set to orange FIXME other way to differentiate between vip beach chairs and vip car seats? they look the same
                 else if (currentSeat instanceof BeachChairSeat) color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
                 else if (currentSeat instanceof CarSeat) { // else if the seat is a CarSeat
                    if (((CarSeat)currentSeat).isForSUV) color = lightBlue; // if the CarSeat is for suv the color is set to light blue
@@ -110,7 +110,7 @@ public class SeatingTab extends Tab {
         // build the tab
         add(instructionPanel); // instructions first
         add(screenPanel); // screen second
-        add(seatingPanel); // checkboxes third
+        add(seatingPanel); // checkboxes third // TODO there should be a text popping up when u need to type in license plates to tell you, that you need to type them in, you know?
         add(licensePlatePanel); // license plate textfields second last
         add(buttonPanel); // buttons last
     }
@@ -122,7 +122,7 @@ public class SeatingTab extends Tab {
      */
     @Override
     protected void update() {
-        System.out.println("DEBUG: " + "tab: updating seating tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: updating seating tab..."); // DEBUG
         changeTextFields(model.carSeatCount); // update amount of textfields
 
         // condition 1: at least one checkbox must be selected
@@ -161,15 +161,14 @@ public class SeatingTab extends Tab {
      * manages amount of JTextFields
      * removes JTextFields when there are too many (more than needed)
      * adds JTextFields when there are some missing (less than needed)
-     * TODO: move this to the model ?
      */
-    private void changeTextFields(int targetCount) {
-        System.out.println("DEBUG: " + "seat-tab: changing textfields..."); // DEBUG TODO remove this
+    private void changeTextFields(int targetCount) { // FIXME: move this to the model, actually no.. im not sure????
+        System.out.println("DEBUG: " + "seat-tab: changing textfields..."); // DEBUG
         while (tfs.size() != targetCount) { // loop till amount of needed JTextFields is achieved
             
             // possibility 1
             if (tfs.size() < targetCount) { // there are less JCheckBoxes than needed
-                System.out.println("DEBUG: " + "seat-tab: adding textfield..."); // DEBUG TODO remove this
+                System.out.println("DEBUG: " + "seat-tab: adding textfield..."); // DEBUG
                 JTextField tf = new JTextField(7); // create a new JTextField
                 tf.addKeyListener(ctrl); // add listener
                 tfs.add(tf); // add JTextField to the list
@@ -182,7 +181,7 @@ public class SeatingTab extends Tab {
             }
             // possibility 2
             else { // there are more JCheckBoxes than needed
-                System.out.println("DEBUG: " + "seat-tab: removing textfield..."); // DEBUG TODO remove this
+                System.out.println("DEBUG: " + "seat-tab: removing textfield..."); // DEBUG
                 tfs.remove(tfs.size() - 1); // remove the last JTextField from the list
                 licensePlatePanel.remove(licensePlatePanel.getComponentCount() - 1); // remove the last JTextField from the panel
             }
@@ -195,7 +194,7 @@ public class SeatingTab extends Tab {
      * @return if the input suffices
      */
     private boolean checkInput(JTextField tf) {
-        System.out.println("DEBUG: " + "seat-tab: checking input..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "seat-tab: checking input..."); // DEBUG
         String text = tf.getText().replaceAll("\\s+", ""); // get text from the JTextField and remove all whitespaces
         return text.length() >= 4 && text.length() <= 8; // input only suffices if the length of the text is greater than 4 and less than 8
     }

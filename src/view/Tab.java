@@ -61,7 +61,7 @@ public abstract class Tab extends JPanel {
         quitButton.addActionListener(ctrl); // add listener
 
         // proceed button
-        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON_LABEL); // set the label to the String from the model // TODO maybe add indicators on each tab on what to do to proceed, in most cases this is redundant
+        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON_LABEL); // set the label to the String from the model // TODO maybe add indicators on each tab on what to do to proceed, but in most cases this is redundant
         proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
         proceedButton.addActionListener(ctrl); // add listener
 
@@ -81,7 +81,7 @@ public abstract class Tab extends JPanel {
      * this method should be called before building a tab (again)
      */
     public void reset() {
-        System.out.println("DEBUG: " + "tab: resetting tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: resetting tab..."); // DEBUG
         removeAll(); // removes all components from the tab
         proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
     }

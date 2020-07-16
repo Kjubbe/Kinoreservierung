@@ -46,7 +46,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG TODO remove
+        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
         Object source = e.getSource();
         if (source instanceof JButton) { // source from JButton > source is either back-, quit or proceedbutton
             for (int i = 0; i < view.tabs.length; i++) { // check every tab for input
@@ -56,9 +56,11 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
                 else if (source == t.quitButton) // source is quit button
                     model.quit();
                 else if (source == t.proceedButton) // source is proceed button
-                    if (i != view.tabs.length - 1) view.proceed(); // TODO maybe change this logic?
+                    if (i != view.tabs.length - 1) view.proceed(); // FIXME it proceeds, unless its the LAST tab, then it finishes. maybe add logic in the tabs to define which is the last? (maybe overkill)
                     else {  
-                        view.finish(); // TODO this is not really needed, UNLESS you want to display information in the dialog
+                        // FIXME change this logic: the view needs to finish, then the model gets the order and resets the data fields. then the view updates, because the price needs to reset
+                        // if you update the view BEFORE giving the order to the model the price does not reset. solution?
+                        view.finish();
                         model.order();
                         view.update();
                     }
@@ -76,7 +78,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
-        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG TODO remove
+        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
         movieChanged(); // source is from JComboBox > source from movie tab
     }
 
@@ -86,7 +88,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println("\n" + "DEBUG: " + "ctrl: key type registered..."); // DEBUG TODO remove
+        System.out.println("\n" + "DEBUG: " + "ctrl: key type registered..."); // DEBUG
         view.update(); // source is from JTextField > source from seat tab
     }
 
@@ -96,7 +98,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void stateChanged(ChangeEvent e) {
-        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG TODO remove
+        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
         cateringChanged(); // source is from JSpinner > source from catering tab
     }
 
@@ -106,7 +108,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      */
     private void movieChanged() {
-        System.out.println("DEBUG: " + "ctrl: Movie chosen"); // DEBUG TODO remove
+        System.out.println("DEBUG: " + "ctrl: Movie chosen"); // DEBUG
         MovieTab tab = (MovieTab) view.tabs[1]; // get reference to the movie tab from the view
         Movie movie = (Movie) tab.getDropdown().getSelectedItem(); // get the selected movie from the JComboBox
         if (movie != null) { // check if an actual movie is selected
@@ -121,7 +123,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      */
     private void timeChanged() {
-        System.out.println("DEBUG: " + "ctrl: Time chosen"); // DEBUG TODO remove
+        System.out.println("DEBUG: " + "ctrl: Time chosen"); // DEBUG
         TimesTab tab = (TimesTab) view.tabs[2]; // get reference to the times tab from the view
         JRadioButton[] rbs = tab.getRadioButtons(); // get reference to the JRadioButtons from the tab
         for (int i = 0; i < rbs.length; i++) { // check every JRadioButton
@@ -140,7 +142,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      */
     private void seatChanged() {
-        System.out.println("DEBUG: " + "ctrl: Seat chosen"); // DEBUG TODO remove
+        System.out.println("DEBUG: " + "ctrl: Seat chosen"); // DEBUG
         SeatingTab tab = (SeatingTab) view.tabs[3]; // get reference to the seating tab from the view
         JCheckBox[][] cbs = tab.getCheckBoxes(); // get reference to all JCheckBoxes from the tab
         int rowCount = cbs.length; // amount of rows of JCheckBoxes
@@ -166,7 +168,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      */
     private void cateringChanged() {
-        System.out.println("DEBUG: " + "ctrl: Catering chosen"); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "ctrl: Catering chosen"); // DEBUG
         CateringTab tab = (CateringTab) view.tabs[4]; // get reference to the catering tab from the view
         List<SpinnerNumberModel> spinnerModels = tab.getSpinnerModels(); // get reference to all SpinnerNumberModels from the view
 

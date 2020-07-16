@@ -36,7 +36,7 @@ public class StartTab extends Tab {
      */
     @Override
     protected void build() throws NullPointerException {
-        System.out.println("DEBUG: " + "tab: building start tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: building start tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
         JPanel messagePanel = putInContainer(label);

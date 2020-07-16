@@ -8,14 +8,14 @@ import model.enums.*;
  * @author Marcel Sauer
  */
 
-public class Showtime {
+public class Showtime { // TODO maybe add not only weekdays but dates aswell? (overkill!)
     
     // Data fields
     private Dates date;
     private Times time;
     private boolean isSoldOut = false; // if the showtime is sold out
 
-    public final Seat[][] seats; // contains all available seats for this showtime // TODO is this final correct?  
+    public final Seat[][] seats; // contains all available seats for this showtime FIXME is this final correct? because the seats cant be changed if the showtime was created and that may be an issue?
     
     /**
      * constructor, assigns data fields

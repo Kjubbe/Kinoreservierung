@@ -36,7 +36,7 @@ public class SummaryTab extends Tab {
      */
     @Override
     protected void build() throws NullPointerException {
-        System.out.println("DEBUG: " + "tab: building summary tab..."); // DEBUG TODO remove this
+        System.out.println("DEBUG: " + "tab: building summary tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
         JPanel summaryPanel = new JPanel(); // new panel, holds all JLabels
@@ -49,15 +49,15 @@ public class SummaryTab extends Tab {
         // part 2: the time
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.TIME_LABEL + ": " + model.chosenTime))); // get chosen time from model
 
-        // part 3: the seats // TODO move this to the model
+        // part 3: the seats // FIXME: move this to the model, actually no.. im not sure???? the stringbuilding is kinda part of the UI.. no?
         String seatPrint = "";
         for (Seat s : model.chosenSeats) { // go through every seat
             seatPrint += s.toString() + ", "; // add all seats to the print TODO seat AMOUNT should be shown, not just a list of strings + seat price INDIVIDUALLY and TOTAL
         }
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.SEATS_LABEL + ": " + seatPrint.substring(0, seatPrint.length() - 2)))); // remove last comma
 
-        // part 4: the catering // TODO move this to the model
-        String cateringPrint = Vocabulary.NONE_LABELS[0] + "  "; // TODO this is bad
+        // part 4: the catering // FIXME: move this to the model, actually no.. im not sure???? the stringbuilding is kinda part of the UI.. no?
+        String cateringPrint = Vocabulary.NONE_LABELS[0] + "  "; // FIXME this is bad string formatting and should be simplified please
         if (model.chosenCatering != null) { // check if catering was chosen
             cateringPrint = "";
             for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every catering-value pair
@@ -68,7 +68,7 @@ public class SummaryTab extends Tab {
                 }
                 cateringPrint += (i + "x " + c); // add the catering name and price with their amount to the print
                 if (i != 1) { // check if the catering is not chosen only once
-                    cateringPrint += " für insg. " + c.price.getPrice() * i + Vocabulary.CURRENCY + ", "; // add the sum of the price to the print TODO Math.round + this should also display total of all chosen caterings + add vocab
+                    cateringPrint += " für insg. " + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + ", "; // add the sum of the price to the print TODO this should display total of all chosen caterings
                 } else { // catering is only chosen once
                     cateringPrint += ", "; // no calculations needed
                 }

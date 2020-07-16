@@ -11,9 +11,9 @@ import model.enums.*;
 public class Seat {
     
     // Data fields
-    public boolean isReserved = false; // TODO visibility?
+    public boolean isReserved = false; // TODO check if this kind of visibility is okay?
     private String tooltip = ""; // tooltip for hovering over a seat
-    public final Prices price; // TODO is this final correct?
+    public final Prices price; // FIXME is this final correct? because the price cant be changed if the seat was created and that may be an issue?
     public final boolean isVip;
 
     /**

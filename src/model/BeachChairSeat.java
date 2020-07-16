@@ -13,7 +13,7 @@ public class BeachChairSeat extends Seat {
 
     // Data fields
     private static final String name = Vocabulary.BEACH_CHAIR_TOOLTIP;
-    private String ticketNr = null; // holds ticket number TODO add logic to add this
+    private String ticketNr = null; // holds ticket number TODO add logic to add the ticket number to the seat when an order is made
 
     /**
      * constructor, calls super constructor

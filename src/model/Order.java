@@ -43,7 +43,7 @@ public class Order {
         for (Seat s : seats) { // go through every seat
             seatPrint += s.toString() + ", "; // add all seats to the print
         }
-        String cateringPrint = Vocabulary.CATERING_LABEL + ": " + caterings; // TODO this must be better
-        return "\n" + moviePrint + "\n" + timePrint + "\n" + seatPrint.substring(0, seatPrint.length() - 2) + "\n" + cateringPrint + "\n"; // TODO change this
+        String cateringPrint = Vocabulary.CATERING_LABEL + ": " + caterings; // FIXME this needs some work, like going through the map and printing each catering individually
+        return "\n" + moviePrint + "\n" + timePrint + "\n" + seatPrint.substring(0, seatPrint.length() - 2) + "\n" + cateringPrint + "\n"; // FIXME maybe change the formatting of this?
     }
 }
