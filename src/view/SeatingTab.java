@@ -11,7 +11,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
 import controller.*;
 import model.*;
@@ -28,14 +27,14 @@ import model.*;
 public class SeatingTab extends Tab {
 
     // Components
-    private JCheckBox[][] cbs; // FIXME is there a better way? just pull all cbs from the panel mb? -> here its complicated bc two dimensional array
-    private ArrayList<JTextField> tfs; // FIXME is there a better way? just pull all tfs from the panel mb?
+    private JCheckBox[][] cbs;
+    private ArrayList<JTextField> tfs;
     private JPanel licensePlatePanel;
     private JLabel screenLabel = new JLabel("Leinwand");
 
     // Colors
-    private Color lightGreen = new Color(144, 238, 144);
     private Color lightRed = new Color(255, 100, 100);
+    private Color lightGreen = new Color(144, 238, 144);
     private Color lightBlue = new Color(135, 206, 250);
 
     /**
@@ -57,15 +56,15 @@ public class SeatingTab extends Tab {
         System.out.println("DEBUG: " + "tab: building seating tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        instructionPanel.setBorder(new EmptyBorder(0, 0, 15, 0));
+        instructionPanel.setBorder(ySpacing);
 
         licensePlatePanel = new JPanel(); // new panel, holds JTextFields for license plates
         licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS));
-        licensePlatePanel.setBorder(new EmptyBorder(0, 0, 15, 0));
+        licensePlatePanel.setBorder(ySpacing);
         tfs = new ArrayList<>(); // new List for the JTextFields
 
         JPanel screenPanel = new JPanel(new FlowLayout());
-        screenPanel.setBackground(lightGreen);
+        screenPanel.setBackground(Color.LIGHT_GRAY);
         screenPanel.add(screenLabel);
 
         Seat[][] seats = model.availableSeats; // get the available seats from the model
@@ -76,14 +75,14 @@ public class SeatingTab extends Tab {
 
         cbs = new JCheckBox[seatRowCount][seatColumnCount]; // create JCheckBox array with row- and column count
         JPanel seatingPanel = new JPanel(new GridLayout(seatRowCount, seatColumnCount)); // new panel, holds all JCheckBoxes
-        seatingPanel.setBorder(topDownBorder);
+        seatingPanel.setBorder(ySpacing);
 
         for (int row = 0; row < seatRowCount; row++) { // every row
             for (int column = 0; column < seatColumnCount; column++) { // checks every column of every row
                 Seat currentSeat = seats[row][column]; // get the seat at the current position
                 JCheckBox cb = new JCheckBox(); // create a new JCheckBox
                 cb.addActionListener(ctrl); // add listener
-                cb.setToolTipText(currentSeat.getTooltip()); // add tooltip from the current seat
+                cb.setToolTipText(currentSeat.toString()); // add tooltip from the current seat
 
                 // Coloring
                 Color color = Color.WHITE; // default Color is white
@@ -96,7 +95,7 @@ public class SeatingTab extends Tab {
                 else if (currentSeat instanceof BeachChairSeat) color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
                 else if (currentSeat instanceof CarSeat) { // else if the seat is a CarSeat
                    if (((CarSeat)currentSeat).isForSUV) color = lightBlue; // if the CarSeat is for suv the color is set to light blue
-                   // normal non-suv car seats have no special color
+                   // normal non-suv car seats have no special color > standard white
                 }
                 cb.setBackground(color); // set background color of the checkbox to the color specified
 
@@ -110,7 +109,7 @@ public class SeatingTab extends Tab {
         // build the tab
         add(instructionPanel); // instructions first
         add(screenPanel); // screen second
-        add(seatingPanel); // checkboxes third // TODO there should be a text popping up when u need to type in license plates to tell you, that you need to type them in, you know?
+        add(seatingPanel); // checkboxes third 
         add(licensePlatePanel); // license plate textfields second last
         add(buttonPanel); // buttons last
     }
@@ -146,7 +145,7 @@ public class SeatingTab extends Tab {
             if (!checkInput(tf)) { // check if the JTextField "passes the test"
                 // "test" not passed
                 licensePlateMissing = true; // condition is met
-                break; // break out of the loop, because one missing license plate means failure
+                //break; // break out of the loop, because one missing license plate means failure
             }
         }
         // button gets enabled when
@@ -162,7 +161,7 @@ public class SeatingTab extends Tab {
      * removes JTextFields when there are too many (more than needed)
      * adds JTextFields when there are some missing (less than needed)
      */
-    private void changeTextFields(int targetCount) { // FIXME: move this to the model, actually no.. im not sure????
+    private void changeTextFields(int targetCount) {
         System.out.println("DEBUG: " + "seat-tab: changing textfields..."); // DEBUG
         while (tfs.size() != targetCount) { // loop till amount of needed JTextFields is achieved
             
@@ -176,6 +175,7 @@ public class SeatingTab extends Tab {
                 JPanel container = new JPanel(new FlowLayout()); // new container, holds one JLabel and one JTextField
                 container.add(new JLabel(Vocabulary.LICENSE_PLATE_LABEL + ":")); // add new JLabel with the text from the model
                 container.add(tf); // add the JTextField
+
                 licensePlatePanel.add(container); // add the container to the panel
 
             }
@@ -189,14 +189,17 @@ public class SeatingTab extends Tab {
     }
 
     /**
-     * checks if the JTextField has an acceptable amount of text in it
+     * checks if the JTextField has an acceptable amount of text in it and changes color based on this information
      * @param tf the JTextField to be checked
      * @return if the input suffices
      */
     private boolean checkInput(JTextField tf) {
         System.out.println("DEBUG: " + "seat-tab: checking input..."); // DEBUG
         String text = tf.getText().replaceAll("\\s+", ""); // get text from the JTextField and remove all whitespaces
-        return text.length() >= 4 && text.length() <= 8; // input only suffices if the length of the text is greater than 4 and less than 8
+        boolean suffices = text.length() >= 4 && text.length() <= 8;
+        if (suffices) tf.getParent().setBackground(lightGreen); // sets the color to light green, when input suffices
+        else tf.getParent().setBackground(lightRed); // sets color to light red, when input does not suffice
+        return suffices; // input only suffices if the length of the text is greater than 4 and less than 8
     }
 
     /**

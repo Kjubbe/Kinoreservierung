@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import controller.*;
 import model.*;
@@ -47,7 +46,7 @@ public class MovieTab extends Tab {
 
         description = new JLabel(); // new JLabel for the description
         JPanel moviePanel = new JPanel(new FlowLayout()); // new panel, holds JComboBox for movies and JLabel for the description
-        moviePanel.setBorder(new EmptyBorder(15, 0, 15, 0));
+        moviePanel.setBorder(ySpacing);
 
         dropdown = new JComboBox<Movie>(); // new JComboBox for movies
         for (Movie m : KinoModel.ALL_MOVIES) { // go through all movies

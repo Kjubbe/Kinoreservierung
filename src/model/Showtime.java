@@ -15,7 +15,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     private Times time;
     private boolean isSoldOut = false; // if the showtime is sold out
 
-    public final Seat[][] seats; // contains all available seats for this showtime FIXME is this final correct? because the seats cant be changed if the showtime was created and that may be an issue?
+    public final Seat[][] seats; // contains all available seats for this showtime
     
     /**
      * constructor, assigns data fields
@@ -43,7 +43,8 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
                 // beach chair seats get placed on on
                 // -> an even row in an odd column
                 // -> an odd row in an even column
-                if ((column % 2 == 1 && row % 2 == 0) || (column % 2 == 0 && row % 2 == 1)) seat = new BeachChairSeat(vip);
+                // -> not the last row
+                if (((column % 2 == 1 && row % 2 == 0) || (column % 2 == 0 && row % 2 == 1)) && row != seatRowCount - 1) seat = new BeachChairSeat(vip);
                 else seat = new CarSeat(vip, suv);
 
                 seats[row][column] = seat; // insert seat at the position

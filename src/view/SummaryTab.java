@@ -41,7 +41,7 @@ public class SummaryTab extends Tab {
 
         JPanel summaryPanel = new JPanel(); // new panel, holds all JLabels
         summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS)); // set layout for the panel
-        summaryPanel.setBorder(topDownBorder);
+        summaryPanel.setBorder(ySpacing);
 
         // part 1: the movie
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.MOVIE_LABEL + ": " + model.chosenMovie))); // get chosen movie from model
@@ -49,14 +49,14 @@ public class SummaryTab extends Tab {
         // part 2: the time
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.TIME_LABEL + ": " + model.chosenTime))); // get chosen time from model
 
-        // part 3: the seats // FIXME: move this to the model, actually no.. im not sure???? the stringbuilding is kinda part of the UI.. no?
+        // part 3: the seats
         String seatPrint = "";
         for (Seat s : model.chosenSeats) { // go through every seat
-            seatPrint += s.toString() + ", "; // add all seats to the print TODO seat AMOUNT should be shown, not just a list of strings + seat price INDIVIDUALLY and TOTAL
+            seatPrint += s.toString() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), "; // add all seats to the print
         }
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.SEATS_LABEL + ": " + seatPrint.substring(0, seatPrint.length() - 2)))); // remove last comma
 
-        // part 4: the catering // FIXME: move this to the model, actually no.. im not sure???? the stringbuilding is kinda part of the UI.. no?
+        // part 4: the catering
         String cateringPrint = Vocabulary.NONE_LABELS[0] + "  "; // FIXME this is bad string formatting and should be simplified please
         if (model.chosenCatering != null) { // check if catering was chosen
             cateringPrint = "";
@@ -66,17 +66,13 @@ public class SummaryTab extends Tab {
                 if (i == 0) { // check if the catering is chosen, if not skip
                     continue; // skip this entry
                 }
-                cateringPrint += (i + "x " + c); // add the catering name and price with their amount to the print
-                if (i != 1) { // check if the catering is not chosen only once
-                    cateringPrint += " für insg. " + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + ", "; // add the sum of the price to the print TODO this should display total of all chosen caterings
-                } else { // catering is only chosen once
-                    cateringPrint += ", "; // no calculations needed
-                }
+                cateringPrint += i + "x " + c + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "; // add the catering name and price with their amount to the print
             }
         }
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringPrint.substring(0, cateringPrint.length() - 2)))); // remove last comma
 
-        // TODO total price should be displayed
+        // part 5: total price
+        summaryPanel.add(putInContainer(new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.calculatePrice() + Vocabulary.CURRENCY))); // remove last comma
 
         // build the tab
         add(instructionPanel); // instructions first

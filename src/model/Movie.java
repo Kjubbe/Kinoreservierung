@@ -14,8 +14,7 @@ public class Movie { // TODO pictures for the movies
     private String title;
     private Genres genre;
     private FSKs fsk;
-    public final Showtime[] showtimes; // contains all available showtimes for this movie FIXME is this final correct? because the showtimes cant be changed if the movie was created and that may be an issue?
-
+    public final Showtime[] showtimes; // contains all available showtimes for this movie
     /**
      * constructor, sets data fields
      * @param title title of the movie

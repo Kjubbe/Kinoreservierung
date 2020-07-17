@@ -12,7 +12,7 @@ import model.enums.*;
 public class Catering {
     
     // Data fields
-    public final Prices price; // FIXME is this final correct? because the price cant be changed if the catering was created and that may be an issue?
+    public final Prices price;
     private String name;
 
     /**

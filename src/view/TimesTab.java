@@ -20,7 +20,7 @@ import model.*;
 public class TimesTab extends Tab { // TODO maybe add a table or list to choose from? (overkill!)
 
     // Array of all radiobuttons on the tab
-    private JRadioButton[] rbs; // FIXME is there a better way? just pull all rbs from the panel mb?
+    private JRadioButton[] rbs;
 
     /**
      * constructor, calls super constructor
@@ -43,7 +43,7 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
 
         JPanel timesPanel = new JPanel(); // new panel, holds JRadioButtons
         timesPanel.setLayout(new BoxLayout(timesPanel, BoxLayout.Y_AXIS)); // set layout for the panel
-        timesPanel.setBorder(topDownBorder);
+        timesPanel.setBorder(ySpacing);
         ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
         
         Showtime[] times = model.availableTimes; // get the available showtimes from the model

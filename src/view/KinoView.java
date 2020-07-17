@@ -1,8 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 
+import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,10 +33,10 @@ public class KinoView {
     private JTabbedPane tabbedPane = new JTabbedPane(); // tabbed pane manages tabs
 
     private JPanel pricePanel = new JPanel(); // this panel holds the price
-    private JTextField priceDisplay = new JTextField(Vocabulary.PRICE_LABEL + ": " + 0.0 + Vocabulary.CURRENCY); // JTextField for displaying the price
+    private JTextField priceDisplay = new JTextField(Vocabulary.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocabulary.CURRENCY); // JTextField for displaying the price
     
     // This array holds tabs
-    public final Tab[] tabs = 
+    public final Tab[] tabs =
     {
         new StartTab(model, ctrl, 0),
         new MovieTab(model, ctrl, 1),
@@ -132,7 +132,7 @@ public class KinoView {
         try {
             tabs[index].build(); // call the build function of the tab
         } catch (NullPointerException ex) {
-            createDialog(Vocabulary.ERROR_DIALOG_NAME, ex.getMessage()); // create a dialog displaying the error
+            createDialog(Vocabulary.ERROR_DIALOG_NAME, new String[] {ex.getMessage()}); // create a dialog displaying the error
             return; // skip following code
         }
         tabbedPane.setSelectedIndex(index); // set tab as selected
@@ -161,7 +161,7 @@ public class KinoView {
         System.out.println("DEBUG: " + "view: forcing update..."); // DEBUG
         int activeTab = tabbedPane.getSelectedIndex(); // get index of selected tab
         tabs[activeTab].update(); // force this tab to update
-        priceDisplay.setText(Vocabulary.PRICE_LABEL + ": " + model.calculatePrice() + Vocabulary.CURRENCY); // update the price
+        priceDisplay.setText(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.calculatePrice() + Vocabulary.CURRENCY); // update the price
         disableFollowingTabs(activeTab); // disable all following tabs
         frame.pack(); // FIXME the frame packing is not that good, because it "resets" the window (especially noticable when changing the size of the window)
     }
@@ -169,32 +169,43 @@ public class KinoView {
     /**
      * invoked from the controller when finishing the order
      * shows dialog for feedback
-     * TODO the finishing dialog should contain more information (and maybe a picture?)
      */
     public void finish() {
         System.out.println("DEBUG: " + "view: showing dialog"); // DEBUG
-        createDialog(Vocabulary.FINISH_DIALOG_NAME, Vocabulary.FINISH_MSG);
-        for (Tab t : tabs) {
-            t.reset(); // reset all tabs // FIXME maybe find a better way to reset the tabs? they are reset here, because that solves the problem, that the frame is packed over all tabs
-        }
+        createDialog(Vocabulary.FINISH_DIALOG_NAME, Vocabulary.FINISH_MSGS);
+        resetTabs(); // reset
         switchTabTo(0); // switch back to the first tab
     }
 
     /**
      * creates a dialog with frame as the owner with the specified title and content
      * @param title title of the dialog
-     * @param content content in a JLabel for the dialog
+     * @param content contents in a JLabel for the dialog
      * @return the created dialog
      */
-    public JDialog createDialog(String title, String content) {
+    private JDialog createDialog(String title, String[] content) {
         JDialog dialog = new JDialog(frame, title); // create dialog
         dialog.setLocationRelativeTo(frame);
         JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-        panel.add(new JLabel(content));
+        for (String s : content) {
+            JPanel container = new JPanel();
+            container.add(new JLabel(s));
+            panel.add(container);
+        }
         dialog.add(panel);
         dialog.setVisible(true);
         dialog.pack();
         return dialog;
+    }
+
+    /**
+     * resets all tabs
+     */
+    private void resetTabs() {
+        for (Tab t : tabs) {
+            t.reset(); // reset all tabs
+        }
     }
 }

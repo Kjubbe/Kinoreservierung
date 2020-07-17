@@ -27,14 +27,4 @@ public class CarSeat extends Seat {
         super(isVip ? Prices.VIP_CAR_SEAT : Prices.NORMAL_CAR_SEAT, isVip, isForSUV ? suvTooltip : pkwTooltip);
         this.isForSUV = isForSUV;
     }
-    
-    /**
-     * toString
-     * @return the tooltip of the seat
-     */
-    @Override
-    public String toString() {
-        // name is determined by the forSUV boolean
-        return isForSUV ? suvTooltip : pkwTooltip;
-    }
 }

@@ -47,14 +47,15 @@ public class CateringTab extends Tab {
         reset(); // reset before building to avoid duplications
 
         spinnerModels = new ArrayList<>(); // new List for the NumberSpinnerModels
-        JPanel cateringPanel = new JPanel(new GridLayout(KinoModel.ALL_CATERINGS.size(), 2)); // new panel, holds JSpinners FIXME the layout does not work well for this
-        cateringPanel.setBorder(topDownBorder);
+        JPanel cateringPanel = new JPanel(new GridLayout(KinoModel.ALL_CATERINGS.size(), 2)); // new panel, holds JSpinners FIXME the layout does not work well for this, another layout should be used instead
+        cateringPanel.setBorder(ySpacing);
 
         for (Catering c : KinoModel.ALL_CATERINGS) { // go through every catering
             try { // catch corrupted caterings missing a name or price
                 String cateringName = c.toString();
-                if (cateringName == null) throw new NullPointerException(); // FIXME this is a temporary solution
+                if (cateringName == null) throw new NullPointerException(); // no name set, throw exception
                 double cateringPrice = c.price.getPrice();
+                
                 SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
                 spinnerModels.add(spinnerModel); // add model to the list
                 JSpinner spinner = new JSpinner(spinnerModel); // create a new JSpinner with the SpinnerNumberModel

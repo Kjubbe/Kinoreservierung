@@ -40,7 +40,7 @@ public class StartTab extends Tab {
         reset(); // reset before building to avoid duplications
 
         JPanel messagePanel = putInContainer(label);
-        messagePanel.setBorder(topDownBorder);
+        messagePanel.setBorder(ySpacing);
 
         // build the tab
         add(instructionPanel); // instructions first

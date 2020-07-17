@@ -4,7 +4,7 @@ public class Vocabulary {
     
     // Data fields with Strings
     public static final String FRAME_NAME = "Kinoreservierung"; // String for the frame
-    public static final String FINISH_DIALOG_NAME = "Vielen Dank"; // String for the dialog at the end
+    public static final String FINISH_DIALOG_NAME = "Vielen Dank!"; // String for the dialog at the end
     public static final String ERROR_DIALOG_NAME = "Hoppla..."; // String for error dialogs
 
     public static final String[] INSTRUCTION_TEXTS = // Strings for instructions on every tab in order
@@ -30,10 +30,10 @@ public class Vocabulary {
     public static final String DEFAULT_TAB_NAME = "Tab"; // String for default Tab name, used, when no name is set
 
     public static final String[] NONE_LABELS = {"keins", "keine", "keiner"}; // String for showing nothing is chosen
-    public static final String LICENSE_PLATE_LABEL = "Kennz."; // String for the license plate JTextField in the seating tab
+    public static final String LICENSE_PLATE_LABEL = "Kennz. eingeben"; // String for the license plate JTextField in the seating tab
     public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg
-    public static final String FINISH_MSG = "Ihre Reservierung war erfolgreich!"; // String for the finishing msg
-    public static final String PRICE_LABEL = "Gesamtpreis"; // String for the price label
+    public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg
+    public static final String TOTAL_PRICE_LABEL = "Gesamtpreis"; // String for the price label
     public static final String CURRENCY = "€"; // String for the currency
 
     // errors

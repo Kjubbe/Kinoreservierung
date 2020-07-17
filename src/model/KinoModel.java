@@ -23,7 +23,7 @@ public class KinoModel {
     public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
     public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing catering options
 
-    // Datafields, which change during runtime // TODO check if this kind of visibility is okay?
+    // Datafields, which change during runtime // TODO check if public visibility is okay?
     public Movie chosenMovie; // set based on user input in the movie tab
 
     public Showtime[] availableTimes; // set based on the chosen movie
@@ -33,7 +33,7 @@ public class KinoModel {
     public List<Seat> chosenSeats; // set based on user input in the seat tab
     public int carSeatCount; // contains number of CarSeats in chosenSeats
 
-    public Map<Catering, Integer> chosenCatering; // set based on user input in the catering tab FIXME this is null when not choosing any catering, when choosing its the map, even when its zeros everywhere, solution?
+    public Map<Catering, Integer> chosenCatering; // set based on user input in the catering tab
 
     /**
      * Constructor, creates movies and catering options
@@ -162,9 +162,7 @@ public class KinoModel {
         System.out.println("DEBUG: " + "model: Movie set, Movie: " + m); // DEBUG
         chosenMovie = m; // set chosen movie
         availableTimes = m.showtimes; // set available times to the times contained in the movie
-        chosenTime = null; // reset chosen time, because new movie got chosen // FIXME is there maybe a more elegant way of resetting these data fields?
-        chosenSeats = null; // reset chosen seats, because new movie got chosen
-        chosenCatering = null; // reset chosen catering, because new movie got chosen
+        reset(false, true, true, true);
     }
 
     /**
@@ -177,8 +175,7 @@ public class KinoModel {
         System.out.println("DEBUG: " + "model: Time set, Time: " + t); // DEBUG
         chosenTime = t; // set chosen time
         availableSeats = t.seats; // set available seats to the seats contained in the showtime
-        chosenSeats = null; // reset chosen seats, because new time got chosen // FIXME is there maybe a more elegant way of resetting these data fields?
-        chosenCatering = null; // reset chosen catering, because new time got chosen
+        reset(false, false, true, true);
     }
 
     /**
@@ -194,7 +191,7 @@ public class KinoModel {
         for (Seat s : chosenSeats) { // check every seat
             if (s instanceof CarSeat) carSeatCount++; // if seat is an instance of CarSeat increase the counter
         }
-        chosenCatering = null; // reset chosen catering, because new seats got chosen // FIXME is there maybe a more elegant way of resetting these data fields?
+        reset(false, false, false, true);
     }
 
     /**
@@ -222,11 +219,7 @@ public class KinoModel {
             for (Map.Entry<Catering, Integer> entry : chosenCatering.entrySet()) { // check every entry of the map
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
-                try {
-                    price += c.price.getPrice() * i; // add price of the catering options multiplied by its amount to the total amount
-                } catch (Exception e) {
-                    continue; // skip this corrupted catering // TODO maybe move this somewhere else, so it doesnt get *that far* to this point?
-                }
+                price += c.price.getPrice() * i;
             }
         }
         return Math.round(price * 100.0) / 100.0; // round price to two decimal places
@@ -235,15 +228,12 @@ public class KinoModel {
     /**
      * resets all user input
      */
-    public void reset() {
+    public void reset(boolean resetMovie, boolean resetTime, boolean resetSeats, boolean resetCatering) { // FIXME is there a more elegant way?
         System.out.println("DEBUG: " + "model: resetting input..."); // DEBUG
-        chosenMovie = null;
-        availableTimes = null;
-        chosenTime = null;
-        availableSeats = null;
-        chosenSeats = null;
-        carSeatCount = 0;
-        chosenCatering = null;
+        if (resetMovie) chosenMovie = null;
+        if (resetTime) chosenTime = null;
+        if (resetSeats) chosenSeats = null;
+        if (resetCatering) chosenCatering = null;
     }
 
     /**
@@ -252,7 +242,7 @@ public class KinoModel {
      */
     public void quit() {
         System.out.println("\n" + "DEBUG: " + "quitting..."); // DEBUG
-        reset();
+        reset(true, true, true, true);
         System.exit(0); // terminate the program
     }
 
@@ -265,9 +255,9 @@ public class KinoModel {
             s.isReserved = true;
             chosenTime.checkAvailability();
         }
-        orders.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering));
+        orders.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, calculatePrice()));
         System.out.println("\n" + "DEBUG: model: All orders are: \n" + orders + "\n"); // DEBUG
-        reset();
+        reset(true, true, true, true);
 
         // TODO write the order to a file
     }

@@ -11,29 +11,30 @@ import model.enums.*;
 public class Seat {
     
     // Data fields
-    public boolean isReserved = false; // TODO check if this kind of visibility is okay?
-    private String tooltip = ""; // tooltip for hovering over a seat
-    public final Prices price; // FIXME is this final correct? because the price cant be changed if the seat was created and that may be an issue?
+    public boolean isReserved = false; // TODO check if public visibility is okay?
+    private String name = ""; // tooltip for hovering over a seat
+    public final Prices price;
     public final boolean isVip;
 
     /**
      * constructor, assigns data fields
      * @param price price for the seat
      * @param isVip if the seat is a vip seat
-     * @param tooltip tooltip shows when hovering over a seat
+     * @param name tooltip shows when hovering over a seat
      */
-    public Seat(Prices price, boolean isVip, String tooltip) {
+    public Seat(Prices price, boolean isVip, String name) {
         this.price = price;
         this.isVip = isVip;
-        if (isVip) this.tooltip += Vocabulary.VIP_TOOLTIP + " "; // update tooltip to give more information when seat is vip
-        this.tooltip += tooltip;
+        if (isVip) this.name += Vocabulary.VIP_TOOLTIP + " "; // update tooltip to give more information when seat is vip
+        this.name += name;
     }
 
     /**
-     * get this seats tooltip
+     * toString
      * @return String with the tooltip
      */
-    public final String getTooltip() {
-        return tooltip;
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -30,7 +30,9 @@ public abstract class Tab extends JPanel {
     protected JPanel instructionPanel = new JPanel(); // panel for JLabel for displaying instruction text
     protected JPanel buttonPanel = new JPanel(); // panel for all three JButtons
 
-    protected EmptyBorder topDownBorder = new EmptyBorder(15, 0, 15, 0);
+    protected final EmptyBorder defaultBorder = new EmptyBorder(15, 15, 15, 15);
+    protected final EmptyBorder xSpacing = new EmptyBorder(0, 15, 0, 15);
+    protected final EmptyBorder ySpacing = new EmptyBorder(15, 0, 15, 0);
 
     public final JButton backButton; // back
     public final JButton quitButton; // quit
@@ -72,7 +74,7 @@ public abstract class Tab extends JPanel {
 
         // configure this (the tab)
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(new EmptyBorder(15, 15, 15, 15));
+        setBorder(defaultBorder);
     }
 
     /**
@@ -80,7 +82,7 @@ public abstract class Tab extends JPanel {
      * disables button to proceed
      * this method should be called before building a tab (again)
      */
-    public void reset() {
+    public final void reset() {
         System.out.println("DEBUG: " + "tab: resetting tab..."); // DEBUG
         removeAll(); // removes all components from the tab
         proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
@@ -91,7 +93,7 @@ public abstract class Tab extends JPanel {
      * @param comp the component which should be put in the container
      * @return container JPanel for the component
      */
-    protected JPanel putInContainer(Component comp) {
+    protected final JPanel putInContainer(Component comp) {
         JPanel container = new JPanel(); // new container
         container.add(comp); // add component to the container
         return container; // return the container which holds the component
