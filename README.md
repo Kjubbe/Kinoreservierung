@@ -26,6 +26,6 @@ the controller manages input from the view and changes the model and view accord
 there is only one class - KinoController - in the controller package
 
 IMPORTANT:
-- Main.java is used to run the program
-- Main.java contains important TODOs and FIXMEs for the whole project
+- KinoMain.java is used to run the program
+- KinoMain.java contains important TODOs and FIXMEs for the whole project
 - Other comments containing "TODO" and "FIXME" are important on what changes and additions need to be added, please use them!
