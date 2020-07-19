@@ -49,7 +49,7 @@ public class SummaryTab extends Tab {
         // part 2: the time
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.TIME_LABEL + ": " + model.chosenTime))); // get chosen time from model
 
-        // part 3: the seats
+        // part 3: the seats // TODO add license plate numbers
         String seatPrint = "";
         for (Seat s : model.chosenSeats) { // go through every seat
             seatPrint += s.toString() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), "; // add all seats to the print
@@ -57,7 +57,7 @@ public class SummaryTab extends Tab {
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.SEATS_LABEL + ": " + seatPrint.substring(0, seatPrint.length() - 2)))); // remove last comma
 
         // part 4: the catering
-        String cateringPrint = Vocabulary.NONE_LABELS[0] + "  "; // FIXME this is bad string formatting and should be simplified please
+        String cateringPrint = Vocabulary.NONE_LABELS[0] + "  ";
         if (model.chosenCatering != null) { // check if catering was chosen
             cateringPrint = "";
             for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every catering-value pair

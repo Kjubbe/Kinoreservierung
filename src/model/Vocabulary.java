@@ -17,7 +17,8 @@ public class Vocabulary {
         "Bitte überprüfen sie ihre Bestellung:"
     };
 
-    // tabs 
+    // tabs
+    public static final String DEFAULT_TAB_NAME = "Tab"; // String for default Tab name, used, when no name is set
     public static final String[] TAB_NAMES = // Strings for names of the tab in order
     {
         "Start",
@@ -27,9 +28,9 @@ public class Vocabulary {
         "Essen",
         "Bestellen"
     };
-    public static final String DEFAULT_TAB_NAME = "Tab"; // String for default Tab name, used, when no name is set
 
     public static final String[] NONE_LABELS = {"keins", "keine", "keiner"}; // String for showing nothing is chosen
+    public static final String SCREEN_LABEL = "Leinwand"; // String for screen
     public static final String LICENSE_PLATE_LABEL = "Kennz. eingeben"; // String for the license plate JTextField in the seating tab
     public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg
     public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg
@@ -43,7 +44,7 @@ public class Vocabulary {
     // Tooltips
     public static final String SOLD_OUT_TOOLTIP = "Ausverkauft"; // sold out
     public static final String RESERVED_TOOLTIP = "Reserviert"; // reserved
-    public static final String VIP_TOOLTIP = "[VIP]"; // vip
+    public static final String VIP_TOOLTIP = "VIP"; // vip
     public static final String PKW_TOOLTIP = "PKW-Stellplatz"; // pkw
     public static final String SUV_TOOLTIP = "SUV-Stellplatz"; // suv
     public static final String BEACH_CHAIR_TOOLTIP = "Strandkorb"; // beach chair

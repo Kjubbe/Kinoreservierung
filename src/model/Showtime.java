@@ -65,7 +65,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
      * checks availibility of this showtime
      * if no seat is available the show is sold out
      */
-    protected void checkAvailability() {
+    protected void updateAvailability() {
         if (!isSoldOut) { // only check is the show is not sold out already
             for (Seat[] column : seats) {
                 for (Seat s : column) { // check every seat

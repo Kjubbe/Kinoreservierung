@@ -100,6 +100,28 @@ public abstract class Tab extends JPanel {
     }
 
     /**
+     * get components from a panel, only works with panels who have containers
+     * @param pan panel which holds the needed components
+     * @return the array of components
+     */
+    protected final Component[] getComponentsFromPanel(JPanel pan) { // TODO this is not used
+        Component[] containers = pan.getComponents();
+        Component[] components = new Component[containers.length];
+        for (int i = 0; i < containers.length; i++) {
+            if (containers[i] instanceof JPanel) {
+                try {
+                    components[i] = ((JPanel)containers[i]).getComponent(0);
+                } catch (Exception e) {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        }
+        return components;
+    }
+
+    /**
      * abstract method build is invoked when switching to a tab via the proceed button in another tab
      * building of each tab can differ, thus the abstract method
      */

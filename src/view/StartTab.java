@@ -17,9 +17,6 @@ import model.*;
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class StartTab extends Tab {
 
-    // label
-    private JLabel label = new JLabel(Vocabulary.START_MSG);
-
     /**
      * constructor, calls super constructor
      * @param model reference to the model object
@@ -39,7 +36,7 @@ public class StartTab extends Tab {
         System.out.println("DEBUG: " + "tab: building start tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        JPanel messagePanel = putInContainer(label);
+        JPanel messagePanel = putInContainer(new JLabel(Vocabulary.START_MSG));
         messagePanel.setBorder(ySpacing);
 
         // build the tab

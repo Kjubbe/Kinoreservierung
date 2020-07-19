@@ -60,7 +60,7 @@ public class Order {
                 cateringPrint += (i + "x " + c + ", "); // add the catering name and amount to the print
             }
         } else {
-            cateringPrint += Vocabulary.NONE_LABELS[0] + "  "; // FIXME is there a better way for string formatting? String.format?
+            cateringPrint += Vocabulary.NONE_LABELS[0] + "  ";
         }
 
         String pricePrint = Vocabulary.TOTAL_PRICE_LABEL + ": " + totalPrice + Vocabulary.CURRENCY;

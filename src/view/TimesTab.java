@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Component;
+
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -53,15 +55,16 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
         rbs = new JRadioButton[timeCount]; // create JRadioButton array with length = amount
 
         for (int i = 0; i < timeCount; i++) { // go through all times
-            try { // catch corrupted showtimes missing a date or time
+            try { // try catching corrupted showtimes missing a date or time
                 JRadioButton rb = new JRadioButton(times[i].toString()); // new JRadioButton with time as text
                 if (times[i].isSoldOut()) { // check if showtime is sold out
                     rb.setEnabled(false); // disable the button
                     rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);
                 }
                 rb.addActionListener(ctrl); // add listener
+                rb.setActionCommand(String.valueOf(i));
                 group.add(rb); // add button to the group
-                rbs[i] = rb; // add JRadioButton to the list
+                rbs[i] = rb; // add JRadioButton to the array
 
                 // build the panel
                 timesPanel.add(putInContainer(rb));
@@ -92,12 +95,4 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
         // no selected button found
         proceedButton.setEnabled(false);
     } 
-
-    /**
-     * get the array of radiobuttons
-     * @return array of radiobuttons
-     */
-    public JRadioButton[] getRadioButtons() {
-        return rbs;
-    }
 }

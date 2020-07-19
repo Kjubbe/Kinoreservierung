@@ -53,7 +53,7 @@ public class MovieTab extends Tab {
             if (m != null) dropdown.addItem(m); // add movie in the dropdown
         }
         dropdown.setSelectedItem(null); // no selected movie
-        dropdown.addItemListener(ctrl); // add listener FIXME this calls twice? no idea why... look at the debugs when changing a movie multiple times
+        dropdown.addItemListener(ctrl); // add listener
 
         // build the panel
         moviePanel.add(dropdown);
@@ -79,13 +79,5 @@ public class MovieTab extends Tab {
         } else { // no film selected
             proceedButton.setEnabled(false);
         }
-    }
-
-    /**
-     * get the JComboBox containing the movies
-     * @return JComboBox with the movies
-     */
-    public JComboBox<Movie> getDropdown() {
-        return dropdown;
     }
 }

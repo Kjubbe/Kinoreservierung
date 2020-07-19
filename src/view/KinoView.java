@@ -50,13 +50,13 @@ public class KinoView {
      * Constructor, builds the frame
      */
     public KinoView() {
-        setup();
+        initialize();
     }
 
     /**
      * invoked when creating the view, builds the frame, the panel for the price and tabs
      */
-    private void setup() {
+    private void initialize() {
         System.out.println("DEBUG: " + "view: setting up view"); // DEBUG
         // part 1: preparing tabs
         for (int i = 0; i < tabs.length; i++) { // go through the tabs
@@ -116,7 +116,7 @@ public class KinoView {
      * invoked from controller by the back button
      * changes the active tab to the previous tab
      */
-    public void goBack() {
+    public void back() {
         System.out.println("DEBUG: " + "view: gone back"); // DEBUG
         int activeTab = tabbedPane.getSelectedIndex(); // get index of the selected tab
         tabbedPane.setSelectedIndex(activeTab - 1); // set the previous tab as the selected tab

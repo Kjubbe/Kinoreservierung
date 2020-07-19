@@ -30,7 +30,7 @@ public class SeatingTab extends Tab {
     private JCheckBox[][] cbs;
     private ArrayList<JTextField> tfs;
     private JPanel licensePlatePanel;
-    private JLabel screenLabel = new JLabel("Leinwand");
+    private JLabel screenLabel = new JLabel(Vocabulary.SCREEN_LABEL);
 
     // Colors
     private Color lightRed = new Color(255, 100, 100);

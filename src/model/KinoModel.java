@@ -162,20 +162,20 @@ public class KinoModel {
         System.out.println("DEBUG: " + "model: Movie set, Movie: " + m); // DEBUG
         chosenMovie = m; // set chosen movie
         availableTimes = m.showtimes; // set available times to the times contained in the movie
-        reset(false, true, true, true);
+        reset(3);
     }
 
     /**
      * invoked from controller when time got chosen
      * assigns the chosen time
      * assigns the available seats from this movie
-     * @param t time which was chosen
+     * @param index time which was chosen
      */
-    public void setTime(Showtime t) {
-        System.out.println("DEBUG: " + "model: Time set, Time: " + t); // DEBUG
-        chosenTime = t; // set chosen time
-        availableSeats = t.seats; // set available seats to the seats contained in the showtime
-        reset(false, false, true, true);
+    public void setTime(int index) {
+        System.out.println("DEBUG: " + "model: Time set, Time: " + availableTimes[index]); // DEBUG
+        chosenTime = availableTimes[index]; // set chosen time
+        availableSeats = chosenTime.seats; // set available seats to the seats contained in the showtime
+        reset(2);
     }
 
     /**
@@ -184,14 +184,14 @@ public class KinoModel {
      * counts amount of CarSeats
      * @param seats list of seats which were chosen
      */
-    public void setSeats(List<Seat> seats) {
+    public void setSeats(List<Seat> seats) { // TODO split this to changeSeat and work with index and boolean remove/add
         System.out.println("DEBUG: " + "model: Seat set, Seats: " + seats); // DEBUG
         chosenSeats = seats; // set chosen seats
         carSeatCount = 0; // reset the counter
         for (Seat s : chosenSeats) { // check every seat
             if (s instanceof CarSeat) carSeatCount++; // if seat is an instance of CarSeat increase the counter
         }
-        reset(false, false, false, true);
+        reset(1);
     }
 
     /**
@@ -226,14 +226,15 @@ public class KinoModel {
     }
 
     /**
-     * resets all user input
+     * resets all user input specified by a depth value
+     * a higher depth value means a deeper reset
      */
-    public void reset(boolean resetMovie, boolean resetTime, boolean resetSeats, boolean resetCatering) { // FIXME is there a more elegant way?
+    public void reset(int depth) {
         System.out.println("DEBUG: " + "model: resetting input..."); // DEBUG
-        if (resetMovie) chosenMovie = null;
-        if (resetTime) chosenTime = null;
-        if (resetSeats) chosenSeats = null;
-        if (resetCatering) chosenCatering = null;
+        if (depth >= 4) chosenMovie = null;
+        if (depth >= 3) chosenTime = null;
+        if (depth >= 2) chosenSeats = null;
+        if (depth >= 1) chosenCatering = null;
     }
 
     /**
@@ -242,7 +243,7 @@ public class KinoModel {
      */
     public void quit() {
         System.out.println("\n" + "DEBUG: " + "quitting..."); // DEBUG
-        reset(true, true, true, true);
+        reset(4);
         System.exit(0); // terminate the program
     }
 
@@ -253,11 +254,11 @@ public class KinoModel {
         for (Seat s : chosenSeats) {
             System.out.println("DEBUG: model: reserved seat " + s); // DEBUG
             s.isReserved = true;
-            chosenTime.checkAvailability();
+            chosenTime.updateAvailability();
         }
         orders.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, calculatePrice()));
         System.out.println("\n" + "DEBUG: model: All orders are: \n" + orders + "\n"); // DEBUG
-        reset(true, true, true, true);
+        reset(4);
 
         // TODO write the order to a file
     }
