@@ -46,13 +46,12 @@ public class Movie { // TODO pictures for the movies
         try {
             return genre.toString() + ", " + fsk.getFSK();
         } catch (Exception e) {
-            if (genre == null && fsk != null) { // no genre set
+            if (genre == null && fsk != null) // no genre set
                 return fsk.getFSK();
-            } else if (genre != null && fsk == null) { // no fsk set
+            else if (genre != null && fsk == null) // no fsk set
                 return genre.toString();
-            } else { // both not set
+            else // both not set
                 return "";
-            }
         }
     }
 }

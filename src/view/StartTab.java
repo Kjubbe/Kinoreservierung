@@ -45,7 +45,7 @@ public class StartTab extends Tab {
         add(buttonPanel); // buttons last
 
         backButton.setEnabled(false); // cant go back on the first panel
-        quitButton.setText(Vocabulary.EXIT_BUTTON_LABEL); // this button has a different label
+        quitButton.setText(Vocabulary.EXIT_BUTTON); // this button has a different label
         proceedButton.setEnabled(true); // proceed button is enabled by default, because the user does not have to do anything to be able to proceed
     }
 

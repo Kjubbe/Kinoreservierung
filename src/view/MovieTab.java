@@ -50,7 +50,8 @@ public class MovieTab extends Tab {
 
         dropdown = new JComboBox<Movie>(); // new JComboBox for movies
         for (Movie m : KinoModel.ALL_MOVIES) { // go through all movies
-            if (m != null) dropdown.addItem(m); // add movie in the dropdown
+            if (m != null)
+                dropdown.addItem(m); // add movie in the dropdown
         }
         dropdown.setSelectedItem(null); // no selected movie
         dropdown.addItemListener(ctrl); // add listener
@@ -76,8 +77,7 @@ public class MovieTab extends Tab {
         if (dropdown.getSelectedItem() != null) { // check if a film is selected
             proceedButton.setEnabled(true);
             description.setText(model.chosenMovie.getDescription()); // set JLabel for description to display the description of the movie
-        } else { // no film selected
+        } else // no film selected
             proceedButton.setEnabled(false);
-        }
     }
 }

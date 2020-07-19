@@ -50,15 +50,16 @@ public class Vocabulary {
     public static final String BEACH_CHAIR_TOOLTIP = "Strandkorb"; // beach chair
 
     // Buttons labels
-    public static final String BACK_BUTTON_LABEL = "Zurück"; // back
-    public static final String QUIT_BUTTON_LABEL = "Abbrechen"; // quit
-    public static final String EXIT_BUTTON_LABEL = "Beenden"; // exit
-    public static final String PROCEED_BUTTON_LABEL = "Fortfahren"; // proceed
-    public static final String FINISH_BUTTON_LABEL = "Reservieren"; // reserve/order
+    public static final String BACK_BUTTON = "Zurück"; // back
+    public static final String QUIT_BUTTON = "Abbrechen"; // quit
+    public static final String PROCEED_BUTTON = "Fortfahren"; // proceed
+    public static final String FINISH_BUTTON = "Reservieren"; // reserve/order
+    public static final String EXIT_BUTTON = "Beenden"; // exit
 
     // labels for summary
     public static final String MOVIE_LABEL = "Film"; // movie
     public static final String TIME_LABEL = "Zeit"; // time
     public static final String SEATS_LABEL = "Plätze"; // seats
+    public static final String TICKET_LABEL = "Ticket"; // tickets
     public static final String CATERING_LABEL = "Essen"; // catering
 }

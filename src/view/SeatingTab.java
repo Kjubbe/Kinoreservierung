@@ -68,17 +68,19 @@ public class SeatingTab extends Tab {
         screenPanel.add(screenLabel);
 
         Seat[][] seats = model.availableSeats; // get the available seats from the model
-        int seatRowCount = seats.length; // amount of rows of seats
-        if (seatRowCount == 0) throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
-        int seatColumnCount = seats[0].length; // amount of columns of seats
-        if (seatColumnCount == 0) throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
+        int seatRowAmount = seats.length; // amount of rows of seats
+        if (seatRowAmount == 0)
+            throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
+        int seatColumnAmount = seats[0].length; // amount of columns of seats
+        if (seatColumnAmount == 0)
+            throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
 
-        cbs = new JCheckBox[seatRowCount][seatColumnCount]; // create JCheckBox array with row- and column count
-        JPanel seatingPanel = new JPanel(new GridLayout(seatRowCount, seatColumnCount)); // new panel, holds all JCheckBoxes
+        cbs = new JCheckBox[seatRowAmount][seatColumnAmount]; // create JCheckBox array with row- and column count
+        JPanel seatingPanel = new JPanel(new GridLayout(seatRowAmount, seatColumnAmount)); // new panel, holds all JCheckBoxes
         seatingPanel.setBorder(ySpacing);
 
-        for (int row = 0; row < seatRowCount; row++) { // every row
-            for (int column = 0; column < seatColumnCount; column++) { // checks every column of every row
+        for (int row = 0; row < seatRowAmount; row++) { // every row
+            for (int column = 0; column < seatColumnAmount; column++) { // checks every column of every row
                 Seat currentSeat = seats[row][column]; // get the seat at the current position
                 JCheckBox cb = new JCheckBox(); // create a new JCheckBox
                 cb.addActionListener(ctrl); // add listener
@@ -91,10 +93,13 @@ public class SeatingTab extends Tab {
                     cb.setEnabled(false); // disable the checkbox
                     cb.setToolTipText(Vocabulary.RESERVED_TOOLTIP); // new tooltip
                 }
-                else if (currentSeat.isVip) color = Color.ORANGE; // else if the seat is for vip the color is set to orange FIXME other way to differentiate between vip beach chairs and vip car seats? they look the same
-                else if (currentSeat instanceof BeachChairSeat) color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
+                else if (currentSeat.isVip)
+                    color = Color.ORANGE; // else if the seat is for vip the color is set to orange FIXME other way to differentiate between vip beach chairs and vip car seats? they look the same
+                else if (currentSeat instanceof BeachChairSeat)
+                    color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
                 else if (currentSeat instanceof CarSeat) { // else if the seat is a CarSeat
-                   if (((CarSeat)currentSeat).isForSUV) color = lightBlue; // if the CarSeat is for suv the color is set to light blue
+                    if (((CarSeat)currentSeat).isForSUV)
+                        color = lightBlue; // if the CarSeat is for suv the color is set to light blue
                    // normal non-suv car seats have no special color > standard white
                 }
                 cb.setBackground(color); // set background color of the checkbox to the color specified
@@ -126,27 +131,26 @@ public class SeatingTab extends Tab {
 
         // condition 1: at least one checkbox must be selected
         boolean checkBoxSelected = false; // by default no checkbox is selected
-        int rowCount = cbs.length; // amount of rows
-        int columnCount = cbs[0].length; // amount of columns
-        for (int row = 0; row < rowCount; row++) { // every row
-            for (int column = 0; column < columnCount; column++) { // checks every column of every row
+        int rowAmount = cbs.length; // amount of rows
+        int columnAmount = cbs[0].length; // amount of columns
+        for (int row = 0; row < rowAmount; row++) { // every row
+            for (int column = 0; column < columnAmount; column++) { // checks every column of every row
                 JCheckBox currentCB = cbs[row][column]; // get the JCheckBox at the current position
                 if (currentCB.isSelected()) { // check if the checkbox is selected
                     checkBoxSelected = true; // condition is met
                     break; // break out of the inner loop, because only at least one selected JCheckBox is needed
                 }
             }
-            if (checkBoxSelected) break; // break the outer loop if the condition is met
+            if (checkBoxSelected)
+                break; // break the outer loop if the condition is met
         }
 
         // condition 2: all input for license plates must suffice
         boolean licensePlateMissing = false; // by default no license plate is missing
         for (JTextField tf : tfs) { // checks every JTextField
-            if (!checkInput(tf)) { // check if the JTextField "passes the test"
+            if (!checkInput(tf)) // check if the JTextField "passes the test"
                 // "test" not passed
                 licensePlateMissing = true; // condition is met
-                //break; // break out of the loop, because one missing license plate means failure
-            }
         }
         // button gets enabled when
         // 1. the checkbox condition is met (at least one JCheckBox selected)
@@ -197,8 +201,10 @@ public class SeatingTab extends Tab {
         System.out.println("DEBUG: " + "seat-tab: checking input..."); // DEBUG
         String text = tf.getText().replaceAll("\\s+", ""); // get text from the JTextField and remove all whitespaces
         boolean suffices = text.length() >= 4 && text.length() <= 8;
-        if (suffices) tf.getParent().setBackground(lightGreen); // sets the color to light green, when input suffices
-        else tf.getParent().setBackground(lightRed); // sets color to light red, when input does not suffice
+        if (suffices)
+            tf.getParent().setBackground(lightGreen); // sets the color to light green, when input suffices
+        else
+            tf.getParent().setBackground(lightRed); // sets color to light red, when input does not suffice
         return suffices; // input only suffices if the length of the text is greater than 4 and less than 8
     }
 

@@ -53,7 +53,8 @@ public class CateringTab extends Tab {
         for (Catering c : KinoModel.ALL_CATERINGS) { // go through every catering
             try { // catch corrupted caterings missing a name or price
                 String cateringName = c.toString();
-                if (cateringName == null) throw new NullPointerException(); // no name set, throw exception
+                if (cateringName == null)
+                    throw new NullPointerException(); // no name set, throw exception
                 double cateringPrice = c.price.getPrice();
                 
                 SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel

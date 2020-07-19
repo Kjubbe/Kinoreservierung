@@ -52,7 +52,7 @@ public class SummaryTab extends Tab {
         // part 3: the seats // TODO add license plate numbers
         String seatPrint = "";
         for (Seat s : model.chosenSeats) { // go through every seat
-            seatPrint += s.toString() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), "; // add all seats to the print
+            seatPrint += s.toString() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ";
         }
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.SEATS_LABEL + ": " + seatPrint.substring(0, seatPrint.length() - 2)))); // remove last comma
 
@@ -63,9 +63,8 @@ public class SummaryTab extends Tab {
             for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every catering-value pair
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
-                if (i == 0) { // check if the catering is chosen, if not skip
+                if (i == 0) // check if the catering is chosen, if not skip
                     continue; // skip this entry
-                }
                 cateringPrint += i + "x " + c + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "; // add the catering name and price with their amount to the print
             }
         }
@@ -79,8 +78,9 @@ public class SummaryTab extends Tab {
         add(summaryPanel); // summary in the middle
         add(buttonPanel); // buttons last
 
-        proceedButton.setText(Vocabulary.FINISH_BUTTON_LABEL);
+        proceedButton.setText(Vocabulary.FINISH_BUTTON);
         proceedButton.setEnabled(true);
+        proceedButton.setActionCommand(Vocabulary.FINISH_BUTTON);
     }
 
     /**

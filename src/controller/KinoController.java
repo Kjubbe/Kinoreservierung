@@ -48,23 +48,22 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     public void actionPerformed(ActionEvent e) {
         System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
         Object source = e.getSource();
+        String cmd = e.getActionCommand();
         if (source instanceof JButton) { // source from JButton > source is either back-, quit or proceedbutton
-            for (int i = 0; i < view.tabs.length; i++) { // check every tab for input
-                Tab t = view.tabs[i];
-                if (source == t.backButton) // source is back button
-                    view.back();
-                else if (source == t.quitButton) // source is quit button
-                    model.quit();
-                else if (source == t.proceedButton) // source is proceed button
-                    if (t instanceof SummaryTab) {  
-                        view.finish();
-                        model.order();
-                        view.update();
-                    } else view.proceed();
+            if (cmd.equals(Vocabulary.BACK_BUTTON)) 
+                view.back();
+            else if (cmd.equals(Vocabulary.QUIT_BUTTON))
+                model.quit();
+            else if (cmd.equals(Vocabulary.PROCEED_BUTTON)) 
+                view.proceed();
+            else if (cmd.equals(Vocabulary.FINISH_BUTTON)) {
+                view.finish();
+                model.order();
+                view.update();
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
             System.out.println("DEBUG: " + "ctrl: Time chosen"); // DEBUG
-            int index = Integer.parseInt(e.getActionCommand());
+            int index = Integer.parseInt(cmd);
             model.setTime(index);
             view.update();
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
@@ -81,9 +80,8 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
         System.out.println("DEBUG: " + "ctrl: Movie chosen"); // DEBUG
         Movie movie = (Movie) e.getItem(); // get the selected movie from the JComboBox
-        if (movie != null) { // check if an actual movie is selected
+        if (movie != null) // check if an actual movie is selected
             model.setMovie(movie); // model receives the movie
-        }
         view.update();
     }
 
@@ -116,12 +114,12 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         System.out.println("DEBUG: " + "ctrl: Seat chosen"); // DEBUG
         SeatingTab tab = (SeatingTab) view.tabs[3]; // get reference to the seating tab from the view
         JCheckBox[][] cbs = tab.getCheckBoxes(); // get reference to all JCheckBoxes from the tab
-        int rowCount = cbs.length; // amount of rows of JCheckBoxes
-        int columnCount = cbs[0].length; // amount of columns of JCheckBoxes
+        int rowAmount = cbs.length; // amount of rows of JCheckBoxes
+        int columnAmount = cbs[0].length; // amount of columns of JCheckBoxes
 
         List<Seat> seats = new ArrayList<>(); // create a new list, which will contain every selected seat
-        for (int row = 0; row < rowCount; row++) { // every row
-            for (int column = 0; column < columnCount; column++) { // checks every column of every row
+        for (int row = 0; row < rowAmount; row++) { // every row
+            for (int column = 0; column < columnAmount; column++) { // checks every column of every row
                 JCheckBox currentCB = cbs[row][column]; // get the JCheckBox at the current row and column position
                 if (currentCB.isSelected()) { // JCheckBox is selected
                     Seat equivalentSeat = model.availableSeats[row][column]; // get the seat at position row|column from the model, which is equivalent to the position of the JCheckBox

@@ -60,14 +60,15 @@ public class KinoView {
         System.out.println("DEBUG: " + "view: setting up view"); // DEBUG
         // part 1: preparing tabs
         for (int i = 0; i < tabs.length; i++) { // go through the tabs
-            String name = null;
+            String equivalentName = null;
             Tab tab = null;
             try {
-                name = Vocabulary.TAB_NAMES[i]; // *try* to get the name for the tab
+                equivalentName = Vocabulary.TAB_NAMES[i]; // *try* to get the equivalent name for the tab
                 tab = tabs[i]; // get the tab from the array
-                addTab(name, tab); // add the tab
+                addTab(equivalentName, tab); // add the tab
             } catch (Exception ex) { // there is no name for the tab set
-                if (name == null) addTab(Vocabulary.DEFAULT_TAB_NAME + i, tabs[i]); // add the tab either way, just with the default name
+                if (equivalentName == null)
+                    addTab(Vocabulary.DEFAULT_TAB_NAME + i, tabs[i]); // add the tab either way, just with the default name
             }
         }
 
@@ -170,7 +171,7 @@ public class KinoView {
      * invoked from the controller when finishing the order
      * shows dialog for feedback
      */
-    public void finish() {
+    public void finish() { // TODO display ticket numbers
         System.out.println("DEBUG: " + "view: showing dialog"); // DEBUG
         createDialog(Vocabulary.FINISH_DIALOG_NAME, Vocabulary.FINISH_MSGS);
         resetTabs(); // reset

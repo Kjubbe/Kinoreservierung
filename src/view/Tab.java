@@ -55,17 +55,20 @@ public abstract class Tab extends JPanel {
         }
 
         // back button
-        backButton = new JButton(Vocabulary.BACK_BUTTON_LABEL); // set the label to the String from the model
+        backButton = new JButton(Vocabulary.BACK_BUTTON); // set the label to the String from the model
         backButton.addActionListener(ctrl); // add listener
+        backButton.setActionCommand(Vocabulary.BACK_BUTTON);
 
         // quit button
-        quitButton = new JButton(Vocabulary.QUIT_BUTTON_LABEL); // set the label to the String from the model
+        quitButton = new JButton(Vocabulary.QUIT_BUTTON); // set the label to the String from the model
         quitButton.addActionListener(ctrl); // add listener
+        quitButton.setActionCommand(Vocabulary.QUIT_BUTTON);
 
         // proceed button
-        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON_LABEL); // set the label to the String from the model // TODO maybe add indicators on each tab on what to do to proceed, but in most cases this is redundant
+        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON); // set the label to the String from the model // TODO maybe add indicators on each tab on what to do to proceed, but in most cases this is redundant
         proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
         proceedButton.addActionListener(ctrl); // add listener
+        proceedButton.setActionCommand(Vocabulary.PROCEED_BUTTON);
 
         // build the panel
         buttonPanel.add(backButton);
@@ -114,9 +117,8 @@ public abstract class Tab extends JPanel {
                 } catch (Exception e) {
                     return null;
                 }
-            } else {
+            } else
                 return null;
-            }
         }
         return components;
     }

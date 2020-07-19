@@ -189,7 +189,8 @@ public class KinoModel {
         chosenSeats = seats; // set chosen seats
         carSeatCount = 0; // reset the counter
         for (Seat s : chosenSeats) { // check every seat
-            if (s instanceof CarSeat) carSeatCount++; // if seat is an instance of CarSeat increase the counter
+            if (s instanceof CarSeat)
+                carSeatCount++; // if seat is an instance of CarSeat increase the counter
         }
         reset(1);
     }
@@ -227,14 +228,18 @@ public class KinoModel {
 
     /**
      * resets all user input specified by a depth value
-     * a higher depth value means a deeper reset
+     * a higher depth value = deeper reset
      */
     public void reset(int depth) {
         System.out.println("DEBUG: " + "model: resetting input..."); // DEBUG
-        if (depth >= 4) chosenMovie = null;
-        if (depth >= 3) chosenTime = null;
-        if (depth >= 2) chosenSeats = null;
-        if (depth >= 1) chosenCatering = null;
+        if (depth >= 4)
+            chosenMovie = null;
+        if (depth >= 3)
+            chosenTime = null;
+        if (depth >= 2)
+            chosenSeats = null;
+        if (depth >= 1)
+            chosenCatering = null;
     }
 
     /**
@@ -254,6 +259,8 @@ public class KinoModel {
         for (Seat s : chosenSeats) {
             System.out.println("DEBUG: model: reserved seat " + s); // DEBUG
             s.isReserved = true;
+            if (s instanceof BeachChairSeat)
+                ((BeachChairSeat)s).assignTicket();
             chosenTime.updateAvailability();
         }
         orders.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, calculatePrice()));

@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.Component;
-
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -49,7 +47,8 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
         ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
         
         Showtime[] times = model.availableTimes; // get the available showtimes from the model
-        if (times == null) throw new NullPointerException(Vocabulary.NO_TIMES_ERROR);
+        if (times == null)
+            throw new NullPointerException(Vocabulary.NO_TIMES_ERROR);
         
         int timeCount = times.length;
         rbs = new JRadioButton[timeCount]; // create JRadioButton array with length = amount

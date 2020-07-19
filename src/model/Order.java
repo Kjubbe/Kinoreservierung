@@ -54,14 +54,12 @@ public class Order {
             for (Map.Entry<Catering, Integer> entry : caterings.entrySet()) {
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
-                if (i == 0) { // check if the catering is chosen, if not skip
+                if (i == 0) // check if the catering is chosen, if not skip
                     continue; // skip this entry
-                }
                 cateringPrint += (i + "x " + c + ", "); // add the catering name and amount to the print
             }
-        } else {
+        } else
             cateringPrint += Vocabulary.NONE_LABELS[0] + "  ";
-        }
 
         String pricePrint = Vocabulary.TOTAL_PRICE_LABEL + ": " + totalPrice + Vocabulary.CURRENCY;
 
