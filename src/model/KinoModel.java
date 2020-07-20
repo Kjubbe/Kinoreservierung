@@ -25,13 +25,14 @@ public class KinoModel {
 
     // Datafields, which change during runtime // TODO check if public visibility is okay?
     public Movie chosenMovie; // set based on user input in the movie tab
-
     public Showtime[] availableTimes; // set based on the chosen movie
-    public Showtime chosenTime; // set based on user input in the times tab
 
+    public Showtime chosenTime; // set based on user input in the times tab
     public Seat[][] availableSeats; // set based on the chosen seat
+
     public List<Seat> chosenSeats; // set based on user input in the seat tab
     public int carSeatCount; // contains number of CarSeats in chosenSeats
+    public List<String> licensePlates;
 
     public Map<Catering, Integer> chosenCatering; // set based on user input in the catering tab
 
@@ -206,6 +207,14 @@ public class KinoModel {
     }
 
     /**
+     * set license plates
+     * @param lps list of license plates
+     */
+    public void setLicensePlates(List<String> lps) {
+        licensePlates = lps;
+    }
+
+    /**
      * adds all prices from chosen seats and catering options
      * @return calculated total price
      */
@@ -232,12 +241,19 @@ public class KinoModel {
      */
     public void reset(int depth) {
         System.out.println("DEBUG: " + "model: resetting input..."); // DEBUG
-        if (depth >= 4)
+        if (depth >= 4) {
             chosenMovie = null;
-        if (depth >= 3)
+            availableTimes = null;
+        }
+        if (depth >= 3) {
             chosenTime = null;
-        if (depth >= 2)
+            availableSeats = null;
+        }
+        if (depth >= 2) {
             chosenSeats = null;
+            licensePlates = null;
+            carSeatCount = 0;
+        }
         if (depth >= 1)
             chosenCatering = null;
     }
@@ -256,17 +272,37 @@ public class KinoModel {
      * finish an order
      */
     public void order() {
+        int i = 0;
         for (Seat s : chosenSeats) {
             System.out.println("DEBUG: model: reserved seat " + s); // DEBUG
             s.isReserved = true;
             if (s instanceof BeachChairSeat)
                 ((BeachChairSeat)s).assignTicket();
+            else {
+                ((CarSeat)s).licensePlateNr = licensePlates.get(i++); // TODO
+                System.out.println(((CarSeat)s).licensePlateNr); // DEBUG
+            }
+                
             chosenTime.updateAvailability();
         }
         orders.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, calculatePrice()));
-        System.out.println("\n" + "DEBUG: model: All orders are: \n" + orders + "\n"); // DEBUG
-        reset(4);
-
+        System.out.println("\n" + "DEBUG: model: All orders are: \n" + orders + "\n"); // DEBUGs
         // TODO write the order to a file
+    }
+    
+    /**
+     * TODO
+     * @return
+     */
+    public String[] getTicketStrings() {
+        String splitter = "@";
+        String print = "";
+        for (String s : Vocabulary.FINISH_MSGS) {
+            print += s + splitter;
+        }
+        for (Seat s : chosenSeats) {
+            if (s instanceof BeachChairSeat) print += Vocabulary.TICKET_LABEL + ": " + ((BeachChairSeat)s).getTicket() + splitter;
+        }
+        return print.split(splitter);
     }
 }

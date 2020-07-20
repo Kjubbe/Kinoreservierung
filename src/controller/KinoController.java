@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -57,9 +58,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
             else if (cmd.equals(Vocabulary.PROCEED_BUTTON)) 
                 view.proceed();
             else if (cmd.equals(Vocabulary.FINISH_BUTTON)) {
-                view.finish();
-                model.order();
-                view.update();
+                orderMade();
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
             System.out.println("DEBUG: " + "ctrl: Time chosen"); // DEBUG
@@ -92,7 +91,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     @Override
     public void keyReleased(KeyEvent e) {
         System.out.println("\n" + "DEBUG: " + "ctrl: key type registered..."); // DEBUG
-        view.update(); // source is from JTextField > source from seat tab
+        licensePlateChanged(); // source is from JTextField > source from seat tab // TODO model should receive License plates from here !!!!!!!!!!!!!
     }
 
     /**
@@ -132,6 +131,20 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     }
 
     /**
+     * invoked from event, gets input from license plates
+     */
+    private void licensePlateChanged() {
+        SeatingTab tab = (SeatingTab) view.tabs[3]; // get reference to the seating tab from the view
+        List<JTextField> tfs = tab.getTextFields();
+        List<String> lps = new ArrayList<>();
+        for (JTextField tf : tfs) {
+            lps.add(tf.getText());
+        }
+        model.setLicensePlates(lps);
+        view.update();
+    }
+
+    /**
      * invoked from event, gets setting from all SpinnerNumberModels
      * advises model to change chosen caterings
      * updates view
@@ -149,6 +162,16 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
             cateringCounts.put(equivalentCatering, value); // put catering as key with the selected amount as a value
         }
         model.setCatering(cateringCounts); // model receives map with catering-amount pairs
+        view.update();
+    }
+
+    /**
+     * invoked from event, when finishing the order
+     */
+    private void orderMade() {
+        model.order();
+        view.finish();
+        model.reset(4);
         view.update();
     }
 }

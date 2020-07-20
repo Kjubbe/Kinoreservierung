@@ -15,7 +15,7 @@ public class CarSeat extends Seat {
     private static final String pkwTooltip = Vocabulary.PKW_TOOLTIP;
     private static final String suvTooltip = Vocabulary.SUV_TOOLTIP;
     public final boolean isForSUV;
-    private String licensePlateNr = null; // holds license plate number TODO add logic to add the license plate to the seat when an order is made
+    public String licensePlateNr; // holds license plate number TODO add logic to add the license plate to the seat when an order is made
 
     /**
      * constructor, calls super constructor and sets suv data field

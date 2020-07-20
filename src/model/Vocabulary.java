@@ -31,7 +31,6 @@ public class Vocabulary {
 
     public static final String[] NONE_LABELS = {"keins", "keine", "keiner"}; // String for showing nothing is chosen
     public static final String SCREEN_LABEL = "Leinwand"; // String for screen
-    public static final String LICENSE_PLATE_LABEL = "Kennz. eingeben"; // String for the license plate JTextField in the seating tab
     public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg
     public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg
     public static final String TOTAL_PRICE_LABEL = "Gesamtpreis"; // String for the price label
@@ -60,6 +59,7 @@ public class Vocabulary {
     public static final String MOVIE_LABEL = "Film"; // movie
     public static final String TIME_LABEL = "Zeit"; // time
     public static final String SEATS_LABEL = "Plätze"; // seats
-    public static final String TICKET_LABEL = "Ticket"; // tickets
+    public static final String[] LICENSE_PLATE_LABEL = {"Kennz.", "Kennz. eingeben"}; // String for the license plate JTextField in the seating tab
+    public static final String TICKET_LABEL = "Ihr Ticket"; // tickets
     public static final String CATERING_LABEL = "Essen"; // catering
 }

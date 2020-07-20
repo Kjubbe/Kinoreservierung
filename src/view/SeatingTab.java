@@ -1,7 +1,7 @@
 package view;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
@@ -177,7 +177,7 @@ public class SeatingTab extends Tab {
                 tfs.add(tf); // add JTextField to the list
 
                 JPanel container = new JPanel(new FlowLayout()); // new container, holds one JLabel and one JTextField
-                container.add(new JLabel(Vocabulary.LICENSE_PLATE_LABEL + ":")); // add new JLabel with the text from the model
+                container.add(new JLabel(Vocabulary.LICENSE_PLATE_LABEL[1] + ":")); // add new JLabel with the text from the model
                 container.add(tf); // add the JTextField
 
                 licensePlatePanel.add(container); // add the container to the panel
@@ -214,5 +214,13 @@ public class SeatingTab extends Tab {
      */
     public JCheckBox[][] getCheckBoxes() {
         return cbs;
+    }
+
+    /**
+     * get the list of textfields
+     * @return list of textfields
+     */
+    public List<JTextField> getTextFields() {
+        return tfs;
     }
 }

@@ -171,9 +171,9 @@ public class KinoView {
      * invoked from the controller when finishing the order
      * shows dialog for feedback
      */
-    public void finish() { // TODO display ticket numbers
+    public void finish() {
         System.out.println("DEBUG: " + "view: showing dialog"); // DEBUG
-        createDialog(Vocabulary.FINISH_DIALOG_NAME, Vocabulary.FINISH_MSGS);
+        createDialog(Vocabulary.FINISH_DIALOG_NAME, model.getTicketStrings());
         resetTabs(); // reset
         switchTabTo(0); // switch back to the first tab
     }

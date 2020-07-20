@@ -56,10 +56,19 @@ public class SummaryTab extends Tab {
         }
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.SEATS_LABEL + ": " + seatPrint.substring(0, seatPrint.length() - 2)))); // remove last comma
 
-        // part 4: the catering
-        String cateringPrint = Vocabulary.NONE_LABELS[0] + "  ";
+        // part 4: the license plate numbers
+        if (model.licensePlates != null) {
+            String licensePlatePrint = "";
+            for (String s : model.licensePlates) { // go through every seat
+                licensePlatePrint += "\"" + s + "\", ";
+            }
+            if (!licensePlatePrint.equals(""))
+                summaryPanel.add(putInContainer(new JLabel(Vocabulary.LICENSE_PLATE_LABEL[0] + ": " + licensePlatePrint.substring(0, licensePlatePrint.length() - 2)))); // remove last comma
+        }
+        
+        // part 5: the catering
         if (model.chosenCatering != null) { // check if catering was chosen
-            cateringPrint = "";
+            String cateringPrint = "";
             for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every catering-value pair
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
@@ -67,10 +76,12 @@ public class SummaryTab extends Tab {
                     continue; // skip this entry
                 cateringPrint += i + "x " + c + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "; // add the catering name and price with their amount to the print
             }
+            if (cateringPrint.equals(""))
+                cateringPrint = Vocabulary.NONE_LABELS[0] + "  ";
+            summaryPanel.add(putInContainer(new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringPrint.substring(0, cateringPrint.length() - 2)))); // remove last comma
         }
-        summaryPanel.add(putInContainer(new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringPrint.substring(0, cateringPrint.length() - 2)))); // remove last comma
 
-        // part 5: total price
+        // part 6: total price
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.calculatePrice() + Vocabulary.CURRENCY))); // remove last comma
 
         // build the tab

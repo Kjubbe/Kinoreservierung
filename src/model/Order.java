@@ -58,6 +58,8 @@ public class Order {
                     continue; // skip this entry
                 cateringPrint += (i + "x " + c + ", "); // add the catering name and amount to the print
             }
+            if (cateringPrint.equals(""))
+            cateringPrint = Vocabulary.NONE_LABELS[0] + "  ";
         } else
             cateringPrint += Vocabulary.NONE_LABELS[0] + "  ";
 

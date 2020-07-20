@@ -33,8 +33,8 @@ public class BeachChairSeat extends Seat {
      * sets the ticket
      */
     public void assignTicket() {
-        int min = 100000;
-        int max = 1000000;
+        int min = 10000000;
+        int max = 100000000;
         
         Random rng = new Random();
         boolean duplicate;
