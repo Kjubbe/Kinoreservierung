@@ -8,7 +8,12 @@ package model.enums;
  */
 
 public enum FSKs {
-    FSK_0, FSK_6, FSK_12, FSK_16, FSK_18, FSK_UNRATED;
+	FSK_0,
+	FSK_6,
+	FSK_12,
+	FSK_16,
+	FSK_18,
+	FSK_UNRATED;
 
 	/**
 	 * converts the enum to a string

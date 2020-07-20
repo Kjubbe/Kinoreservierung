@@ -30,7 +30,9 @@ public class BeachChairSeat extends Seat {
     }
 
     /**
-     * sets the ticket
+     * sets the ticket for this seat
+     * gets a random number between the local min value (included) and the local max value (excluded)
+     * checks if the ticket number is unique
      */
     public void assignTicket() {
         int min = 10000000;

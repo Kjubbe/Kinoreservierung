@@ -3,14 +3,13 @@ package controller;
 import java.awt.event.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -48,24 +47,27 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
-        Object source = e.getSource();
-        String cmd = e.getActionCommand();
-        if (source instanceof JButton) { // source from JButton > source is either back-, quit or proceedbutton
-            if (cmd.equals(Vocabulary.BACK_BUTTON)) 
+        Object source = e.getSource(); // store the source object
+        String cmd = e.getActionCommand(); // get the action command
+        if (source instanceof JButton) { // source from JButton > source is either back-, quit-, proceed- or finishbutton
+            System.out.println("DEBUG: " + "ctrl: identified as button"); // DEBUG
+            if (cmd.equals(Vocabulary.BACK_BUTTON)) // back button
                 view.back();
-            else if (cmd.equals(Vocabulary.QUIT_BUTTON))
+            else if (cmd.equals(Vocabulary.QUIT_BUTTON)) // quit button
                 model.quit();
-            else if (cmd.equals(Vocabulary.PROCEED_BUTTON)) 
+            else if (cmd.equals(Vocabulary.PROCEED_BUTTON)) // proceed button
                 view.proceed();
-            else if (cmd.equals(Vocabulary.FINISH_BUTTON)) {
+            else if (cmd.equals(Vocabulary.FINISH_BUTTON)) { // finish button
                 orderMade();
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
+            System.out.println("DEBUG: " + "ctrl: identified as radio-button"); // DEBUG
+            int index = Integer.parseInt(cmd); // get the index from the action command
             System.out.println("DEBUG: " + "ctrl: Time chosen"); // DEBUG
-            int index = Integer.parseInt(cmd);
-            model.setTime(index);
+            model.setTime(index); // advice the model to set the time to the index specified
             view.update();
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
+            System.out.println("DEBUG: " + "ctrl: identified as checkbox"); // DEBUG
             seatChanged();
         }
     }
@@ -77,10 +79,11 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     @Override
     public void itemStateChanged(ItemEvent e) {
         System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
-        System.out.println("DEBUG: " + "ctrl: Movie chosen"); // DEBUG
+        System.out.println("DEBUG: " + "ctrl: identified as combobox"); // DEBUG
         Movie movie = (Movie) e.getItem(); // get the selected movie from the JComboBox
+        System.out.println("DEBUG: " + "ctrl: Movie chosen"); // DEBUG
         if (movie != null) // check if an actual movie is selected
-            model.setMovie(movie); // model receives the movie
+            model.setMovie(movie); // adivice model to set the movie
         view.update();
     }
 
@@ -91,7 +94,8 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     @Override
     public void keyReleased(KeyEvent e) {
         System.out.println("\n" + "DEBUG: " + "ctrl: key type registered..."); // DEBUG
-        licensePlateChanged(); // source is from JTextField > source from seat tab // TODO model should receive License plates from here !!!!!!!!!!!!!
+        System.out.println("DEBUG: " + "ctrl: identified as textfield"); // DEBUG
+        licensePlateChanged(); // source is from JTextField > source from seat tab for license plates
     }
 
     /**
@@ -101,6 +105,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     @Override
     public void stateChanged(ChangeEvent e) {
         System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
+        System.out.println("DEBUG: " + "ctrl: identified as spinner"); // DEBUG
         cateringChanged(); // source is from JSpinner > source from catering tab
     }
 
@@ -126,21 +131,24 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
                 }
             }
         }
-        model.setSeats(seats); // model receives the new list
+        model.setSeats(seats); // advice model to set the new seats
         view.update();
     }
 
     /**
-     * invoked from event, gets input from license plates
+     * invoked from event, gets input from JTextFields
+     * advises model to change license plates
+     * updates view
      */
     private void licensePlateChanged() {
+        System.out.println("DEBUG: " + "ctrl: license plate changed"); // DEBUG
         SeatingTab tab = (SeatingTab) view.tabs[3]; // get reference to the seating tab from the view
-        List<JTextField> tfs = tab.getTextFields();
-        List<String> lps = new ArrayList<>();
-        for (JTextField tf : tfs) {
-            lps.add(tf.getText());
+        List<JTextField> tfs = tab.getTextFields(); // get JTextFields from the tab
+        List<String> lps = new ArrayList<>(); // create a new list to store the license plate strings
+        for (JTextField tf : tfs) { // check every JTextField
+            lps.add(tf.getText().replaceAll("\\s+", "")); // add the text from the JTextField to the list
         }
-        model.setLicensePlates(lps);
+        model.setLicensePlates(lps); // advice model to set the new license plates
         view.update();
     }
 
@@ -152,14 +160,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     private void cateringChanged() { // TODO update this logic
         System.out.println("DEBUG: " + "ctrl: Catering chosen"); // DEBUG
         CateringTab tab = (CateringTab) view.tabs[4]; // get reference to the catering tab from the view
-        List<SpinnerNumberModel> spinnerModels = tab.getSpinnerModels(); // get reference to all SpinnerNumberModels from the view
-
-        Map<Catering, Integer> cateringCounts = new HashMap<>(); // create a new map, which will contain every catering option with their desired amount
-        for (int i = 0; i < spinnerModels.size(); i++) { // check every SpinnerNumberModel
-            SpinnerNumberModel currentModel = spinnerModels.get(i); // get the current SpinnerNumberModel at index
-            Catering equivalentCatering = KinoModel.ALL_CATERINGS.get(i); // get the catering at index from the model, which is equivalent to the index of the SpinnerNumberModel
-            int value = (Integer)(currentModel.getValue()); // get the selected amount from the SpinnerNumberModel
-            cateringCounts.put(equivalentCatering, value); // put catering as key with the selected amount as a value
+        List<SpinnerModel> spinnerModels = tab.getSpinnerModels(); // get reference to all SpinnerNumberModels from the view
+        List<Integer> cateringCounts = new ArrayList<>();
+        for (SpinnerModel snm : spinnerModels) {
+            cateringCounts.add((Integer)snm.getValue());
         }
         model.setCatering(cateringCounts); // model receives map with catering-amount pairs
         view.update();
@@ -167,11 +171,14 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
 
     /**
      * invoked from event, when finishing the order
+     * advises model to order and reset
+     * updates and advises view to finish
      */
     private void orderMade() {
-        model.order();
-        view.finish();
-        model.reset(4);
+        System.out.println("DEBUG: " + "ctrl: ordering..."); // DEBUG
+        model.order(); // advice the model to order
+        view.finish(); // advice the view to finish
+        model.reset(4); // adivce the model to reset everything
         view.update();
     }
 }

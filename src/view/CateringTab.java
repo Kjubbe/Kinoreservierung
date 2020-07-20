@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.awt.GridLayout;
+import java.awt.Component;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import controller.*;
@@ -25,7 +27,7 @@ import model.*;
 public class CateringTab extends Tab {
 
     // List of all spinnermodels, which contain chosen Number
-    private List<SpinnerNumberModel> spinnerModels;
+    private JPanel cateringPanel;
 
     /**
      * constructor, calls super constructor
@@ -46,8 +48,7 @@ public class CateringTab extends Tab {
         System.out.println("DEBUG: " + "tab: building catering tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        spinnerModels = new ArrayList<>(); // new List for the NumberSpinnerModels
-        JPanel cateringPanel = new JPanel(new GridLayout(KinoModel.ALL_CATERINGS.size(), 2)); // new panel, holds JSpinners FIXME the layout does not work well for this, another layout should be used instead
+        cateringPanel = new JPanel(new GridLayout(KinoModel.ALL_CATERINGS.size(), 2)); // new panel, holds JSpinners FIXME the layout does not work well for this, another layout should be used instead
         cateringPanel.setBorder(ySpacing);
 
         for (Catering c : KinoModel.ALL_CATERINGS) { // go through every catering
@@ -58,7 +59,6 @@ public class CateringTab extends Tab {
                 double cateringPrice = c.price.getPrice();
                 
                 SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
-                spinnerModels.add(spinnerModel); // add model to the list
                 JSpinner spinner = new JSpinner(spinnerModel); // create a new JSpinner with the SpinnerNumberModel
                 spinner.setEditor(new JSpinner.DefaultEditor(spinner)); // set to non-editable
                 spinner.addChangeListener(ctrl); // add listener
@@ -92,7 +92,13 @@ public class CateringTab extends Tab {
      * get the list of spinner models
      * @return list with spinner models
      */
-    public List<SpinnerNumberModel> getSpinnerModels() {
-        return spinnerModels;
+    public List<SpinnerModel> getSpinnerModels() {
+        List<SpinnerModel> snms = new ArrayList<>(); // create a new list
+        for (Component comp : getComponentsFrom(cateringPanel)) { // go through every component of the panel
+            if (comp instanceof JSpinner) { // component is instance of JSpinner
+                snms.add(((JSpinner)comp).getModel()); // add the model of the spinner to the list
+            }
+        }
+        return snms;
     }
 }

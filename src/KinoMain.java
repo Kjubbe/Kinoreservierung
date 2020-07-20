@@ -11,7 +11,7 @@ public class KinoMain {
     // TODO all: remove test movies and caterings when finished with the project
     // TODO all: the null pointer throwing system is good but not fully fleshed out, maybe it needs a rework?
     // TODO all: check if ALL final variables should actually be final
-    // TODO all: private static final <- this is not needed?
+    // TODO all: private static final <- this is not needed? also check if public visibility is okay
     // TODO all: check if all parts are there, where they belong: model stuff in model (calculations), view only for displaying information and controller only for changing both!
     // FIXME all: connecting JCheckBoxes / JRadiobuttons / JSpinner to a real object in the model can be reworked? maybe use a map with JCheckBox-Seat or pull components from their panel?
     // -> issues @ catering-tab/spinnermodels; seating-tab/tfs & cbs; times-tab/rbs

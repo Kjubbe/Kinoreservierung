@@ -35,6 +35,7 @@ public class Vocabulary {
     public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg
     public static final String TOTAL_PRICE_LABEL = "Gesamtpreis"; // String for the price label
     public static final String CURRENCY = "€"; // String for the currency
+    public static final String SPLITTER_STRING = "@"; // String to split
 
     // errors
     public static final String NO_TIMES_ERROR = "Dieser Film läuft zurzeit leider nicht."; // no times set

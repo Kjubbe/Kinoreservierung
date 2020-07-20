@@ -87,9 +87,9 @@ public class KinoView {
         frame.add(pricePanel, BorderLayout.NORTH);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.pack();
+        frame.setLocationRelativeTo(null);
     }
 
     /**
@@ -172,7 +172,7 @@ public class KinoView {
      * shows dialog for feedback
      */
     public void finish() {
-        System.out.println("DEBUG: " + "view: showing dialog"); // DEBUG
+        System.out.println("DEBUG: " + "view: finishing..."); // DEBUG
         createDialog(Vocabulary.FINISH_DIALOG_NAME, model.getTicketStrings());
         resetTabs(); // reset
         switchTabTo(0); // switch back to the first tab
@@ -185,6 +185,7 @@ public class KinoView {
      * @return the created dialog
      */
     private JDialog createDialog(String title, String[] content) {
+        System.out.println("DEBUG: " + "view: creating dialog..."); // DEBUG
         JDialog dialog = new JDialog(frame, title); // create dialog
         dialog.setLocationRelativeTo(frame);
         JPanel panel = new JPanel();

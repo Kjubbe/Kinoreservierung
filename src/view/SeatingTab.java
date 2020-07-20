@@ -2,6 +2,7 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Component;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
@@ -28,9 +29,8 @@ public class SeatingTab extends Tab {
 
     // Components
     private JCheckBox[][] cbs;
-    private ArrayList<JTextField> tfs;
+    private JPanel seatingPanel;
     private JPanel licensePlatePanel;
-    private JLabel screenLabel = new JLabel(Vocabulary.SCREEN_LABEL);
 
     // Colors
     private Color lightRed = new Color(255, 100, 100);
@@ -61,11 +61,9 @@ public class SeatingTab extends Tab {
         licensePlatePanel = new JPanel(); // new panel, holds JTextFields for license plates
         licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS));
         licensePlatePanel.setBorder(ySpacing);
-        tfs = new ArrayList<>(); // new List for the JTextFields
 
-        JPanel screenPanel = new JPanel(new FlowLayout());
+        JPanel screenPanel = putInContainer(new JLabel(Vocabulary.SCREEN_LABEL));
         screenPanel.setBackground(Color.LIGHT_GRAY);
-        screenPanel.add(screenLabel);
 
         Seat[][] seats = model.availableSeats; // get the available seats from the model
         int seatRowAmount = seats.length; // amount of rows of seats
@@ -76,7 +74,7 @@ public class SeatingTab extends Tab {
             throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
 
         cbs = new JCheckBox[seatRowAmount][seatColumnAmount]; // create JCheckBox array with row- and column count
-        JPanel seatingPanel = new JPanel(new GridLayout(seatRowAmount, seatColumnAmount)); // new panel, holds all JCheckBoxes
+        seatingPanel = new JPanel(new GridLayout(seatRowAmount, seatColumnAmount)); // new panel, holds all JCheckBoxes
         seatingPanel.setBorder(ySpacing);
 
         for (int row = 0; row < seatRowAmount; row++) { // every row
@@ -85,6 +83,7 @@ public class SeatingTab extends Tab {
                 JCheckBox cb = new JCheckBox(); // create a new JCheckBox
                 cb.addActionListener(ctrl); // add listener
                 cb.setToolTipText(currentSeat.toString()); // add tooltip from the current seat
+                cb.setActionCommand(row + "," + column);
 
                 // Coloring
                 Color color = Color.WHITE; // default Color is white
@@ -131,27 +130,20 @@ public class SeatingTab extends Tab {
 
         // condition 1: at least one checkbox must be selected
         boolean checkBoxSelected = false; // by default no checkbox is selected
-        int rowAmount = cbs.length; // amount of rows
-        int columnAmount = cbs[0].length; // amount of columns
-        for (int row = 0; row < rowAmount; row++) { // every row
-            for (int column = 0; column < columnAmount; column++) { // checks every column of every row
-                JCheckBox currentCB = cbs[row][column]; // get the JCheckBox at the current position
-                if (currentCB.isSelected()) { // check if the checkbox is selected
-                    checkBoxSelected = true; // condition is met
-                    break; // break out of the inner loop, because only at least one selected JCheckBox is needed
-                }
+        for (Component comp : getComponentsFrom(seatingPanel)) {
+            if (((JCheckBox)comp).isSelected()) {
+                checkBoxSelected = true;
+                break;
             }
-            if (checkBoxSelected)
-                break; // break the outer loop if the condition is met
         }
 
         // condition 2: all input for license plates must suffice
         boolean licensePlateMissing = false; // by default no license plate is missing
-        for (JTextField tf : tfs) { // checks every JTextField
-            if (!checkInput(tf)) // check if the JTextField "passes the test"
-                // "test" not passed
-                licensePlateMissing = true; // condition is met
+        for (JTextField tf : getTextFields()) {
+            if (!checkInput(tf))
+                licensePlateMissing = true;
         }
+
         // button gets enabled when
         // 1. the checkbox condition is met (at least one JCheckBox selected)
         // 2. the license plate condition is NOT met (no license plate missing)
@@ -167,28 +159,24 @@ public class SeatingTab extends Tab {
      */
     private void changeTextFields(int targetCount) {
         System.out.println("DEBUG: " + "seat-tab: changing textfields..."); // DEBUG
-        while (tfs.size() != targetCount) { // loop till amount of needed JTextFields is achieved
-            
-            // possibility 1
-            if (tfs.size() < targetCount) { // there are less JCheckBoxes than needed
-                System.out.println("DEBUG: " + "seat-tab: adding textfield..."); // DEBUG
-                JTextField tf = new JTextField(7); // create a new JTextField
-                tf.addKeyListener(ctrl); // add listener
-                tfs.add(tf); // add JTextField to the list
+        List<JTextField> tfs = getTextFields();  
+        // possibility 1
+        if (tfs.size() < targetCount) { // there are less JCheckBoxes than needed
+            System.out.println("DEBUG: " + "seat-tab: adding textfield..."); // DEBUG
+            JTextField tf = new JTextField(7); // create a new JTextField
+            tf.addKeyListener(ctrl); // add listener
 
-                JPanel container = new JPanel(new FlowLayout()); // new container, holds one JLabel and one JTextField
-                container.add(new JLabel(Vocabulary.LICENSE_PLATE_LABEL[1] + ":")); // add new JLabel with the text from the model
-                container.add(tf); // add the JTextField
+            JPanel container = new JPanel(new FlowLayout()); // new container, holds one JLabel and one JTextField
+            container.add(new JLabel(Vocabulary.LICENSE_PLATE_LABEL[1] + ":")); // add new JLabel with the text from the model
+            container.add(tf); // add the JTextField
 
-                licensePlatePanel.add(container); // add the container to the panel
+            licensePlatePanel.add(container); // add the container to the panel
 
-            }
-            // possibility 2
-            else { // there are more JCheckBoxes than needed
-                System.out.println("DEBUG: " + "seat-tab: removing textfield..."); // DEBUG
-                tfs.remove(tfs.size() - 1); // remove the last JTextField from the list
-                licensePlatePanel.remove(licensePlatePanel.getComponentCount() - 1); // remove the last JTextField from the panel
-            }
+        }
+        // possibility 2
+        else if (tfs.size() > targetCount) { // there are more JCheckBoxes than needed
+            System.out.println("DEBUG: " + "seat-tab: removing textfield..."); // DEBUG
+            licensePlatePanel.remove(licensePlatePanel.getComponentCount() - 1); // remove the last JTextField from the panel
         }
     }
 
@@ -221,6 +209,12 @@ public class SeatingTab extends Tab {
      * @return list of textfields
      */
     public List<JTextField> getTextFields() {
+        List<JTextField> tfs = new ArrayList<>(); // create a new list
+        for (Component comp : getComponentsFrom(licensePlatePanel)) { // go through every component of the panel
+            if (comp instanceof JTextField) { // component is instance of JTextField
+                tfs.add((JTextField)comp); // add the textfield to the list
+            }
+        }
         return tfs;
     }
 }

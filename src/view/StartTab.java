@@ -32,7 +32,7 @@ public class StartTab extends Tab {
      * adds JLabel for instructions
      */
     @Override
-    protected void build() throws NullPointerException {
+    protected void build() {
         System.out.println("DEBUG: " + "tab: building start tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 

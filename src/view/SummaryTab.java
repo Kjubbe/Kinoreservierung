@@ -35,7 +35,7 @@ public class SummaryTab extends Tab {
      * adds JLabels for displaying all information about the order from the model
      */
     @Override
-    protected void build() throws NullPointerException {
+    protected void build() {
         System.out.println("DEBUG: " + "tab: building summary tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
@@ -49,7 +49,7 @@ public class SummaryTab extends Tab {
         // part 2: the time
         summaryPanel.add(putInContainer(new JLabel(Vocabulary.TIME_LABEL + ": " + model.chosenTime))); // get chosen time from model
 
-        // part 3: the seats // TODO add license plate numbers
+        // part 3: the seats
         String seatPrint = "";
         for (Seat s : model.chosenSeats) { // go through every seat
             seatPrint += s.toString() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ";

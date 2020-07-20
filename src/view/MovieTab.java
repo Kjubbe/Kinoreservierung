@@ -42,7 +42,7 @@ public class MovieTab extends Tab {
     @Override
     protected void build() throws NullPointerException {
         System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG
-        reset(); // reset before building to avoid duplications
+        //reset(); // reset before building to avoid duplications
 
         description = new JLabel(); // new JLabel for the description
         JPanel moviePanel = new JPanel(new FlowLayout()); // new panel, holds JComboBox for movies and JLabel for the description

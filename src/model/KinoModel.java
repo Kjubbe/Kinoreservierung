@@ -4,6 +4,7 @@ import model.enums.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -17,13 +18,13 @@ import java.util.Map;
 public class KinoModel {
 
     // This list holds all orders
-    private List<Order> orders = new LinkedList<Order>();
+    private static final List<Order> orders = new LinkedList<Order>();
 
     // data
     public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
     public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing catering options
 
-    // Datafields, which change during runtime // TODO check if public visibility is okay?
+    // Datafields, which change during runtime
     public Movie chosenMovie; // set based on user input in the movie tab
     public Showtime[] availableTimes; // set based on the chosen movie
 
@@ -148,7 +149,7 @@ public class KinoModel {
             new Catering(null, null), // test catering
             new Catering("Corrupted honey", null), // test catering
             new Catering(null, Prices.VIP_BEACH_CHAIR_SEAT), // test catering
-            null
+            null // test catering
         };
         ALL_CATERINGS.addAll(Arrays.asList(c)); // add array in the list
     }
@@ -199,11 +200,15 @@ public class KinoModel {
     /**
      * invoked from controller when catering got chosen
      * assigns map with catering and amount
-     * @param cateringCounts
+     * @param cateringCounts list of amounts for each catering
      */
-    public void setCatering(Map<Catering, Integer> cateringCounts) {
-        System.out.println("DEBUG: " + "model: Catering set, Caterings: " + cateringCounts); // DEBUG
-        chosenCatering = cateringCounts; // set chosen caterings
+    public void setCatering(List<Integer> cateringCounts) {
+        chosenCatering = new HashMap<>(); // create a new map, which will contain every catering option with their desired amount
+        for (int i = 0; i < cateringCounts.size(); i++) { // check every SpinnerNumberModel
+            Catering equivalentCatering = ALL_CATERINGS.get(i); // get the catering at index from the model, which is equivalent to the index of the SpinnerNumberModel
+            chosenCatering.put(equivalentCatering, cateringCounts.get(i)); // put catering as key with the selected amount as a value
+        }
+        System.out.println("DEBUG: " + "model: Catering set, Caterings: " + chosenCatering); // DEBUG
     }
 
     /**
@@ -211,6 +216,7 @@ public class KinoModel {
      * @param lps list of license plates
      */
     public void setLicensePlates(List<String> lps) {
+        System.out.println("DEBUG: " + "model: License plate set, License plates: " + lps); // DEBUG
         licensePlates = lps;
     }
 
@@ -241,20 +247,20 @@ public class KinoModel {
      */
     public void reset(int depth) {
         System.out.println("DEBUG: " + "model: resetting input..."); // DEBUG
-        if (depth >= 4) {
+        if (depth >= 4) { // this depth reaches to the movie tab
             chosenMovie = null;
             availableTimes = null;
         }
-        if (depth >= 3) {
+        if (depth >= 3) { // this depth reaches to the times tab
             chosenTime = null;
             availableSeats = null;
         }
-        if (depth >= 2) {
+        if (depth >= 2) { // this depth reaches to the seat tab
             chosenSeats = null;
             licensePlates = null;
             carSeatCount = 0;
         }
-        if (depth >= 1)
+        if (depth >= 1) // this depth reaches to the seat tab
             chosenCatering = null;
     }
 
@@ -270,6 +276,9 @@ public class KinoModel {
 
     /**
      * finish an order
+     * assigns a ticket to every chosen beach chair
+     * assigns a license plate number to every chosen car seat
+     * creates and adds a new order object to the list
      */
     public void order() {
         int i = 0;
@@ -291,18 +300,17 @@ public class KinoModel {
     }
     
     /**
-     * TODO
-     * @return
+     * get all the tickets as strings
+     * @return array of strings with the ticket numbers
      */
     public String[] getTicketStrings() {
-        String splitter = "@";
         String print = "";
         for (String s : Vocabulary.FINISH_MSGS) {
-            print += s + splitter;
+            print += s + Vocabulary.SPLITTER_STRING;
         }
         for (Seat s : chosenSeats) {
-            if (s instanceof BeachChairSeat) print += Vocabulary.TICKET_LABEL + ": " + ((BeachChairSeat)s).getTicket() + splitter;
+            if (s instanceof BeachChairSeat) print += Vocabulary.TICKET_LABEL + ": " + ((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING;
         }
-        return print.split(splitter);
+        return print.split(Vocabulary.SPLITTER_STRING);
     }
 }

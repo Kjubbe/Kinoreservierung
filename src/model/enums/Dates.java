@@ -8,5 +8,11 @@ package model.enums;
  */
 
 public enum Dates {
-    Mo, Di, Mi, Do, Fr, Sa, So
+    Mo,
+    Di,
+    Mi,
+    Do,
+    Fr,
+    Sa,
+    So
 }

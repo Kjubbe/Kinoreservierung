@@ -1,6 +1,9 @@
 package view;
 
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -103,24 +106,21 @@ public abstract class Tab extends JPanel {
     }
 
     /**
-     * get components from a panel, only works with panels who have containers
+     * get components from a panel
      * @param pan panel which holds the needed components
      * @return the array of components
      */
-    protected final Component[] getComponentsFromPanel(JPanel pan) { // TODO this is not used
-        Component[] containers = pan.getComponents();
-        Component[] components = new Component[containers.length];
-        for (int i = 0; i < containers.length; i++) {
-            if (containers[i] instanceof JPanel) {
-                try {
-                    components[i] = ((JPanel)containers[i]).getComponent(0);
-                } catch (Exception e) {
-                    return null;
-                }
-            } else
-                return null;
+    protected final List<Component> getComponentsFrom(JPanel pan) {
+        List<Component> finalComponents = new ArrayList<>(); // create a list which holds all components
+        
+        List<Component> components = Arrays.asList(pan.getComponents()); // get all components from panel
+        for (Component comp : components) {
+            if (comp instanceof JPanel) // the component is instance of JPanel
+                finalComponents.addAll(getComponentsFrom((JPanel)comp)); // get all components from the panel
+            else // the component is not a JPanel
+                finalComponents.add(comp); // add the component to the list
         }
-        return components;
+        return finalComponents; // return the list of components
     }
 
     /**
