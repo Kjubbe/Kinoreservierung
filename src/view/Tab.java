@@ -17,7 +17,7 @@ import model.*;
 /**
  * parent class for custom tabs, contains basic data for a tab
  * holds three buttons for proceeding, exiting or going back
- * holds an instructional String in a JLabel (optional)
+ * holds an instructional JPanel with a JLabel (optional)
  * inherites from JPanel
  * @author Kjell Treder
  * @author Marcel Sauer
