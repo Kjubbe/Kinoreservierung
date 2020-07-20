@@ -17,7 +17,7 @@ import java.util.Map;
 public class KinoModel {
 
     // These lists hold all data
-    private static final List<Order> ALL_ORDERS = new ArrayList<>();
+    private static final List<Order> ALL_ORDERS = new ArrayList<>(); // contains all orders TODO maybe create a database class for these three?
     public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
     public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing caterings
 
