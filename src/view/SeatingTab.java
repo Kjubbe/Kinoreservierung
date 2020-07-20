@@ -51,7 +51,7 @@ public class SeatingTab extends Tab {
      * adds JCheckBox for every seat from the model in a grid layout
      */
     @Override
-    protected void build() throws NullPointerException {
+    protected void build() throws NullPointerException { 
         System.out.println("DEBUG: " + "tab: building seating tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
@@ -84,7 +84,7 @@ public class SeatingTab extends Tab {
                 cb.setToolTipText(currentSeat.toString()); // add tooltip from the current seat
                 cb.setActionCommand(row + Vocabulary.SPLITTER_STRING + column);
 
-                // Coloring
+                // Coloring // TODO add some legend to understand what each color means
                 Color color = Color.WHITE; // default Color is white
                 if (currentSeat.isReserved) {
                     color = lightRed; // if seat is reserved the color is set to light red

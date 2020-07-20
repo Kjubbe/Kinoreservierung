@@ -9,7 +9,7 @@ import view.KinoView;
 public class KinoMain {
     // TODO all: remove debug prints when finished with the project 
     // TODO all: remove test movies and caterings when finished with the project
-
+    // TODO all: check the alignment (JComponent.CENTER) for the components
     // TODO all: check if ALL final variables should actually be final
     // TODO all: private static final <- this is not needed? also check if public visibility is okay
     // TODO all: check if all parts are there, where they belong: model stuff in model (calculations), view only for displaying information and controller only for changing both!  ESPECIALLY string building
