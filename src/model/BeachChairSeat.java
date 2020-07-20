@@ -18,7 +18,7 @@ public class BeachChairSeat extends Seat {
     // Data fields
     private static final String name = Vocabulary.BEACH_CHAIR_TOOLTIP;
     private static List<Integer> tickets = new ArrayList<>();
-    private String ticket; // holds ticket number TODO add logic to add the ticket number to the seat when an order is made
+    private String ticket; // holds ticket number
 
     /**
      * constructor, calls super constructor
