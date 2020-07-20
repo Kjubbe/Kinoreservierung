@@ -1,12 +1,19 @@
 package model;
 
+/**
+ * contains all strings for the software
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public class Vocabulary {
     
-    // Data fields with Strings
+    // titles
     public static final String FRAME_NAME = "Kinoreservierung"; // String for the frame
     public static final String FINISH_DIALOG_NAME = "Vielen Dank!"; // String for the dialog at the end
     public static final String ERROR_DIALOG_NAME = "Hoppla..."; // String for error dialogs
 
+    // instruction text for tabs
     public static final String[] INSTRUCTION_TEXTS = // Strings for instructions on every tab in order
     {
         "Willkommen zum Autokinoreservierungssystem der TH Lübeck!",
@@ -17,7 +24,7 @@ public class Vocabulary {
         "Bitte überprüfen sie ihre Bestellung:"
     };
 
-    // tabs
+    // tab names
     public static final String DEFAULT_TAB_NAME = "Tab"; // String for default Tab name, used, when no name is set
     public static final String[] TAB_NAMES = // Strings for names of the tab in order
     {
@@ -29,6 +36,7 @@ public class Vocabulary {
         "Bestellen"
     };
 
+    // misc
     public static final String[] NONE_LABELS = {"keins", "keine", "keiner"}; // String for showing nothing is chosen
     public static final String SCREEN_LABEL = "Leinwand"; // String for screen
     public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg
@@ -41,7 +49,7 @@ public class Vocabulary {
     public static final String NO_TIMES_ERROR = "Dieser Film läuft zurzeit leider nicht."; // no times set
     public static final String NO_SEATS_ERROR = "Für diese Uhrzeit sind leider keine Plätze verfügbar"; // no seats
 
-    // Tooltips
+    // tooltips
     public static final String SOLD_OUT_TOOLTIP = "Ausverkauft"; // sold out
     public static final String RESERVED_TOOLTIP = "Reserviert"; // reserved
     public static final String VIP_TOOLTIP = "VIP"; // vip
@@ -49,7 +57,7 @@ public class Vocabulary {
     public static final String SUV_TOOLTIP = "SUV-Stellplatz"; // suv
     public static final String BEACH_CHAIR_TOOLTIP = "Strandkorb"; // beach chair
 
-    // Buttons labels
+    // buttons labels
     public static final String BACK_BUTTON = "Zurück"; // back
     public static final String QUIT_BUTTON = "Abbrechen"; // quit
     public static final String PROCEED_BUTTON = "Fortfahren"; // proceed

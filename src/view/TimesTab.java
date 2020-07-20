@@ -22,7 +22,7 @@ import model.*;
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class TimesTab extends Tab { // TODO maybe add a table or list to choose from? (overkill!)
 
-    // Panel which holds all radio buttons
+    // panel which holds all radio buttons
     private JPanel timesPanel;
 
     /**
@@ -36,7 +36,7 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
     }
 
     /**
-     * invoked when switching to this tab via the proceed button in another tab
+     * invoked from view when switching to this tab via the proceed button in another tab
      * adds JRadioButtons for time options from the movie from the model
      */
     @Override
@@ -50,7 +50,7 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
         ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
         
         Showtime[] times = model.availableTimes; // get the available showtimes from the model
-        if (times == null)
+        if (times == null) // no times set
             throw new NullPointerException(Vocabulary.NO_TIMES_ERROR);
         
         for (int i = 0; i < times.length; i++) { // go through all times
@@ -79,15 +79,15 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
     }
 
     /**
-     * invoked when clicking a JRadioButton
+     * invoked from controller when clicking a JRadioButton
      * user is able to proceed, if a JRadioButton is selected
      */
     @Override
     protected void update() {
         System.out.println("DEBUG: " + "tab: updating times tab..."); // DEBUG
-        for (Component comp : getComponentsFrom(timesPanel)) {
-            if (((JRadioButton)comp).isSelected()) {
-                proceedButton.setEnabled(true);
+        for (Component comp : getComponentsFrom(timesPanel)) { // go through every component of the panel
+            if (((JRadioButton)comp).isSelected()) { // check if radiobutton is selected
+                proceedButton.setEnabled(true); // button gets enabled when a radiobutton is selected 
                 return;
             }
         }

@@ -13,7 +13,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     // Data fields
     private Dates date;
     private Times time;
-    private boolean isSoldOut = false; // if the showtime is sold out
+    private boolean isSoldOut = false; // showtime is not sold out by default
 
     public final Seat[][] seats; // contains all available seats for this showtime
     
@@ -66,7 +66,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     }
 
     /**
-     * checks availibility of this showtime
+     * updates the availibility of this showtime
      * if no seat is available the show is sold out
      */
     protected void updateAvailability() {
@@ -74,7 +74,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
             for (Seat[] column : seats) {
                 for (Seat s : column) { // check every seat
                     if (!s.isReserved)
-                        return; // if the seat is not reserved return > show not sold out
+                        return; // unreserved seat found > return, because show is not sold out
                 }
             }
             isSoldOut = true; // no unreserved seat was found > show sold out

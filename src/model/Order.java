@@ -23,7 +23,7 @@ public class Order {
      * @param movie the chosen movie
      * @param time the chosen time of the movie
      * @param seats the chosen seats for the time
-     * @param caterings chosen catering options
+     * @param caterings chosen caterings
      */
     public Order(Movie movie, Showtime time, List<Seat> seats, Map<Catering, Integer> caterings, double totalPrice) {
         this.movie = movie;
@@ -40,17 +40,21 @@ public class Order {
     @Override
     public String toString() {
         
+        // movie
         String moviePrint = Vocabulary.MOVIE_LABEL + ": " + movie;
         
+        // time
         String timePrint = Vocabulary.TIME_LABEL + ": " + time;
         
+        // seats
         String seatPrint = Vocabulary.SEATS_LABEL + ": ";
         for (Seat s : seats) { // go through every seat
             seatPrint += s + ", "; // add all seats to the print
         }
 
+        // caterings
         String cateringPrint = Vocabulary.CATERING_LABEL + ": ";
-        if (caterings != null) {
+        if (caterings != null) { // check if caterings are selected
             for (Map.Entry<Catering, Integer> entry : caterings.entrySet()) {
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
@@ -58,11 +62,12 @@ public class Order {
                     continue; // skip this entry
                 cateringPrint += (i + "x " + c + ", "); // add the catering name and amount to the print
             }
-            if (cateringPrint.equals(""))
-            cateringPrint = Vocabulary.NONE_LABELS[0] + "  ";
-        } else
+            if (cateringPrint.equals("")) // no caterings chosen
+                cateringPrint = Vocabulary.NONE_LABELS[0] + "  ";
+        } else // no caterings set
             cateringPrint += Vocabulary.NONE_LABELS[0] + "  ";
 
+        // price
         String pricePrint = Vocabulary.TOTAL_PRICE_LABEL + ": " + totalPrice + Vocabulary.CURRENCY;
 
         return "\n" + moviePrint +

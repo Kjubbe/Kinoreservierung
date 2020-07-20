@@ -28,7 +28,7 @@ public class StartTab extends Tab {
     }
 
     /**
-     * invoked when switching to this tab via the proceed button in another tab
+     * invoked from view when switching to this tab
      * adds JLabel for instructions
      */
     @Override
@@ -36,7 +36,7 @@ public class StartTab extends Tab {
         System.out.println("DEBUG: " + "tab: building start tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        JPanel messagePanel = putInContainer(new JLabel(Vocabulary.START_MSG));
+        JPanel messagePanel = putInContainer(new JLabel(Vocabulary.START_MSG)); // new panel, holds label
         messagePanel.setBorder(ySpacing);
 
         // build the tab
@@ -50,7 +50,7 @@ public class StartTab extends Tab {
     }
 
     /**
-     * invoked when changing something / interacting with something on the tab
+     * invoked from controller when changing something / interacting with something on the tab
      * does nothing, because the start tab has no conditions for proceeding or new information to update/display
      */
     @Override

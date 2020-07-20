@@ -35,14 +35,14 @@ public class MovieTab extends Tab {
     }
 
     /**
-     * invoked when switching to this tab via the proceed button in another tab
+     * invoked from view when switching to this tab via the proceed button in another tab
      * adds JComboBox for movie options from the model
      * adds JLabel for displaying movie information from the movie
      */
     @Override
     protected void build() throws NullPointerException {
         System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG
-        //reset(); // reset before building to avoid duplications
+        reset(); // reset before building to avoid duplications
 
         description = new JLabel(); // new JLabel for the description
         JPanel moviePanel = new JPanel(new FlowLayout()); // new panel, holds JComboBox for movies and JLabel for the description
@@ -50,7 +50,7 @@ public class MovieTab extends Tab {
 
         dropdown = new JComboBox<Movie>(); // new JComboBox for movies
         for (Movie m : KinoModel.ALL_MOVIES) { // go through all movies
-            if (m != null)
+            if (m != null) // check if movie is not null
                 dropdown.addItem(m); // add movie in the dropdown
         }
         dropdown.setSelectedItem(null); // no selected movie
@@ -67,7 +67,7 @@ public class MovieTab extends Tab {
     }
 
     /**
-     * invoked when changing the movie in the JComboBox
+     * invoked from controller when changing the movie in the JComboBox
      * updates description to the one of the chosen movie
      * user is able to proceed, if a movie is chosen (not null)
      */

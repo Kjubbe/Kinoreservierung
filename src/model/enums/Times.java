@@ -2,7 +2,7 @@ package model.enums;
 
 /**
  * This enum defines the available prices
- * Holds times from 3pm to 10pm in 1/2h steps
+ * Holds times from 3pm to 10pm in 30min steps
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -26,7 +26,7 @@ public enum Times {
 
     /**
 	 * converts the enum to a string
-	 * @return time as a readable String in HH:MM Uhr format
+	 * @return time as a readable String in "HH:MM Uhr" format
 	 */
     public String getTime() {
 		switch (this) {

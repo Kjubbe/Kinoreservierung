@@ -27,8 +27,7 @@ import model.*;
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class SeatingTab extends Tab {
 
-    // Components
-    private JCheckBox[][] cbs;
+    // Panels which hols checkboxes and textfields
     private JPanel seatingPanel;
     private JPanel licensePlatePanel;
 
@@ -48,7 +47,7 @@ public class SeatingTab extends Tab {
     }
 
     /**
-     * invoked when switching to this tab via the proceed button in another tab
+     * invoked from view when switching to this tab via the proceed button in another tab
      * adds JCheckBox for every seat from the model in a grid layout
      */
     @Override
@@ -56,24 +55,24 @@ public class SeatingTab extends Tab {
         System.out.println("DEBUG: " + "tab: building seating tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
+        // build the panels
         instructionPanel.setBorder(ySpacing);
 
         licensePlatePanel = new JPanel(); // new panel, holds JTextFields for license plates
         licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS));
         licensePlatePanel.setBorder(ySpacing);
 
-        JPanel screenPanel = putInContainer(new JLabel(Vocabulary.SCREEN_LABEL));
+        JPanel screenPanel = putInContainer(new JLabel(Vocabulary.SCREEN_LABEL)); // new panel, holds label
         screenPanel.setBackground(Color.LIGHT_GRAY);
 
         Seat[][] seats = model.availableSeats; // get the available seats from the model
         int seatRowAmount = seats.length; // amount of rows of seats
-        if (seatRowAmount == 0)
+        if (seatRowAmount == 0) // no rows -> no seats
             throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
         int seatColumnAmount = seats[0].length; // amount of columns of seats
-        if (seatColumnAmount == 0)
+        if (seatColumnAmount == 0) // no columns -> no seats
             throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
 
-        cbs = new JCheckBox[seatRowAmount][seatColumnAmount]; // create JCheckBox array with row- and column count
         seatingPanel = new JPanel(new GridLayout(seatRowAmount, seatColumnAmount)); // new panel, holds all JCheckBoxes
         seatingPanel.setBorder(ySpacing);
 
@@ -83,7 +82,7 @@ public class SeatingTab extends Tab {
                 JCheckBox cb = new JCheckBox(); // create a new JCheckBox
                 cb.addActionListener(ctrl); // add listener
                 cb.setToolTipText(currentSeat.toString()); // add tooltip from the current seat
-                cb.setActionCommand(row + "," + column);
+                cb.setActionCommand(row + Vocabulary.SPLITTER_STRING + column);
 
                 // Coloring
                 Color color = Color.WHITE; // default Color is white
@@ -103,8 +102,6 @@ public class SeatingTab extends Tab {
                 }
                 cb.setBackground(color); // set background color of the checkbox to the color specified
 
-                cbs[row][column] = cb; // add JCheckBox to the array
-
                 // build the panel
                 seatingPanel.add(putInContainer(cb));
             }
@@ -119,7 +116,7 @@ public class SeatingTab extends Tab {
     }
 
     /**
-     * invoked when clicking a JCheckbox
+     * invoked from controller when clicking a JCheckbox
      * adds JTextFields proportionally to the number of chosen car seats
      * user is able to proceed, if a at least one seat is chosen and no displayed JTextField is missing a license plate input
      */
@@ -129,19 +126,19 @@ public class SeatingTab extends Tab {
         changeTextFields(model.carSeatCount); // update amount of textfields
 
         // condition 1: at least one checkbox must be selected
-        boolean checkBoxSelected = false; // by default no checkbox is selected
+        boolean checkBoxSelected = false; // assume that no checkbox is selected
         for (Component comp : getComponentsFrom(seatingPanel)) {
-            if (((JCheckBox)comp).isSelected()) {
-                checkBoxSelected = true;
+            if (((JCheckBox)comp).isSelected()) { // check for selected checkbox
+                checkBoxSelected = true; // selected checkbox found
                 break;
             }
         }
 
         // condition 2: all input for license plates must suffice
-        boolean licensePlateMissing = false; // by default no license plate is missing
+        boolean licensePlateMissing = false; // assume that no license plate is missing
         for (JTextField tf : getTextFields()) {
-            if (!checkInput(tf))
-                licensePlateMissing = true;
+            if (!checkInput(tf)) // check for unsufficient textfield
+                licensePlateMissing = true; // unsufficient textfield found
         }
 
         // button gets enabled when
@@ -156,10 +153,12 @@ public class SeatingTab extends Tab {
      * manages amount of JTextFields
      * removes JTextFields when there are too many (more than needed)
      * adds JTextFields when there are some missing (less than needed)
+     * @param targetCount the amount of textfields which are supposed to exist
      */
     private void changeTextFields(int targetCount) {
         System.out.println("DEBUG: " + "seat-tab: changing textfields..."); // DEBUG
-        List<JTextField> tfs = getTextFields();  
+        List<JTextField> tfs = getTextFields(); // get the textfields
+        
         // possibility 1
         if (tfs.size() < targetCount) { // there are less JCheckBoxes than needed
             System.out.println("DEBUG: " + "seat-tab: adding textfield..."); // DEBUG
@@ -181,27 +180,22 @@ public class SeatingTab extends Tab {
     }
 
     /**
-     * checks if the JTextField has an acceptable amount of text in it and changes color based on this information
+     * checks if the JTextField has an acceptable amount of text in it
+     * changes color based on the input
      * @param tf the JTextField to be checked
      * @return if the input suffices
      */
     private boolean checkInput(JTextField tf) {
+        int min = 5; // required min string length
+        int max = 10; // required max string length
         System.out.println("DEBUG: " + "seat-tab: checking input..."); // DEBUG
         String text = tf.getText().replaceAll("\\s+", ""); // get text from the JTextField and remove all whitespaces
-        boolean suffices = text.length() >= 4 && text.length() <= 8;
-        if (suffices)
+        boolean inputOkay = text.length() >= min && text.length() <= max; // input only suffices if the length of the text is greater than min and less than max
+        if (inputOkay) // check if the input suffices
             tf.getParent().setBackground(lightGreen); // sets the color to light green, when input suffices
         else
             tf.getParent().setBackground(lightRed); // sets color to light red, when input does not suffice
-        return suffices; // input only suffices if the length of the text is greater than 4 and less than 8
-    }
-
-    /**
-     * get the array of checkboxes
-     * @return array of checkboxes
-     */
-    public JCheckBox[][] getCheckBoxes() {
-        return cbs;
+        return inputOkay;
     }
 
     /**

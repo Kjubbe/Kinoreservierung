@@ -31,7 +31,7 @@ public class SummaryTab extends Tab {
     }
 
     /**
-     * invoked when switching to this tab via the proceed button in another tab
+     * invoked from view when switching to this tab via the proceed button in another tab
      * adds JLabels for displaying all information about the order from the model
      */
     @Override
@@ -69,7 +69,7 @@ public class SummaryTab extends Tab {
         // part 5: the catering
         if (model.chosenCatering != null) { // check if catering was chosen
             String cateringPrint = "";
-            for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every catering-value pair
+            for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every entry of the map
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
                 if (i == 0) // check if the catering is chosen, if not skip
@@ -95,7 +95,7 @@ public class SummaryTab extends Tab {
     }
 
     /**
-     * invoked when changing something / interacting with something on the tab
+     * invoked from controller when changing something / interacting with something on the tab
      * does nothing, because the summary tab has no conditions for proceeding or new information to update/display
      */
     @Override

@@ -16,8 +16,8 @@ import controller.*;
 import model.*;
 
 /**
- * child class of Tab, contains data for the tab displaying information about the catering
- * holds JSpinner to choose the amount of catering options
+ * child class of Tab, contains data for the tab displaying information about the caterings
+ * holds JSpinner to choose the amount of caterings
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -26,7 +26,7 @@ import model.*;
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class CateringTab extends Tab {
 
-    // List of all spinnermodels, which contain chosen Number
+    // panel which holds all spinners for the caterings
     private JPanel cateringPanel;
 
     /**
@@ -40,8 +40,8 @@ public class CateringTab extends Tab {
     }
 
     /**
-     * invoked when switching to this tab via the proceed button in another tab
-     * adds JSpinner for catering options from the model
+     * invoked from view when switching to this tab via the proceed button in another tab
+     * adds JSpinner for caterings from the model
      */
     @Override
     protected void build() throws NullPointerException {
@@ -53,10 +53,10 @@ public class CateringTab extends Tab {
 
         for (Catering c : KinoModel.ALL_CATERINGS) { // go through every catering
             try { // catch corrupted caterings missing a name or price
-                String cateringName = c.toString();
+                String cateringName = c.toString(); // get the name from the catering
                 if (cateringName == null)
                     throw new NullPointerException(); // no name set, throw exception
-                double cateringPrice = c.price.getPrice();
+                double cateringPrice = c.price.getPrice(); // get the price of the catering
                 
                 SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
                 JSpinner spinner = new JSpinner(spinnerModel); // create a new JSpinner with the SpinnerNumberModel
@@ -80,7 +80,7 @@ public class CateringTab extends Tab {
     }
 
     /**
-     * invoked when changing something / interacting with something on the tab
+     * invoked from controller when changing something / interacting with something on the tab
      * does nothing, because the catering tab has no conditions for proceeding or new information to update/display
      */
     @Override
@@ -95,7 +95,7 @@ public class CateringTab extends Tab {
     public List<SpinnerModel> getSpinnerModels() {
         List<SpinnerModel> snms = new ArrayList<>(); // create a new list
         for (Component comp : getComponentsFrom(cateringPanel)) { // go through every component of the panel
-            if (comp instanceof JSpinner) { // component is instance of JSpinner
+            if (comp instanceof JSpinner) { // check if component is instance of JSpinner
                 snms.add(((JSpinner)comp).getModel()); // add the model of the spinner to the list
             }
         }

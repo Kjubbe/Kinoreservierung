@@ -3,7 +3,8 @@ package model;
 import model.enums.*;
 
 /**
- * contains all information for a movie and the showtimes
+ * contains all information for a movie
+ * contains the showtimes for the movie
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -15,11 +16,12 @@ public class Movie { // TODO pictures for the movies
     private Genres genre;
     private FSKs fsk;
     public final Showtime[] showtimes; // contains all available showtimes for this movie
+    
     /**
      * constructor, sets data fields
      * @param title title of the movie
      * @param genre genre of the movie
-     * @param fsk fsk of which the movie is rated
+     * @param fsk rated fsk
      * @param showtimes the available showtimes for movie
      */
     public Movie(String title, Genres genre, FSKs fsk, Showtime[] showtimes) {
@@ -31,7 +33,7 @@ public class Movie { // TODO pictures for the movies
 
     /**
      * toString
-     * @return the name and price in parentheses
+     * @return the title of this movie
      */
     @Override
     public String toString() {
@@ -39,19 +41,19 @@ public class Movie { // TODO pictures for the movies
     }
 
     /**
-     * get the description of the movie, containing the genre and fsk
-     * @return genre and fsk in one string
+     * get the description of the movie, (ideally) containing the genre and fsk
+     * @return (ideally) genre and fsk in one string
      */
     public String getDescription() {
         try {
-            return genre.toString() + ", " + fsk.getFSK();
-        } catch (Exception e) {
-            if (genre == null && fsk != null) // no genre set
-                return fsk.getFSK();
-            else if (genre != null && fsk == null) // no fsk set
-                return genre.toString();
-            else // both not set
-                return "";
+            return genre.toString() + ", " + fsk.getFSK(); // try to return the genre and fsk as a string
+        } catch (Exception e) { // some data field is not set
+            if (genre == null && fsk != null)
+                return fsk.getFSK(); // no genre set
+            else if (genre != null && fsk == null) 
+                return genre.toString(); // no fsk set
+            else 
+                return ""; // both not set
         }
     }
 }

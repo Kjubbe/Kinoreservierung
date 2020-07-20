@@ -2,7 +2,7 @@ package model.enums;
 
 /**
  * This enum defines the available prices
- * Holds prices for seats and catering options
+ * Holds prices for seats and caterings
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -21,7 +21,7 @@ public enum Prices {
 
     /**
 	 * converts the enum to a double
-	 * @return price as a number for calculation
+	 * @return price as a double for calculation
 	 */
     public double getPrice() {
 		switch (this) {

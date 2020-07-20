@@ -8,7 +8,7 @@ import model.enums.*;
 
 /**
  * special type of seat, inherites from the Seat class
- * holds a ticket number
+ * holds a ticket number and list of all tickets
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -17,8 +17,8 @@ public class BeachChairSeat extends Seat {
 
     // Data fields
     private static final String name = Vocabulary.BEACH_CHAIR_TOOLTIP;
-    private static List<Integer> tickets = new ArrayList<>();
-    private String ticket; // holds ticket number
+    private static List<Integer> tickets = new ArrayList<>(); // this list holds all tickets for every seat
+    private String ticket; // holds the ticket "number" for this seat
 
     /**
      * constructor, calls super constructor
@@ -32,29 +32,29 @@ public class BeachChairSeat extends Seat {
     /**
      * sets the ticket for this seat
      * gets a random number between the local min value (included) and the local max value (excluded)
-     * checks if the ticket number is unique
+     * checks if the ticket number is unique before assigning it
      */
     public void assignTicket() {
-        int min = 10000000;
-        int max = 100000000;
+        int min = 10000000; // min value for the ticket number
+        int max = 100000000; // max value for the ticket number
         
         Random rng = new Random();
         boolean duplicate;
-        int ticketNr;
+        int ticketNr; // holds the ticket number
         do {
-            ticketNr = min + (int)(rng.nextDouble() * (max - min));
-            duplicate = false;
-            for (Integer i : tickets) {
-                if (i == ticketNr) {
+            ticketNr = min + (int)(rng.nextDouble() * (max - min)); // get a random number in the specified range
+            duplicate = false; // assume, that it is not a duplicate
+            for (Integer i : tickets) { // check every ticket
+                if (i == ticketNr) { // check for uplication
                     System.out.println("Duplicate found: " + i + " " + ticketNr); // DEBUG
-                    duplicate = true;
+                    duplicate = true; // duplication found
                     break;
                 }
             }
-        } while (duplicate);
+        } while (duplicate); // randomly generate ticket numbers until there is no duplication
 
-        ticket = String.valueOf(ticketNr);
-        tickets.add(ticketNr);
+        ticket = String.valueOf(ticketNr); // assign the ticket
+        tickets.add(ticketNr); // add the ticket to the list of all tickets
 
         System.out.println("Ticket assigned: " + ticket); // DEBUG
         System.out.println("Alle tickets: " + tickets); // DEBUG

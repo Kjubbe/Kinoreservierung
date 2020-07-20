@@ -58,6 +58,7 @@ public class KinoView {
      */
     private void initialize() {
         System.out.println("DEBUG: " + "view: setting up view"); // DEBUG
+        
         // part 1: preparing tabs
         for (int i = 0; i < tabs.length; i++) { // go through the tabs
             String equivalentName = null;
@@ -126,15 +127,15 @@ public class KinoView {
     /**
      * switch an tab to the index specified
      * the tab that is switched to is then forced to build itself
-     * @param index
+     * @param index the index of the tab which should be switched to
      */
     private void switchTabTo(int index) {
         System.out.println("DEBUG: " + "view: switched tab to index " + index); // DEBUG
-        try {
+        try { // try to build the tab
             tabs[index].build(); // call the build function of the tab
-        } catch (NullPointerException ex) {
+        } catch (NullPointerException ex) { // building the tab failed, inform the user
             createDialog(Vocabulary.ERROR_DIALOG_NAME, new String[] {ex.getMessage()}); // create a dialog displaying the error
-            return; // skip following code
+            return; // skip the following code
         }
         tabbedPane.setSelectedIndex(index); // set tab as selected
         tabbedPane.setEnabledAt(index, true); // enable tab
@@ -173,32 +174,38 @@ public class KinoView {
      */
     public void finish() {
         System.out.println("DEBUG: " + "view: finishing..."); // DEBUG
-        createDialog(Vocabulary.FINISH_DIALOG_NAME, model.getTicketStrings());
-        resetTabs(); // reset
+        createDialog(Vocabulary.FINISH_DIALOG_NAME, model.getTicketStrings()); // create a new dialog
+        resetTabs(); // reset all tabs
         switchTabTo(0); // switch back to the first tab
     }
 
     /**
      * creates a dialog with frame as the owner with the specified title and content
      * @param title title of the dialog
-     * @param content contents in a JLabel for the dialog
+     * @param content array of content which gets put in JLabels
      * @return the created dialog
      */
     private JDialog createDialog(String title, String[] content) {
         System.out.println("DEBUG: " + "view: creating dialog..."); // DEBUG
         JDialog dialog = new JDialog(frame, title); // create dialog
-        dialog.setLocationRelativeTo(frame);
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        
+        JPanel mainPanel = new JPanel(); // create a new panel for all labels
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        
+        // build the panel
         for (String s : content) {
             JPanel container = new JPanel();
             container.add(new JLabel(s));
-            panel.add(container);
+            mainPanel.add(container); // add the label
         }
-        dialog.add(panel);
+
+        // build the dialog
+        dialog.add(mainPanel);
         dialog.setVisible(true);
         dialog.pack();
+        dialog.setLocationRelativeTo(frame); // set in middle of frame
+        
         return dialog;
     }
 
@@ -206,7 +213,7 @@ public class KinoView {
      * resets all tabs
      */
     private void resetTabs() {
-        for (Tab t : tabs) {
+        for (Tab t : tabs) { // go through all tabs
             t.reset(); // reset all tabs
         }
     }

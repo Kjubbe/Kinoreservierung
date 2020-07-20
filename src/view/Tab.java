@@ -124,13 +124,13 @@ public abstract class Tab extends JPanel {
     }
 
     /**
-     * abstract method build is invoked when switching to a tab via the proceed button in another tab
+     * abstract method build is invoked from view when switching to a tab via the proceed button in another tab
      * building of each tab can differ, thus the abstract method
      */
     protected abstract void build() throws NullPointerException;
 
     /**
-     * abstract method update is invoked when changing something / interacting with something on the tab
+     * abstract method update is invoked from controller when changing something / interacting with something on the tab
      * this method should manage conditions to proceed (enable the proceed button)
      * displaying and updating can differ, thus the abstract method
      */

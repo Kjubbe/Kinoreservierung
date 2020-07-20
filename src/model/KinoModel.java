@@ -5,7 +5,6 @@ import model.enums.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,36 +16,34 @@ import java.util.Map;
 
 public class KinoModel {
 
-    // This list holds all orders
-    private static final List<Order> orders = new LinkedList<Order>();
-
-    // data
+    // These lists hold all data
+    private static final List<Order> ALL_ORDERS = new ArrayList<>();
     public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
-    public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing catering options
+    public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing caterings
 
     // Datafields, which change during runtime
     public Movie chosenMovie; // set based on user input in the movie tab
     public Showtime[] availableTimes; // set based on the chosen movie
 
     public Showtime chosenTime; // set based on user input in the times tab
-    public Seat[][] availableSeats; // set based on the chosen seat
+    public Seat[][] availableSeats; // set based on the chosen time
 
     public List<Seat> chosenSeats; // set based on user input in the seat tab
     public int carSeatCount; // contains number of CarSeats in chosenSeats
-    public List<String> licensePlates;
+    public List<String> licensePlates; // contains inputted license plates for CarSeats
 
     public Map<Catering, Integer> chosenCatering; // set based on user input in the catering tab
 
     /**
-     * Constructor, creates movies and catering options
+     * Constructor, creates movies and caterings
      */
     public KinoModel() { 
         createMovies(); // create movies
-        createCaterings(); // create catering options
+        createCaterings(); // create caterings
     }
 
     /**
-     * invoked when creating this
+     * called from constructor
      * creates movie examples and puts them in the list
      */
     private void createMovies() {
@@ -136,11 +133,11 @@ public class KinoModel {
     }
 
     /**
-     * invoked when creating this
+     * called from constructor
      * creates catering examples and puts them in the list
      */
     private void createCaterings() {
-        Catering[] c = new Catering[] { // create array with all catering options
+        Catering[] c = new Catering[] { // create array with all caterings
             new Catering("Cola", Prices.MEDIUM_DRINK),
             new Catering("Popcorn", Prices.LARGE_SNACK),
             new Catering("1l Wasser", Prices.MEDIUM_DRINK),
@@ -157,7 +154,7 @@ public class KinoModel {
     /**
      * invoked from controller when movie got chosen
      * assigns the chosen movie
-     * assigns showtimes from this movie
+     * assigns available showtimes from this movie
      * @param m movie which was chosen
      */
     public void setMovie(Movie m) {
@@ -169,51 +166,61 @@ public class KinoModel {
 
     /**
      * invoked from controller when time got chosen
-     * assigns the chosen time
-     * assigns the available seats from this movie
-     * @param index time which was chosen
+     * assigns the chosen time from the available times
+     * assigns the available seats from this time
+     * @param cmd action command from the radiobutton, contains the index for the time
      */
-    public void setTime(int index) {
+    public void setTime(String cmd) {
+        int index = Integer.parseInt(cmd); // get the index from the action command
         System.out.println("DEBUG: " + "model: Time set, Time: " + availableTimes[index]); // DEBUG
-        chosenTime = availableTimes[index]; // set chosen time
+        chosenTime = availableTimes[index]; // get the index from the action command]; // set chosen time
         availableSeats = chosenTime.seats; // set available seats to the seats contained in the showtime
         reset(2);
     }
 
     /**
      * invoked from controller when seats got chosen
-     * assigns list of the chosen seats
-     * counts amount of CarSeats
-     * @param seats list of seats which were chosen
+     * adds or removes seats based on the remove boolean
+     * increments or decrements the amount of CarSeats
+     * @param cmd action command from the checkbox, contains the position of the seat
+     * @param remove determines if an seat should be removed, if not, one gets added
      */
-    public void setSeats(List<Seat> seats) { // TODO split this to changeSeat and work with index and boolean remove/add
-        System.out.println("DEBUG: " + "model: Seat set, Seats: " + seats); // DEBUG
-        chosenSeats = seats; // set chosen seats
-        carSeatCount = 0; // reset the counter
-        for (Seat s : chosenSeats) { // check every seat
-            if (s instanceof CarSeat)
-                carSeatCount++; // if seat is an instance of CarSeat increase the counter
+    public void changeSeats(String cmd, boolean remove) {
+        String[] pos = cmd.split(Vocabulary.SPLITTER_STRING); // get the position from the action command
+        Seat s = availableSeats[Integer.parseInt(pos[0])][Integer.parseInt(pos[1])]; // get the seat at the specified position
+        if (remove) {
+            System.out.println("DEBUG: " + "model: Seat removed " + s); // DEBUG
+            chosenSeats.remove(s); // remove the seat from the list
+        } else {
+            System.out.println("DEBUG: " + "model: Seat added " + s); // DEBUG
+            chosenSeats.add(s); // add the seat to the list
         }
+        if (s instanceof CarSeat) { // check if seat is an instance of CarSeat
+            carSeatCount += remove ? -1 : 1;  // increase the counter when adding a CarSeat, decrease the counter when removing a CarSeat
+            System.out.println("DEBUG: " + "model: Car seat count changed to " + carSeatCount); // DEBUG
+        }
+        System.out.println("DEBUG: " + "model: List of seats " + chosenSeats); // DEBUG
         reset(1);
     }
 
     /**
      * invoked from controller when catering got chosen
-     * assigns map with catering and amount
-     * @param cateringCounts list of amounts for each catering
+     * assigns map with catering as key and amount as value
+     * @param cateringAmounts list of amounts for each catering
      */
-    public void setCatering(List<Integer> cateringCounts) {
-        chosenCatering = new HashMap<>(); // create a new map, which will contain every catering option with their desired amount
-        for (int i = 0; i < cateringCounts.size(); i++) { // check every SpinnerNumberModel
-            Catering equivalentCatering = ALL_CATERINGS.get(i); // get the catering at index from the model, which is equivalent to the index of the SpinnerNumberModel
-            chosenCatering.put(equivalentCatering, cateringCounts.get(i)); // put catering as key with the selected amount as a value
+    public void setCatering(List<Integer> cateringAmounts) {
+        chosenCatering = new HashMap<>(); // create a new map, which will contain every catering option with their specified amount
+        for (int i = 0; i < cateringAmounts.size(); i++) { // check every Integer of the list
+            Catering equivalentCatering = ALL_CATERINGS.get(i); // get the catering at the index, which is equivalent to the index of the amount for this catering
+            chosenCatering.put(equivalentCatering, cateringAmounts.get(i)); // put catering as key with the selected amount as a value in the map
         }
         System.out.println("DEBUG: " + "model: Catering set, Caterings: " + chosenCatering); // DEBUG
     }
 
     /**
-     * set license plates
-     * @param lps list of license plates
+     * invoked from controller when text got typed in the textfield
+     * assigns list with the text from the textfields
+     * @param lps list of license plate Strings
      */
     public void setLicensePlates(List<String> lps) {
         System.out.println("DEBUG: " + "model: License plate set, License plates: " + lps); // DEBUG
@@ -221,12 +228,12 @@ public class KinoModel {
     }
 
     /**
-     * adds all prices from chosen seats and catering options
+     * adds all prices from chosen seats and caterings together to calculate the total price
      * @return calculated total price
      */
     public double calculatePrice() {
         double price = 0.0; // local variable, holds the price
-        if (chosenSeats != null) { // check, if there are chosen seats
+        if (!chosenSeats.isEmpty()) { // check, if there are chosen seats
             for (Seat s : chosenSeats) { // check every seat
                 price += s.price.getPrice(); // add price of the seat to the total amount
             }
@@ -235,7 +242,7 @@ public class KinoModel {
             for (Map.Entry<Catering, Integer> entry : chosenCatering.entrySet()) { // check every entry of the map
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
-                price += c.price.getPrice() * i;
+                price += c.price.getPrice() * i; // price is equal to the price multiplied by the amount
             }
         }
         return Math.round(price * 100.0) / 100.0; // round price to two decimal places
@@ -243,7 +250,8 @@ public class KinoModel {
 
     /**
      * resets all user input specified by a depth value
-     * a higher depth value = deeper reset
+     * a higher depth value = a deeper reset
+     * @param depth the depth of the reset
      */
     public void reset(int depth) {
         System.out.println("DEBUG: " + "model: resetting input..."); // DEBUG
@@ -256,7 +264,7 @@ public class KinoModel {
             availableSeats = null;
         }
         if (depth >= 2) { // this depth reaches to the seat tab
-            chosenSeats = null;
+            chosenSeats = new ArrayList<>();
             licensePlates = null;
             carSeatCount = 0;
         }
@@ -265,37 +273,36 @@ public class KinoModel {
     }
 
     /**
-     * Quits the application
+     * quit the application
      * invoked from controller by pressing the JButton for exiting
      */
     public void quit() {
         System.out.println("\n" + "DEBUG: " + "quitting..."); // DEBUG
-        reset(4);
+        reset(4); // reset the model
         System.exit(0); // terminate the program
     }
 
     /**
      * finish an order
      * assigns a ticket to every chosen beach chair
-     * assigns a license plate number to every chosen car seat
+     * assigns the license plate numbers to the chosen car seat
      * creates and adds a new order object to the list
      */
     public void order() {
-        int i = 0;
-        for (Seat s : chosenSeats) {
+        int i = 0; // local index counter
+        for (Seat s : chosenSeats) { // check every seat
             System.out.println("DEBUG: model: reserved seat " + s); // DEBUG
-            s.isReserved = true;
+            s.isReserved = true; // reserve the seat
             if (s instanceof BeachChairSeat)
-                ((BeachChairSeat)s).assignTicket();
+                ((BeachChairSeat)s).assignTicket(); // assign a ticket to the beach chair seat
             else {
-                ((CarSeat)s).licensePlateNr = licensePlates.get(i++); // TODO
-                System.out.println(((CarSeat)s).licensePlateNr); // DEBUG
-            }
-                
-            chosenTime.updateAvailability();
+                ((CarSeat)s).licensePlateNr = licensePlates.get(i++); // assign the license plate to the car seat and increment the index counter
+                System.out.println("DEBUG: model: set license plate " + ((CarSeat)s).licensePlateNr); // DEBUG
+            } 
+            chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
         }
-        orders.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, calculatePrice()));
-        System.out.println("\n" + "DEBUG: model: All orders are: \n" + orders + "\n"); // DEBUGs
+        ALL_ORDERS.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, calculatePrice())); // create and add a new order with all information
+        System.out.println("\n" + "DEBUG: model: All orders are: \n" + ALL_ORDERS + "\n"); // DEBUGs
         // TODO write the order to a file
     }
     
@@ -303,14 +310,14 @@ public class KinoModel {
      * get all the tickets as strings
      * @return array of strings with the ticket numbers
      */
-    public String[] getTicketStrings() {
+    public String[] getTicketStrings() { // TODO is this stringbuilding not better in the view?
         String print = "";
-        for (String s : Vocabulary.FINISH_MSGS) {
-            print += s + Vocabulary.SPLITTER_STRING;
+        for (String s : Vocabulary.FINISH_MSGS) { // go through the finish msgs
+            print += s + Vocabulary.SPLITTER_STRING; // add all msgs from the vocab
         }
-        for (Seat s : chosenSeats) {
-            if (s instanceof BeachChairSeat) print += Vocabulary.TICKET_LABEL + ": " + ((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING;
+        for (Seat s : chosenSeats) { // go through the chosen seats
+            if (s instanceof BeachChairSeat) print += Vocabulary.TICKET_LABEL + ": " + ((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING; // get the ticket from the seat and add it to the string
         }
-        return print.split(Vocabulary.SPLITTER_STRING);
+        return print.split(Vocabulary.SPLITTER_STRING); // split the string
     }
 }
