@@ -10,7 +10,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
