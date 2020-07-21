@@ -16,7 +16,6 @@ import javax.swing.border.EmptyBorder;
 import model.*;
 import controller.*;
 
-
 /**
  * View class, manages and generates UI Components,
  * UI consists of a JTabbedPane with different tabs and a JTextField displaying the total price above,
@@ -189,7 +188,14 @@ public class KinoView {
      */
     public void finish() {
         System.out.println("DEBUG: " + "view: finishing..."); // DEBUG
-        createDialog(Vocabulary.FINISH_DIALOG_NAME, model.getTicketStrings()); // create a new JDialog
+        String print = "";
+        for (String s : Vocabulary.FINISH_MSGS) {
+            print += s + Vocabulary.SPLITTER_STRING;
+        }
+        for (String s : model.getTicketStrings()) {
+            print += Vocabulary.TICKET_LABEL + ": " + s;
+        }
+        createDialog(Vocabulary.FINISH_DIALOG_NAME, print.split(Vocabulary.SPLITTER_STRING)); // create a new JDialog
         resetTabs(); // reset all tabs
         switchTabTo(0); // switch back to the first tab
     }
