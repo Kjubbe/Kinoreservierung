@@ -17,7 +17,15 @@ import controller.*;
 
 
 /**
- * View class, manages and generates UI Components
+ * View class, manages and generates UI Components,
+ * UI consists of a JTabbedPane with different tabs and a JTextField displaying the total price above,
+ * the user is able to switch between and interact with the tabs,
+ * on the first tab the user can proceed with a JButton to make their reservation,
+ * on the second tab the user can choose a movie from a JComboBox,
+ * on the third tab the user can choose a time from a list of JRadioButtons,
+ * on the fourth tab the user can choose any amount of seats with JCheckBoxes and type in license plates in JTextFields
+ * on the fifth tab the user can choose the amount of caterings with JSpinners
+ * the sixth tab shows a summary of the order in JLabels and a JButton to place the order
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -28,14 +36,14 @@ public class KinoView {
     private KinoModel model = new KinoModel();
     private KinoController ctrl = new KinoController(this, model);
 
-    // Create frame and tabbed Pane
+    // Create JFrame and JTabbedPane
     private JFrame frame = new JFrame(Vocabulary.FRAME_NAME);
-    private JTabbedPane tabbedPane = new JTabbedPane(); // tabbed pane manages tabs
+    private JTabbedPane tabbedPane = new JTabbedPane(); // JTabbedPane manages tabs
 
-    private JPanel pricePanel = new JPanel(); // this panel holds the price
+    private JPanel pricePanel = new JPanel(); // this JPanel contains the price
     private JTextField priceDisplay = new JTextField(Vocabulary.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocabulary.CURRENCY); // JTextField for displaying the price
     
-    // This array holds tabs
+    // This array contains all tabs
     public final Tab[] tabs =
     {
         new StartTab(model, ctrl, 0),
@@ -47,14 +55,14 @@ public class KinoView {
     };
 
     /**
-     * Constructor, builds the frame
+     * Constructor, builds the JFrame
      */
     public KinoView() {
         initialize();
     }
 
     /**
-     * invoked when creating the view, builds the frame, the panel for the price and tabs
+     * invoked when creating the view, builds the JFrame, the JPanel for the price and tabs
      */
     private void initialize() {
         System.out.println("DEBUG: " + "view: setting up view"); // DEBUG
@@ -76,14 +84,14 @@ public class KinoView {
         // part 2: build the tab
         switchTabTo(0); // switch to the first tab
 
-        // part 3: adjust the price panel
+        // part 3: adjust the price JTextField
         priceDisplay.setEditable(false);
         pricePanel.add(priceDisplay);
 
-        // part 4: set up the frame
+        // part 4: set up the JFrame
         frame.setLayout(new BorderLayout());
 
-        // add panels
+        // add JPanels
         frame.add(tabbedPane, BorderLayout.CENTER);
         frame.add(pricePanel, BorderLayout.NORTH);
 
@@ -94,9 +102,9 @@ public class KinoView {
     }
 
     /**
-     * adds an tab to the tabbedPane and disables it by default
+     * adds an tab to the JTabbedPane and disables it by default
      * @param title title of the tab
-     * @param tab tab for this tabbedPane
+     * @param tab tab for this JTabbedPane
      */
     private void addTab(String title, Tab tab) {
         System.out.println("DEBUG: " + "view: added tab " + title); // DEBUG
@@ -105,7 +113,7 @@ public class KinoView {
     }
 
     /**
-     * invoked from controller by the proceed button
+     * invoked from controller by the proceed JButton
      * changes the active tab to the following tab
      */
     public void proceed() {
@@ -115,7 +123,7 @@ public class KinoView {
     }
 
     /**
-     * invoked from controller by the back button
+     * invoked from controller by the back JButton
      * changes the active tab to the previous tab
      */
     public void back() {
@@ -134,7 +142,7 @@ public class KinoView {
         try { // try to build the tab
             tabs[index].build(); // call the build function of the tab
         } catch (NullPointerException ex) { // building the tab failed, inform the user
-            createDialog(Vocabulary.ERROR_DIALOG_NAME, new String[] {ex.getMessage()}); // create a dialog displaying the error
+            createDialog(Vocabulary.ERROR_DIALOG_NAME, new String[] {ex.getMessage()}); // create a JDialog displaying the error
             return; // skip the following code
         }
         tabbedPane.setSelectedIndex(index); // set tab as selected
@@ -156,7 +164,7 @@ public class KinoView {
 
     /**
      * invoked from controller by user interaction
-     * updates information displayed on the frame
+     * updates information displayed on the JFrame
      * forces an update on the active tab aswell
      */
     public void update() {
@@ -170,41 +178,41 @@ public class KinoView {
 
     /**
      * invoked from the controller when finishing the order
-     * shows dialog for feedback
+     * shows JDialog for feedback
      */
     public void finish() {
         System.out.println("DEBUG: " + "view: finishing..."); // DEBUG
-        createDialog(Vocabulary.FINISH_DIALOG_NAME, model.getTicketStrings()); // create a new dialog
+        createDialog(Vocabulary.FINISH_DIALOG_NAME, model.getTicketStrings()); // create a new JDialog
         resetTabs(); // reset all tabs
         switchTabTo(0); // switch back to the first tab
     }
 
     /**
-     * creates a dialog with frame as the owner with the specified title and content
-     * @param title title of the dialog
+     * creates a JDialog with the JFrame as the owner with the specified title and content in JLabels
+     * @param title title of the JDialog
      * @param content array of content which gets put in JLabels
-     * @return the created dialog
+     * @return the created JDialog
      */
     private JDialog createDialog(String title, String[] content) {
         System.out.println("DEBUG: " + "view: creating dialog..."); // DEBUG
-        JDialog dialog = new JDialog(frame, title); // create dialog
+        JDialog dialog = new JDialog(frame, title); // create JDialog
         
-        JPanel mainPanel = new JPanel(); // create a new panel for all labels
+        JPanel mainPanel = new JPanel(); // create a new JPanel for all JLabels
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         
-        // build the panel
+        // build the JPanel
         for (String s : content) {
             JPanel container = new JPanel();
             container.add(new JLabel(s));
-            mainPanel.add(container); // add the label
+            mainPanel.add(container); // add the JPanel with the JLabel
         }
 
-        // build the dialog
+        // build the JDialog
         dialog.add(mainPanel);
         dialog.setVisible(true);
         dialog.pack();
-        dialog.setLocationRelativeTo(frame); // set in middle of frame
+        dialog.setLocationRelativeTo(frame); // set the JDialog in the middle of the JFrame
         
         return dialog;
     }

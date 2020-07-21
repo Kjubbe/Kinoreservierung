@@ -10,8 +10,8 @@ import controller.*;
 import model.*;
 
 /**
- * child class of Tab, contains data for the tab displaying information about the movie
- * holds JComboBox to choose a movie
+ * the movie tab contains components for displaying information about the movies
+ * this tab is the second tab in the view, it contains a JComboBox to choose a movie
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -28,14 +28,14 @@ public class MovieTab extends Tab {
      * constructor, calls super constructor
      * @param model reference to the model object
      * @param ctrl reference to the ctrl object
-     * @param index position of the tab in the tabbed panel in the frame
+     * @param index position of the tab in the JTabbedPane from the view
      */
     public MovieTab(KinoModel model, KinoController ctrl, int index) {
         super(model, ctrl, index);
     }
 
     /**
-     * invoked from view when switching to this tab via the proceed button in another tab
+     * invoked from view when switching to this tab via the proceed JButton in another tab
      * adds JComboBox for movie options from the model
      * adds JLabel for displaying movie information from the movie
      */
@@ -45,25 +45,25 @@ public class MovieTab extends Tab {
         reset(); // reset before building to avoid duplications
 
         description = new JLabel(); // new JLabel for the description
-        JPanel moviePanel = new JPanel(new FlowLayout()); // new panel, holds JComboBox for movies and JLabel for the description
+        JPanel moviePanel = new JPanel(new FlowLayout()); // new JPanel, contains JComboBox for movies and JLabel for the description
         moviePanel.setBorder(ySpacing);
 
         dropdown = new JComboBox<Movie>(); // new JComboBox for movies
         for (Movie m : KinoModel.ALL_MOVIES) { // go through all movies
             if (m != null) // check if movie is not null
-                dropdown.addItem(m); // add movie in the dropdown
+                dropdown.addItem(m); // add movie to the JComboBox
         }
         dropdown.setSelectedItem(null); // no selected movie
         dropdown.addItemListener(ctrl); // add listener
 
-        // build the panel
+        // build the JPanel
         moviePanel.add(dropdown);
         moviePanel.add(description);
 
         // build the tab
         add(instructionPanel); // instructions first
-        add(moviePanel); // movie dropdown in the middle
-        add(buttonPanel); // buttons last
+        add(moviePanel); // JComboBox for movie selection in the middle
+        add(buttonPanel); // JButtons last
     }
 
     /**

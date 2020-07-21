@@ -8,7 +8,7 @@ import model.enums.*;
 
 /**
  * special type of seat, inherites from the Seat class
- * holds a ticket number and list of all tickets
+ * contains a ticket number and list of all tickets
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -39,19 +39,19 @@ public class BeachChairSeat extends Seat {
         int max = 100000000; // max value for the ticket number
         
         Random rng = new Random();
-        boolean duplicate;
+        boolean isDuplicate;
         int ticketNr; // holds the ticket number
         do {
             ticketNr = min + (int)(rng.nextDouble() * (max - min)); // get a random number in the specified range
-            duplicate = false; // assume, that it is not a duplicate
-            for (Integer i : tickets) { // check every ticket
-                if (i == ticketNr) { // check for uplication
-                    System.out.println("Duplicate found: " + i + " " + ticketNr); // DEBUG
-                    duplicate = true; // duplication found
+            isDuplicate = false; // assume, that it is not a duplicate
+            for (Integer t : tickets) { // check every ticket
+                if (t == ticketNr) { // check for uplication
+                    System.out.println("Duplicate found: " + t + " " + ticketNr); // DEBUG
+                    isDuplicate = true; // duplication found
                     break;
                 }
             }
-        } while (duplicate); // randomly generate ticket numbers until there is no duplication
+        } while (isDuplicate); // randomly generate ticket numbers until there is no duplication
 
         ticket = String.valueOf(ticketNr); // assign the ticket
         tickets.add(ticketNr); // add the ticket to the list of all tickets

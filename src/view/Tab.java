@@ -16,8 +16,8 @@ import model.*;
 
 /**
  * parent class for custom tabs, contains basic data for a tab
- * holds three buttons for proceeding, exiting or going back
- * holds an instructional JPanel with a JLabel (optional)
+ * contains three JButtons for proceeding, exiting or going back
+ * contains an instructional JPanel with a JLabel (optional)
  * inherites from JPanel
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -30,8 +30,8 @@ public abstract class Tab extends JPanel {
     protected KinoModel model;
     protected KinoController ctrl;
 
-    protected JPanel instructionPanel = new JPanel(); // panel for JLabel for displaying instruction text
-    protected JPanel buttonPanel = new JPanel(); // panel for all three JButtons
+    protected JPanel instructionPanel = new JPanel(); // JPanel for JLabel displaying instruction text
+    protected JPanel buttonPanel = new JPanel(); // JPanel for all three JButtons
 
     protected final EmptyBorder defaultBorder = new EmptyBorder(15, 15, 15, 15);
     protected final EmptyBorder xSpacing = new EmptyBorder(0, 15, 0, 15);
@@ -45,7 +45,7 @@ public abstract class Tab extends JPanel {
      * constructor, assigns data references and an index
      * @param model reference to the model object
      * @param ctrl reference to the ctrl object
-     * @param index position of the tab in the tabbed panel in the frame
+     * @param index position of the tab in the JTabbedPane from the view
      */
     public Tab(KinoModel model, KinoController ctrl, int index) {
         this.model = model;
@@ -54,26 +54,26 @@ public abstract class Tab extends JPanel {
         try {
             instructionPanel.add(new JLabel(Vocabulary.INSTRUCTION_TEXTS[index])); // try to add instructions from the model
         } catch (Exception e) { // no instructions at the specified index
-            System.out.println("No message set"); // do not add a label
+            System.out.println("No message set"); // do not add a JLabel
         }
 
-        // back button
+        // back JButton
         backButton = new JButton(Vocabulary.BACK_BUTTON); // set the label to the String from the model
-        backButton.addActionListener(ctrl); // add listener
         backButton.setActionCommand(Vocabulary.BACK_BUTTON);
-
-        // quit button
+        backButton.addActionListener(ctrl); // add listener
+        
+        // quit JButton
         quitButton = new JButton(Vocabulary.QUIT_BUTTON); // set the label to the String from the model
-        quitButton.addActionListener(ctrl); // add listener
         quitButton.setActionCommand(Vocabulary.QUIT_BUTTON);
-
-        // proceed button
+        quitButton.addActionListener(ctrl); // add listener
+        
+        // proceed JButton
         proceedButton = new JButton(Vocabulary.PROCEED_BUTTON); // set the label to the String from the model // TODO maybe add indicators on each tab on what to do to proceed, but in most cases this is redundant
-        proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
-        proceedButton.addActionListener(ctrl); // add listener
         proceedButton.setActionCommand(Vocabulary.PROCEED_BUTTON);
+        proceedButton.addActionListener(ctrl); // add listener
+        proceedButton.setEnabled(false); // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed
 
-        // build the panel
+        // build the JPanel
         buttonPanel.add(backButton);
         buttonPanel.add(quitButton);
         buttonPanel.add(proceedButton);
@@ -85,13 +85,13 @@ public abstract class Tab extends JPanel {
 
     /**
      * reset the tab, removes all components
-     * disables button to proceed
+     * disables JButton to proceed
      * this method should be called before building a tab (again)
      */
     public final void reset() {
         System.out.println("DEBUG: " + "tab: resetting tab..."); // DEBUG
         removeAll(); // removes all components from the tab
-        proceedButton.setEnabled(false); // proceed button is disabled, since there is (most often) a condition that is needed to be met to proceed
+        proceedButton.setEnabled(false); // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed
     }
 
     /**
@@ -102,21 +102,21 @@ public abstract class Tab extends JPanel {
     protected final JPanel putInContainer(Component comp) {
         JPanel container = new JPanel(); // new container
         container.add(comp); // add component to the container
-        return container; // return the container which holds the component
+        return container; // return the container which contains the component
     }
 
     /**
-     * get components from a panel
-     * @param pan panel which holds the needed components
+     * get components from a JPanel
+     * @param pan JPanel which contains the desired components
      * @return the array of components
      */
     protected final List<Component> getComponentsFrom(JPanel pan) {
-        List<Component> finalComponents = new ArrayList<>(); // create a list which holds all components
+        List<Component> finalComponents = new ArrayList<>(); // create a list which will contain all components
         
-        List<Component> components = Arrays.asList(pan.getComponents()); // get all components from panel
+        List<Component> components = Arrays.asList(pan.getComponents()); // get all components from JPanel
         for (Component comp : components) {
             if (comp instanceof JPanel) // the component is instance of JPanel
-                finalComponents.addAll(getComponentsFrom((JPanel)comp)); // get all components from the panel
+                finalComponents.addAll(getComponentsFrom((JPanel)comp)); // get all components from the JPanel
             else // the component is not a JPanel
                 finalComponents.add(comp); // add the component to the list
         }
@@ -124,14 +124,14 @@ public abstract class Tab extends JPanel {
     }
 
     /**
-     * abstract method build is invoked from view when switching to a tab via the proceed button in another tab
+     * abstract method build is invoked from view when switching to a tab via the proceed JButton in another tab
      * building of each tab can differ, thus the abstract method
      */
     protected abstract void build() throws NullPointerException;
 
     /**
      * abstract method update is invoked from controller when changing something / interacting with something on the tab
-     * this method should manage conditions to proceed (enable the proceed button)
+     * this method should manage conditions to proceed (enable the proceed JButton)
      * displaying and updating can differ, thus the abstract method
      */
     protected abstract void update();

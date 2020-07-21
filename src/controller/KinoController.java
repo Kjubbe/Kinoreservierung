@@ -49,25 +49,32 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
         Object source = e.getSource(); // store the source object
         String cmd = e.getActionCommand(); // get the action command
-        if (source instanceof JButton) { // source from JButton > source is either back-, quit-, proceed- or finishbutton
+        if (source instanceof JButton) { // source from JButton > source is either back-, quit-, proceed- or finish- JButton
             System.out.println("DEBUG: " + "ctrl: identified as button"); // DEBUG
-            if (cmd.equals(Vocabulary.BACK_BUTTON)) // back button
+            if (cmd.equals(Vocabulary.BACK_BUTTON)) // back JButton
                 view.back();
-            else if (cmd.equals(Vocabulary.QUIT_BUTTON)) // quit button
+            else if (cmd.equals(Vocabulary.QUIT_BUTTON)) // quit JButton
                 model.quit();
-            else if (cmd.equals(Vocabulary.PROCEED_BUTTON)) // proceed button
+            else if (cmd.equals(Vocabulary.PROCEED_BUTTON)) // proceed JButton
                 view.proceed();
-            else if (cmd.equals(Vocabulary.FINISH_BUTTON)) { // finish button
-                orderMade();
+            else if (cmd.equals(Vocabulary.FINISH_BUTTON)) { // finish JButton
+                orderPlaced();
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
             System.out.println("DEBUG: " + "ctrl: identified as radio-button"); // DEBUG
             System.out.println("DEBUG: " + "ctrl: Time chosen"); // DEBUG
+
+            // the action commands of the JRadioButtons from the times tab contain their index
+            // this way, the time at the same index can be set as the chosen time
             model.setTime(cmd); // advice the model to set the time to the index in the action command
+
             view.update();
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
             System.out.println("DEBUG: " + "ctrl: identified as checkbox"); // DEBUG
-            boolean remove = !((JCheckBox) source).isSelected(); // remove equals false if checkbox was selected, true if deselected
+            boolean remove = !((JCheckBox) source).isSelected(); // remove equals false if the JCheckBox was selected, true if deselected
+            
+            // the action commands of the JCheckBoxes from the seating tab contain their position
+            // this way, the seat at the same position can either be removed or added to the list of chosen seats
             model.changeSeats(cmd, remove); // adivice model to change seats based on the information
             view.update();
         }
@@ -81,7 +88,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     public void itemStateChanged(ItemEvent e) {
         System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
         System.out.println("DEBUG: " + "ctrl: identified as combobox"); // DEBUG
-        Movie movie = (Movie) e.getItem(); // get the selected movie from the JComboBox
+        Movie movie = (Movie) e.getItem(); // get the selected movie from the event
         System.out.println("DEBUG: " + "ctrl: Movie chosen"); // DEBUG
         if (movie != null) // check if an actual movie is selected
             model.setMovie(movie); // advice model to set the movie
@@ -136,10 +143,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     private void cateringChanged() { // TODO update this logic
         System.out.println("DEBUG: " + "ctrl: Catering chosen"); // DEBUG
         CateringTab tab = (CateringTab) view.tabs[4]; // get reference to the catering tab from the view
-        List<SpinnerModel> spinnerModels = tab.getSpinnerModels(); // get reference to all SpinnerModels from the view
+        List<SpinnerModel> snms = tab.getSpinnerModels(); // get reference to all SpinnerModels from the view
         
         List<Integer> cateringAmounts = new ArrayList<>(); // create a new list to store the amount for each catering
-        for (SpinnerModel snm : spinnerModels) { // check every SpinnerModel
+        for (SpinnerModel snm : snms) { // check every SpinnerModel
             cateringAmounts.add((Integer)snm.getValue()); // add the value from the SpinnerModel to the list
         }
         model.setCatering(cateringAmounts); // advice model to set the catering
@@ -147,11 +154,11 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     }
 
     /**
-     * invoked from event, when finishing the order
-     * advises model to order and reset
+     * invoked from event, when user wants to place the order
+     * advises model to create an order and reset
      * updates and advises view to finish
      */
-    private void orderMade() {
+    private void orderPlaced() {
         System.out.println("DEBUG: " + "ctrl: ordering..."); // DEBUG
         model.order(); // advice the model to order
         view.finish(); // advice the view to finish

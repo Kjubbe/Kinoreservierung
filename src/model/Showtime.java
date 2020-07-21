@@ -34,7 +34,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
             for (int column = 0; column < seatColumnAmount; column++) { // checks every column of every row
                 boolean vip = false; // seat is non-vip by default
                 boolean suv = false; // seat is non-suv by default
-                Seat seat; // variable holds seat
+                Seat seat; // this variable will hold the seat
 
                 if (row == 0)
                     vip = true; // first row is vip

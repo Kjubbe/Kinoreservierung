@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * holds all information of an order
+ * contains all information of an order
+ * can display all information in a string
  * @author Kjell Treder
  * @author Marcel Sauer
  */

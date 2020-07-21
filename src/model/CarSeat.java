@@ -5,7 +5,7 @@ import model.enums.*;
 /**
  * special type of seat, inherites from the Seat class,
  * this seat can define if it is for suvs,
- * holds a license plate
+ * contains a license plate
  * @author Kjell Treder
  * @author Marcel Sauer
  */

@@ -3,8 +3,8 @@ package model;
 import model.enums.*;
 
 /**
- * information about a specific catering
- * holds price and name of the catering
+ * has information about a specific catering
+ * contains price and name of the catering
  * @author Kjell Treder
  * @author Marcel Sauer
  */

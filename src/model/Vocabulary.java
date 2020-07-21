@@ -9,9 +9,9 @@ package model;
 public class Vocabulary {
     
     // titles
-    public static final String FRAME_NAME = "Kinoreservierung"; // String for the frame
-    public static final String FINISH_DIALOG_NAME = "Vielen Dank!"; // String for the dialog at the end
-    public static final String ERROR_DIALOG_NAME = "Hoppla..."; // String for error dialogs
+    public static final String FRAME_NAME = "Kinoreservierung"; // String for the JFrame
+    public static final String FINISH_DIALOG_NAME = "Vielen Dank!"; // String for the JDialog at the end
+    public static final String ERROR_DIALOG_NAME = "Hoppla..."; // String for error JDialogs
 
     // instruction text for tabs
     public static final String[] INSTRUCTION_TEXTS = // Strings for instructions on every tab in order
@@ -25,7 +25,7 @@ public class Vocabulary {
     };
 
     // tab names
-    public static final String DEFAULT_TAB_NAME = "Tab"; // String for default Tab name, used, when no name is set
+    public static final String DEFAULT_TAB_NAME = "Tab"; // String for default tab name, used, when no name is set
     public static final String[] TAB_NAMES = // Strings for names of the tab in order
     {
         "Start",
@@ -38,16 +38,16 @@ public class Vocabulary {
 
     // misc
     public static final String[] NONE_LABELS = {"keins", "keine", "keiner"}; // String for showing nothing is chosen
-    public static final String SCREEN_LABEL = "Leinwand"; // String for screen
-    public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg
-    public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg
-    public static final String TOTAL_PRICE_LABEL = "Gesamtpreis"; // String for the price label
+    public static final String SCREEN_LABEL = "Leinwand"; // String for screen JLabel
+    public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg JLabels
+    public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg JLabels
+    public static final String TOTAL_PRICE_LABEL = "Gesamtpreis"; // String for the price JTextField
     public static final String CURRENCY = "€"; // String for the currency
     public static final String SPLITTER_STRING = "@"; // String to split
 
     // errors
-    public static final String NO_TIMES_ERROR = "Dieser Film läuft zurzeit leider nicht."; // no times set
-    public static final String NO_SEATS_ERROR = "Für diese Uhrzeit sind leider keine Plätze verfügbar"; // no seats
+    public static final String NO_TIMES_ERROR = "Dieser Film läuft zurzeit leider nicht."; // String for JLabel in error JDialog
+    public static final String NO_SEATS_ERROR = "Für diese Uhrzeit sind leider keine Plätze verfügbar"; // String for JLabel in error JDialog
 
     // tooltips
     public static final String SOLD_OUT_TOOLTIP = "Ausverkauft"; // sold out
@@ -57,7 +57,7 @@ public class Vocabulary {
     public static final String SUV_TOOLTIP = "SUV-Stellplatz"; // suv
     public static final String BEACH_CHAIR_TOOLTIP = "Strandkorb"; // beach chair
 
-    // buttons labels
+    // button labels
     public static final String BACK_BUTTON = "Zurück"; // back
     public static final String QUIT_BUTTON = "Abbrechen"; // quit
     public static final String PROCEED_BUTTON = "Fortfahren"; // proceed
@@ -68,7 +68,7 @@ public class Vocabulary {
     public static final String MOVIE_LABEL = "Film"; // movie
     public static final String TIME_LABEL = "Zeit"; // time
     public static final String SEATS_LABEL = "Plätze"; // seats
-    public static final String[] LICENSE_PLATE_LABEL = {"Kennz.", "Kennz. eingeben"}; // String for the license plate JTextField in the seating tab
+    public static final String[] LICENSE_PLATE_LABEL = {"Kennz.", "Kennz. eingeben"}; // license plate
     public static final String TICKET_LABEL = "Ihr Ticket"; // tickets
     public static final String CATERING_LABEL = "Essen"; // catering
 }

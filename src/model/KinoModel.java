@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Model class, manages calculations and holds Strings for labels
+ * Model class, manages calculations and contains saves the information from the user input
+ * contains all movies, caterings and orders
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -107,6 +108,7 @@ public class KinoModel {
                 new Showtime(Dates.Do, Times.PM_7, 6, 8),
                 new Showtime(Dates.Sa, Times.PM_8, 7, 9)
             }),
+            null, // test movie
             new Movie("Corrupted Movie 1", null, FSKs.FSK_12, new Showtime[] { // test movie
                 new Showtime(Dates.Mi, Times.PM_6_30, 8, 9),
                 new Showtime(Dates.Mi, Times.PM_8, 7, 7),
@@ -168,12 +170,16 @@ public class KinoModel {
      * invoked from controller when time got chosen
      * assigns the chosen time from the available times
      * assigns the available seats from this time
-     * @param cmd action command from the radiobutton, contains the index for the time
+     * @param cmd action command from the JRadioButton, contains the index for the time
      */
     public void setTime(String cmd) {
         int index = Integer.parseInt(cmd); // get the index from the action command
         System.out.println("DEBUG: " + "model: Time set, Time: " + availableTimes[index]); // DEBUG
-        chosenTime = availableTimes[index]; // get the index from the action command]; // set chosen time
+        
+        // get the time at the index from the action command
+        // this time is equivalent to the time displayed on the JRadioButton at the index
+        chosenTime = availableTimes[index]; 
+        
         availableSeats = chosenTime.seats; // set available seats to the seats contained in the showtime
         reset(2);
     }
@@ -182,12 +188,16 @@ public class KinoModel {
      * invoked from controller when seats got chosen
      * adds or removes seats based on the remove boolean
      * increments or decrements the amount of CarSeats
-     * @param cmd action command from the checkbox, contains the position of the seat
+     * @param cmd action command from the JCheckBox, contains the position of the seat
      * @param remove determines if an seat should be removed, if not, one gets added
      */
     public void changeSeats(String cmd, boolean remove) {
         String[] pos = cmd.split(Vocabulary.SPLITTER_STRING); // get the position from the action command
+        
+        // get the seat at the position from the action command
+        // this seat is equivalent to the seat displayed on the JCheckBox at the position
         Seat s = availableSeats[Integer.parseInt(pos[0])][Integer.parseInt(pos[1])]; // get the seat at the specified position
+        
         if (remove) {
             System.out.println("DEBUG: " + "model: Seat removed " + s); // DEBUG
             chosenSeats.remove(s); // remove the seat from the list
@@ -208,7 +218,7 @@ public class KinoModel {
      * assigns map with catering as key and amount as value
      * @param cateringAmounts list of amounts for each catering
      */
-    public void setCatering(List<Integer> cateringAmounts) {
+    public void setCatering(List<Integer> cateringAmounts) { // TODO this will make problems with null pointers in the middle PLS check all these cases
         chosenCatering = new HashMap<>(); // create a new map, which will contain every catering option with their specified amount
         for (int i = 0; i < cateringAmounts.size(); i++) { // check every Integer of the list
             Catering equivalentCatering = ALL_CATERINGS.get(i); // get the catering at the index, which is equivalent to the index of the amount for this catering
@@ -283,7 +293,7 @@ public class KinoModel {
     }
 
     /**
-     * finish an order
+     * place an order
      * assigns a ticket to every chosen beach chair
      * assigns the license plate numbers to the chosen car seat
      * creates and adds a new order object to the list

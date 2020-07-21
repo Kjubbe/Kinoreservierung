@@ -12,8 +12,8 @@ import controller.*;
 import model.*;
 
 /**
- * child class of Tab, contains data for the tab displaying information about the times
- * holds JRadioButtons to choose one of the showtimes contained in the movie
+ * the times tab contains components for displaying information about the available times
+ * this tab is the third tab in the view, it contains JRadioButtons to choose one of the showtimes from the chosen movie
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -22,14 +22,14 @@ import model.*;
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class TimesTab extends Tab { // TODO maybe add a table or list to choose from? (overkill!)
 
-    // panel which holds all radio buttons
+    // JPanel which contains all JRadioButtons
     private JPanel timesPanel;
 
     /**
      * constructor, calls super constructor
      * @param model reference to the model object
      * @param ctrl reference to the ctrl object
-     * @param index position of the tab in the tabbed panel in the frame
+     * @param index position of the tab in the JTabbedPane from the view
      */
     public TimesTab(KinoModel model, KinoController ctrl, int index) {
         super(model, ctrl, index);
@@ -44,8 +44,8 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
         System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        timesPanel = new JPanel(); // new panel, holds JRadioButtons
-        timesPanel.setLayout(new BoxLayout(timesPanel, BoxLayout.Y_AXIS)); // set layout for the panel
+        timesPanel = new JPanel(); // new JPanel, contains JRadioButtons
+        timesPanel.setLayout(new BoxLayout(timesPanel, BoxLayout.Y_AXIS)); // set layout for the JPanel
         timesPanel.setBorder(ySpacing);
         ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
         
@@ -57,14 +57,18 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
             try { // try catching corrupted showtimes missing a date or time
                 JRadioButton rb = new JRadioButton(times[i].toString()); // new JRadioButton with time as text
                 if (times[i].isSoldOut()) { // check if showtime is sold out
-                    rb.setEnabled(false); // disable the button
+                    rb.setEnabled(false); // disable the JRadioButton
                     rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);
                 }
                 rb.addActionListener(ctrl); // add listener
+                
+                // this action command contains the index of the JRadioButton
+                // this way, the controller knows from which index the action came from
                 rb.setActionCommand(String.valueOf(i));
-                group.add(rb); // add button to the group
 
-                // build the panel
+                group.add(rb); // add JRadioButton to the ButtonGroup
+
+                // build the JPanel
                 rb.setAlignmentX(JComponent.CENTER_ALIGNMENT);
                 timesPanel.add(putInContainer(rb));
             } catch (NullPointerException ex) { // corrupted showtime found
@@ -74,8 +78,8 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
 
         // build the tab
         add(instructionPanel); // instructions first
-        add(timesPanel); // radio buttons in the middle
-        add(buttonPanel); // buttons last
+        add(timesPanel); // JRadioButtons for choosing the time in the middle
+        add(buttonPanel); // JButtons last
     }
 
     /**
@@ -85,13 +89,13 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
     @Override
     protected void update() {
         System.out.println("DEBUG: " + "tab: updating times tab..."); // DEBUG
-        for (Component comp : getComponentsFrom(timesPanel)) { // go through every component of the panel
-            if (((JRadioButton)comp).isSelected()) { // check if radiobutton is selected
-                proceedButton.setEnabled(true); // button gets enabled when a radiobutton is selected 
+        for (Component comp : getComponentsFrom(timesPanel)) { // go through every component of the JPanel
+            if (((JRadioButton)comp).isSelected()) { // check if JRadioButton is selected
+                proceedButton.setEnabled(true); // proceed JButton gets enabled when a selected JRadioButton is found
                 return;
             }
         }
-        // no selected button found
+        // no selected JRadioButton found
         proceedButton.setEnabled(false);
     } 
 }

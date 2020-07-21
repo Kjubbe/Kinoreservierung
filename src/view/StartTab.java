@@ -7,8 +7,8 @@ import controller.*;
 import model.*;
 
 /**
- * child class of Tab, contains data for the tab displaying information about the startscreen
- * holds JLabel to display information
+ * the start tab contains components for displaying information about the starting screen
+ * this tab is the first tab in the view, it contains a JLabel to display information
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -21,7 +21,7 @@ public class StartTab extends Tab {
      * constructor, calls super constructor
      * @param model reference to the model object
      * @param ctrl reference to the ctrl object
-     * @param index position of the tab in the tabbed panel in the frame
+     * @param index position of the tab in the JTabbedPane from the view
      */
     public StartTab(KinoModel model, KinoController ctrl, int index) {
         super(model, ctrl, index);
@@ -36,17 +36,17 @@ public class StartTab extends Tab {
         System.out.println("DEBUG: " + "tab: building start tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        JPanel messagePanel = putInContainer(new JLabel(Vocabulary.START_MSG)); // new panel, holds label
+        JPanel messagePanel = putInContainer(new JLabel(Vocabulary.START_MSG)); // new JPanel, contains label
         messagePanel.setBorder(ySpacing);
 
         // build the tab
         add(instructionPanel); // instructions first
         add(messagePanel); // JLabel with text in the middle
-        add(buttonPanel); // buttons last
+        add(buttonPanel); // JButtons last
 
-        backButton.setEnabled(false); // cant go back on the first panel
-        quitButton.setText(Vocabulary.EXIT_BUTTON); // this button has a different label
-        proceedButton.setEnabled(true); // proceed button is enabled by default, because the user does not have to do anything to be able to proceed
+        backButton.setEnabled(false); // can not go back on the first JPanel
+        quitButton.setText(Vocabulary.EXIT_BUTTON); // this JButton has a different label
+        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
     }
 
     /**
