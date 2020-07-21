@@ -73,7 +73,7 @@ public class SummaryTab extends Tab {
                 licensePlatePrint += "\"" + s + "\", ";
             } 
         }
-        if (!licensePlatePrint.equals("")) {
+        if (!licensePlatePrint.isEmpty()) {
             JLabel licensePlateLabel = new JLabel(Vocabulary.LICENSE_PLATE_LABEL[0] + ": " + licensePlatePrint.substring(0, licensePlatePrint.length() - 2)); // remove last comma
             licensePlateLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
             licensePlateLabel.setBorder(KinoView.SMALL_Y_SPACING);
@@ -92,7 +92,7 @@ public class SummaryTab extends Tab {
             }
         }
         JLabel cateringLabel;
-        if (cateringPrint.equals(""))
+        if (cateringPrint.isEmpty())
             cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + Vocabulary.NONE_LABELS[0]);
         else
             cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringPrint.substring(0, cateringPrint.length() - 2)); // remove last comma
