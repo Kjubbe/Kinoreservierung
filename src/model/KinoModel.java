@@ -1,12 +1,12 @@
 package model;
 
-import model.enums.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import model.enums.*;
 
 /**
  * Model class, manages calculations and contains saves the information from the user input
@@ -337,11 +337,8 @@ public class KinoModel {
      */
     public String[] getTicketStrings() { // TODO is this stringbuilding not better in the view?
         String print = "";
-        for (String s : Vocabulary.FINISH_MSGS) { // go through the finish msgs
-            print += s + Vocabulary.SPLITTER_STRING; // add all msgs from the vocab
-        }
         for (Seat s : chosenSeats) { // go through the chosen seats
-            if (s instanceof BeachChairSeat) print += Vocabulary.TICKET_LABEL + ": " + ((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING; // get the ticket from the seat and add it to the string
+            if (s instanceof BeachChairSeat) print += ((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING; // get the ticket from the seat and add it to the string
         }
         return print.split(Vocabulary.SPLITTER_STRING); // split the string
     }
