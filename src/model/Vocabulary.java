@@ -66,6 +66,7 @@ public class Vocabulary {
 
     // labels for summary
     public static final String MOVIE_LABEL = "Film"; // movie
+    public static final String GENRE_LABEL = "Genre"; // genre
     public static final String TIME_LABEL = "Zeit"; // time
     public static final String SEATS_LABEL = "Plätze"; // seats
     public static final String[] LICENSE_PLATE_LABEL = {"Kennz.", "Kennz. eingeben"}; // license plate
