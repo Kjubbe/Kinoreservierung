@@ -50,7 +50,7 @@ public class MovieTab extends Tab {
 
         dropdown = new JComboBox<Movie>(); // new JComboBox for movies
         for (Movie m : KinoModel.ALL_MOVIES) { // go through all movies
-            if (m != null) // check if movie is not null
+            if (m != null && m.toString() != null) // check if movie and the title is not null
                 dropdown.addItem(m); // add movie to the JComboBox
         }
         dropdown.setSelectedItem(null); // no selected movie

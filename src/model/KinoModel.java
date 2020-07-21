@@ -93,14 +93,6 @@ public class KinoModel {
                 new Showtime(Dates.Sa, Times.PM_9_30, 7, 9),
                 new Showtime(Dates.Sa, Times.PM_10, 8, 7)
             }),
-            new Movie("The Operator", Genres.Action, FSKs.FSK_16, new Showtime[] {
-                new Showtime(Dates.Di, Times.PM_7_30, 7, 6),
-                new Showtime(Dates.Do, Times.PM_8_30, 8, 6),
-                new Showtime(Dates.Fr, Times.PM_5, 5, 6),
-                new Showtime(Dates.Sa, Times.PM_8_30, 9, 9),
-                new Showtime(Dates.Sa, Times.PM_10, 7, 6),
-                new Showtime(Dates.So, Times.PM_7_30, 7, 5)
-            }),
             new Movie("Missing Throne", Genres.Western, FSKs.FSK_12, new Showtime[] {
                 new Showtime(Dates.Mi, Times.PM_6_30, 8, 9),
                 new Showtime(Dates.Mi, Times.PM_8, 7, 7),
@@ -129,7 +121,18 @@ public class KinoModel {
                 new Showtime(Dates.Sa, Times.PM_8, 0, 0),
                 new Showtime(null, null, 0, 0),
             }),
-            null // test movie
+            new Movie("Corrupted Movie 5", null, null, new Showtime[] { // test movie
+                new Showtime(Dates.Fr, Times.PM_6_30, 8, 9),
+            }),
+            null, // test movie
+            new Movie("The Operator", Genres.Action, FSKs.FSK_16, new Showtime[] {
+                new Showtime(Dates.Di, Times.PM_7_30, 7, 6),
+                new Showtime(Dates.Do, Times.PM_8_30, 8, 6),
+                new Showtime(Dates.Fr, Times.PM_5, 5, 6),
+                new Showtime(Dates.Sa, Times.PM_8_30, 9, 9),
+                new Showtime(Dates.Sa, Times.PM_10, 7, 6),
+                new Showtime(Dates.So, Times.PM_7_30, 7, 5)
+            }),
         };
         ALL_MOVIES.addAll(Arrays.asList(f)); // add array in the list
     }
@@ -143,12 +146,12 @@ public class KinoModel {
             new Catering("Cola", Prices.MEDIUM_DRINK),
             new Catering("Popcorn", Prices.LARGE_SNACK),
             new Catering("1l Wasser", Prices.MEDIUM_DRINK),
-            new Catering("Nachos", Prices.MEDIUM_SNACK),
+            null, // test catering
             new Catering("Eis", Prices.SMALL_SNACK),
             new Catering(null, null), // test catering
             new Catering("Corrupted honey", null), // test catering
             new Catering(null, Prices.VIP_BEACH_CHAIR_SEAT), // test catering
-            null // test catering
+            new Catering("Nachos", Prices.MEDIUM_SNACK)
         };
         ALL_CATERINGS.addAll(Arrays.asList(c)); // add array in the list
     }
@@ -222,6 +225,15 @@ public class KinoModel {
         chosenCatering = new HashMap<>(); // create a new map, which will contain every catering option with their specified amount
         for (int i = 0; i < cateringAmounts.size(); i++) { // check every Integer of the list
             Catering equivalentCatering = ALL_CATERINGS.get(i); // get the catering at the index, which is equivalent to the index of the amount for this catering
+            if (equivalentCatering == null)
+                continue; // catering is null, skip
+            if (equivalentCatering.toString() == null)
+                continue; // no name set, skip
+            try {
+                equivalentCatering.price.getPrice(); // try to get the price of the catering
+            } catch (Exception e) {
+                continue; // no price set, skip
+            }
             chosenCatering.put(equivalentCatering, cateringAmounts.get(i)); // put catering as key with the selected amount as a value in the map
         }
         System.out.println("DEBUG: " + "model: Catering set, Caterings: " + chosenCatering); // DEBUG
