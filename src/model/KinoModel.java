@@ -44,7 +44,7 @@ public class KinoModel {
      */
     private void createMovies() {
         Movie[] f = new Movie[] { // create array with all movies
-            new Movie("Terminator", Genres.Action, FSKs.FSK_18, new Showtime[] {
+            new Movie("The Fermentor", Genres.Action, FSKs.FSK_18, "the_fermentor", new Showtime[] {
                 new Showtime(Dates.Mo, Times.PM_8, 5, 7),
                 new Showtime(Dates.Di, Times.PM_10, 4, 7),
                 new Showtime(Dates.Do, Times.PM_9_30, 5, 8),
@@ -54,7 +54,7 @@ public class KinoModel {
                 new Showtime(Dates.So, Times.PM_3, 5, 7),
                 new Showtime(Dates.So, Times.PM_5, 5, 8)
             }),
-            new Movie("Findet Nemo", Genres.Familie, FSKs.FSK_0, new Showtime[] {
+            new Movie("Suchet Nerno", Genres.Familie, FSKs.FSK_0, "suchet_nerno", new Showtime[] {
                 new Showtime(Dates.Mi, Times.PM_5, 4, 8),
                 new Showtime(Dates.Fr, Times.PM_4, 5, 7),
                 new Showtime(Dates.Fr, Times.PM_6_30, 4, 9),
@@ -62,26 +62,26 @@ public class KinoModel {
                 new Showtime(Dates.Sa, Times.PM_4_30, 5, 7),
                 new Showtime(Dates.So, Times.PM_3, 4, 9),
             }),
-            new Movie("Abduction 2", Genres.Thriller, FSKs.FSK_12, new Showtime[] {
+            new Movie("Abduction 2", Genres.Thriller, FSKs.FSK_12, "abduction_2", new Showtime[] {
                 new Showtime(Dates.Mi, Times.PM_7, 5, 7),
                 new Showtime(Dates.Fr, Times.PM_8_30, 6, 7),
                 new Showtime(Dates.Sa, Times.PM_5, 5, 8),
                 new Showtime(Dates.Sa, Times.PM_7_30, 4, 6),
                 new Showtime(Dates.So, Times.PM_7, 5, 8)
             }),
-            new Movie("Wintertime", Genres.Familie, FSKs.FSK_6, new Showtime[] {
+            new Movie("Wintertime", Genres.Familie, FSKs.FSK_6, "wintertime", new Showtime[] {
                 new Showtime(Dates.Mo, Times.PM_5, 4, 7),
                 new Showtime(Dates.Fr, Times.PM_6_30, 5, 8),
                 new Showtime(Dates.So, Times.PM_5, 6, 7),
                 new Showtime(Dates.So, Times.PM_7, 4, 6),
                 new Showtime(Dates.So, Times.PM_7_30, 5, 6)
             }),
-            new Movie("Dueness", Genres.Horror, FSKs.FSK_18, new Showtime[] {
+            new Movie("Dueness", Genres.Horror, FSKs.FSK_18, "dueness", new Showtime[] {
                 new Showtime(Dates.Mo, Times.PM_10, 5, 6),
                 new Showtime(Dates.Sa, Times.PM_9_30, 4, 9),
                 new Showtime(Dates.Sa, Times.PM_10, 5, 7)
             }),
-            new Movie("Missing Throne", Genres.Western, FSKs.FSK_12, new Showtime[] {
+            new Movie("Missing Throne", Genres.Western, FSKs.FSK_12, "missing_throne", new Showtime[] {
                 new Showtime(Dates.Mi, Times.PM_6_30, 4, 9),
                 new Showtime(Dates.Mi, Times.PM_8, 5, 7),
                 new Showtime(Dates.Do, Times.PM_5_30, 5, 9),
@@ -89,18 +89,18 @@ public class KinoModel {
                 new Showtime(Dates.Sa, Times.PM_8, 4, 9)
             }),
             null, // test movie
-            new Movie("Corrupted Movie 1", null, FSKs.FSK_12, new Showtime[] { // test movie
+            new Movie("Corrupted Movie 1", null, FSKs.FSK_12, "yellow", new Showtime[] { // test movie
                 new Showtime(Dates.Mi, Times.PM_6_30, 5, 9),
                 new Showtime(Dates.Mi, Times.PM_8, 6, 7),
                 new Showtime(Dates.Do, Times.PM_5_30, 4, 9),
                 new Showtime(Dates.Do, Times.PM_7, 5, 8),
                 new Showtime(Dates.Sa, Times.PM_8, 5, 9)
             }),
-            new Movie("Corrupted Movie 2", Genres.Western, null, null // test movie
+            new Movie("Corrupted Movie 2", Genres.Western, null, "blue", null // test movie
             ),
-            new Movie(null, Genres.Western, FSKs.FSK_12, null // test movie
+            new Movie(null, Genres.Western, FSKs.FSK_12, "yellow", null // test movie
             ),
-            new Movie("Corrupted Movie 4", Genres.Western, FSKs.FSK_12, new Showtime[] { // test movie
+            new Movie("Corrupted Movie 4", Genres.Western, FSKs.FSK_12, null, new Showtime[] { // test movie
                 new Showtime(null, Times.PM_6_30, 4, 9),
                 new Showtime(Dates.Mi, null, 5, 7),
                 null,
@@ -109,11 +109,11 @@ public class KinoModel {
                 new Showtime(Dates.Sa, Times.PM_8, 0, 0),
                 new Showtime(null, null, 0, 0),
             }),
-            new Movie("Corrupted Movie 5", null, null, new Showtime[] { // test movie
+            new Movie("Corrupted Movie 5", null, null, "green", new Showtime[] { // test movie
                 new Showtime(Dates.Fr, Times.PM_6_30, 8, 9),
             }),
             null, // test movie
-            new Movie("The Operator", Genres.Action, FSKs.FSK_16, new Showtime[] {
+            new Movie("The Operator", Genres.Action, FSKs.FSK_16, "the_operator", new Showtime[] {
                 new Showtime(Dates.Di, Times.PM_7_30, 5, 6),
                 new Showtime(Dates.Do, Times.PM_8_30, 5, 6),
                 new Showtime(Dates.Fr, Times.PM_5, 4, 6),
