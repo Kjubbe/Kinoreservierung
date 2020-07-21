@@ -65,7 +65,7 @@ public class SeatingTab extends Tab {
         JPanel screenPanel = putInContainer(new JLabel(Vocabulary.SCREEN_LABEL)); // new JPanel, contains label for the screen
         screenPanel.setBackground(Color.LIGHT_GRAY);
 
-        Seat[][] seats = model.availableSeats; // get the available seats from the model
+        Seat[][] seats = model.getAvailableSeats(); // get the available seats from the model
         int seatRowAmount = seats.length; // amount of rows of seats
         if (seatRowAmount == 0) // no rows -> no seats
             throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
@@ -81,7 +81,7 @@ public class SeatingTab extends Tab {
                 Seat currentSeat = seats[row][column]; // get the seat at the current position
                 JCheckBox cb = new JCheckBox(); // create a new JCheckBox
                 cb.addActionListener(ctrl); // add listener
-                cb.setToolTipText(currentSeat.toString()); // add tooltip from the current seat
+                cb.setToolTipText(currentSeat.getName()); // add tooltip from the current seat
                 
                 // this action command contains the position of the JCheckBox
                 // this way, the controller knows from which position the action came from
@@ -127,7 +127,7 @@ public class SeatingTab extends Tab {
     @Override
     protected void update() {
         System.out.println("DEBUG: " + "tab: updating seating tab..."); // DEBUG
-        changeTextFields(model.carSeatCount); // update amount of textfields
+        changeTextFields(model.getCarSeatCount()); // update amount of textfields
 
         // condition 1: at least one JCheckBox must be selected
         boolean cbSelected = false; // assume that no JCheckBox is selected

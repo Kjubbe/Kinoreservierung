@@ -84,8 +84,8 @@ public class MovieTab extends Tab {
         System.out.println("DEBUG: " + "tab: updating movie tab..."); // DEBUG
         if (dropdown.getSelectedItem() != null) { // check if a film is selected
             proceedButton.setEnabled(true);
-            description.setText(model.chosenMovie.getDescription());
-            image.setIcon(model.chosenMovie.getImage()); // set JLabel for description to display the description of the movie
+            description.setText(model.getChosenMovie().getDescription());
+            image.setIcon(model.getChosenMovie().getImage()); // set JLabel for description to display the description of the movie
         } else // no film selected
             proceedButton.setEnabled(false);
     }

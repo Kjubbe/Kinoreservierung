@@ -31,11 +31,10 @@ public class Seat {
     }
 
     /**
-     * toString
+     * get the name of this seat
      * @return String with the name
      */
-    @Override
-    public String toString() {
+    public String getName() {
         return name;
     }
 

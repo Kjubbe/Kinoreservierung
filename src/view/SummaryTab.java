@@ -45,21 +45,21 @@ public class SummaryTab extends Tab {
         summaryPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // part 1: the movie
-        JLabel movieLabel = new JLabel(Vocabulary.MOVIE_LABEL + ": " + model.chosenMovie); // get chosen movie from model
+        JLabel movieLabel = new JLabel(Vocabulary.MOVIE_LABEL + ": " + model.getChosenMovie()); // get chosen movie from model
         movieLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         movieLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(movieLabel);
 
         // part 2: the time
-        JLabel timeLabel = new JLabel(Vocabulary.TIME_LABEL + ": " + model.chosenTime); // get chosen time from model
+        JLabel timeLabel = new JLabel(Vocabulary.TIME_LABEL + ": " + model.getChosenTime()); // get chosen time from model
         timeLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         timeLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(timeLabel);
 
         // part 3: the seats
         String seatPrint = "";
-        for (Seat s : model.chosenSeats) { // go through every seat
-            seatPrint += "1x " + s.toString() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ";
+        for (Seat s : model.getChosenSeats()) { // go through every seat
+            seatPrint += "1x " + s.getName() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ";
         }
         JLabel seatsLabel = new JLabel(Vocabulary.SEATS_LABEL + ": " + seatPrint.substring(0, seatPrint.length() - 2)); // remove last comma
         seatsLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -68,8 +68,8 @@ public class SummaryTab extends Tab {
 
         // part 4: the license plate numbers
         String licensePlatePrint = "";
-        if (model.licensePlates != null) {
-            for (String s : model.licensePlates) { // go through every seat
+        if (model.getLicensePlates() != null) {
+            for (String s : model.getLicensePlates()) { // go through every seat
                 licensePlatePrint += "\"" + s + "\", ";
             } 
         }
@@ -82,8 +82,8 @@ public class SummaryTab extends Tab {
 
         // part 5: the catering
         String cateringPrint = "";
-        if (model.chosenCatering != null) { // check if catering was chosen
-            for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every entry of the map
+        if (model.getChosenCatering() != null) { // check if catering was chosen
+            for (Map.Entry<Catering, Integer> entry : model.getChosenCatering().entrySet()) { // go through every entry of the map
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
                 if (i == 0) // check if the catering is chosen, if not skip
@@ -101,7 +101,7 @@ public class SummaryTab extends Tab {
         summaryPanel.add(cateringLabel);
 
         // part 6: total price
-        JLabel priceLabel = new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.calculatePrice() + Vocabulary.CURRENCY); // remove last comma
+        JLabel priceLabel = new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getPrice() + Vocabulary.CURRENCY); // remove last comma
         priceLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         priceLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(priceLabel);

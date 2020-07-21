@@ -57,11 +57,10 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     }
 
     /**
-     * toString
+     * get the date and time for this showtime
      * @return date and time in one string
      */
-    @Override
-    public String toString() {
+    public String getDateAndTime() {
         return date.toString() + ", " + time.getTime();
     }
 

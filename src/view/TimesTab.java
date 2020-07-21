@@ -49,13 +49,13 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
         timesPanel.setBorder(KinoView.NORMAL_Y_SPACING);
         ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
         
-        Showtime[] times = model.availableTimes; // get the available showtimes from the model
+        Showtime[] times = model.getAvailableTimes(); // get the available showtimes from the model
         if (times == null) // no times set
             throw new NullPointerException(Vocabulary.NO_TIMES_ERROR);
         
         for (int i = 0; i < times.length; i++) { // go through all times
             try { // try catching corrupted showtimes missing a date or time
-                JRadioButton rb = new JRadioButton(times[i].toString()); // new JRadioButton with time as text
+                JRadioButton rb = new JRadioButton(times[i].getDateAndTime()); // new JRadioButton with time as text
                 if (times[i].isSoldOut()) { // check if showtime is sold out
                     rb.setEnabled(false); // disable the JRadioButton
                     rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);

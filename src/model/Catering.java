@@ -31,11 +31,10 @@ public class Catering {
     }
 
     /**
-     * toString
+     * get the name of this catering
      * @return the name of this catering
      */
-    @Override
-    public String toString() {
+    public String getName() {
         return name;
     }
 }
