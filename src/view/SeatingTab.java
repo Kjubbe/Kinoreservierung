@@ -17,8 +17,8 @@ import controller.*;
 import model.*;
 
 /**
- * the seating tab contains components for displaying information about the available seats
- * this tab is the fourth tab in the view, it contains JCheckBoxes to choose seats and JTextFields for typing in license plates
+ * the seating tab contains components for displaying information about the available seats,
+ * this tab is the fourth tab in the view, it contains JCheckBoxes to choose seats and JTextFields for typing in license plates,
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -47,7 +47,7 @@ public class SeatingTab extends Tab {
     }
 
     /**
-     * invoked from view when switching to this tab via the proceed JButton in another tab
+     * invoked from view when switching to this tab via the proceed JButton in another tab,
      * adds JCheckBox for every seat from the model in a grid layout
      */
     @Override
@@ -56,11 +56,11 @@ public class SeatingTab extends Tab {
         reset(); // reset before building to avoid duplications
 
         // build the JPanels
-        instructionPanel.setBorder(ySpacing);
+        instructionPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         licensePlatePanel = new JPanel(); // new JPanel, contains JTextFields for license plates
         licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS));
-        licensePlatePanel.setBorder(ySpacing);
+        licensePlatePanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         JPanel screenPanel = putInContainer(new JLabel(Vocabulary.SCREEN_LABEL)); // new JPanel, contains label for the screen
         screenPanel.setBackground(Color.LIGHT_GRAY);
@@ -74,7 +74,7 @@ public class SeatingTab extends Tab {
             throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
 
         seatingPanel = new JPanel(new GridLayout(seatRowAmount, seatColumnAmount)); // new JPanel, contains all JCheckBoxes
-        seatingPanel.setBorder(ySpacing);
+        seatingPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         for (int row = 0; row < seatRowAmount; row++) { // every row
             for (int column = 0; column < seatColumnAmount; column++) { // checks every column of every row
@@ -89,7 +89,7 @@ public class SeatingTab extends Tab {
 
                 // Coloring // TODO add some legend to understand what each color means and how many people can sit in the beach chair
                 Color color = Color.WHITE; // default Color is white
-                if (currentSeat.isReserved) {
+                if (currentSeat.isReserved()) {
                     color = lightRed; // if seat is reserved the color is set to light red
                     cb.setEnabled(false); // disable the JCheckBox
                     cb.setToolTipText(Vocabulary.RESERVED_TOOLTIP); // new tooltip
@@ -119,8 +119,9 @@ public class SeatingTab extends Tab {
     }
 
     /**
-     * invoked from controller when clicking a JCheckbox
-     * adds JTextFields proportionally to the number of chosen car seats
+     * invoked from controller when clicking a JCheckbox,
+     * adds JTextFields proportionally to the number of chosen car seats,
+     * updates background color of JTextFields,
      * user is able to proceed, if a at least one seat is chosen and no displayed JTextField is missing a license plate input
      */
     @Override
@@ -140,8 +141,12 @@ public class SeatingTab extends Tab {
         // condition 2: all input for license plates must suffice
         boolean lpMissing = false; // assume that no license plate is missing
         for (JTextField tf : getTextFields()) {
-            if (!checkInput(tf)) // check for unsufficient textfield
+            if (!model.checkInput(tf.getText())) { // check for unsufficient textfield
                 lpMissing = true; // unsufficient textfield found
+                tf.getParent().setBackground(lightRed); // input does no suffice -> red background
+            } else
+                tf.getParent().setBackground(lightGreen); // input suffices -> green background
+
         }
 
         // JButton gets enabled when
@@ -152,20 +157,19 @@ public class SeatingTab extends Tab {
     }
 
     /**
-     * invoked from update
-     * manages amount of JTextFields
-     * removes JTextFields when there are too many (more than needed)
+     * invoked from update,
+     * manages amount of JTextFields,
+     * removes JTextFields when there are too many (more than needed),
      * adds JTextFields when there are some missing (less than needed)
      * @param targetCount the amount of textfields which are supposed to exist
      */
     private void changeTextFields(int targetCount) {
-        System.out.println("DEBUG: " + "seat-tab: changing textfields..."); // DEBUG
         List<JTextField> tfs = getTextFields(); // get the textfields
         
         // possibility 1
         if (tfs.size() < targetCount) { // there are less JCheckBoxes than needed
             System.out.println("DEBUG: " + "seat-tab: adding textfield..."); // DEBUG
-            JTextField tf = new JTextField(7); // create a new JTextField
+            JTextField tf = new JTextField(10); // create a new JTextField
             tf.addKeyListener(ctrl); // add listener
 
             JPanel container = new JPanel(new FlowLayout()); // new container, contains JLabel and JTextField
@@ -180,25 +184,6 @@ public class SeatingTab extends Tab {
             System.out.println("DEBUG: " + "seat-tab: removing textfield..."); // DEBUG
             licensePlatePanel.remove(licensePlatePanel.getComponentCount() - 1); // remove the last JTextField from the JPanel
         }
-    }
-
-    /**
-     * checks if the JTextField has an acceptable amount of text in it
-     * changes color based on the input
-     * @param tf the JTextField to be checked
-     * @return if the input suffices
-     */
-    private boolean checkInput(JTextField tf) {
-        int min = 5; // required min string length
-        int max = 10; // required max string length
-        System.out.println("DEBUG: " + "seat-tab: checking input..."); // DEBUG
-        String text = tf.getText().replaceAll("\\s+", ""); // get text from the JTextField and remove all whitespaces
-        boolean inputOkay = text.length() >= min && text.length() <= max; // input only suffices if the length of the text is greater than min and less than max
-        if (inputOkay) // check if the input suffices
-            tf.getParent().setBackground(lightGreen); // sets the color to light green, when input suffices
-        else
-            tf.getParent().setBackground(lightRed); // sets color to light red, when input does not suffice
-        return inputOkay;
     }
 
     /**

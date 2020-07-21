@@ -10,17 +10,12 @@ import java.util.Map;
 
 /**
  * Model class, manages calculations and contains saves the information from the user input
- * contains all movies, caterings and orders
+ * creates all movies and caterings and places orders
  * @author Kjell Treder
  * @author Marcel Sauer
  */
 
 public class KinoModel {
-
-    // These lists hold all data
-    private static final List<Order> ALL_ORDERS = new ArrayList<>(); // contains all orders TODO maybe create a database class for these three?
-    public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
-    public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing caterings
 
     // Datafields, which change during runtime
     public Movie chosenMovie; // set based on user input in the movie tab
@@ -51,72 +46,65 @@ public class KinoModel {
         Movie[] f = new Movie[] { // create array with all movies
             new Movie("Terminator", Genres.Action, FSKs.FSK_18, new Showtime[] {
                 new Showtime(Dates.Mo, Times.PM_8, 5, 7),
-                new Showtime(Dates.Di, Times.PM_10, 6, 7),
-                new Showtime(Dates.Do, Times.PM_9_30, 7, 8),
-                new Showtime(Dates.Fr, Times.PM_7, 6, 8),
-                new Showtime(Dates.Fr, Times.PM_8_30, 6, 7),
-                new Showtime(Dates.Fr, Times.PM_10, 6, 9),
+                new Showtime(Dates.Di, Times.PM_10, 4, 7),
+                new Showtime(Dates.Do, Times.PM_9_30, 5, 8),
+                new Showtime(Dates.Fr, Times.PM_10, 4, 9),
                 new Showtime(Dates.Sa, Times.PM_7, 5, 6),
-                new Showtime(Dates.Sa, Times.PM_8, 7, 8),
-                new Showtime(Dates.Sa, Times.PM_9, 6, 7),
-                new Showtime(Dates.Sa, Times.PM_10, 7, 9),
-                new Showtime(Dates.So, Times.PM_3, 9, 7),
-                new Showtime(Dates.So, Times.PM_5, 7, 8)
+                new Showtime(Dates.Sa, Times.PM_10, 4, 9),
+                new Showtime(Dates.So, Times.PM_3, 5, 7),
+                new Showtime(Dates.So, Times.PM_5, 5, 8)
             }),
             new Movie("Findet Nemo", Genres.Familie, FSKs.FSK_0, new Showtime[] {
-                new Showtime(Dates.Mi, Times.PM_5, 7, 8),
-                new Showtime(Dates.Mi, Times.PM_5_30, 8, 9),
-                new Showtime(Dates.Fr, Times.PM_4, 6, 7),
-                new Showtime(Dates.Fr, Times.PM_6_30, 6, 9),
-                new Showtime(Dates.Sa, Times.PM_3, 8, 8),
-                new Showtime(Dates.Sa, Times.PM_4_30, 7, 7),
-                new Showtime(Dates.Sa, Times.PM_5, 8, 9),
-                new Showtime(Dates.So, Times.PM_3, 7, 9),
-                new Showtime(Dates.So, Times.PM_5_30, 7, 8)
+                new Showtime(Dates.Mi, Times.PM_5, 4, 8),
+                new Showtime(Dates.Fr, Times.PM_4, 5, 7),
+                new Showtime(Dates.Fr, Times.PM_6_30, 4, 9),
+                new Showtime(Dates.Sa, Times.PM_3, 6, 8),
+                new Showtime(Dates.Sa, Times.PM_4_30, 5, 7),
+                new Showtime(Dates.So, Times.PM_3, 4, 9),
             }),
             new Movie("Abduction 2", Genres.Thriller, FSKs.FSK_12, new Showtime[] {
-                new Showtime(Dates.Mi, Times.PM_7, 6, 7),
+                new Showtime(Dates.Mi, Times.PM_7, 5, 7),
                 new Showtime(Dates.Fr, Times.PM_8_30, 6, 7),
-                new Showtime(Dates.Sa, Times.PM_5, 8, 8),
-                new Showtime(Dates.Sa, Times.PM_7_30, 6, 6),
-                new Showtime(Dates.So, Times.PM_7, 6, 8)
+                new Showtime(Dates.Sa, Times.PM_5, 5, 8),
+                new Showtime(Dates.Sa, Times.PM_7_30, 4, 6),
+                new Showtime(Dates.So, Times.PM_7, 5, 8)
             }),
             new Movie("Wintertime", Genres.Familie, FSKs.FSK_6, new Showtime[] {
-                new Showtime(Dates.Mo, Times.PM_5, 9, 7),
-                new Showtime(Dates.Fr, Times.PM_6_30, 7, 8),
+                new Showtime(Dates.Mo, Times.PM_5, 4, 7),
+                new Showtime(Dates.Fr, Times.PM_6_30, 5, 8),
                 new Showtime(Dates.So, Times.PM_5, 6, 7),
-                new Showtime(Dates.So, Times.PM_7, 7, 6),
-                new Showtime(Dates.So, Times.PM_7_30, 7, 6)
+                new Showtime(Dates.So, Times.PM_7, 4, 6),
+                new Showtime(Dates.So, Times.PM_7_30, 5, 6)
             }),
             new Movie("Dueness", Genres.Horror, FSKs.FSK_18, new Showtime[] {
-                new Showtime(Dates.Mo, Times.PM_10, 9, 6),
-                new Showtime(Dates.Sa, Times.PM_9_30, 7, 9),
-                new Showtime(Dates.Sa, Times.PM_10, 8, 7)
+                new Showtime(Dates.Mo, Times.PM_10, 5, 6),
+                new Showtime(Dates.Sa, Times.PM_9_30, 4, 9),
+                new Showtime(Dates.Sa, Times.PM_10, 5, 7)
             }),
             new Movie("Missing Throne", Genres.Western, FSKs.FSK_12, new Showtime[] {
-                new Showtime(Dates.Mi, Times.PM_6_30, 8, 9),
-                new Showtime(Dates.Mi, Times.PM_8, 7, 7),
-                new Showtime(Dates.Do, Times.PM_5_30, 8, 9),
-                new Showtime(Dates.Do, Times.PM_7, 6, 8),
-                new Showtime(Dates.Sa, Times.PM_8, 7, 9)
+                new Showtime(Dates.Mi, Times.PM_6_30, 4, 9),
+                new Showtime(Dates.Mi, Times.PM_8, 5, 7),
+                new Showtime(Dates.Do, Times.PM_5_30, 5, 9),
+                new Showtime(Dates.Do, Times.PM_7, 5, 8),
+                new Showtime(Dates.Sa, Times.PM_8, 4, 9)
             }),
             null, // test movie
             new Movie("Corrupted Movie 1", null, FSKs.FSK_12, new Showtime[] { // test movie
-                new Showtime(Dates.Mi, Times.PM_6_30, 8, 9),
-                new Showtime(Dates.Mi, Times.PM_8, 7, 7),
-                new Showtime(Dates.Do, Times.PM_5_30, 8, 9),
-                new Showtime(Dates.Do, Times.PM_7, 6, 8),
-                new Showtime(Dates.Sa, Times.PM_8, 7, 9)
+                new Showtime(Dates.Mi, Times.PM_6_30, 5, 9),
+                new Showtime(Dates.Mi, Times.PM_8, 6, 7),
+                new Showtime(Dates.Do, Times.PM_5_30, 4, 9),
+                new Showtime(Dates.Do, Times.PM_7, 5, 8),
+                new Showtime(Dates.Sa, Times.PM_8, 5, 9)
             }),
             new Movie("Corrupted Movie 2", Genres.Western, null, null // test movie
             ),
             new Movie(null, Genres.Western, FSKs.FSK_12, null // test movie
             ),
             new Movie("Corrupted Movie 4", Genres.Western, FSKs.FSK_12, new Showtime[] { // test movie
-                new Showtime(null, Times.PM_6_30, 8, 9),
-                new Showtime(Dates.Mi, null, 7, 7),
+                new Showtime(null, Times.PM_6_30, 4, 9),
+                new Showtime(Dates.Mi, null, 5, 7),
                 null,
-                new Showtime(null, null, 6, 8),
+                new Showtime(null, null, 5, 8),
                 new Showtime(Dates.Sa, Times.PM_8, 0, 9),
                 new Showtime(Dates.Sa, Times.PM_8, 0, 0),
                 new Showtime(null, null, 0, 0),
@@ -126,15 +114,15 @@ public class KinoModel {
             }),
             null, // test movie
             new Movie("The Operator", Genres.Action, FSKs.FSK_16, new Showtime[] {
-                new Showtime(Dates.Di, Times.PM_7_30, 7, 6),
-                new Showtime(Dates.Do, Times.PM_8_30, 8, 6),
-                new Showtime(Dates.Fr, Times.PM_5, 5, 6),
-                new Showtime(Dates.Sa, Times.PM_8_30, 9, 9),
-                new Showtime(Dates.Sa, Times.PM_10, 7, 6),
-                new Showtime(Dates.So, Times.PM_7_30, 7, 5)
+                new Showtime(Dates.Di, Times.PM_7_30, 5, 6),
+                new Showtime(Dates.Do, Times.PM_8_30, 5, 6),
+                new Showtime(Dates.Fr, Times.PM_5, 4, 6),
+                new Showtime(Dates.Sa, Times.PM_8_30, 5, 9),
+                new Showtime(Dates.Sa, Times.PM_10, 5, 6),
+                new Showtime(Dates.So, Times.PM_7_30, 5, 5)
             }),
         };
-        ALL_MOVIES.addAll(Arrays.asList(f)); // add array in the list
+        Movie.ALL_MOVIES.addAll(Arrays.asList(f)); // add array in the list
     }
 
     /**
@@ -153,7 +141,7 @@ public class KinoModel {
             new Catering(null, Prices.VIP_BEACH_CHAIR_SEAT), // test catering
             new Catering("Nachos", Prices.MEDIUM_SNACK)
         };
-        ALL_CATERINGS.addAll(Arrays.asList(c)); // add array in the list
+        Catering.ALL_CATERINGS.addAll(Arrays.asList(c)); // add array in the list
     }
 
     /**
@@ -221,10 +209,11 @@ public class KinoModel {
      * assigns map with catering as key and amount as value
      * @param cateringAmounts list of amounts for each catering
      */
-    public void setCatering(List<Integer> cateringAmounts) { // TODO this will make problems with null pointers in the middle PLS check all these cases
+    public void setCatering(List<Integer> cateringAmounts) { // TODO update this logic
+        int y = 0; // index counter
         chosenCatering = new HashMap<>(); // create a new map, which will contain every catering option with their specified amount
-        for (int i = 0; i < cateringAmounts.size(); i++) { // check every Integer of the list
-            Catering equivalentCatering = ALL_CATERINGS.get(i); // get the catering at the index, which is equivalent to the index of the amount for this catering
+        for (int i = 0; i < Catering.ALL_CATERINGS.size(); i++) { // check every Catering of the list
+            Catering equivalentCatering = Catering.ALL_CATERINGS.get(i); // get the catering at the index, which is equivalent to the index of the amount for this catering
             if (equivalentCatering == null)
                 continue; // catering is null, skip
             if (equivalentCatering.toString() == null)
@@ -234,7 +223,7 @@ public class KinoModel {
             } catch (Exception e) {
                 continue; // no price set, skip
             }
-            chosenCatering.put(equivalentCatering, cateringAmounts.get(i)); // put catering as key with the selected amount as a value in the map
+            chosenCatering.put(equivalentCatering, cateringAmounts.get(y++)); // put catering as key with the selected amount as a value in the map
         }
         System.out.println("DEBUG: " + "model: Catering set, Caterings: " + chosenCatering); // DEBUG
     }
@@ -254,6 +243,7 @@ public class KinoModel {
      * @return calculated total price
      */
     public double calculatePrice() {
+        System.out.println("DEBUG: " + "model: calculating price..."); // DEBUG
         double price = 0.0; // local variable, holds the price
         if (!chosenSeats.isEmpty()) { // check, if there are chosen seats
             for (Seat s : chosenSeats) { // check every seat
@@ -271,7 +261,20 @@ public class KinoModel {
     }
 
     /**
-     * resets all user input specified by a depth value
+     * checks if the text has an acceptable length
+     * @param tf the JTextField to be checked
+     * @return if the input suffices
+     */
+    public boolean checkInput(String text) {
+        int min = 5; // required min string length
+        int max = 10; // required max string length
+        System.out.println("DEBUG: " + "model: checking input..."); // DEBUG
+        text = text.replaceAll("\\s+", ""); // remove all whitespaces
+        return text.length() >= min && text.length() <= max; // input only suffices if the length of the text is greater than min and less than max
+    }
+
+    /**
+     * resets all user input specified by a depth value,
      * a higher depth value = a deeper reset
      * @param depth the depth of the reset
      */
@@ -295,19 +298,19 @@ public class KinoModel {
     }
 
     /**
-     * quit the application
+     * quit the application,
      * invoked from controller by pressing the JButton for exiting
      */
     public void quit() {
-        System.out.println("\n" + "DEBUG: " + "quitting..."); // DEBUG
+        System.out.println("\n" + "DEBUG: " + "model: quitting..."); // DEBUG
         reset(4); // reset the model
         System.exit(0); // terminate the program
     }
 
     /**
-     * place an order
-     * assigns a ticket to every chosen beach chair
-     * assigns the license plate numbers to the chosen car seat
+     * place an order,
+     * assigns a ticket to every chosen beach chair,
+     * assigns the license plate numbers to the chosen car seat,
      * creates and adds a new order object to the list
      */
     public void order() {
@@ -323,8 +326,8 @@ public class KinoModel {
             } 
             chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
         }
-        ALL_ORDERS.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, calculatePrice())); // create and add a new order with all information
-        System.out.println("\n" + "DEBUG: model: All orders are: \n" + ALL_ORDERS + "\n"); // DEBUGs
+        Order.ALL_ORDERS.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, calculatePrice())); // create and add a new order with all information
+        System.out.println("\n" + "DEBUG: model: All orders are: \n" + Order.ALL_ORDERS + "\n"); // DEBUGs
         // TODO write the order to a file
     }
     

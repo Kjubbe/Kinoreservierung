@@ -16,7 +16,7 @@ public class CarSeat extends Seat {
     private static final String pkwName = Vocabulary.PKW_TOOLTIP;
     private static final String suvName = Vocabulary.SUV_TOOLTIP;
     public final boolean isForSUV; // determines if the seat is meant for suvs
-    public String licensePlateNr; // holds license plate number
+    protected String licensePlateNr; // holds license plate number
 
     /**
      * constructor, calls super constructor and sets suv data field

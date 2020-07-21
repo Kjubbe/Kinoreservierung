@@ -3,6 +3,7 @@ package view;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -10,8 +11,8 @@ import controller.*;
 import model.*;
 
 /**
- * the summary tab contains components for displaying information about the summary
- * this tab is the last tab in the view, it contains JLabels to display order information
+ * the summary tab contains components for displaying information about the summary,
+ * this tab is the last tab in the view, it contains JLabels to display order information,
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -31,7 +32,7 @@ public class SummaryTab extends Tab {
     }
 
     /**
-     * invoked from view when switching to this tab via the proceed JButton in another tab
+     * invoked from view when switching to this tab via the proceed JButton in another tab,
      * adds JLabels for displaying all information about the order from the model
      */
     @Override
@@ -41,34 +42,47 @@ public class SummaryTab extends Tab {
 
         JPanel summaryPanel = new JPanel(); // new JPanel, contains all JLabels
         summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS)); // set layout for the JPanel
-        summaryPanel.setBorder(ySpacing);
+        summaryPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // part 1: the movie
-        summaryPanel.add(putInContainer(new JLabel(Vocabulary.MOVIE_LABEL + ": " + model.chosenMovie))); // get chosen movie from model
+        JLabel movieLabel = new JLabel(Vocabulary.MOVIE_LABEL + ": " + model.chosenMovie); // get chosen movie from model
+        movieLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        movieLabel.setBorder(KinoView.SMALL_Y_SPACING);
+        summaryPanel.add(movieLabel);
 
         // part 2: the time
-        summaryPanel.add(putInContainer(new JLabel(Vocabulary.TIME_LABEL + ": " + model.chosenTime))); // get chosen time from model
+        JLabel timeLabel = new JLabel(Vocabulary.TIME_LABEL + ": " + model.chosenTime); // get chosen time from model
+        timeLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        timeLabel.setBorder(KinoView.SMALL_Y_SPACING);
+        summaryPanel.add(timeLabel);
 
         // part 3: the seats
         String seatPrint = "";
         for (Seat s : model.chosenSeats) { // go through every seat
-            seatPrint += s.toString() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ";
+            seatPrint += "1x " + s.toString() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ";
         }
-        summaryPanel.add(putInContainer(new JLabel(Vocabulary.SEATS_LABEL + ": " + seatPrint.substring(0, seatPrint.length() - 2)))); // remove last comma
+        JLabel seatsLabel = new JLabel(Vocabulary.SEATS_LABEL + ": " + seatPrint.substring(0, seatPrint.length() - 2)); // remove last comma
+        seatsLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        seatsLabel.setBorder(KinoView.SMALL_Y_SPACING);
+        summaryPanel.add(seatsLabel);
 
         // part 4: the license plate numbers
+        String licensePlatePrint = "";
         if (model.licensePlates != null) {
-            String licensePlatePrint = "";
             for (String s : model.licensePlates) { // go through every seat
                 licensePlatePrint += "\"" + s + "\", ";
-            }
-            if (!licensePlatePrint.equals(""))
-                summaryPanel.add(putInContainer(new JLabel(Vocabulary.LICENSE_PLATE_LABEL[0] + ": " + licensePlatePrint.substring(0, licensePlatePrint.length() - 2)))); // remove last comma
+            } 
         }
-        
+        if (!licensePlatePrint.equals("")) {
+            JLabel licensePlateLabel = new JLabel(Vocabulary.LICENSE_PLATE_LABEL[0] + ": " + licensePlatePrint.substring(0, licensePlatePrint.length() - 2)); // remove last comma
+            licensePlateLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+            licensePlateLabel.setBorder(KinoView.SMALL_Y_SPACING);
+            summaryPanel.add(licensePlateLabel);
+        }
+
         // part 5: the catering
+        String cateringPrint = "";
         if (model.chosenCatering != null) { // check if catering was chosen
-            String cateringPrint = "";
             for (Map.Entry<Catering, Integer> entry : model.chosenCatering.entrySet()) { // go through every entry of the map
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
@@ -76,13 +90,21 @@ public class SummaryTab extends Tab {
                     continue; // skip this entry
                 cateringPrint += i + "x " + c + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "; // add the catering name and price with their amount to the print
             }
-            if (cateringPrint.equals(""))
-                cateringPrint = Vocabulary.NONE_LABELS[0] + "  ";
-            summaryPanel.add(putInContainer(new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringPrint.substring(0, cateringPrint.length() - 2)))); // remove last comma
         }
+        JLabel cateringLabel;
+        if (cateringPrint.equals(""))
+            cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + Vocabulary.NONE_LABELS[0]);
+        else
+            cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringPrint.substring(0, cateringPrint.length() - 2)); // remove last comma
+        cateringLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        cateringLabel.setBorder(KinoView.SMALL_Y_SPACING);
+        summaryPanel.add(cateringLabel);
 
         // part 6: total price
-        summaryPanel.add(putInContainer(new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.calculatePrice() + Vocabulary.CURRENCY))); // remove last comma
+        JLabel priceLabel = new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.calculatePrice() + Vocabulary.CURRENCY); // remove last comma
+        priceLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        priceLabel.setBorder(KinoView.SMALL_Y_SPACING);
+        summaryPanel.add(priceLabel);
 
         // build the tab
         add(instructionPanel); // instructions first
@@ -95,7 +117,7 @@ public class SummaryTab extends Tab {
     }
 
     /**
-     * invoked from controller when changing something / interacting with something on the tab
+     * invoked from controller when changing something / interacting with something on the tab,
      * does nothing, because the summary tab has no conditions for proceeding or new information to update/display
      */
     @Override

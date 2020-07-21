@@ -7,8 +7,8 @@ import controller.*;
 import model.*;
 
 /**
- * the start tab contains components for displaying information about the starting screen
- * this tab is the first tab in the view, it contains a JLabel to display information
+ * the start tab contains components for displaying information about the starting screen,
+ * this tab is the first tab in the view, it contains a JLabel to display information,
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -28,7 +28,7 @@ public class StartTab extends Tab {
     }
 
     /**
-     * invoked from view when switching to this tab
+     * invoked from view when switching to this tab,
      * adds JLabel for instructions
      */
     @Override
@@ -37,7 +37,7 @@ public class StartTab extends Tab {
         reset(); // reset before building to avoid duplications
 
         JPanel messagePanel = putInContainer(new JLabel(Vocabulary.START_MSG)); // new JPanel, contains label
-        messagePanel.setBorder(ySpacing);
+        messagePanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // build the tab
         add(instructionPanel); // instructions first
@@ -50,7 +50,7 @@ public class StartTab extends Tab {
     }
 
     /**
-     * invoked from controller when changing something / interacting with something on the tab
+     * invoked from controller when changing something / interacting with something on the tab,
      * does nothing, because the start tab has no conditions for proceeding or new information to update/display
      */
     @Override

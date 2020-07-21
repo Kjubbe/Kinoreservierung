@@ -11,7 +11,7 @@ import model.enums.*;
 public class Seat {
     
     // Data fields
-    public boolean isReserved = false;
+    protected boolean isReserved = false;
     private String name = ""; // name for hovering over a seat
     public final Prices price;
     public final boolean isVip;
@@ -37,5 +37,13 @@ public class Seat {
     @Override
     public String toString() {
         return name;
+    }
+
+    /**
+     * get if the seat is reserved
+     * @return if this seat is reserved
+     */
+    public boolean isReserved() {
+        return isReserved;
     }
 }

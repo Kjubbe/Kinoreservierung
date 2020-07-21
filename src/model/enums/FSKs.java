@@ -1,7 +1,7 @@
 package model.enums;
 
 /**
- * this enum defines the available FSK ratings for movies
+ * this enum defines the available FSK ratings for movies,
  * contains FSKs from 0 up to 18 and unrated
  * @author Kjell Treder
  * @author Marcel Sauer

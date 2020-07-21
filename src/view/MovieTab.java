@@ -10,8 +10,8 @@ import controller.*;
 import model.*;
 
 /**
- * the movie tab contains components for displaying information about the movies
- * this tab is the second tab in the view, it contains a JComboBox to choose a movie
+ * the movie tab contains components for displaying information about the movies,
+ * this tab is the second tab in the view, it contains a JComboBox to choose a movie,
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -35,21 +35,21 @@ public class MovieTab extends Tab {
     }
 
     /**
-     * invoked from view when switching to this tab via the proceed JButton in another tab
-     * adds JComboBox for movie options from the model
+     * invoked from view when switching to this tab via the proceed JButton in another tab,
+     * adds JComboBox for movie options from the model,
      * adds JLabel for displaying movie information from the movie
      */
     @Override
-    protected void build() throws NullPointerException {
+    protected void build() {
         System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
         description = new JLabel(); // new JLabel for the description
         JPanel moviePanel = new JPanel(new FlowLayout()); // new JPanel, contains JComboBox for movies and JLabel for the description
-        moviePanel.setBorder(ySpacing);
+        moviePanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         dropdown = new JComboBox<Movie>(); // new JComboBox for movies
-        for (Movie m : KinoModel.ALL_MOVIES) { // go through all movies
+        for (Movie m : Movie.ALL_MOVIES) { // go through all movies
             if (m != null && m.toString() != null) // check if movie and the title is not null
                 dropdown.addItem(m); // add movie to the JComboBox
         }
@@ -67,8 +67,8 @@ public class MovieTab extends Tab {
     }
 
     /**
-     * invoked from controller when changing the movie in the JComboBox
-     * updates description to the one of the chosen movie
+     * invoked from controller when changing the movie in the JComboBox,
+     * updates description to the one of the chosen movie,
      * user is able to proceed, if a movie is chosen (not null)
      */
     @Override

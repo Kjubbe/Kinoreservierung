@@ -3,9 +3,11 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.awt.GridLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
 
+import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -16,8 +18,8 @@ import controller.*;
 import model.*;
 
 /**
- * the catering tab contains components for displaying information about the caterings
- * this tab is the fifth tab in the view, it contains JSpinners to choose the amount of caterings
+ * the catering tab contains components for displaying information about the caterings,
+ * this tab is the fifth tab in the view, it contains JSpinners to choose the amount of caterings,
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -40,32 +42,37 @@ public class CateringTab extends Tab {
     }
 
     /**
-     * invoked from view when switching to this tab via the proceed JButton in another tab
+     * invoked from view when switching to this tab via the proceed JButton in another tab,
      * adds JSpinner for caterings from the model
      */
     @Override
-    protected void build() throws NullPointerException {
+    protected void build() {
         System.out.println("DEBUG: " + "tab: building catering tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        cateringPanel = new JPanel(new GridLayout(KinoModel.ALL_CATERINGS.size(), 2)); // new JPanel, contains all JSpinners FIXME the layout does not work well for this, another layout should be used instead
-        cateringPanel.setBorder(ySpacing);
+        cateringPanel = new JPanel(); // new JPanel, contains all JSpinners FIXME the layout does not work well for this, another layout should be used instead
+        cateringPanel.setLayout(new BoxLayout(cateringPanel, BoxLayout.Y_AXIS));
+        cateringPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
-        for (Catering c : KinoModel.ALL_CATERINGS) { // go through every catering
+        for (Catering c : Catering.ALL_CATERINGS) { // go through every catering
             try { // catch corrupted caterings missing a name or price
                 String cateringName = c.toString(); // get the name from the catering
                 if (cateringName == null)
                     throw new NullPointerException(); // no name set, throw exception
-                double cateringPrice = c.price.getPrice(); // get the price of the catering
+                double cateringPrice = c.price.getPrice(); // try to get the price of the catering
                 
                 SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
                 JSpinner spinner = new JSpinner(spinnerModel); // create a new JSpinner with the SpinnerNumberModel
                 spinner.setEditor(new JSpinner.DefaultEditor(spinner)); // set to non-editable
                 spinner.addChangeListener(ctrl); // add listener
+                spinner.setAlignmentX(JComponent.LEFT_ALIGNMENT);
 
                 // build the JPanel
-                cateringPanel.add(putInContainer(spinner));
-                cateringPanel.add(putInContainer(new JLabel(cateringName + " (" + cateringPrice + Vocabulary.CURRENCY + ")"))); // throws an error if price or name of catering is null
+                JPanel container = new JPanel(new FlowLayout());
+                container.add(putInContainer(spinner));
+                container.add(putInContainer(new JLabel(cateringName + " (" + cateringPrice + Vocabulary.CURRENCY + ")")));
+                
+                cateringPanel.add(container);
             } catch (Exception e) { // corrupted catering found
                 continue; // skip this corrupted catering
             }
@@ -80,7 +87,7 @@ public class CateringTab extends Tab {
     }
 
     /**
-     * invoked from controller when changing something / interacting with something on the tab
+     * invoked from controller when changing something / interacting with something on the tab,
      * does nothing, because the catering tab has no conditions for proceeding or new information to update/display
      */
     @Override

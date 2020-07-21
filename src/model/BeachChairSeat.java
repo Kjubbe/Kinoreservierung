@@ -7,7 +7,7 @@ import java.util.Random;
 import model.enums.*;
 
 /**
- * special type of seat, inherites from the Seat class
+ * special type of seat, inherites from the Seat class,
  * contains a ticket number and list of all tickets
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -30,8 +30,8 @@ public class BeachChairSeat extends Seat {
     }
 
     /**
-     * sets the ticket for this seat
-     * gets a random number between the local min value (included) and the local max value (excluded)
+     * sets the ticket for this seat,
+     * gets a random number between the local min value (included) and the local max value (excluded),
      * checks if the ticket number is unique before assigning it
      */
     public void assignTicket() {
@@ -42,11 +42,12 @@ public class BeachChairSeat extends Seat {
         boolean isDuplicate;
         int ticketNr; // holds the ticket number
         do {
+            System.out.println("DEBUG: " + "Seat: generating ticket..."); // DEBUG
             ticketNr = min + (int)(rng.nextDouble() * (max - min)); // get a random number in the specified range
             isDuplicate = false; // assume, that it is not a duplicate
             for (Integer t : tickets) { // check every ticket
                 if (t == ticketNr) { // check for uplication
-                    System.out.println("Duplicate found: " + t + " " + ticketNr); // DEBUG
+                    System.out.println("DEBUG: " + "Seat: duplicate found: " + t); // DEBUG
                     isDuplicate = true; // duplication found
                     break;
                 }
@@ -56,8 +57,8 @@ public class BeachChairSeat extends Seat {
         ticket = String.valueOf(ticketNr); // assign the ticket
         tickets.add(ticketNr); // add the ticket to the list of all tickets
 
-        System.out.println("Ticket assigned: " + ticket); // DEBUG
-        System.out.println("Alle tickets: " + tickets); // DEBUG
+        System.out.println("DEBUG: " + "Seat: ticket assigned: " + ticket); // DEBUG
+        System.out.println("DEBUG: " + "Seat: all tickets: " + tickets); // DEBUG
     }
 
     /**

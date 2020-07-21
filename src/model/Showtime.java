@@ -18,7 +18,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     public final Seat[][] seats; // contains all available seats for this showtime
     
     /**
-     * constructor, assigns data fields
+     * constructor, assigns data fields,
      * builds rows and columns of seats
      * @param date date for the showtime
      * @param time time for the showtime
@@ -66,10 +66,11 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     }
 
     /**
-     * updates the availibility of this showtime
+     * updates the availibility of this showtime,
      * if no seat is available the show is sold out
      */
     protected void updateAvailability() {
+        System.out.println("DEBUG: " + "Showtime: updating availibility..."); // DEBUG
         if (!isSoldOut) { // only check is the show is not sold out already
             for (Seat[] column : seats) {
                 for (Seat s : column) { // check every seat
@@ -79,6 +80,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
             }
             isSoldOut = true; // no unreserved seat was found > show sold out
         }
+        System.out.println("DEBUG: " + "Showtime: is the show sold out?: " + isSoldOut); // DEBUG
     }
 
     /**

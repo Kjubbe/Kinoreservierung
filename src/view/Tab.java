@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Component;
+import java.awt.FlowLayout;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,15 +11,14 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import controller.*;
 import model.*;
 
 /**
- * parent class for custom tabs, contains basic data for a tab
- * contains three JButtons for proceeding, exiting or going back
- * contains an instructional JPanel with a JLabel (optional)
+ * parent class for custom tabs, contains basic data for a tab,
+ * contains three JButtons for proceeding, exiting or going back,
+ * contains an instructional JPanel with a JLabel (optional),
  * inherites from JPanel
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -31,11 +32,7 @@ public abstract class Tab extends JPanel {
     protected KinoController ctrl;
 
     protected JPanel instructionPanel = new JPanel(); // JPanel for JLabel displaying instruction text
-    protected JPanel buttonPanel = new JPanel(); // JPanel for all three JButtons
-
-    protected final EmptyBorder defaultBorder = new EmptyBorder(15, 15, 15, 15);
-    protected final EmptyBorder xSpacing = new EmptyBorder(0, 15, 0, 15);
-    protected final EmptyBorder ySpacing = new EmptyBorder(15, 0, 15, 0);
+    protected JPanel buttonPanel = new JPanel(new FlowLayout()); // JPanel for all three JButtons
 
     public final JButton backButton; // back
     public final JButton quitButton; // quit
@@ -80,12 +77,12 @@ public abstract class Tab extends JPanel {
 
         // configure this (the tab)
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(defaultBorder);
+        setBorder(KinoView.DEFAULT_BORDER);
     }
 
     /**
-     * reset the tab, removes all components
-     * disables JButton to proceed
+     * reset the tab, removes all components,
+     * disables JButton to proceed,
      * this method should be called before building a tab (again)
      */
     public final void reset() {
@@ -124,14 +121,14 @@ public abstract class Tab extends JPanel {
     }
 
     /**
-     * abstract method build is invoked from view when switching to a tab via the proceed JButton in another tab
+     * abstract method build is invoked from view when switching to a tab via the proceed JButton in another tab,
      * building of each tab can differ, thus the abstract method
      */
     protected abstract void build() throws NullPointerException;
 
     /**
-     * abstract method update is invoked from controller when changing something / interacting with something on the tab
-     * this method should manage conditions to proceed (enable the proceed JButton)
+     * abstract method update is invoked from controller when changing something / interacting with something on the tab,
+     * this method should manage conditions to proceed (enable the proceed JButton),
      * displaying and updating can differ, thus the abstract method
      */
     protected abstract void update();

@@ -12,8 +12,8 @@ import controller.*;
 import model.*;
 
 /**
- * the times tab contains components for displaying information about the available times
- * this tab is the third tab in the view, it contains JRadioButtons to choose one of the showtimes from the chosen movie
+ * the times tab contains components for displaying information about the available times,
+ * this tab is the third tab in the view, it contains JRadioButtons to choose one of the showtimes from the chosen movie,
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -36,7 +36,7 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
     }
 
     /**
-     * invoked from view when switching to this tab via the proceed button in another tab
+     * invoked from view when switching to this tab via the proceed button in another tab,
      * adds JRadioButtons for time options from the movie from the model
      */
     @Override
@@ -46,7 +46,7 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
 
         timesPanel = new JPanel(); // new JPanel, contains JRadioButtons
         timesPanel.setLayout(new BoxLayout(timesPanel, BoxLayout.Y_AXIS)); // set layout for the JPanel
-        timesPanel.setBorder(ySpacing);
+        timesPanel.setBorder(KinoView.NORMAL_Y_SPACING);
         ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
         
         Showtime[] times = model.availableTimes; // get the available showtimes from the model
@@ -61,16 +61,17 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
                     rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);
                 }
                 rb.addActionListener(ctrl); // add listener
+                rb.setAlignmentX(JComponent.CENTER_ALIGNMENT); // set alignment
+                rb.setBorder(KinoView.SMALL_Y_SPACING);
                 
                 // this action command contains the index of the JRadioButton
                 // this way, the controller knows from which index the action came from
                 rb.setActionCommand(String.valueOf(i));
-
                 group.add(rb); // add JRadioButton to the ButtonGroup
 
                 // build the JPanel
-                rb.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-                timesPanel.add(putInContainer(rb));
+                timesPanel.add(rb);
+
             } catch (NullPointerException ex) { // corrupted showtime found
                 continue; // skip this corrupted showtime
             }
@@ -83,7 +84,7 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
     }
 
     /**
-     * invoked from controller when clicking a JRadioButton
+     * invoked from controller when clicking a JRadioButton,
      * user is able to proceed, if a JRadioButton is selected
      */
     @Override

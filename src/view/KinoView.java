@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,8 +24,8 @@ import controller.*;
  * on the first tab the user can proceed with a JButton to make their reservation,
  * on the second tab the user can choose a movie from a JComboBox,
  * on the third tab the user can choose a time from a list of JRadioButtons,
- * on the fourth tab the user can choose any amount of seats with JCheckBoxes and type in license plates in JTextFields
- * on the fifth tab the user can choose the amount of caterings with JSpinners
+ * on the fourth tab the user can choose any amount of seats with JCheckBoxes and type in license plates in JTextFields,
+ * on the fifth tab the user can choose the amount of caterings with JSpinners,
  * the sixth tab shows a summary of the order in JLabels and a JButton to place the order
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -35,6 +36,11 @@ public class KinoView {
     // Create model and controller
     private KinoModel model = new KinoModel();
     private KinoController ctrl = new KinoController(this, model);
+
+    // Borders
+    protected static final EmptyBorder DEFAULT_BORDER = new EmptyBorder(15, 15, 15, 15);
+    protected static final EmptyBorder NORMAL_Y_SPACING = new EmptyBorder(15, 0, 15, 0);
+    protected static final EmptyBorder SMALL_Y_SPACING = new EmptyBorder(5, 0, 5, 0);
 
     // Create JFrame and JTabbedPane
     private JFrame frame = new JFrame(Vocabulary.FRAME_NAME);
@@ -87,6 +93,7 @@ public class KinoView {
         // part 3: adjust the price JTextField
         priceDisplay.setEditable(false);
         pricePanel.add(priceDisplay);
+        pricePanel.setBorder(SMALL_Y_SPACING);
 
         // part 4: set up the JFrame
         frame.setLayout(new BorderLayout());
@@ -113,7 +120,7 @@ public class KinoView {
     }
 
     /**
-     * invoked from controller by the proceed JButton
+     * invoked from controller by the proceed JButton,
      * changes the active tab to the following tab
      */
     public void proceed() {
@@ -123,7 +130,7 @@ public class KinoView {
     }
 
     /**
-     * invoked from controller by the back JButton
+     * invoked from controller by the back JButton,
      * changes the active tab to the previous tab
      */
     public void back() {
@@ -133,7 +140,7 @@ public class KinoView {
     }
 
     /**
-     * switch an tab to the index specified
+     * switch an tab to the index specified,
      * the tab that is switched to is then forced to build itself
      * @param index the index of the tab which should be switched to
      */
@@ -163,8 +170,8 @@ public class KinoView {
     }
 
     /**
-     * invoked from controller by user interaction
-     * updates information displayed on the JFrame
+     * invoked from controller by user interaction,
+     * updates information displayed on the JFrame,
      * forces an update on the active tab aswell
      */
     public void update() {
@@ -177,7 +184,7 @@ public class KinoView {
     }
 
     /**
-     * invoked from the controller when finishing the order
+     * invoked from the controller when finishing the order,
      * shows JDialog for feedback
      */
     public void finish() {
@@ -199,13 +206,14 @@ public class KinoView {
         
         JPanel mainPanel = new JPanel(); // create a new JPanel for all JLabels
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        mainPanel.setBorder(DEFAULT_BORDER);
         
         // build the JPanel
         for (String s : content) {
-            JPanel container = new JPanel();
-            container.add(new JLabel(s));
-            mainPanel.add(container); // add the JPanel with the JLabel
+            JLabel label = new JLabel(s);
+            label.setBorder(SMALL_Y_SPACING);
+            label.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+            mainPanel.add(label); // add the JPanel with the JLabel
         }
 
         // build the JDialog

@@ -1,9 +1,12 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.enums.*;
 
 /**
- * contains all information for a movie
+ * contains all information for a movie,
  * contains the showtimes for the movie
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -12,6 +15,8 @@ import model.enums.*;
 public class Movie { // TODO pictures for the movies
 
     // Data fields
+    public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
+
     private String title;
     private Genres genre;
     private FSKs fsk;

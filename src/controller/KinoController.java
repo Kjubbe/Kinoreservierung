@@ -118,8 +118,8 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     }
 
     /**
-     * invoked from event, gets input from JTextFields from the view
-     * advises model to set license plates
+     * invoked from event, gets input from JTextFields from the view,
+     * advises model to set license plates,
      * updates view
      */
     private void licensePlateChanged() {
@@ -136,8 +136,8 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     }
 
     /**
-     * invoked from event, gets value from all SpinnerModels from the view
-     * advises model to set caterings
+     * invoked from event, gets value from all SpinnerModels from the view,
+     * advises model to set caterings,
      * updates view
      */
     private void cateringChanged() { // TODO update this logic
@@ -154,12 +154,12 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     }
 
     /**
-     * invoked from event, when user wants to place the order
-     * advises model to create an order and reset
+     * invoked from event, when user wants to place the order,
+     * advises model to create an order and reset,
      * updates and advises view to finish
      */
     private void orderPlaced() {
-        System.out.println("DEBUG: " + "ctrl: ordering..."); // DEBUG
+        System.out.println("DEBUG: " + "ctrl: placing order..."); // DEBUG
         model.order(); // advice the model to order
         view.finish(); // advice the view to finish
         model.reset(4); // adivice the model to reset everything
