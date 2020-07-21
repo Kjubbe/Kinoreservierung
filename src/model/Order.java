@@ -16,11 +16,11 @@ public class Order {
     // data fields
     protected static final List<Order> ALL_ORDERS = new ArrayList<>(); // contains all orders TODO maybe create a database class for these three?
 
-    public final Movie movie;
-    public final Showtime time;
-    public final List<Seat> seats;
-    public final Map<Catering, Integer> caterings;
-    public final double totalPrice;
+    private final Movie movie;
+    private final Showtime time;
+    private final List<Seat> seats;
+    private final Map<Catering, Integer> caterings;
+    private final double totalPrice;
 
     /**
      * constructor, assigns data fields

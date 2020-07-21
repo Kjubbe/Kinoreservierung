@@ -34,7 +34,7 @@ public class BeachChairSeat extends Seat {
      * gets a random number between the local min value (included) and the local max value (excluded),
      * checks if the ticket number is unique before assigning it
      */
-    public void assignTicket() {
+    protected void assignTicket() {
         int min = 10000000; // min value for the ticket number
         int max = 100000000; // max value for the ticket number
         
@@ -65,7 +65,7 @@ public class BeachChairSeat extends Seat {
      * get the ticket for this seat
      * @return ticket as String
      */
-    public String getTicket() {
+    protected String getTicket() {
         return ticket;
     }
 }

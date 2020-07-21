@@ -34,9 +34,9 @@ public abstract class Tab extends JPanel {
     protected JPanel instructionPanel = new JPanel(); // JPanel for JLabel displaying instruction text
     protected JPanel buttonPanel = new JPanel(new FlowLayout()); // JPanel for all three JButtons
 
-    public final JButton backButton; // back
-    public final JButton quitButton; // quit
-    public final JButton proceedButton; // proceed
+    protected final JButton backButton; // back
+    protected final JButton quitButton; // quit
+    protected final JButton proceedButton; // proceed
 
     /**
      * constructor, assigns data references and an index
@@ -50,7 +50,7 @@ public abstract class Tab extends JPanel {
 
         try {
             instructionPanel.add(new JLabel(Vocabulary.INSTRUCTION_TEXTS[index])); // try to add instructions from the model
-        } catch (Exception e) { // no instructions at the specified index
+        } catch (Exception ex) { // no instructions at the specified index
             System.out.println("No message set"); // do not add a JLabel
         }
 
@@ -85,7 +85,7 @@ public abstract class Tab extends JPanel {
      * disables JButton to proceed,
      * this method should be called before building a tab (again)
      */
-    public final void reset() {
+    protected final void reset() {
         System.out.println("DEBUG: " + "tab: resetting tab..."); // DEBUG
         removeAll(); // removes all components from the tab
         proceedButton.setEnabled(false); // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed
