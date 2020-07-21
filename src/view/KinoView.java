@@ -193,7 +193,8 @@ public class KinoView {
             print += s + Vocabulary.SPLITTER_STRING;
         }
         for (String s : model.getTicketStrings()) {
-            print += Vocabulary.TICKET_LABEL + ": " + s;
+            if (!s.isBlank())
+                print += Vocabulary.TICKET_LABEL + ": " + s + Vocabulary.SPLITTER_STRING;
         }
         createDialog(Vocabulary.FINISH_DIALOG_NAME, print.split(Vocabulary.SPLITTER_STRING)); // create a new JDialog
         resetTabs(); // reset all tabs
