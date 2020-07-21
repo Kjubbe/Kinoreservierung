@@ -6,7 +6,6 @@ import java.util.List;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
-import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -20,7 +19,7 @@ import model.enums.*;
  * @author Marcel Sauer
  */
 
-public class Movie { // TODO pictures for the movies
+public class Movie {
 
     // Data fields
     public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
@@ -36,14 +35,14 @@ public class Movie { // TODO pictures for the movies
      * @param title title of the movie
      * @param genre genre of the movie
      * @param fsk rated fsk
-     * @param picName name of the picture
+     * @param picPath name of the picture
      * @param showtimes the available showtimes for movie
      */
-    public Movie(String title, Genres genre, FSKs fsk, String picName, Showtime[] showtimes) {
+    public Movie(String title, Genres genre, FSKs fsk, String picPath, Showtime[] showtimes) {
         this.title = title;
         this.genre = genre;
         this.fsk = fsk;
-        this.picPath = "images/" + picName + ".jpg";
+        this.picPath = picPath;
         this.showtimes = showtimes;
     }
 
@@ -63,7 +62,7 @@ public class Movie { // TODO pictures for the movies
     public String getDescription() {
         try {
             return Vocabulary.GENRE_LABEL + ": " + genre.toString() + ", " + fsk.getFSK(); // try to return the genre and fsk as a string
-        } catch (Exception e) { // some data field is not set
+        } catch (Exception ex) { // some data field is not set
             if (genre == null && fsk != null)
                 return fsk.getFSK(); // no genre set
             else if (genre != null && fsk == null) 
@@ -81,7 +80,7 @@ public class Movie { // TODO pictures for the movies
 		BufferedImage pic = null;
 		try {
 			pic = ImageIO.read(new File(picPath));
-		} catch (IOException e) {
+		} catch (Exception ex) {
 			return null;
         }
         return new ImageIcon(pic);
