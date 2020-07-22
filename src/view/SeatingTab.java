@@ -12,6 +12,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 
 import controller.*;
 import model.*;
@@ -74,7 +78,7 @@ public class SeatingTab extends Tab {
             throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
 
         seatingPanel = new JPanel(new GridLayout(seatRowAmount, seatColumnAmount)); // new JPanel, contains all JCheckBoxes
-        seatingPanel.setBorder(KinoView.NORMAL_Y_SPACING);
+        seatingPanel.setBorder(new LineBorder(Color.BLACK, 1));
 
         for (int row = 0; row < seatRowAmount; row++) { // every row
             for (int column = 0; column < seatColumnAmount; column++) { // checks every column of every row
@@ -88,25 +92,28 @@ public class SeatingTab extends Tab {
                 cb.setActionCommand(row + Vocabulary.SPLITTER_STRING + column);
 
                 // Coloring // TODO add some legend to understand what each color means and how many people can sit in the beach chair
-                Color color = Color.WHITE; // default Color is white
+                Color color = Color.LIGHT_GRAY; // default Color is light gray
                 if (currentSeat.isReserved()) {
                     color = lightRed; // if seat is reserved the color is set to light red
                     cb.setEnabled(false); // disable the JCheckBox
                     cb.setToolTipText(Vocabulary.RESERVED_TOOLTIP); // new tooltip
                 }
-                else if (currentSeat.isVip)
-                    color = Color.ORANGE; // else if the seat is for vip the color is set to orange FIXME other way to differentiate between vip beach chairs and vip car seats? they look the same
                 else if (currentSeat instanceof BeachChairSeat)
                     color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
                 else if (currentSeat instanceof CarSeat) { // else if the seat is a CarSeat
-                    if (((CarSeat)currentSeat).isForSUV)
-                        color = lightBlue; // if the CarSeat is for suv the color is set to light blue
+                    if (((CarSeat)currentSeat).isForSUV) {
+                        color = Color.GRAY; // if the CarSeat is for suv the color is set to gray
+                        cb.setBorder(new EmptyBorder(7, 7, 7, 7));
+                    }
                    // normal non-suv car seats have no special color > standard white
                 }
                 cb.setBackground(color); // set background color of the JCheckBox to the color specified
 
                 // build the JPanel
-                seatingPanel.add(putInContainer(cb));
+                JPanel container = putInContainer(cb); // get the container of the checkbox
+                if (currentSeat.isVip) // check if the seat is vip
+                    container.setBorder(new LineBorder(Color.ORANGE, 3)); // give the checkbox an orange border
+                seatingPanel.add(putInContainer(container));
             }
         }
 
