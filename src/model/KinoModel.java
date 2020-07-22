@@ -151,7 +151,7 @@ public class KinoModel {
      * @param m movie which was chosen
      */
     public void setMovie(Movie m) {
-        System.out.println("DEBUG: " + "model: Movie set, Movie: " + m); // DEBUG
+        System.out.println("DEBUG: model: Movie set, Movie: " + m); // DEBUG
         chosenMovie = m; // set chosen movie
         availableTimes = m.showtimes; // set available times to the times contained in the movie
         reset(3);
@@ -165,7 +165,7 @@ public class KinoModel {
      */
     public void setTime(String cmd) {
         int index = Integer.parseInt(cmd); // get the index from the action command
-        System.out.println("DEBUG: " + "model: Time set, Time: " + availableTimes[index]); // DEBUG
+        System.out.println("DEBUG: model: Time set, Time: " + availableTimes[index]); // DEBUG
         
         // get the time at the index from the action command
         // this time is equivalent to the time displayed on the JRadioButton at the index
@@ -190,17 +190,17 @@ public class KinoModel {
         Seat s = availableSeats[Integer.parseInt(pos[0])][Integer.parseInt(pos[1])]; // get the seat at the specified position
         
         if (remove) {
-            System.out.println("DEBUG: " + "model: Seat removed " + s); // DEBUG
+            System.out.println("DEBUG: model: Seat removed " + s); // DEBUG
             chosenSeats.remove(s); // remove the seat from the list
         } else {
-            System.out.println("DEBUG: " + "model: Seat added " + s); // DEBUG
+            System.out.println("DEBUG: model: Seat added " + s); // DEBUG
             chosenSeats.add(s); // add the seat to the list
         }
         if (s instanceof CarSeat) { // check if seat is an instance of CarSeat
             carSeatCount += remove ? -1 : 1;  // increase the counter when adding a CarSeat, decrease the counter when removing a CarSeat
-            System.out.println("DEBUG: " + "model: Car seat count changed to " + carSeatCount); // DEBUG
+            System.out.println("DEBUG: model: Car seat count changed to " + carSeatCount); // DEBUG
         }
-        System.out.println("DEBUG: " + "model: List of seats " + chosenSeats); // DEBUG
+        System.out.println("DEBUG: model: List of seats " + chosenSeats); // DEBUG
         reset(1);
     }
 
@@ -217,7 +217,7 @@ public class KinoModel {
             try {
                 if (equivalentCatering == null)
                     throw new NullPointerException(); // throw exception because catering is null
-                if (equivalentCatering.getName() == null)
+                if (equivalentCatering.name == null)
                     throw new NullPointerException(); // throw exception because name of catering is null
                 equivalentCatering.price.getPrice(); // try to get the price of the catering
             } catch (Exception ex) {
@@ -225,7 +225,7 @@ public class KinoModel {
             }
             chosenCatering.put(equivalentCatering, cateringAmounts.get(y++)); // put catering as key with the selected amount as a value in the map
         }
-        System.out.println("DEBUG: " + "model: Catering set, Caterings: " + chosenCatering); // DEBUG
+        System.out.println("DEBUG: model: Catering set, Caterings: " + chosenCatering); // DEBUG
     }
 
     /**
@@ -234,7 +234,7 @@ public class KinoModel {
      * @param lps list of license plate Strings
      */
     public void setLicensePlates(List<String> lps) {
-        System.out.println("DEBUG: " + "model: License plate set, License plates: " + lps); // DEBUG
+        System.out.println("DEBUG: model: License plate set, License plates: " + lps); // DEBUG
         licensePlates = lps;
     }
 
@@ -246,7 +246,7 @@ public class KinoModel {
     public boolean checkInput(String text) {
         int min = 5; // required min string length
         int max = 10; // required max string length
-        System.out.println("DEBUG: " + "model: checking input..."); // DEBUG
+        System.out.println("DEBUG: model: checking input..."); // DEBUG
         text = text.replaceAll("\\s+", ""); // remove all whitespaces
         return text.length() >= min && text.length() <= max; // input only suffices if the length of the text is greater than min and less than max
     }
@@ -257,7 +257,7 @@ public class KinoModel {
      * @param depth the depth of the reset
      */
     public void reset(int depth) {
-        System.out.println("DEBUG: " + "model: resetting input..."); // DEBUG
+        System.out.println("DEBUG: model: resetting input..."); // DEBUG
         if (depth >= 4) { // this depth reaches to the movie tab
             chosenMovie = null;
             availableTimes = null;
@@ -280,7 +280,7 @@ public class KinoModel {
      * invoked from controller by pressing the JButton for exiting
      */
     public void quit() {
-        System.out.println("\n" + "DEBUG: " + "model: quitting..."); // DEBUG
+        System.out.println("\n" + "DEBUG: model: quitting..."); // DEBUG
         reset(4); // reset the model
         System.exit(0); // terminate the program
     }

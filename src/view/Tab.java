@@ -28,11 +28,11 @@ import model.*;
 public abstract class Tab extends JPanel {
     
     // references
-    protected KinoModel model;
-    protected KinoController ctrl;
+    protected final KinoModel model;
+    protected final KinoController ctrl;
 
-    protected JPanel instructionPanel = new JPanel(); // JPanel for JLabel displaying instruction text
-    protected JPanel buttonPanel = new JPanel(new FlowLayout()); // JPanel for all three JButtons
+    protected final JPanel instructionPanel = new JPanel(); // JPanel for JLabel displaying instruction text
+    protected final JPanel buttonPanel = new JPanel(new FlowLayout()); // JPanel for all three JButtons
 
     protected final JButton backButton; // back
     protected final JButton quitButton; // quit

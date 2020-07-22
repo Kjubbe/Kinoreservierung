@@ -18,7 +18,7 @@ public class Catering {
     public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing caterings TODO visibility issue
 
     public final Prices price;
-    private String name;
+    public final String name;
 
     /**
      * constructor, sets data fields
@@ -28,13 +28,5 @@ public class Catering {
     public Catering(String name, Prices price) {
         this.price = price;
         this.name = name;
-    }
-
-    /**
-     * get the name of this catering
-     * @return the name of this catering
-     */
-    public String getName() {
-        return name;
     }
 }

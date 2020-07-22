@@ -55,7 +55,7 @@ public class SeatingTab extends Tab {
      */
     @Override
     protected void build() throws NullPointerException { 
-        System.out.println("DEBUG: " + "tab: building seating tab..."); // DEBUG
+        System.out.println("DEBUG: tab: building seating tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
         // build the JPanels
@@ -116,7 +116,7 @@ public class SeatingTab extends Tab {
                 Seat currentSeat = seats[row][column]; // get the seat at the current position
                 JCheckBox cb = new JCheckBox(); // create a new JCheckBox
                 cb.addActionListener(ctrl); // add listener
-                cb.setToolTipText(currentSeat.getName()); // add tooltip from the current seat
+                cb.setToolTipText(currentSeat.name); // add tooltip from the current seat
                 
                 // this action command contains the position of the JCheckBox
                 // this way, the controller knows from which position the action came from
@@ -163,7 +163,7 @@ public class SeatingTab extends Tab {
      */
     @Override
     protected void update() {
-        System.out.println("DEBUG: " + "tab: updating seating tab..."); // DEBUG
+        System.out.println("DEBUG: tab: updating seating tab..."); // DEBUG
         changeTextFields(model.getCarSeatCount()); // update amount of textfields
 
         // condition 1: at least one JCheckBox must be selected

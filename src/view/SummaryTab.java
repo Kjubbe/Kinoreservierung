@@ -59,7 +59,7 @@ public class SummaryTab extends Tab {
         // part 3: the seats
         StringBuilder seatBuilder = new StringBuilder();
         for (Seat s : model.getChosenSeats()) { // go through every seat
-            seatBuilder.append("1x " + s.getName() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ");
+            seatBuilder.append("1x " + s.name + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ");
         }
         JLabel seatsLabel = new JLabel(Vocabulary.SEATS_LABEL + ": " + seatBuilder.toString().substring(0, seatBuilder.toString().length() - 2)); // remove last comma
         seatsLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -88,7 +88,7 @@ public class SummaryTab extends Tab {
                 Integer i = entry.getValue();
                 if (i == 0) // check if the catering is chosen, if not skip
                     continue; // skip this entry
-                cateringBuilder.append(i + "x " + c.getName() + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "); // add the catering name and price with their amount to the print
+                cateringBuilder.append(i + "x " + c.name + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "); // add the catering name and price with their amount to the print
             }
         }
         JLabel cateringLabel;

@@ -56,7 +56,7 @@ public class CateringTab extends Tab {
 
         for (Catering c : Catering.ALL_CATERINGS) { // go through every catering
             try { // catch corrupted caterings missing a name or price
-                String cateringName = c.getName(); // get the name from the catering
+                String cateringName = c.name; // get the name from the catering
                 if (cateringName == null)
                     throw new NullPointerException(); // no name set, throw exception
                 double cateringPrice = c.price.getPrice(); // try to get the price of the catering

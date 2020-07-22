@@ -16,8 +16,8 @@ import model.enums.*;
 public class BeachChairSeat extends Seat {
 
     // Data fields
-    private static final String NAME = Vocabulary.BEACH_CHAIR_TOOLTIP;
-    private static List<Integer> tickets = new ArrayList<>(); // this list holds all tickets for every seat
+    private static final String BEACH_CHAIR_NAME = Vocabulary.BEACH_CHAIR_TOOLTIP;
+    private static final List<Integer> tickets = new ArrayList<>(); // this list holds all tickets for every seat
     private String ticket; // holds the ticket "number" for this seat
 
     private Random rng = new Random();
@@ -28,7 +28,7 @@ public class BeachChairSeat extends Seat {
      */
     public BeachChairSeat(boolean isVip) {
         // price is determined by the isVip boolean
-        super(isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT, isVip, NAME);
+        super(isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT, isVip, BEACH_CHAIR_NAME);
     }
 
     /**
@@ -43,12 +43,12 @@ public class BeachChairSeat extends Seat {
         boolean isDuplicate;
         int ticketNr; // holds the ticket number
         do {
-            System.out.println("DEBUG: " + "Seat: generating ticket..."); // DEBUG
+            System.out.println("DEBUG: Seat: generating ticket..."); // DEBUG
             ticketNr = min + rng.nextInt(max - min); // get a random number in the specified range
             isDuplicate = false; // assume, that it is not a duplicate
             for (Integer t : tickets) { // check every ticket
                 if (t == ticketNr) { // check for uplication
-                    System.out.println("DEBUG: " + "Seat: duplicate found: " + t); // DEBUG
+                    System.out.println("DEBUG: Seat: duplicate found: " + t); // DEBUG
                     isDuplicate = true; // duplication found
                     break;
                 }
@@ -61,8 +61,8 @@ public class BeachChairSeat extends Seat {
         ticket = ticketString.substring(0, length / 2) + "-" + ticketString.substring(length / 2, ticketString.length()); // assign the ticketString with a dash in the middle
         tickets.add(ticketNr); // add the ticket to the list of all tickets
 
-        System.out.println("DEBUG: " + "Seat: ticket assigned: " + ticket); // DEBUG
-        System.out.println("DEBUG: " + "Seat: all tickets: " + tickets); // DEBUG
+        System.out.println("DEBUG: Seat: ticket assigned: " + ticket); // DEBUG
+        System.out.println("DEBUG: Seat: all tickets: " + tickets); // DEBUG
     }
 
     /**

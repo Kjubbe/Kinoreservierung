@@ -46,11 +46,11 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
+        System.out.println("\n" + "DEBUG: ctrl: click registered.."); // DEBUG
         Object source = e.getSource(); // store the source object
         String cmd = e.getActionCommand(); // get the action command
         if (source instanceof JButton) { // source from JButton > source is either back-, quit-, proceed- or finish- JButton
-            System.out.println("DEBUG: " + "ctrl: identified as button"); // DEBUG
+            System.out.println("DEBUG: ctrl: identified as button"); // DEBUG
             if (cmd.equals(Vocabulary.BACK_BUTTON)) // back JButton
                 view.back();
             else if (cmd.equals(Vocabulary.QUIT_BUTTON)) // quit JButton
@@ -61,8 +61,8 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
                 orderPlaced();
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
-            System.out.println("DEBUG: " + "ctrl: identified as radio-button"); // DEBUG
-            System.out.println("DEBUG: " + "ctrl: Time chosen"); // DEBUG
+            System.out.println("DEBUG: ctrl: identified as radio-button"); // DEBUG
+            System.out.println("DEBUG: ctrl: Time chosen"); // DEBUG
 
             // the action commands of the JRadioButtons from the times tab contain their index
             // this way, the time at the same index can be set as the chosen time
@@ -70,7 +70,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
 
             view.update();
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
-            System.out.println("DEBUG: " + "ctrl: identified as checkbox"); // DEBUG
+            System.out.println("DEBUG: ctrl: identified as checkbox"); // DEBUG
             boolean remove = !((JCheckBox) source).isSelected(); // remove equals false if the JCheckBox was selected, true if deselected
             
             // the action commands of the JCheckBoxes from the seating tab contain their position
@@ -86,10 +86,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
-        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
-        System.out.println("DEBUG: " + "ctrl: identified as combobox"); // DEBUG
+        System.out.println("\n" + "DEBUG: ctrl: click registered..."); // DEBUG
+        System.out.println("DEBUG: ctrl: identified as combobox"); // DEBUG
         Movie movie = (Movie) e.getItem(); // get the selected movie from the event
-        System.out.println("DEBUG: " + "ctrl: Movie chosen"); // DEBUG
+        System.out.println("DEBUG: ctrl: Movie chosen"); // DEBUG
         if (movie != null) // check if an actual movie is selected
             model.setMovie(movie); // advice model to set the movie
         view.update();
@@ -101,8 +101,8 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println("\n" + "DEBUG: " + "ctrl: key type registered..."); // DEBUG
-        System.out.println("DEBUG: " + "ctrl: identified as textfield"); // DEBUG
+        System.out.println("\n" + "DEBUG: ctrl: key type registered..."); // DEBUG
+        System.out.println("DEBUG: ctrl: identified as textfield"); // DEBUG
         licensePlateChanged(); // source is from JTextField > source from seat tab
     }
 
@@ -112,8 +112,8 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void stateChanged(ChangeEvent e) {
-        System.out.println("\n" + "DEBUG: " + "ctrl: click registered..."); // DEBUG
-        System.out.println("DEBUG: " + "ctrl: identified as spinner"); // DEBUG
+        System.out.println("\n" + "DEBUG: ctrl: click registered..."); // DEBUG
+        System.out.println("DEBUG: ctrl: identified as spinner"); // DEBUG
         cateringChanged(); // source is from JSpinner > source from catering tab
     }
 
@@ -123,7 +123,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      */
     private void licensePlateChanged() {
-        System.out.println("DEBUG: " + "ctrl: license plate changed"); // DEBUG
+        System.out.println("DEBUG: ctrl: license plate changed"); // DEBUG
         SeatingTab tab = (SeatingTab) view.tabs[3]; // get reference to the seating tab from the view
         List<JTextField> tfs = tab.getTextFields(); // get JTextFields from the tab
         

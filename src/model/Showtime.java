@@ -11,11 +11,11 @@ import model.enums.*;
 public class Showtime { // TODO maybe add not only weekdays but dates aswell? (overkill!)
     
     // Data fields
-    private Dates date;
-    private Times time;
+    private final Dates date;
+    private final Times time;
     private boolean isSoldOut = false; // showtime is not sold out by default
 
-    public final Seat[][] seats; // contains all available seats for this showtime
+    protected final Seat[][] seats; // contains all available seats for this showtime
     
     /**
      * constructor, assigns data fields,

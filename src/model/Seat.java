@@ -12,7 +12,7 @@ public class Seat {
     
     // Data fields
     protected boolean isReserved = false;
-    private String name = ""; // name for hovering over a seat
+    public final String name; // name for hovering over a seat
     public final Prices price;
     public final boolean isVip;
 
@@ -26,16 +26,9 @@ public class Seat {
         this.price = price;
         this.isVip = isVip;
         if (isVip)
-            this.name += "[" + Vocabulary.VIP_TOOLTIP + "] "; // update name to give more information when seat is vip
-        this.name += name;
-    }
-
-    /**
-     * get the name of this seat
-     * @return String with the name
-     */
-    public String getName() {
-        return name;
+            this.name = "[" + Vocabulary.VIP_TOOLTIP + "] " + name; // update name to give more information when seat is vip
+        else
+            this.name = name;
     }
 
     /**

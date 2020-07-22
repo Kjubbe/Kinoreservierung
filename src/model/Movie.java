@@ -24,11 +24,11 @@ public class Movie {
     // Data fields
     public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies TODO visibility issue
 
-    private String title;
-    private Genres genre;
-    private FSKs fsk;
-    private String picPath;
-    public final Showtime[] showtimes; // contains all available showtimes for this movie
+    private final String title;
+    private final Genres genre;
+    private final FSKs fsk;
+    private final String picPath;
+    protected final Showtime[] showtimes; // contains all available showtimes for this movie
     
     /**
      * constructor, sets data fields
