@@ -22,7 +22,7 @@ import model.enums.*;
 public class Movie {
 
     // Data fields
-    public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
+    public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies TODO visibility issue
 
     private String title;
     private Genres genre;

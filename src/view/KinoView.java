@@ -178,7 +178,7 @@ public class KinoView {
         System.out.println("DEBUG: " + "view: forcing update..."); // DEBUG
         int activeTab = tabbedPane.getSelectedIndex(); // get index of selected tab
         tabs[activeTab].update(); // force this tab to update
-        priceDisplay.setText(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getPrice() + Vocabulary.CURRENCY); // update the price
+        priceDisplay.setText(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getTotalPrice() + Vocabulary.CURRENCY); // update the price
         disableFollowingTabs(activeTab); // disable all following tabs
         frame.pack();
     }
@@ -189,15 +189,15 @@ public class KinoView {
      */
     public void finish() {
         System.out.println("DEBUG: " + "view: finishing..."); // DEBUG
-        String print = "";
+        StringBuilder builder = new StringBuilder();
         for (String s : Vocabulary.FINISH_MSGS) {
-            print += s + Vocabulary.SPLITTER_STRING;
+            builder.append(s + Vocabulary.SPLITTER_STRING);
         }
         for (String s : model.getTicketStrings()) {
             if (!s.isBlank())
-                print += Vocabulary.TICKET_LABEL + ": " + s + Vocabulary.SPLITTER_STRING;
+                builder.append(Vocabulary.TICKET_LABEL + ": " + s + Vocabulary.SPLITTER_STRING);
         }
-        createDialog(Vocabulary.FINISH_DIALOG_NAME, print.split(Vocabulary.SPLITTER_STRING)); // create a new JDialog
+        createDialog(Vocabulary.FINISH_DIALOG_NAME, builder.toString().split(Vocabulary.SPLITTER_STRING)); // create a new JDialog
         resetTabs(); // reset all tabs
         switchTabTo(0); // switch back to the first tab
     }

@@ -45,7 +45,7 @@ public class MovieTab extends Tab {
         reset(); // reset before building to avoid duplications
 
         // build the dropdown
-        dropdown = new JComboBox<Movie>(); // new JComboBox for movies
+        dropdown = new JComboBox<>(); // new JComboBox for movies
         for (Movie m : Movie.ALL_MOVIES) { // go through all movies
             if (m != null && m.toString() != null) // check if movie and the title is not null
                 dropdown.addItem(m); // add movie to the JComboBox

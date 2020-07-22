@@ -74,7 +74,7 @@ public class CateringTab extends Tab {
                 
                 cateringPanel.add(container);
             } catch (Exception ex) { // corrupted catering found
-                continue; // skip this corrupted catering
+                // skip the corrupted catering
             }
         }
 

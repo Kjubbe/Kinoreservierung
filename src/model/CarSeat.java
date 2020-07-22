@@ -13,8 +13,8 @@ import model.enums.*;
 public class CarSeat extends Seat {
 
     // Data fields
-    private static final String pkwName = Vocabulary.PKW_TOOLTIP;
-    private static final String suvName = Vocabulary.SUV_TOOLTIP;
+    private static final String PKW_NAME = Vocabulary.PKW_TOOLTIP;
+    private static final String SUV_NAME = Vocabulary.SUV_TOOLTIP;
     public final boolean isForSUV; // determines if the seat is meant for suvs
     protected String licensePlateNr; // holds license plate number
 
@@ -26,7 +26,7 @@ public class CarSeat extends Seat {
     public CarSeat(boolean isVip, boolean isForSUV) {
         // price is determined by the isVip boolean
         // name is determined by the isForSUV boolean
-        super(isVip ? Prices.VIP_CAR_SEAT : Prices.NORMAL_CAR_SEAT, isVip, isForSUV ? suvName : pkwName);
+        super(isVip ? Prices.VIP_CAR_SEAT : Prices.NORMAL_CAR_SEAT, isVip, isForSUV ? SUV_NAME : PKW_NAME);
         this.isForSUV = isForSUV;
     }
 }

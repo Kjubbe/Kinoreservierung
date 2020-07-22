@@ -90,7 +90,7 @@ public class KinoModel {
             }),
             null, // test movie
             new Movie("Corrupted Movie 1", null, FSKs.FSK_12, "images/yellow.jpg", new Showtime[] { // test movie
-                new Showtime(Dates.Mi, Times.PM_6_30, 5, 9),
+                new Showtime(Dates.Mi, Times.PM_6_30, 15, 19),
                 new Showtime(Dates.Mi, Times.PM_8, 6, 7),
                 new Showtime(Dates.Do, Times.PM_5_30, 4, 9),
                 new Showtime(Dates.Do, Times.PM_7, 5, 8),
@@ -214,14 +214,14 @@ public class KinoModel {
         chosenCatering = new HashMap<>(); // create a new map, which will contain every catering option with their specified amount
         for (int i = 0; i < Catering.ALL_CATERINGS.size(); i++) { // check every Catering of the list
             Catering equivalentCatering = Catering.ALL_CATERINGS.get(i); // get the catering at the index, which is equivalent to the index of the amount for this catering
-            if (equivalentCatering == null)
-                continue; // catering is null, skip
-            if (equivalentCatering.getName() == null)
-                continue; // no name set, skip
             try {
+                if (equivalentCatering == null)
+                    throw new NullPointerException(); // throw exception because catering is null
+                if (equivalentCatering.getName() == null)
+                    throw new NullPointerException(); // throw exception because name of catering is null
                 equivalentCatering.price.getPrice(); // try to get the price of the catering
             } catch (Exception ex) {
-                continue; // no price set, skip
+                continue; // catering corrupted, skip
             }
             chosenCatering.put(equivalentCatering, cateringAmounts.get(y++)); // put catering as key with the selected amount as a value in the map
         }
@@ -304,7 +304,7 @@ public class KinoModel {
             } 
             chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
         }
-        Order.ALL_ORDERS.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, getPrice())); // create and add a new order with all information
+        Order.ALL_ORDERS.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, getTotalPrice())); // create and add a new order with all information
         System.out.println("\n" + "DEBUG: model: All orders are: \n" + Order.ALL_ORDERS + "\n"); // DEBUGs
         // TODO write the order to a file
     }
@@ -314,11 +314,12 @@ public class KinoModel {
      * @return array of strings with the ticket numbers
      */
     public String[] getTicketStrings() {
-        String print = "";
+        StringBuilder builder = new StringBuilder();
         for (Seat s : chosenSeats) { // go through the chosen seats
-            if (s instanceof BeachChairSeat) print += ((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING; // get the ticket from the seat and add it to the string
+            if (s instanceof BeachChairSeat)
+                builder.append(((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING); // get the ticket from the seat and add it to the string
         }
-        return print.split(Vocabulary.SPLITTER_STRING); // split the string
+        return builder.toString().split(Vocabulary.SPLITTER_STRING); // split the string
     }
 
     /**
@@ -326,7 +327,7 @@ public class KinoModel {
      * adds all prices from chosen seats and caterings together to calculate the total price
      * @return total price
      */
-    public double getPrice() {
+    public double getTotalPrice() {
         System.out.println("DEBUG: " + "model: calculating price..."); // DEBUG
         double price = 0.0; // local variable, holds the price
         if (!chosenSeats.isEmpty()) { // check, if there are chosen seats

@@ -73,7 +73,7 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
                 timesPanel.add(rb);
 
             } catch (NullPointerException ex) { // corrupted showtime found
-                continue; // skip this corrupted showtime
+                // skip this corrupted showtime
             }
         }
 

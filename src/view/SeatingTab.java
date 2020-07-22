@@ -131,12 +131,10 @@ public class SeatingTab extends Tab {
                 }
                 else if (currentSeat instanceof BeachChairSeat)
                     color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
-                else if (currentSeat instanceof CarSeat) { // else if the seat is a CarSeat
-                    if (((CarSeat)currentSeat).isForSUV) {
-                        color = Color.GRAY; // if the CarSeat is for suv the color is set to gray
-                        cb.setBorder(new EmptyBorder(7, 7, 7, 7)); // car seat is bigger
-                    }
-                   // normal non-suv car seats have no special color > standard white
+                else if (currentSeat instanceof CarSeat && ((CarSeat)currentSeat).isForSUV) { // else if the seat is a CarSeat and for suv
+                    color = Color.GRAY; // color is set to gray
+                    cb.setBorder(new EmptyBorder(7, 7, 7, 7)); // car seat is bigger
+                   // normal non-suv car seats have no special color > standard light gray
                 }
                 cb.setBackground(color); // set background color of the JCheckBox to the color specified
 

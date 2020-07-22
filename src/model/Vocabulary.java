@@ -8,13 +8,20 @@ package model;
 
 public class Vocabulary {
     
+    /**
+     * private constructor, because this class is not meant to be instantiated
+     */
+    private Vocabulary () {
+        throw new IllegalStateException("Utility class");
+    }
+
     // titles
     public static final String FRAME_NAME = "Kinoreservierung"; // String for the JFrame
     public static final String FINISH_DIALOG_NAME = "Vielen Dank!"; // String for the JDialog at the end
     public static final String ERROR_DIALOG_NAME = "Hoppla..."; // String for error JDialogs
 
     // instruction text for tabs
-    public static final String[] INSTRUCTION_TEXTS = // Strings for instructions on every tab in order
+    public static final String[] INSTRUCTION_TEXTS = // Strings for instructions on every tab in order // TODO visibility issue
     {
         "Willkommen zum Autokinoreservierungssystem der TH Lübeck!",
         "Bitte wählen Sie einen Film aus:",
@@ -26,7 +33,7 @@ public class Vocabulary {
 
     // tab names
     public static final String DEFAULT_TAB_NAME = "Tab"; // String for default tab name, used, when no name is set
-    public static final String[] TAB_NAMES = // Strings for names of the tab in order
+    public static final String[] TAB_NAMES = // Strings for names of the tab in order TODO visibility issue
     {
         "Start",
         "Filme",
@@ -37,10 +44,10 @@ public class Vocabulary {
     };
 
     // misc
-    public static final String[] NONE_LABELS = {"keins", "keine", "keiner"}; // String for showing nothing is chosen
+    public static final String[] NONE_LABELS = {"keins", "keine", "keiner"}; // String for showing nothing is chosen TODO visibility issue
     public static final String SCREEN_LABEL = "Leinwand"; // String for screen JLabel
     public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg JLabels
-    public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg JLabels
+    public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg JLabels TODO visibility issue
     public static final String TOTAL_PRICE_LABEL = "Gesamtpreis"; // String for the price JTextField
     public static final String CURRENCY = "€"; // String for the currency
     public static final String SPLITTER_STRING = "@"; // String to split
@@ -76,7 +83,7 @@ public class Vocabulary {
     public static final String GENRE_LABEL = "Genre"; // genre
     public static final String TIME_LABEL = "Zeit"; // time
     public static final String SEATS_LABEL = "Plätze"; // seats
-    public static final String[] LICENSE_PLATE_LABEL = {"Kennz.", "Bitte Kennz. eingeben"}; // license plate
+    public static final String[] LICENSE_PLATE_LABEL = {"Kennz.", "Bitte Kennz. eingeben"}; // license plate TODO visibility issue
     public static final String TICKET_LABEL = "Ihr Ticket"; // tickets
     public static final String CATERING_LABEL = "Essen"; // catering
 }

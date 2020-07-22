@@ -15,7 +15,7 @@ import model.enums.*;
 public class Catering {
     
     // Data fields
-    public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing caterings
+    public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing caterings TODO visibility issue
 
     public final Prices price;
     private String name;

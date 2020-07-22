@@ -57,51 +57,51 @@ public class SummaryTab extends Tab {
         summaryPanel.add(timeLabel);
 
         // part 3: the seats
-        String seatPrint = "";
+        StringBuilder seatBuilder = new StringBuilder();
         for (Seat s : model.getChosenSeats()) { // go through every seat
-            seatPrint += "1x " + s.getName() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ";
+            seatBuilder.append("1x " + s.getName() + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ");
         }
-        JLabel seatsLabel = new JLabel(Vocabulary.SEATS_LABEL + ": " + seatPrint.substring(0, seatPrint.length() - 2)); // remove last comma
+        JLabel seatsLabel = new JLabel(Vocabulary.SEATS_LABEL + ": " + seatBuilder.toString().substring(0, seatBuilder.toString().length() - 2)); // remove last comma
         seatsLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         seatsLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(seatsLabel);
 
         // part 4: the license plate numbers
-        String licensePlatePrint = "";
+        StringBuilder licensePlateBuilder = new StringBuilder();
         if (model.getLicensePlates() != null) {
             for (String s : model.getLicensePlates()) { // go through every seat
-                licensePlatePrint += "\"" + s + "\", ";
+                licensePlateBuilder.append("\"" + s + "\", ");
             } 
         }
-        if (!licensePlatePrint.isEmpty()) {
-            JLabel licensePlateLabel = new JLabel(Vocabulary.LICENSE_PLATE_LABEL[0] + ": " + licensePlatePrint.substring(0, licensePlatePrint.length() - 2)); // remove last comma
+        if (!licensePlateBuilder.toString().isEmpty()) {
+            JLabel licensePlateLabel = new JLabel(Vocabulary.LICENSE_PLATE_LABEL[0] + ": " + licensePlateBuilder.toString().substring(0, licensePlateBuilder.toString().length() - 2)); // remove last comma
             licensePlateLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
             licensePlateLabel.setBorder(KinoView.SMALL_Y_SPACING);
             summaryPanel.add(licensePlateLabel);
         }
 
         // part 5: the catering
-        String cateringPrint = "";
+        StringBuilder cateringBuilder = new StringBuilder();
         if (model.getChosenCatering() != null) { // check if catering was chosen
             for (Map.Entry<Catering, Integer> entry : model.getChosenCatering().entrySet()) { // go through every entry of the map
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
                 if (i == 0) // check if the catering is chosen, if not skip
                     continue; // skip this entry
-                cateringPrint += i + "x " + c.getName() + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "; // add the catering name and price with their amount to the print
+                cateringBuilder.append(i + "x " + c.getName() + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "); // add the catering name and price with their amount to the print
             }
         }
         JLabel cateringLabel;
-        if (cateringPrint.isEmpty())
+        if (cateringBuilder.toString().isEmpty())
             cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + Vocabulary.NONE_LABELS[0]);
         else
-            cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringPrint.substring(0, cateringPrint.length() - 2)); // remove last comma
+            cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringBuilder.toString().substring(0, cateringBuilder.toString().length() - 2)); // remove last comma
         cateringLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         cateringLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(cateringLabel);
 
         // part 6: total price
-        JLabel priceLabel = new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getPrice() + Vocabulary.CURRENCY); // remove last comma
+        JLabel priceLabel = new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getTotalPrice() + Vocabulary.CURRENCY); // remove last comma
         priceLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         priceLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(priceLabel);
