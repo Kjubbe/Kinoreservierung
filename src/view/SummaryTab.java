@@ -51,7 +51,7 @@ public class SummaryTab extends Tab {
         summaryPanel.add(movieLabel);
 
         // part 2: the time
-        JLabel timeLabel = new JLabel(Vocabulary.TIME_LABEL + ": " + model.getChosenTime()); // get chosen time from model
+        JLabel timeLabel = new JLabel(Vocabulary.TIME_LABEL + ": " + model.getChosenTime().getDateAndTime()); // get chosen time from model
         timeLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         timeLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(timeLabel);
@@ -88,7 +88,7 @@ public class SummaryTab extends Tab {
                 Integer i = entry.getValue();
                 if (i == 0) // check if the catering is chosen, if not skip
                     continue; // skip this entry
-                cateringPrint += i + "x " + c + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "; // add the catering name and price with their amount to the print
+                cateringPrint += i + "x " + c.getName() + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "; // add the catering name and price with their amount to the print
             }
         }
         JLabel cateringLabel;
