@@ -15,6 +15,7 @@ public class KinoMain {
     // TODO all: check if arrays could better be written as lists and vice versa
     // TODO all: should the vocabulary be part of the view?
     // TODO all: can the view get data from other classes other than the model? like ALL_CATERINGS from the catering class?
+    // TODO all: frame packing and resizing?
 
     // minor issues:
     // 1. the map for the catering can be null if no catering is chosen, but this is (actually) not a problem
