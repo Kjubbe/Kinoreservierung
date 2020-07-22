@@ -93,7 +93,7 @@ public class SummaryTab extends Tab {
         }
         JLabel cateringLabel;
         if (cateringBuilder.toString().isEmpty())
-            cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + Vocabulary.NONE_LABELS[0]);
+            cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + Vocabulary.NONE_LABEL);
         else
             cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringBuilder.toString().substring(0, cateringBuilder.toString().length() - 2)); // remove last comma
         cateringLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);

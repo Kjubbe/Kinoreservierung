@@ -44,7 +44,7 @@ public class Vocabulary {
     };
 
     // misc
-    public static final String[] NONE_LABELS = {"keins", "keine", "keiner"}; // String for showing nothing is chosen TODO visibility issue
+    public static final String NONE_LABEL = "keins"; // String for showing nothing is chosen
     public static final String SCREEN_LABEL = "Leinwand"; // String for screen JLabel
     public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg JLabels
     public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg JLabels TODO visibility issue
