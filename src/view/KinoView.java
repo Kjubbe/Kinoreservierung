@@ -105,7 +105,7 @@ public class KinoView {
         frame.setVisible(true);
         frame.pack();
         frame.setLocationRelativeTo(null);
-        frame.setResizable(false); // TODO maybe remove this?
+        frame.setResizable(false);
     }
 
     /**
@@ -180,7 +180,7 @@ public class KinoView {
         tabs[activeTab].update(); // force this tab to update
         priceDisplay.setText(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getPrice() + Vocabulary.CURRENCY); // update the price
         disableFollowingTabs(activeTab); // disable all following tabs
-        frame.pack(); // FIXME the frame packing is not that good, because it "resets" the window (especially noticable when changing the size of the window)
+        frame.pack();
     }
 
     /**

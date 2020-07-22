@@ -9,12 +9,11 @@ import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 
 import controller.*;
@@ -36,9 +35,9 @@ public class SeatingTab extends Tab {
     private JPanel licensePlatePanel;
 
     // Colors
-    private Color lightRed = new Color(255, 100, 100);
-    private Color lightGreen = new Color(144, 238, 144);
-    private Color lightBlue = new Color(135, 206, 250);
+    private final Color lightRed = new Color(255, 100, 100);
+    private final Color lightGreen = new Color(144, 238, 144);
+    private final Color heavyWhite = new Color(220, 220, 220);
 
     /**
      * constructor, calls super constructor
@@ -62,12 +61,44 @@ public class SeatingTab extends Tab {
         // build the JPanels
         instructionPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
+        JPanel legendPanel = new JPanel();
+        legendPanel.setLayout(new BoxLayout(legendPanel, BoxLayout.Y_AXIS));
+
+        JLabel vipLabel = new JLabel(Vocabulary.VIP_TOOLTIP + " (" + Vocabulary.VIP_HINT + ")");
+        vipLabel.setOpaque(true);
+        vipLabel.setBackground(Color.ORANGE);
+        vipLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        
+        JLabel beachChairLabel = new JLabel(Vocabulary.BEACH_CHAIR_TOOLTIP + " (" + Vocabulary.BEACH_CHAIR_HINT + ")");
+        beachChairLabel.setOpaque(true);
+        beachChairLabel.setBackground(Color.YELLOW);
+        beachChairLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        JLabel pkwLabel = new JLabel(Vocabulary.PKW_TOOLTIP + " (" + Vocabulary.PKW_HINT + ")");
+        pkwLabel.setOpaque(true);
+        pkwLabel.setBackground(Color.LIGHT_GRAY);
+        pkwLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        JLabel suvLabel = new JLabel(Vocabulary.SUV_TOOLTIP + " (" + Vocabulary.SUV_HINT + ")");
+        suvLabel.setOpaque(true);
+        suvLabel.setBackground(Color.GRAY);
+        suvLabel.setForeground(heavyWhite);
+        suvLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+        legendPanel.add(vipLabel);
+        legendPanel.add(beachChairLabel);
+        legendPanel.add(pkwLabel);
+        legendPanel.add(suvLabel);
+        legendPanel.setBorder(KinoView.NORMAL_Y_SPACING);
+
         licensePlatePanel = new JPanel(); // new JPanel, contains JTextFields for license plates
         licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS));
         licensePlatePanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
-        JPanel screenPanel = putInContainer(new JLabel(Vocabulary.SCREEN_LABEL)); // new JPanel, contains label for the screen
-        screenPanel.setBackground(Color.LIGHT_GRAY);
+        JLabel label = new JLabel(Vocabulary.SCREEN_LABEL);
+        label.setForeground(Color.WHITE);
+        JPanel screenPanel = putInContainer(label); // new JPanel, contains label for the screen
+        screenPanel.setBackground(Color.BLACK);
 
         Seat[][] seats = model.getAvailableSeats(); // get the available seats from the model
         int seatRowAmount = seats.length; // amount of rows of seats
@@ -91,7 +122,7 @@ public class SeatingTab extends Tab {
                 // this way, the controller knows from which position the action came from
                 cb.setActionCommand(row + Vocabulary.SPLITTER_STRING + column);
 
-                // Coloring // TODO add some legend to understand what each color means and how many people can sit in the beach chair
+                // Coloring
                 Color color = Color.LIGHT_GRAY; // default Color is light gray
                 if (currentSeat.isReserved()) {
                     color = lightRed; // if seat is reserved the color is set to light red
@@ -103,7 +134,7 @@ public class SeatingTab extends Tab {
                 else if (currentSeat instanceof CarSeat) { // else if the seat is a CarSeat
                     if (((CarSeat)currentSeat).isForSUV) {
                         color = Color.GRAY; // if the CarSeat is for suv the color is set to gray
-                        cb.setBorder(new EmptyBorder(7, 7, 7, 7));
+                        cb.setBorder(new EmptyBorder(7, 7, 7, 7)); // car seat is bigger
                     }
                    // normal non-suv car seats have no special color > standard white
                 }
@@ -119,8 +150,9 @@ public class SeatingTab extends Tab {
 
         // build the tab
         add(instructionPanel); // instructions first
-        add(screenPanel); // JLabel for the screen second
-        add(seatingPanel); // JCheckBoxes for choosing seats in the middle
+        add(legendPanel); // JLabels for legend second
+        add(screenPanel); // JLabel for the screen third
+        add(seatingPanel); // JCheckBoxes for choosing seats in the fourth
         add(licensePlatePanel); // JTextFields for typing in license plates second last
         add(buttonPanel); // JButtons last
     }

@@ -43,6 +43,6 @@ public class Order {
      */
     @Override
     public String toString() {
-        return movie + ", " + time + ", " + seats + ", " + caterings + ", " + totalPrice;
+        return movie + ", " + time.getDateAndTime() + ", " + seats + ", " + caterings + ", " + totalPrice + Vocabulary.CURRENCY;
     }
 }

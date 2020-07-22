@@ -65,7 +65,7 @@ public abstract class Tab extends JPanel {
         quitButton.addActionListener(ctrl); // add listener
         
         // proceed JButton
-        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON); // set the label to the String from the model // TODO maybe add indicators on each tab on what to do to proceed, but in most cases this is redundant
+        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON); // set the label to the String from the model
         proceedButton.setActionCommand(Vocabulary.PROCEED_BUTTON);
         proceedButton.addActionListener(ctrl); // add listener
         proceedButton.setEnabled(false); // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed

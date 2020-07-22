@@ -57,6 +57,13 @@ public class Vocabulary {
     public static final String SUV_TOOLTIP = "SUV-Stellplatz"; // suv
     public static final String BEACH_CHAIR_TOOLTIP = "Strandkorb"; // beach chair
 
+    // hints
+    public static final String VIP_HINT = "beste Sicht"; // vip
+    public static final String BEACH_CHAIR_HINT = "für max. 3 Personen"; // beach chair
+    public static final String PKW_HINT = "für normalgroße Autos"; // pkw
+    public static final String SUV_HINT = "nur für SUV o.ä."; // suv
+    
+
     // button labels
     public static final String BACK_BUTTON = "Zurück"; // back
     public static final String QUIT_BUTTON = "Abbrechen"; // quit
@@ -69,7 +76,7 @@ public class Vocabulary {
     public static final String GENRE_LABEL = "Genre"; // genre
     public static final String TIME_LABEL = "Zeit"; // time
     public static final String SEATS_LABEL = "Plätze"; // seats
-    public static final String[] LICENSE_PLATE_LABEL = {"Kennz.", "Kennz. eingeben"}; // license plate
+    public static final String[] LICENSE_PLATE_LABEL = {"Kennz.", "Bitte Kennz. eingeben"}; // license plate
     public static final String TICKET_LABEL = "Ihr Ticket"; // tickets
     public static final String CATERING_LABEL = "Essen"; // catering
 }

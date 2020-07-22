@@ -70,7 +70,7 @@ public class CateringTab extends Tab {
                 // build the JPanel
                 JPanel container = new JPanel(new FlowLayout());
                 container.add(putInContainer(spinner));
-                container.add(putInContainer(new JLabel(cateringName + " (" + cateringPrice + Vocabulary.CURRENCY + ")")));
+                container.add(new JLabel(cateringName + " (" + cateringPrice + Vocabulary.CURRENCY + ")"));
                 
                 cateringPanel.add(container);
             } catch (Exception ex) { // corrupted catering found
