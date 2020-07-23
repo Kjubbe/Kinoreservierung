@@ -27,8 +27,8 @@ public class Vocabulary {
         "Bitte wählen Sie einen Film aus:",
         "Bitte wählen Sie eine Vorstellungszeit für ihren Film aus:",
         "Bitte wählen Sie die Plätze aus, die Sie reservieren möchten:",
-        "Möchten sie noch etwas dazubestellen?",
-        "Bitte überprüfen sie ihre Bestellung:"
+        "Möchten Sie noch etwas dazubestellen?",
+        "Bitte überprüfen Sie ihre Bestellung:"
     };
 
     // tab names
@@ -48,6 +48,7 @@ public class Vocabulary {
     public static final String SCREEN_LABEL = "Leinwand"; // String for screen JLabel
     public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg JLabels
     public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg JLabels TODO visibility issue
+    public static final String[] ORDER_MSGS = {"Im Folgenden finden Sie die Informationen zu ihrer Reservierung; Bestellnummer", "Vielen Dank, dass Sie unseren Service genutzt haben!"}; // String for the order file TODO visibility issue
     public static final String TOTAL_PRICE_LABEL = "Gesamtpreis"; // String for the price JTextField
     public static final String CURRENCY = "€"; // String for the currency
     public static final String SPLITTER_STRING = "@"; // String to split
