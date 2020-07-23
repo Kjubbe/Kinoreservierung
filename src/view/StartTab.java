@@ -17,6 +17,9 @@ import model.*;
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class StartTab extends Tab {
 
+    // JPanel which contains a JLabel displaying a message
+    private JPanel messagePanel;
+
     /**
      * constructor, calls super constructor
      * @param model reference to the model object
@@ -36,17 +39,24 @@ public class StartTab extends Tab {
         System.out.println("DEBUG: " + "tab: building start tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        JPanel messagePanel = putInContainer(new JLabel(Vocabulary.START_MSG)); // new JPanel, contains label
-        messagePanel.setBorder(KinoView.NORMAL_Y_SPACING);
+        // build the JPanel
+        backButton.setEnabled(false); // can not go back on the first JPanel
+        quitButton.setText(Vocabulary.EXIT_BUTTON); // this JButton has a different label
+        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
+        buildMessagePanel();
 
         // build the tab
         add(instructionPanel); // instructions first
         add(messagePanel); // JLabel with text in the middle
         add(buttonPanel); // JButtons last
+    }
 
-        backButton.setEnabled(false); // can not go back on the first JPanel
-        quitButton.setText(Vocabulary.EXIT_BUTTON); // this JButton has a different label
-        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
+    /**
+     * build the message panel containing the JLabel for the message
+     */
+    private void buildMessagePanel() {
+        messagePanel = putInContainer(new JLabel(Vocabulary.START_MSG)); // new JPanel, contains label
+        messagePanel.setBorder(KinoView.NORMAL_Y_SPACING);
     }
 
     /**

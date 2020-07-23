@@ -29,16 +29,24 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
         this.date = date;
         this.time = time;
         seats = new Seat[seatRowAmount][seatColumnAmount]; // create seat array with row- and column count
+        createSeats(seatRowAmount, seatColumnAmount);
+    }
 
-        for (int row = 0; row < seatRowAmount; row++) { // every row
-            for (int column = 0; column < seatColumnAmount; column++) { // checks every column of every row
+    /**
+     * create a seat for every position in the seat array
+     * @param rowAmount the amount of rows of seats
+     * @param columnAmount the amount of columns of seats
+     */
+    private void createSeats(int rowAmount, int columnAmount) {
+        for (int row = 0; row < rowAmount; row++) { // every row
+            for (int column = 0; column < columnAmount; column++) { // checks every column of every row
                 boolean vip = false; // seat is non-vip by default
                 boolean suv = false; // seat is non-suv by default
                 Seat seat; // this variable will hold the seat
 
                 if (row == 0)
                     vip = true; // first row is vip
-                else if (row == seatRowAmount - 1)
+                else if (row == rowAmount - 1)
                     suv = true; // last row is for suv
 
                 // beach chair seats and car seats make up a checkerboard like pattern
@@ -46,7 +54,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
                 // -> an even row in an odd column
                 // -> an odd row in an even column
                 // -> not the last row
-                if (((column % 2 == 1 && row % 2 == 0) || (column % 2 == 0 && row % 2 == 1)) && row != seatRowAmount - 1)
+                if (((column % 2 == 1 && row % 2 == 0) || (column % 2 == 0 && row % 2 == 1)) && row != rowAmount - 1)
                     seat = new BeachChairSeat(vip);
                 else
                     seat = new CarSeat(vip, suv);

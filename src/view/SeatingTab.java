@@ -31,6 +31,8 @@ import model.*;
 public class SeatingTab extends Tab {
 
     // JPanels which contain JCheckBoxes and JTextFields
+    private JPanel legendPanel;
+    private JPanel screenPanel;
     private JPanel seatingPanel;
     private JPanel licensePlatePanel;
 
@@ -52,6 +54,7 @@ public class SeatingTab extends Tab {
     /**
      * invoked from view when switching to this tab via the proceed JButton in another tab,
      * adds JCheckBox for every seat from the model in a grid layout
+     * @throws NullPointerException from buildSeatingPanel() when the amount of rows or columns of seats is 0
      */
     @Override
     protected void build() throws NullPointerException { 
@@ -60,8 +63,25 @@ public class SeatingTab extends Tab {
 
         // build the JPanels
         instructionPanel.setBorder(KinoView.NORMAL_Y_SPACING);
+        buildLegendPanel();
+        buildScreenPanel();
+        buildSeatingPanel();
+        buildLicensePlatePanel();
 
-        JPanel legendPanel = new JPanel();
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(legendPanel); // JLabels for legend second
+        add(screenPanel); // JLabel for the screen third
+        add(seatingPanel); // JCheckBoxes for choosing seats in the fourth
+        add(licensePlatePanel); // JTextFields for typing in license plates second last
+        add(buttonPanel); // JButtons last
+    }
+
+    /**
+     * build the legend panel containing the JLabels for information about the seats
+     */
+    private void buildLegendPanel() {
+        legendPanel = new JPanel();
         legendPanel.setLayout(new BoxLayout(legendPanel, BoxLayout.Y_AXIS));
 
         JLabel vipLabel = new JLabel(Vocabulary.VIP_TOOLTIP + " (" + Vocabulary.VIP_HINT + ")");
@@ -90,16 +110,23 @@ public class SeatingTab extends Tab {
         legendPanel.add(pkwLabel);
         legendPanel.add(suvLabel);
         legendPanel.setBorder(KinoView.NORMAL_Y_SPACING);
+    }
 
-        licensePlatePanel = new JPanel(); // new JPanel, contains JTextFields for license plates
-        licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS));
-        licensePlatePanel.setBorder(KinoView.NORMAL_Y_SPACING);
-
-        JLabel label = new JLabel(Vocabulary.SCREEN_LABEL);
-        label.setForeground(Color.WHITE);
-        JPanel screenPanel = putInContainer(label); // new JPanel, contains label for the screen
+    /**
+     * build the screen panel containing a JLabel for displaying the screen
+     */
+    private void buildScreenPanel() {
+        JLabel screenLabel = new JLabel(Vocabulary.SCREEN_LABEL);
+        screenLabel.setForeground(Color.WHITE);
+        screenPanel = putInContainer(screenLabel); // new JPanel, contains label for the screen
         screenPanel.setBackground(Color.BLACK);
+    }
 
+    /**
+     * build the movie panel containing the dropdown for choosing a movie
+     * @throws NullPointerException when the amount of rows or columns of seats is 0
+     */
+    private void buildSeatingPanel() throws NullPointerException {
         Seat[][] seats = model.getAvailableSeats(); // get the available seats from the model
         int seatRowAmount = seats.length; // amount of rows of seats
         if (seatRowAmount == 0) // no rows -> no seats
@@ -145,14 +172,15 @@ public class SeatingTab extends Tab {
                 seatingPanel.add(putInContainer(container));
             }
         }
+    }
 
-        // build the tab
-        add(instructionPanel); // instructions first
-        add(legendPanel); // JLabels for legend second
-        add(screenPanel); // JLabel for the screen third
-        add(seatingPanel); // JCheckBoxes for choosing seats in the fourth
-        add(licensePlatePanel); // JTextFields for typing in license plates second last
-        add(buttonPanel); // JButtons last
+    /**
+     * build the license plate panel containing the JTextFields for typing
+     */
+    private void buildLicensePlatePanel() {
+        licensePlatePanel = new JPanel(); // new JPanel, contains JTextFields for license plates
+        licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS));
+        licensePlatePanel.setBorder(KinoView.NORMAL_Y_SPACING);
     }
 
     /**

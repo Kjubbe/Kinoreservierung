@@ -50,10 +50,26 @@ public class CateringTab extends Tab {
         System.out.println("DEBUG: " + "tab: building catering tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
+        // build the JPanel
+        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to choose anything
+        buildCateringPanel();
+
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(cateringPanel); // JSpinners for choosing amounts for caterings in the middle
+        add(buttonPanel); // JButtons last
+    }
+
+    /**
+     * build the catering panel
+     */
+    private void buildCateringPanel() {
+        // build the JPanel for the JSpinners
         cateringPanel = new JPanel(); // new JPanel, contains all JSpinners FIXME the layout does not work well for this, another layout should be used instead
         cateringPanel.setLayout(new BoxLayout(cateringPanel, BoxLayout.Y_AXIS));
         cateringPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
+        // build the JSpinners
         for (Catering c : Catering.ALL_CATERINGS) { // go through every catering
             try { // catch corrupted caterings missing a name or price
                 String cateringName = c.name; // get the name from the catering
@@ -77,13 +93,6 @@ public class CateringTab extends Tab {
                 // skip the corrupted catering
             }
         }
-
-        // build the tab
-        add(instructionPanel); // instructions first
-        add(cateringPanel); // JSpinners for choosing amounts for caterings in the middle
-        add(buttonPanel); // JButtons last
-
-        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to choose anything
     }
 
     /**

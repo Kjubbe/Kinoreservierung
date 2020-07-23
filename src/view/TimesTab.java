@@ -38,12 +38,27 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
     /**
      * invoked from view when switching to this tab via the proceed button in another tab,
      * adds JRadioButtons for time options from the movie from the model
+     * @throws NullPointerException from buildTimesPanel() when there a no times set
      */
     @Override
     protected void build() throws NullPointerException {
         System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
+        // build the JPanel
+        buildTimesPanel();
+
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(timesPanel); // JRadioButtons for choosing the time in the middle
+        add(buttonPanel); // JButtons last
+    }
+
+    /**
+     * build the times panel containing JRadioButtons for choosing a time
+     * @throws NullPointerException when there a no times set
+     */
+    private void buildTimesPanel() throws NullPointerException {
         timesPanel = new JPanel(); // new JPanel, contains JRadioButtons
         timesPanel.setLayout(new BoxLayout(timesPanel, BoxLayout.Y_AXIS)); // set layout for the JPanel
         timesPanel.setBorder(KinoView.NORMAL_Y_SPACING);
@@ -56,6 +71,7 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
         for (int i = 0; i < times.length; i++) { // go through all times
             try { // try catching corrupted showtimes missing a date or time
                 JRadioButton rb = new JRadioButton(times[i].getDateAndTime()); // new JRadioButton with time as text
+                
                 if (times[i].isSoldOut()) { // check if showtime is sold out
                     rb.setEnabled(false); // disable the JRadioButton
                     rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);
@@ -71,16 +87,10 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
 
                 // build the JPanel
                 timesPanel.add(rb);
-
             } catch (NullPointerException ex) { // corrupted showtime found
                 // skip this corrupted showtime
             }
         }
-
-        // build the tab
-        add(instructionPanel); // instructions first
-        add(timesPanel); // JRadioButtons for choosing the time in the middle
-        add(buttonPanel); // JButtons last
     }
 
     /**

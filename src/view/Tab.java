@@ -123,6 +123,7 @@ public abstract class Tab extends JPanel {
     /**
      * abstract method build is invoked from view when switching to a tab via the proceed JButton in another tab,
      * building of each tab can differ, thus the abstract method
+     * @throws NullPointerException when there is some information missing, this exception is caught in KinoView by displaying an error dialog
      */
     protected abstract void build() throws NullPointerException;
 

@@ -20,7 +20,7 @@ public class BeachChairSeat extends Seat {
     private static final List<Integer> tickets = new ArrayList<>(); // this list holds all tickets for every seat
     private String ticket; // holds the ticket "number" for this seat
 
-    private Random rng = new Random();
+    private Random rng = new Random(); // create a random number generator
 
     /**
      * constructor, calls super constructor

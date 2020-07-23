@@ -63,13 +63,6 @@ public class KinoView {
      * Constructor, builds the JFrame
      */
     public KinoView() {
-        initialize();
-    }
-
-    /**
-     * invoked when creating the view, builds the JFrame, the JPanel for the price and tabs
-     */
-    private void initialize() {
         System.out.println("DEBUG: view: setting up view"); // DEBUG
         
         // part 1: preparing tabs
@@ -149,7 +142,10 @@ public class KinoView {
         try { // try to build the tab
             tabs[index].build(); // call the build function of the tab
         } catch (NullPointerException ex) { // building the tab failed, inform the user
-            createDialog(Vocabulary.ERROR_DIALOG_NAME, new String[] {ex.getMessage()}); // create a JDialog displaying the error
+            String errorMsg = ex.getMessage();
+            if (errorMsg == null)
+                errorMsg = ex.toString() + ", " + ex.getStackTrace();
+            createDialog(Vocabulary.ERROR_DIALOG_NAME, new String[] {errorMsg}); // create a JDialog displaying the error
             return; // skip the following code
         }
         tabbedPane.setSelectedIndex(index); // set tab as selected

@@ -20,9 +20,10 @@ import model.*;
 public class MovieTab extends Tab {
 
     // Components
+    private JPanel moviePanel;
     private JComboBox<Movie> dropdown;
-    private JLabel description;
-    private JLabel image;
+    private JLabel descriptionLabel;
+    private JLabel imageLabel;
 
     /**
      * constructor, calls super constructor
@@ -44,34 +45,54 @@ public class MovieTab extends Tab {
         System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        // build the dropdown
+        // build the JPanels
+        buildMoviePanel();
+        buildImageLabel();
+        buildDescriptionLabel();
+
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(moviePanel); // JComboBox for movie selection in the middle
+        add(imageLabel);
+        add(descriptionLabel);
+        add(buttonPanel); // JButtons last
+    }
+
+    /**
+     * build the movie panel containing the dropdown for choosing a movie
+     */
+    private void buildMoviePanel() {
+        // build the JPanel for the dropdown
         dropdown = new JComboBox<>(); // new JComboBox for movies
+        moviePanel = putInContainer(dropdown); // new JPanel, contains JComboBox for movies
+        moviePanel.setBorder(KinoView.NORMAL_Y_SPACING);
+
+        // build the dropdown
         for (Movie m : Movie.ALL_MOVIES) { // go through all movies
             if (m != null && m.toString() != null) // check if movie and the title is not null
                 dropdown.addItem(m); // add movie to the JComboBox
         }
         dropdown.setSelectedItem(null); // no selected movie
         dropdown.addItemListener(ctrl); // add listener
+    }
 
-        // build the JPanel for the dropdown
-        JPanel moviePanel = putInContainer(dropdown); // new JPanel, contains JComboBox for movies
-        moviePanel.setBorder(KinoView.NORMAL_Y_SPACING);
-
+    /**
+     * build the JLabel for the images of the movies
+     */
+    private void buildImageLabel() {
         // build the image JLabel
-        image = new JLabel(); // new JLabel for the description
-        image.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        imageLabel = new JLabel(); // new JLabel for the description
+        imageLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    }
 
+    /**
+     * build the JLabel for the descriptions of the movies
+     */
+    private void buildDescriptionLabel() {
         // build the description JLabel
-        description = new JLabel(); // new JLabel for the description
-        description.setBorder(KinoView.NORMAL_Y_SPACING);
-        description.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-
-        // build the tab
-        add(instructionPanel); // instructions first
-        add(moviePanel); // JComboBox for movie selection in the middle
-        add(image);
-        add(description);
-        add(buttonPanel); // JButtons last
+        descriptionLabel = new JLabel(); // new JLabel for the description
+        descriptionLabel.setBorder(KinoView.NORMAL_Y_SPACING);
+        descriptionLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     }
 
     /**
@@ -84,8 +105,8 @@ public class MovieTab extends Tab {
         System.out.println("DEBUG: " + "tab: updating movie tab..."); // DEBUG
         if (dropdown.getSelectedItem() != null) { // check if a film is selected
             proceedButton.setEnabled(true);
-            description.setText(model.getChosenMovie().getDescription());
-            image.setIcon(model.getChosenMovie().getImage()); // set JLabel for description to display the description of the movie
+            descriptionLabel.setText(model.getChosenMovie().getDescription());
+            imageLabel.setIcon(model.getChosenMovie().getImage()); // set JLabel for description to display the description of the movie
         } else // no film selected
             proceedButton.setEnabled(false);
     }

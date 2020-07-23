@@ -21,6 +21,9 @@ import model.*;
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public class SummaryTab extends Tab {
 
+    // JPanel which contains a JLabels for displaying information
+    private JPanel summaryPanel;
+
     /**
      * constructor, calls super constructor
      * @param model reference to the model object
@@ -40,7 +43,23 @@ public class SummaryTab extends Tab {
         System.out.println("DEBUG: " + "tab: building summary tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
-        JPanel summaryPanel = new JPanel(); // new JPanel, contains all JLabels
+        // build the JPanel
+        proceedButton.setText(Vocabulary.FINISH_BUTTON); // other label, since you can not proceed, only finish
+        proceedButton.setActionCommand(Vocabulary.FINISH_BUTTON); // update the action command
+        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
+        buildSummaryPanel();
+
+        // build the tab
+        add(instructionPanel); // instructions first
+        add(summaryPanel); // JPanels for displaying summary in the middle
+        add(buttonPanel); // JButtons last
+    }
+
+    /**
+     * build the summary panel containing JLabels for information
+     */
+    private void buildSummaryPanel() {
+        summaryPanel = new JPanel(); // new JPanel, contains all JLabels
         summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS)); // set layout for the JPanel
         summaryPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
@@ -105,15 +124,6 @@ public class SummaryTab extends Tab {
         priceLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         priceLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(priceLabel);
-
-        // build the tab
-        add(instructionPanel); // instructions first
-        add(summaryPanel); // JPanels for displaying summary in the middle
-        add(buttonPanel); // JButtons last
-
-        proceedButton.setText(Vocabulary.FINISH_BUTTON); // other label, since you can not proceed, only finish
-        proceedButton.setActionCommand(Vocabulary.FINISH_BUTTON); // update the action command
-        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
     }
 
     /**
