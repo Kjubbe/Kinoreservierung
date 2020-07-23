@@ -1,5 +1,8 @@
 package model;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -304,9 +307,35 @@ public class KinoModel {
             } 
             chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
         }
-        Order.ALL_ORDERS.add(new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, getTotalPrice())); // create and add a new order with all information
+        Order order = new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, getTotalPrice());
+        Order.ALL_ORDERS.add(order); // create and add a new order with all information
+        toFile(order); // TODO write the order to a file
         System.out.println("\n" + "DEBUG: model: All orders are: \n" + Order.ALL_ORDERS + "\n"); // DEBUGs
-        // TODO write the order to a file
+    }
+
+    /**
+     * write the order to a file
+     * @param order the order which should be written to the file
+     */
+    public static void toFile(Order order) {
+        String path = "orders/order" + order.getOrderNumber() + ".txt"; // string with path // TODO maybe put the name of the file in the vocab
+        int fixer = 1; // TODO maybe change this
+        try {
+            File file = new File(path); // create a File Object with the desired path
+            while (!file.createNewFile()) { // create a new file, if this failes, change the path and try again
+                path = "orders/order" + (order.getOrderNumber() + fixer++) + ".txt"; // fix the path and try again
+                file = new File(path);
+            }
+        } catch (IOException ex) { // error catched
+            ex.printStackTrace();
+            return; // skip following code
+        }
+        try (FileWriter writer = new FileWriter(path); // try-with-resources guarantees the writer is closed
+            ) {
+            writer.write(order.toString()); // try writing to the file
+        } catch (IOException ex) { // error catched
+            ex.printStackTrace();
+        }
     }
     
     /**
