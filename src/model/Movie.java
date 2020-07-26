@@ -22,7 +22,7 @@ import model.enums.*;
 public class Movie {
 
     // Data fields
-    public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies TODO visibility issue
+    public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
 
     private final String title;
     private final Genres genre;
@@ -60,16 +60,17 @@ public class Movie {
      * @return (ideally) genre and fsk in one string
      */
     public String getDescription() {
-        try {
-            return Vocabulary.GENRE_LABEL + ": " + genre.toString() + ", " + fsk.getFSK(); // try to return the genre and fsk as a string
-        } catch (Exception ex) { // some data field is not set
-            if (genre == null && fsk != null)
-                return fsk.getFSK(); // no genre set
-            else if (genre != null && fsk == null) 
-                return Vocabulary.GENRE_LABEL + ": " + genre.toString(); // no fsk set
-            else 
-                return ""; // both not set
+        StringBuilder builder = new StringBuilder();
+        if (genre != null) {
+            builder.append(Vocabulary.GENRE_LABEL + ": " + genre);
         }
+        if (genre != null && fsk != null) {
+            builder.append(", ");
+        }
+        if (fsk != null) {
+            builder.append(fsk.getFSK());
+        }
+        return builder.toString();
     }
 
     /**
