@@ -3,8 +3,9 @@ package view;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.*;
-import model.*;
+import controller.KinoController;
+import model.KinoModel;
+import model.Vocabulary;
 
 /**
  * the start tab contains components for displaying information about the starting screen,
@@ -15,7 +16,7 @@ import model.*;
  */
 
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
-public class StartTab extends Tab {
+public class StartTab extends AbstractTab {
 
     // JPanel which contains a JLabel displaying a message
     private JPanel messagePanel;
@@ -42,7 +43,10 @@ public class StartTab extends Tab {
         // build the JPanel
         backButton.setEnabled(false); // can not go back on the first JPanel
         quitButton.setText(Vocabulary.EXIT_BUTTON); // this JButton has a different label
-        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
+
+        // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
+        proceedButton.setEnabled(true);
+
         buildMessagePanel();
 
         // build the tab

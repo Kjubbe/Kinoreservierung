@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import model.enums.*;
+import model.enums.Prices;
 
 /**
  * special type of seat, inherites from the Seat class,
@@ -20,6 +20,8 @@ public class BeachChairSeat extends Seat {
     private static final List<Integer> tickets = new ArrayList<>(); // this list holds all tickets for every seat
     private String ticket; // holds the ticket "number" for this seat
 
+    private static final int MIN_TICKET_NR = 10_000_000; // inclusive min value for the ticket number
+    private static final int MAX_TICKET_NR = 100_000_000; // exclusive max value for the ticket number
     private Random rng = new Random(); // create a random number generator
 
     /**
@@ -37,14 +39,13 @@ public class BeachChairSeat extends Seat {
      * checks if the ticket number is unique before assigning it
      */
     protected void assignTicket() {
-        int min = 10000000; // min value for the ticket number
-        int max = 100000000; // max value for the ticket number
-        
         boolean isDuplicate;
         int ticketNr; // holds the ticket number
         do {
             System.out.println("DEBUG: Seat: generating ticket..."); // DEBUG
-            ticketNr = min + rng.nextInt(max - min); // get a random number in the specified range
+
+             // get a random number in the specified range
+            ticketNr = MIN_TICKET_NR + rng.nextInt(MAX_TICKET_NR - MIN_TICKET_NR);
             isDuplicate = false; // assume, that it is not a duplicate
             for (Integer t : tickets) { // check every ticket
                 if (t == ticketNr) { // check for uplication
@@ -58,7 +59,11 @@ public class BeachChairSeat extends Seat {
         // build the string
         String ticketString = String.valueOf(ticketNr); // get the number as a string
         int length = ticketString.length(); // get the length of the string
-        ticket = ticketString.substring(0, length / 2) + "-" + ticketString.substring(length / 2, ticketString.length()); // assign the ticketString with a dash in the middle
+
+        // assign the ticketString with a dash in the middle
+        String part1 = ticketString.substring(0, length / 2);
+        String part2 = ticketString.substring(length / 2, ticketString.length());
+        ticket = part1 + "-" + part2; 
         tickets.add(ticketNr); // add the ticket to the list of all tickets
 
         System.out.println("DEBUG: Seat: ticket assigned: " + ticket); // DEBUG

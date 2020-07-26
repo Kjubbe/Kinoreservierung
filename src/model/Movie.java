@@ -1,8 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -10,7 +7,8 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import model.enums.*;
+import model.enums.FSKs;
+import model.enums.Genres;
 
 /**
  * contains all information for a movie,
@@ -22,8 +20,6 @@ import model.enums.*;
 public class Movie {
 
     // Data fields
-    public static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
-
     private final String title;
     private final Genres genre;
     private final FSKs fsk;

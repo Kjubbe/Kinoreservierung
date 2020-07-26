@@ -7,8 +7,11 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.*;
-import model.*;
+import controller.KinoController;
+import model.Catering;
+import model.KinoModel;
+import model.Seat;
+import model.Vocabulary;
 
 /**
  * the summary tab contains components for displaying information about the summary,
@@ -19,7 +22,7 @@ import model.*;
  */
 
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
-public class SummaryTab extends Tab {
+public class SummaryTab extends AbstractTab {
 
     // JPanel which contains a JLabels for displaying information
     private JPanel summaryPanel;
@@ -46,7 +49,10 @@ public class SummaryTab extends Tab {
         // build the JPanel
         proceedButton.setText(Vocabulary.FINISH_BUTTON); // other label, since you can not proceed, only finish
         proceedButton.setActionCommand(Vocabulary.FINISH_BUTTON); // update the action command
-        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
+
+        // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
+        proceedButton.setEnabled(true);
+
         buildSummaryPanel();
 
         // build the tab
@@ -59,68 +65,85 @@ public class SummaryTab extends Tab {
      * build the summary panel containing JLabels for information
      */
     private void buildSummaryPanel() {
+        StringBuilder builder;
+        int length;
+        
         summaryPanel = new JPanel(); // new JPanel, contains all JLabels
         summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS)); // set layout for the JPanel
         summaryPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // part 1: the movie
-        JLabel movieLabel = new JLabel(Vocabulary.MOVIE_LABEL + ": " + model.getChosenMovie()); // get chosen movie from model
+        JLabel movieLabel = new JLabel(Vocabulary.MOVIE_LABEL + ": " + model.getChosenMovie());
         movieLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         movieLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(movieLabel);
 
         // part 2: the time
-        JLabel timeLabel = new JLabel(Vocabulary.TIME_LABEL + ": " + model.getChosenTime().getDateAndTime()); // get chosen time from model
+        JLabel timeLabel = new JLabel(Vocabulary.TIME_LABEL + ": " + model.getChosenTime().getDateAndTime());
         timeLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         timeLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(timeLabel);
 
         // part 3: the seats
-        StringBuilder seatBuilder = new StringBuilder();
+        builder = new StringBuilder();
         for (Seat s : model.getChosenSeats()) { // go through every seat
-            seatBuilder.append("1x " + s.name + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ");
+            builder.append("1x " + s.name + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), ");
         }
-        JLabel seatsLabel = new JLabel(Vocabulary.SEATS_LABEL + ": " + seatBuilder.toString().substring(0, seatBuilder.toString().length() - 2)); // remove last comma
+        length = builder.length();
+        builder.delete(length - 2, length); // remove last comma
+        JLabel seatsLabel = new JLabel(Vocabulary.SEATS_LABEL + ": " + builder.toString());
+        
         seatsLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         seatsLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(seatsLabel);
 
         // part 4: the license plate numbers
-        StringBuilder licensePlateBuilder = new StringBuilder();
+        builder = new StringBuilder();
         if (model.getLicensePlates() != null) {
             for (String s : model.getLicensePlates()) { // go through every seat
-                licensePlateBuilder.append("\"" + s + "\", ");
+                builder.append("\"" + s + "\", ");
             } 
         }
-        if (!licensePlateBuilder.toString().isEmpty()) {
-            JLabel licensePlateLabel = new JLabel(Vocabulary.LICENSE_PLATE_LABEL[0] + ": " + licensePlateBuilder.toString().substring(0, licensePlateBuilder.toString().length() - 2)); // remove last comma
+        if (!builder.toString().isEmpty()) {
+            length = builder.length();
+            builder.delete(length - 2, length); // remove last comma
+            JLabel licensePlateLabel = new JLabel(Vocabulary.getLicensePlateLabel()[0] + ": " + builder.toString());
             licensePlateLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
             licensePlateLabel.setBorder(KinoView.SMALL_Y_SPACING);
             summaryPanel.add(licensePlateLabel);
         }
 
         // part 5: the catering
-        StringBuilder cateringBuilder = new StringBuilder();
+        builder = new StringBuilder();
         if (model.getChosenCatering() != null) { // check if catering was chosen
-            for (Map.Entry<Catering, Integer> entry : model.getChosenCatering().entrySet()) { // go through every entry of the map
+            
+            // go through every entry of the map
+            for (Map.Entry<Catering, Integer> entry : model.getChosenCatering().entrySet()) {
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
-                if (i == 0) // check if the catering is chosen, if not skip
+                if (i == 0) { // check if the catering is chosen, if not skip
                     continue; // skip this entry
-                cateringBuilder.append(i + "x " + c.name + " (" + Math.round(c.price.getPrice() * i * 100.0) / 100.0 + Vocabulary.CURRENCY + "), "); // add the catering name and price with their amount to the print
+                }
+                
+                // add the catering name and price with their amount to the print
+                double price = Math.round(c.price.getPrice() * i * 100.0) / 100.0;
+                builder.append(i + "x " + c.name + " (" + price + Vocabulary.CURRENCY + "), ");
             }
         }
         JLabel cateringLabel;
-        if (cateringBuilder.toString().isEmpty())
+        if (builder.toString().isEmpty()) {
             cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + Vocabulary.NONE_LABEL);
-        else
-            cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + cateringBuilder.toString().substring(0, cateringBuilder.toString().length() - 2)); // remove last comma
+        } else {
+            length = builder.length();
+            builder.delete(length - 2, length); // remove last comma
+            cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + builder.toString()); // remove last comma
+        }
         cateringLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         cateringLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(cateringLabel);
 
         // part 6: total price
-        JLabel priceLabel = new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getTotalPrice() + Vocabulary.CURRENCY); // remove last comma
+        JLabel priceLabel = new JLabel(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getTotalPrice() + Vocabulary.CURRENCY);
         priceLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         priceLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(priceLabel);

@@ -1,9 +1,10 @@
 package model;
 
-import model.enums.*;
+import model.enums.Prices;
 
 /**
  * parent class for custom seats, contains basic data for a seat
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -11,7 +12,7 @@ import model.enums.*;
 public class Seat {
     
     // Data fields
-    protected boolean isReserved = false;
+    protected boolean isReserved;
     public final String name; // name for hovering over a seat
     public final Prices price;
     public final boolean isVip;
@@ -25,10 +26,12 @@ public class Seat {
     public Seat(Prices price, boolean isVip, String name) {
         this.price = price;
         this.isVip = isVip;
-        if (isVip)
-            this.name = "[" + Vocabulary.VIP_TOOLTIP + "] " + name; // update name to give more information when seat is vip
-        else
+        if (isVip) {
+            // update name to give more information when seat is vip
+            this.name = "[" + Vocabulary.VIP_TOOLTIP + "] " + name;
+        } else {
             this.name = name;
+        }
     }
 
     /**

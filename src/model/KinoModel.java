@@ -8,8 +8,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-import model.enums.*;
+import model.enums.Dates;
+import model.enums.FSKs;
+import model.enums.Genres;
+import model.enums.Prices;
+import model.enums.Times;
 
 /**
  * Model class, manages calculations and contains saves the information from the user input
@@ -19,6 +24,19 @@ import model.enums.*;
  */
 
 public class KinoModel {
+
+    // Constants
+    private static final int MIN_LICENSE_PLATE_LENGTH = 5;
+    private static final int MAX_LICENSE_PLATE_LEGNTH = 10;
+
+    private static final int RESET_CATERING_AND_ABOVE = 1;
+    private static final int RESET_SEATS_AND_ABOVE = 2;
+    private static final int RESET_TIMES_AND_ABOVE = 3;
+    public static final int RESET_MOVIES_AND_ABOVE = 4;
+
+    // Data
+    private static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
+    private static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing caterings
 
     // Datafields, which change during runtime
     private Movie chosenMovie; // set based on user input in the movie tab
@@ -45,7 +63,7 @@ public class KinoModel {
      * called from constructor
      * creates movie examples and puts them in the list
      */
-    private void createMovies() {
+    private static void createMovies() {
         Movie[] f = new Movie[] { // create array with all movies
             new Movie("The Fermentor", Genres.Action, FSKs.FSK_18, "images/the_fermentor.jpg", new Showtime[] {
                 new Showtime(Dates.Mo, Times.PM_8, 5, 7),
@@ -125,14 +143,14 @@ public class KinoModel {
                 new Showtime(Dates.So, Times.PM_7_30, 5, 5)
             }),
         };
-        Movie.ALL_MOVIES.addAll(Arrays.asList(f)); // add array in the list
+        ALL_MOVIES.addAll(Arrays.asList(f)); // add array in the list
     }
 
     /**
      * called from constructor
      * creates catering examples and puts them in the list
      */
-    private void createCaterings() {
+    private static void createCaterings() {
         Catering[] c = new Catering[] { // create array with all caterings
             new Catering("Cola", Prices.MEDIUM_DRINK),
             new Catering("Popcorn", Prices.LARGE_SNACK),
@@ -144,7 +162,7 @@ public class KinoModel {
             new Catering(null, Prices.VIP_BEACH_CHAIR_SEAT), // test catering
             new Catering("Nachos", Prices.MEDIUM_SNACK)
         };
-        Catering.ALL_CATERINGS.addAll(Arrays.asList(c)); // add array in the list
+        ALL_CATERINGS.addAll(Arrays.asList(c)); // add array in the list
     }
 
     /**
@@ -157,7 +175,7 @@ public class KinoModel {
         System.out.println("DEBUG: model: Movie set, Movie: " + m); // DEBUG
         chosenMovie = m; // set chosen movie
         availableTimes = m.showtimes; // set available times to the times contained in the movie
-        reset(3);
+        reset(RESET_TIMES_AND_ABOVE);
     }
 
     /**
@@ -175,7 +193,7 @@ public class KinoModel {
         chosenTime = availableTimes[index]; 
         
         availableSeats = chosenTime.seats; // set available seats to the seats contained in the showtime
-        reset(2);
+        reset(RESET_SEATS_AND_ABOVE);
     }
 
     /**
@@ -190,7 +208,7 @@ public class KinoModel {
         
         // get the seat at the position from the action command
         // this seat is equivalent to the seat displayed on the JCheckBox at the position
-        Seat s = availableSeats[Integer.parseInt(pos[0])][Integer.parseInt(pos[1])]; // get the seat at the specified position
+        Seat s = availableSeats[Integer.parseInt(pos[0])][Integer.parseInt(pos[1])]; 
         
         if (remove) {
             System.out.println("DEBUG: model: Seat removed " + s); // DEBUG
@@ -200,11 +218,15 @@ public class KinoModel {
             chosenSeats.add(s); // add the seat to the list
         }
         if (s instanceof CarSeat) { // check if seat is an instance of CarSeat
-            carSeatCount += remove ? -1 : 1;  // increase the counter when adding a CarSeat, decrease the counter when removing a CarSeat
+            if (remove) { // increase when adding a CarSeat, decrease when removing
+                carSeatCount--;
+            } else {
+                carSeatCount++;
+            }
             System.out.println("DEBUG: model: Car seat count changed to " + carSeatCount); // DEBUG
         }
         System.out.println("DEBUG: model: List of seats " + chosenSeats); // DEBUG
-        reset(1);
+        reset(RESET_CATERING_AND_ABOVE);
     }
 
     /**
@@ -214,19 +236,20 @@ public class KinoModel {
      */
     public void setCatering(List<Integer> cateringAmounts) { // TODO update this logic
         int y = 0; // index counter
-        chosenCatering = new HashMap<>(); // create a new map, which will contain every catering option with their specified amount
-        for (int i = 0; i < Catering.ALL_CATERINGS.size(); i++) { // check every Catering of the list
-            Catering equivalentCatering = Catering.ALL_CATERINGS.get(i); // get the catering at the index, which is equivalent to the index of the amount for this catering
-            try {
-                if (equivalentCatering == null)
-                    throw new NullPointerException(); // throw exception because catering is null
-                if (equivalentCatering.name == null)
-                    throw new NullPointerException(); // throw exception because name of catering is null
-                equivalentCatering.price.getPrice(); // try to get the price of the catering
-            } catch (Exception ex) {
+
+        // create a new map, which will contain every catering option with their specified amount
+        chosenCatering = new HashMap<>();
+        for (int i = 0; i < ALL_CATERINGS.size(); i++) { // check every Catering of the list
+
+            // get the catering at the index, which is equivalent to the index of the amount for this catering
+            Catering equivalentCatering = ALL_CATERINGS.get(i); 
+            if (equivalentCatering == null || equivalentCatering.name == null || equivalentCatering.price == null) {
                 continue; // catering corrupted, skip
-            }
-            chosenCatering.put(equivalentCatering, cateringAmounts.get(y++)); // put catering as key with the selected amount as a value in the map
+            } 
+
+            // put catering as key with the selected amount as a value in the map
+            chosenCatering.put(equivalentCatering, cateringAmounts.get(y));
+            y++;
         }
         System.out.println("DEBUG: model: Catering set, Caterings: " + chosenCatering); // DEBUG
     }
@@ -238,7 +261,7 @@ public class KinoModel {
      */
     public void setLicensePlates(List<String> lps) {
         System.out.println("DEBUG: model: License plate set, License plates: " + lps); // DEBUG
-        licensePlates = lps;
+        licensePlates = new ArrayList<>(lps); // store a copy
     }
 
     /**
@@ -247,11 +270,11 @@ public class KinoModel {
      * @return if the input suffices
      */
     public boolean checkInput(String text) {
-        int min = 5; // required min string length
-        int max = 10; // required max string length
         System.out.println("DEBUG: model: checking input..."); // DEBUG
         text = text.replaceAll("\\s+", ""); // remove all whitespaces
-        return text.length() >= min && text.length() <= max; // input only suffices if the length of the text is greater than min and less than max
+
+        // input only suffices if the length of the text is greater than min and less than max
+        return text.length() >= MIN_LICENSE_PLATE_LENGTH && text.length() <= MAX_LICENSE_PLATE_LEGNTH;
     }
 
     /**
@@ -261,21 +284,22 @@ public class KinoModel {
      */
     public void reset(int depth) {
         System.out.println("DEBUG: model: resetting input..."); // DEBUG
-        if (depth >= 4) { // this depth reaches to the movie tab
+        if (depth >= RESET_MOVIES_AND_ABOVE) { // this depth reaches to the movie tab
             chosenMovie = null;
             availableTimes = null;
         }
-        if (depth >= 3) { // this depth reaches to the times tab
+        if (depth >= RESET_TIMES_AND_ABOVE) { // this depth reaches to the times tab
             chosenTime = null;
             availableSeats = null;
         }
-        if (depth >= 2) { // this depth reaches to the seat tab
+        if (depth >= RESET_SEATS_AND_ABOVE) { // this depth reaches to the seat tab
             chosenSeats = new ArrayList<>();
             licensePlates = null;
             carSeatCount = 0;
         }
-        if (depth >= 1) // this depth reaches to the seat tab
+        if (depth >= RESET_CATERING_AND_ABOVE) { // this depth reaches to the seat tab
             chosenCatering = null;
+        }
     }
 
     /**
@@ -284,7 +308,7 @@ public class KinoModel {
      */
     public void quit() {
         System.out.println("\n" + "DEBUG: model: quitting..."); // DEBUG
-        reset(4); // reset the model
+        reset(RESET_MOVIES_AND_ABOVE); // reset the model
         System.exit(0); // terminate the program
     }
 
@@ -295,14 +319,16 @@ public class KinoModel {
      * creates and adds a new order object to the list
      */
     public void order() {
-        int i = 0; // local index counter
+        int index = 0; // local index counter
         for (Seat s : chosenSeats) { // check every seat
             System.out.println("DEBUG: model: reserved seat " + s); // DEBUG
             s.isReserved = true; // reserve the seat
-            if (s instanceof BeachChairSeat)
+            if (s instanceof BeachChairSeat) {
                 ((BeachChairSeat)s).assignTicket(); // assign a ticket to the beach chair seat
-            else {
-                ((CarSeat)s).licensePlateNr = licensePlates.get(i++); // assign the license plate to the car seat and increment the index counter
+            } else {
+                 // assign the license plate to the car seat and increment the index counter
+                ((CarSeat)s).licensePlateNr = licensePlates.get(index);
+                index++;
                 System.out.println("DEBUG: model: set license plate " + ((CarSeat)s).licensePlateNr); // DEBUG
             } 
             chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
@@ -323,14 +349,15 @@ public class KinoModel {
         try {
             File file = new File(path); // create a File Object with the desired path
             while (!file.createNewFile()) { // create a new file, if this failes, change the path and try again
-                path = "orders/order" + (order.getOrderNumber() + fixer++) + ".txt"; // fix the path and try again
+                path = "orders/order" + (order.getOrderNumber() + fixer) + ".txt"; // fix the path and try again
                 file = new File(path);
+                fixer++;
             }
         } catch (IOException ex) { // error catched
             ex.printStackTrace();
             return; // skip following code
         }
-        try (FileWriter writer = new FileWriter(path); // try-with-resources guarantees the writer is closed
+        try (FileWriter writer = new FileWriter(path) // try-with-resources guarantees the writer is closed
             ) {
             writer.write(order.toString()); // try writing to the file
         } catch (IOException ex) { // error catched
@@ -345,8 +372,10 @@ public class KinoModel {
     public String[] getTicketStrings() {
         StringBuilder builder = new StringBuilder();
         for (Seat s : chosenSeats) { // go through the chosen seats
-            if (s instanceof BeachChairSeat)
-                builder.append(((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING); // get the ticket from the seat and add it to the string
+            if (s instanceof BeachChairSeat) {
+                // get the ticket from the seat and add it to the string
+                builder.append(((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING);
+            }
         }
         return builder.toString().split(Vocabulary.SPLITTER_STRING); // split the string
     }
@@ -379,7 +408,7 @@ public class KinoModel {
      * @return chosen movie
      */
     public Movie getChosenMovie() {
-        return chosenMovie;
+        return chosenMovie; // TODO clone
     }
 
     /**
@@ -387,7 +416,7 @@ public class KinoModel {
      * @return array of showtimes
      */
     public Showtime[] getAvailableTimes() {
-        return availableTimes;
+        return availableTimes.clone();
     }
 
     /**
@@ -395,7 +424,7 @@ public class KinoModel {
      * @return chosen time
      */
     public Showtime getChosenTime() {
-        return chosenTime;
+        return chosenTime; // TODO clone
     }
 
     /**
@@ -403,7 +432,7 @@ public class KinoModel {
      * @return array of seats
      */
     public Seat[][] getAvailableSeats() {
-        return availableSeats;
+        return availableSeats.clone(); // return a copy
     }
 
     /**
@@ -411,7 +440,7 @@ public class KinoModel {
      * @return list of seats
      */
     public List<Seat> getChosenSeats() {
-        return chosenSeats;
+        return new ArrayList<>(chosenSeats); // return a copy
     }
 
     /**
@@ -427,7 +456,7 @@ public class KinoModel {
      * @return list of license plates
      */
     public List<String> getLicensePlates() {
-        return licensePlates;
+        return new ArrayList<>(licensePlates); // return a copy
     }
 
     /**
@@ -435,6 +464,22 @@ public class KinoModel {
      * @return map with caterings and amounts
      */
     public Map<Catering, Integer> getChosenCatering() {
-        return chosenCatering;
+        return new TreeMap<>(chosenCatering); // return a copy
+    }
+
+    /**
+     * get all movies
+     * @return a list with all movies
+     */
+    public static List<Movie> getAllMovies() {
+        return new ArrayList<>(ALL_MOVIES);
+    }
+
+    /**
+     * get all caterings
+     * @return a list with all movies
+     */
+    public static List<Catering> getAllCaterings() {
+        return new ArrayList<>(ALL_CATERINGS);
     }
 }

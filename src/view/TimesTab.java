@@ -8,19 +8,21 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import controller.*;
-import model.*;
+import controller.KinoController;
+import model.KinoModel;
+import model.Showtime;
+import model.Vocabulary;
 
 /**
  * the times tab contains components for displaying information about the available times,
- * this tab is the third tab in the view, it contains JRadioButtons to choose one of the showtimes from the chosen movie,
+ * this tab is the third tab in the view, contains JRadioButtons to choose one of the showtimes from the chosen movie,
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
  */
 
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
-public class TimesTab extends Tab { // TODO maybe add a table or list to choose from? (overkill!)
+public class TimesTab extends AbstractTab { // TODO maybe add a table or list to choose from? (overkill!)
 
     // JPanel which contains all JRadioButtons
     private JPanel timesPanel;
@@ -38,10 +40,10 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
     /**
      * invoked from view when switching to this tab via the proceed button in another tab,
      * adds JRadioButtons for time options from the movie from the model
-     * @throws NullPointerException from buildTimesPanel() when there a no times set
+     * @throws IllegalArgumentException from buildTimesPanel() when there a no times set
      */
     @Override
-    protected void build() throws NullPointerException {
+    protected void build() throws IllegalArgumentException {
         System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
@@ -56,40 +58,42 @@ public class TimesTab extends Tab { // TODO maybe add a table or list to choose 
 
     /**
      * build the times panel containing JRadioButtons for choosing a time
-     * @throws NullPointerException when there a no times set
+     * @throws IllegalArgumentException when there a no times set
      */
-    private void buildTimesPanel() throws NullPointerException {
+    private void buildTimesPanel() throws IllegalArgumentException {
         timesPanel = new JPanel(); // new JPanel, contains JRadioButtons
         timesPanel.setLayout(new BoxLayout(timesPanel, BoxLayout.Y_AXIS)); // set layout for the JPanel
         timesPanel.setBorder(KinoView.NORMAL_Y_SPACING);
-        ButtonGroup group = new ButtonGroup(); // new ButtonGroup, because only one JRadioButton should be selected at a time
         
         Showtime[] times = model.getAvailableTimes(); // get the available showtimes from the model
-        if (times == null) // no times set
-            throw new NullPointerException(Vocabulary.NO_TIMES_ERROR);
-        
-        for (int i = 0; i < times.length; i++) { // go through all times
-            try { // try catching corrupted showtimes missing a date or time
-                JRadioButton rb = new JRadioButton(times[i].getDateAndTime()); // new JRadioButton with time as text
-                
-                if (times[i].isSoldOut()) { // check if showtime is sold out
-                    rb.setEnabled(false); // disable the JRadioButton
-                    rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);
-                }
-                rb.addActionListener(ctrl); // add listener
-                rb.setAlignmentX(JComponent.CENTER_ALIGNMENT); // set alignment
-                rb.setBorder(KinoView.SMALL_Y_SPACING);
-                
-                // this action command contains the index of the JRadioButton
-                // this way, the controller knows from which index the action came from
-                rb.setActionCommand(String.valueOf(i));
-                group.add(rb); // add JRadioButton to the ButtonGroup
+        if (times == null) { // no times set
+            throw new IllegalArgumentException(Vocabulary.NO_TIMES_ERROR);
+        }
+        // new ButtonGroup, because only one JRadioButton should be selected at a time
+        ButtonGroup group = new ButtonGroup();
 
-                // build the JPanel
-                timesPanel.add(rb);
-            } catch (NullPointerException ex) { // corrupted showtime found
-                // skip this corrupted showtime
+        for (int i = 0; i < times.length; i++) { // go through all times
+            Showtime time = times[i];
+            if (time == null) {
+                continue; // skip this corrupted showtime
             }
+            JRadioButton rb = new JRadioButton(time.getDateAndTime()); // new JRadioButton with time as text
+                
+            if (time.isSoldOut()) { // check if showtime is sold out
+                rb.setEnabled(false); // disable the JRadioButton
+                rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);
+            }
+            rb.addActionListener(ctrl); // add listener
+            rb.setAlignmentX(JComponent.CENTER_ALIGNMENT); // set alignment
+            rb.setBorder(KinoView.SMALL_Y_SPACING);
+                
+            // this action command contains the index of the JRadioButton
+            // this way, the controller knows from which index the action came from
+            rb.setActionCommand(String.valueOf(i));
+            group.add(rb); // add JRadioButton to the ButtonGroup
+
+            // build the JPanel
+            timesPanel.add(rb);
         }
     }
 

@@ -1,9 +1,11 @@
 package model;
 
-import model.enums.*;
+import model.enums.Dates;
+import model.enums.Times;
 
 /**
  * contains data for a showtime and seating
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -13,7 +15,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     // Data fields
     private final Dates date;
     private final Times time;
-    private boolean isSoldOut = false; // showtime is not sold out by default
+    private boolean isSoldOut; // showtime is not sold out by default
 
     protected final Seat[][] seats; // contains all available seats for this showtime
     
@@ -40,25 +42,22 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     private void createSeats(int rowAmount, int columnAmount) {
         for (int row = 0; row < rowAmount; row++) { // every row
             for (int column = 0; column < columnAmount; column++) { // checks every column of every row
-                boolean vip = false; // seat is non-vip by default
-                boolean suv = false; // seat is non-suv by default
+                boolean vip = row == 0; // first row is vip
+                boolean suv = row == rowAmount - 1; // last row is for suv
                 Seat seat; // this variable will hold the seat
-
-                if (row == 0)
-                    vip = true; // first row is vip
-                else if (row == rowAmount - 1)
-                    suv = true; // last row is for suv
 
                 // beach chair seats and car seats make up a checkerboard like pattern
                 // beach chair seats get placed on on
                 // -> an even row in an odd column
                 // -> an odd row in an even column
                 // -> not the last row
-                if (((column % 2 == 1 && row % 2 == 0) || (column % 2 == 0 && row % 2 == 1)) && row != rowAmount - 1)
+                boolean condition1 = column % 2 == 1 && row % 2 == 0;
+                boolean condition2 = column % 2 == 0 && row % 2 == 1;
+                if ((condition1 || condition2) && !suv) {
                     seat = new BeachChairSeat(vip);
-                else
+                } else {
                     seat = new CarSeat(vip, suv);
-
+                }
                 seats[row][column] = seat; // insert seat at the position
             }
         }
@@ -79,15 +78,17 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     protected void updateAvailability() {
         System.out.println("DEBUG: " + "Showtime: updating availibility..."); // DEBUG
         if (!isSoldOut) { // only check is the show is not sold out already
-            for (Seat[] column : seats) {
-                for (Seat s : column) { // check every seat
-                    if (!s.isReserved)
-                        return; // unreserved seat found > return, because show is not sold out
+            return;
+        }
+        for (Seat[] column : seats) {
+            for (Seat s : column) { // check every seat
+                if (!s.isReserved) {
+                    return; // unreserved seat found > return, because show is not sold out
                 }
             }
-            isSoldOut = true; // no unreserved seat was found > show sold out
         }
-        System.out.println("DEBUG: " + "Showtime: is the show sold out?: " + isSoldOut); // DEBUG
+        isSoldOut = true; // no unreserved seat was found > show sold out
+        System.out.println("DEBUG: " + "Showtime: the show is sold out"); // DEBUG
     }
 
     /**

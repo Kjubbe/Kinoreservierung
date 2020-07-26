@@ -5,8 +5,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.*;
-import model.*;
+import controller.KinoController;
+import model.KinoModel;
+import model.Movie;
 
 /**
  * the movie tab contains components for displaying information about the movies,
@@ -17,7 +18,7 @@ import model.*;
  */
 
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
-public class MovieTab extends Tab {
+public class MovieTab extends AbstractTab {
 
     // Components
     private JPanel moviePanel;
@@ -68,9 +69,10 @@ public class MovieTab extends Tab {
         moviePanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // build the dropdown
-        for (Movie m : Movie.ALL_MOVIES) { // go through all movies
-            if (m != null && m.toString() != null) // check if movie and the title is not null
+        for (Movie m : KinoModel.getAllMovies()) { // go through all movies
+            if (m != null && m.toString() != null) { // check if movie and the title is not null
                 dropdown.addItem(m); // add movie to the JComboBox
+            }
         }
         dropdown.setSelectedItem(null); // no selected movie
         dropdown.addItemListener(ctrl); // add listener
@@ -106,8 +108,11 @@ public class MovieTab extends Tab {
         if (dropdown.getSelectedItem() != null) { // check if a film is selected
             proceedButton.setEnabled(true);
             descriptionLabel.setText(model.getChosenMovie().getDescription());
-            imageLabel.setIcon(model.getChosenMovie().getImage()); // set JLabel for description to display the description of the movie
-        } else // no film selected
+
+            // set JLabel for description to display the description of the movie
+            imageLabel.setIcon(model.getChosenMovie().getImage());
+        } else { // no film selected
             proceedButton.setEnabled(false);
+        }
     }
 }

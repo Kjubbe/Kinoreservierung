@@ -14,8 +14,10 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import controller.*;
-import model.*;
+import controller.KinoController;
+import model.Catering;
+import model.KinoModel;
+import model.Vocabulary;
 
 /**
  * the catering tab contains components for displaying information about the caterings,
@@ -26,7 +28,7 @@ import model.*;
  */
 
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
-public class CateringTab extends Tab {
+public class CateringTab extends AbstractTab {
 
     // JPanel which contains a JSpinner for each catering
     private JPanel cateringPanel;
@@ -51,7 +53,10 @@ public class CateringTab extends Tab {
         reset(); // reset before building to avoid duplications
 
         // build the JPanel
-        proceedButton.setEnabled(true); // proceed JButton is enabled by default, because the user does not have to choose anything
+
+        // proceed JButton is enabled by default, because the user does not have to choose anything
+        proceedButton.setEnabled(true);
+
         buildCateringPanel();
 
         // build the tab
@@ -65,33 +70,30 @@ public class CateringTab extends Tab {
      */
     private void buildCateringPanel() {
         // build the JPanel for the JSpinners
-        cateringPanel = new JPanel(); // new JPanel, contains all JSpinners FIXME the layout does not work well for this, another layout should be used instead
+        // FIXME the layout does not work well for this, another layout should be used instead
+        cateringPanel = new JPanel(); // new JPanel, contains all JSpinners
         cateringPanel.setLayout(new BoxLayout(cateringPanel, BoxLayout.Y_AXIS));
         cateringPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // build the JSpinners
-        for (Catering c : Catering.ALL_CATERINGS) { // go through every catering
-            try { // catch corrupted caterings missing a name or price
-                String cateringName = c.name; // get the name from the catering
-                if (cateringName == null)
-                    throw new NullPointerException(); // no name set, throw exception
-                double cateringPrice = c.price.getPrice(); // try to get the price of the catering
-                
-                SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
-                JSpinner spinner = new JSpinner(spinnerModel); // create a new JSpinner with the SpinnerNumberModel
-                spinner.setEditor(new JSpinner.DefaultEditor(spinner)); // set to non-editable
-                spinner.addChangeListener(ctrl); // add listener
-                spinner.setAlignmentX(JComponent.LEFT_ALIGNMENT);
 
-                // build the JPanel
-                JPanel container = new JPanel(new FlowLayout());
-                container.add(putInContainer(spinner));
-                container.add(new JLabel(cateringName + " (" + cateringPrice + Vocabulary.CURRENCY + ")"));
-                
-                cateringPanel.add(container);
-            } catch (Exception ex) { // corrupted catering found
-                // skip the corrupted catering
+        // go through every catering // catch corrupted caterings missing a name or price
+        for (Catering c : KinoModel.getAllCaterings()) {
+            if (c.name == null || c.price == null) {
+                continue; // skip the corrupted catering
             }
+            SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
+            JSpinner spinner = new JSpinner(spinnerModel); // create a new JSpinner with the SpinnerNumberModel
+            spinner.setEditor(new JSpinner.DefaultEditor(spinner)); // set to non-editable
+            spinner.addChangeListener(ctrl); // add listener
+            spinner.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+
+            // build the JPanel
+            JPanel container = new JPanel(new FlowLayout());
+            container.add(putInContainer(spinner));
+            container.add(new JLabel(c.name + " (" + c.price.getPrice() + Vocabulary.CURRENCY + ")"));
+                
+            cateringPanel.add(container);
         }
     }
 

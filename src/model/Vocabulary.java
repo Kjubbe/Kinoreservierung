@@ -6,14 +6,7 @@ package model;
  * @author Marcel Sauer
  */
 
-public class Vocabulary {
-    
-    /**
-     * private constructor, because this class is not meant to be instantiated
-     */
-    private Vocabulary () {
-        throw new IllegalStateException("Utility class");
-    }
+public final class Vocabulary {
 
     // titles
     public static final String FRAME_NAME = "Kinoreservierung"; // String for the JFrame
@@ -21,7 +14,7 @@ public class Vocabulary {
     public static final String ERROR_DIALOG_NAME = "Hoppla..."; // String for error JDialogs
 
     // instruction text for tabs
-    public static final String[] INSTRUCTION_TEXTS = // Strings for instructions on every tab in order
+    private static final String[] INSTRUCTION_TEXTS = // Strings for instructions on every tab in order
     {
         "Willkommen zum Autokinoreservierungssystem der TH Lübeck!",
         "Bitte wählen Sie einen Film aus:",
@@ -33,7 +26,7 @@ public class Vocabulary {
 
     // tab names
     public static final String DEFAULT_TAB_NAME = "Tab"; // String for default tab name, used, when no name is set
-    public static final String[] TAB_NAMES = // Strings for names of the tab in order
+    private static final String[] TAB_NAMES = // Strings for names of the tab in order
     {
         "Start",
         "Filme",
@@ -46,16 +39,26 @@ public class Vocabulary {
     // misc
     public static final String NONE_LABEL = "keins"; // String for showing nothing is chosen
     public static final String SCREEN_LABEL = "Leinwand"; // String for screen JLabel
-    public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen."; // String for the starting msg JLabels
-    public static final String[] FINISH_MSGS = {"Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!"}; // String for the finishing msg JLabels
-    public static final String[] ORDER_MSGS = {"Im Folgenden finden Sie die Informationen zu ihrer Reservierung; Bestellnummer", "Vielen Dank, dass Sie unseren Service genutzt haben!"}; // String for the order file
+
+    public static final String START_MSG = "Bitte fahren Sie fort, um mit der Reservierung zu beginnen.";
+    
+    private static final String[] FINISH_MSGS = {
+        "Ihre Reservierung war erfolgreich.",
+        "Wir freuen uns auf ihren Besuch!"
+    }; // String for the finishing msg JLabels
+    
+    private static final String[] ORDER_MSGS = {
+        "Im Folgenden finden Sie die Informationen zu ihrer Reservierung; Bestellnummer",
+        "Vielen Dank, dass Sie unseren Service genutzt haben!"
+    }; // String for the order file
+
     public static final String TOTAL_PRICE_LABEL = "Gesamtpreis"; // String for the price JTextField
     public static final String CURRENCY = "€"; // String for the currency
     public static final String SPLITTER_STRING = "@"; // String to split
 
     // errors
-    public static final String NO_TIMES_ERROR = "Dieser Film läuft zurzeit leider nicht."; // String for JLabel in error JDialog
-    public static final String NO_SEATS_ERROR = "Für diese Uhrzeit sind leider keine Plätze verfügbar"; // String for JLabel in error JDialog
+    public static final String NO_TIMES_ERROR = "Dieser Film läuft zurzeit leider nicht.";
+    public static final String NO_SEATS_ERROR = "Für diese Uhrzeit sind leider keine Plätze verfügbar";
 
     // tooltips
     public static final String SOLD_OUT_TOOLTIP = "Ausverkauft"; // sold out
@@ -84,7 +87,59 @@ public class Vocabulary {
     public static final String GENRE_LABEL = "Genre"; // genre
     public static final String TIME_LABEL = "Zeit"; // time
     public static final String SEATS_LABEL = "Plätze"; // seats
-    public static final String[] LICENSE_PLATE_LABEL = {"Kennz.", "Bitte Kennz. eingeben"}; // license plate
+    
+    private static final String[] LICENSE_PLATE_LABEL = {
+        "Kennz.",
+        "Bitte Kennz. eingeben"
+    };
+
     public static final String TICKET_LABEL = "Ihr Ticket"; // tickets
     public static final String CATERING_LABEL = "Essen"; // catering
+
+    /**
+     * private constructor, because this class is not meant to be instantiated
+     */
+    private Vocabulary () {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * get the instruction texts
+     * @return the instruction text array
+     */
+    public static String[] getInstructionTexts() {
+        return INSTRUCTION_TEXTS.clone(); // return a copy
+    }
+
+    /**
+     * get the tab names
+     * @return the tab names array
+     */
+    public static String[] getTabNames() {
+        return TAB_NAMES.clone(); // return a copy
+    }
+
+    /**
+     * get the finish messages
+     * @return the finish message array
+     */
+    public static String[] getFinishMsgs() {
+        return FINISH_MSGS.clone(); // return a copy
+    }
+
+    /**
+     * get the order messages
+     * @return the order message array
+     */
+    public static String[] getOrderMsgs() {
+        return ORDER_MSGS.clone(); // return a copy
+    }
+
+    /**
+     * get the license plate labels
+     * @return the license plate label array
+     */
+    public static String[] getLicensePlateLabel() {
+        return LICENSE_PLATE_LABEL.clone(); // return a copy
+    }
 }

@@ -13,8 +13,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import model.*;
-import controller.*;
+import controller.KinoController;
+import model.KinoModel;
+import model.Vocabulary;
 
 /**
  * View class, manages and generates UI Components,
@@ -46,17 +47,27 @@ public class KinoView {
     private final JTabbedPane tabbedPane = new JTabbedPane(); // JTabbedPane manages tabs
 
     private final JPanel pricePanel = new JPanel(); // this JPanel contains the price
-    private final JTextField priceDisplay = new JTextField(Vocabulary.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocabulary.CURRENCY); // JTextField for displaying the price
+
+    // JTextField for displaying the price
+    private final JTextField priceDisplay = new JTextField(Vocabulary.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocabulary.CURRENCY);
     
+    // Indexes for Tabs
+    public static final int START_TAB = 0;
+    public static final int MOVIE_TAB = 1;
+    public static final int TIMES_TAB = 2;
+    public static final int SEATING_TAB = 3;
+    public static final int CATERING_TAB = 4;
+    public static final int SUMMARY_TAB = 5;
+
     // This array contains all tabs
-    public final Tab[] tabs =
+    public final AbstractTab[] tabs =
     {
-        new StartTab(model, ctrl, 0),
-        new MovieTab(model, ctrl, 1),
-        new TimesTab(model, ctrl, 2),
-        new SeatingTab(model, ctrl, 3),
-        new CateringTab(model, ctrl, 4),
-        new SummaryTab(model, ctrl, 5)
+        new StartTab(model, ctrl, START_TAB),
+        new MovieTab(model, ctrl, MOVIE_TAB),
+        new TimesTab(model, ctrl, TIMES_TAB),
+        new SeatingTab(model, ctrl, SEATING_TAB),
+        new CateringTab(model, ctrl, CATERING_TAB),
+        new SummaryTab(model, ctrl, SUMMARY_TAB)
     };
 
     /**
@@ -66,16 +77,12 @@ public class KinoView {
         System.out.println("DEBUG: view: setting up view"); // DEBUG
         
         // part 1: preparing tabs
-        for (int i = 0; i < tabs.length; i++) { // go through the tabs
-            String equivalentName = null;
-            Tab tab = null;
-            try {
-                equivalentName = Vocabulary.TAB_NAMES[i]; // *try* to get the equivalent name for the tab
-                tab = tabs[i]; // get the tab from the array
-                addTab(equivalentName, tab); // add the tab
-            } catch (Exception ex) { // there is no name for the tab set
-                if (equivalentName == null)
-                    addTab(Vocabulary.DEFAULT_TAB_NAME + i, tabs[i]); // add the tab either way, just with the default name
+        for (int i = 0; i < tabs.length; i++) { // go through the tabs            
+            String[] names = Vocabulary.getTabNames();
+            if (i < names.length) {
+                addTab(names[i], tabs[i]); // add the tab with the name
+            } else {
+                addTab(Vocabulary.DEFAULT_TAB_NAME + i, tabs[i]); // add the tab with the default name
             }
         }
 
@@ -106,7 +113,7 @@ public class KinoView {
      * @param title title of the tab
      * @param tab tab for this JTabbedPane
      */
-    private void addTab(String title, Tab tab) {
+    private void addTab(String title, AbstractTab tab) {
         System.out.println("DEBUG: view: added tab " + title); // DEBUG
         tabbedPane.addTab(title, new JScrollPane(tab)); // put the tab in a JScrollPane and add it to the tab
         tabbedPane.setEnabledAt(tabbedPane.getTabCount() - 1, false); // disable the added tab
@@ -141,11 +148,12 @@ public class KinoView {
         System.out.println("DEBUG: view: switched tab to index " + index); // DEBUG
         try { // try to build the tab
             tabs[index].build(); // call the build function of the tab
-        } catch (NullPointerException ex) { // building the tab failed, inform the user
+        } catch (IllegalArgumentException ex) { // building the tab failed, inform the user
             String errorMsg = ex.getMessage();
-            if (errorMsg == null)
-                errorMsg = ex.toString() + ", " + ex.getStackTrace();
-            createDialog(Vocabulary.ERROR_DIALOG_NAME, new String[] {errorMsg}); // create a JDialog displaying the error
+
+            // create a JDialog displaying the error
+            createDialog(Vocabulary.ERROR_DIALOG_NAME, new String[] {errorMsg});
+
             return; // skip the following code
         }
         tabbedPane.setSelectedIndex(index); // set tab as selected
@@ -174,7 +182,10 @@ public class KinoView {
         System.out.println("DEBUG: view: forcing update..."); // DEBUG
         int activeTab = tabbedPane.getSelectedIndex(); // get index of selected tab
         tabs[activeTab].update(); // force this tab to update
-        priceDisplay.setText(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getTotalPrice() + Vocabulary.CURRENCY); // update the price
+
+        // update the price
+        priceDisplay.setText(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getTotalPrice() + Vocabulary.CURRENCY);
+
         disableFollowingTabs(activeTab); // disable all following tabs
         frame.pack();
     }
@@ -186,14 +197,17 @@ public class KinoView {
     public void finish() {
         System.out.println("DEBUG: view: finishing..."); // DEBUG
         StringBuilder builder = new StringBuilder();
-        for (String s : Vocabulary.FINISH_MSGS) {
+        for (String s : Vocabulary.getFinishMsgs()) {
             builder.append(s + Vocabulary.SPLITTER_STRING);
         }
         for (String s : model.getTicketStrings()) {
-            if (!s.isBlank())
+            if (!s.isBlank()) {
                 builder.append(Vocabulary.TICKET_LABEL + ": " + s + Vocabulary.SPLITTER_STRING);
+            }
         }
-        createDialog(Vocabulary.FINISH_DIALOG_NAME, builder.toString().split(Vocabulary.SPLITTER_STRING)); // create a new JDialog
+        // create a new JDialog with array of strings
+        createDialog(Vocabulary.FINISH_DIALOG_NAME, builder.toString().split(Vocabulary.SPLITTER_STRING));
+
         resetTabs(); // reset all tabs
         switchTabTo(0); // switch back to the first tab
     }
@@ -233,7 +247,7 @@ public class KinoView {
      * resets all tabs
      */
     private void resetTabs() {
-        for (Tab t : tabs) { // go through all tabs
+        for (AbstractTab t : tabs) { // go through all tabs
             t.reset(); // reset all tabs
         }
     }

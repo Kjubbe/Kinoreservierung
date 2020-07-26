@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import model.enums.*;
+import model.enums.Prices;
 
 /**
  * has information about a specific catering,
@@ -15,8 +12,6 @@ import model.enums.*;
 public class Catering {
     
     // Data fields
-    public static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing caterings
-
     public final Prices price;
     public final String name;
 

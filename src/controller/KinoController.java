@@ -1,6 +1,11 @@
 package controller;
 
-import java.awt.event.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +18,12 @@ import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import model.*;
-import view.*;
+import model.KinoModel;
+import model.Movie;
+import model.Vocabulary;
+import view.CateringTab;
+import view.KinoView;
+import view.SeatingTab;
 
 /**
  * Controller class, acts as an intermediary between view and model,
@@ -49,16 +58,18 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         System.out.println("\n" + "DEBUG: ctrl: click registered.."); // DEBUG
         Object source = e.getSource(); // store the source object
         String cmd = e.getActionCommand(); // get the action command
-        if (source instanceof JButton) { // source from JButton > source is either back-, quit-, proceed- or finish- JButton
+        if (source instanceof JButton) { // source is either back-, quit-, proceed- or finish- JButton
             System.out.println("DEBUG: ctrl: identified as button"); // DEBUG
-            if (cmd.equals(Vocabulary.BACK_BUTTON)) // back JButton
+            if (cmd.equals(Vocabulary.BACK_BUTTON)) {// back JButton
                 view.back();
-            else if (cmd.equals(Vocabulary.QUIT_BUTTON)) // quit JButton
+            } else if (cmd.equals(Vocabulary.QUIT_BUTTON)) { // quit JButton
                 model.quit();
-            else if (cmd.equals(Vocabulary.PROCEED_BUTTON)) // proceed JButton
+            } else if (cmd.equals(Vocabulary.PROCEED_BUTTON)) { // proceed JButton
                 view.proceed();
-            else if (cmd.equals(Vocabulary.FINISH_BUTTON)) { // finish JButton
+            } else if (cmd.equals(Vocabulary.FINISH_BUTTON)) { // finish JButton
                 orderPlaced();
+            } else {
+                throw new IllegalStateException("This JButton has no method assigned");
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
             System.out.println("DEBUG: ctrl: identified as radio-button"); // DEBUG
@@ -71,12 +82,14 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
             view.update();
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
             System.out.println("DEBUG: ctrl: identified as checkbox"); // DEBUG
-            boolean remove = !((JCheckBox) source).isSelected(); // remove equals false if the JCheckBox was selected, true if deselected
+            boolean remove = !((JCheckBox) source).isSelected(); // remove when JCheckBox is deselected
             
             // the action commands of the JCheckBoxes from the seating tab contain their position
             // this way, the seat at the same position can either be removed or added to the list of chosen seats
             model.changeSeats(cmd, remove); // adivice model to change seats based on the information
             view.update();
+        } else {
+            throw new IllegalStateException("This action has no method assigned");
         }
     }
 
@@ -90,8 +103,9 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         System.out.println("DEBUG: ctrl: identified as combobox"); // DEBUG
         Movie movie = (Movie) e.getItem(); // get the selected movie from the event
         System.out.println("DEBUG: ctrl: Movie chosen"); // DEBUG
-        if (movie != null) // check if an actual movie is selected
+        if (movie != null) { // check if an actual movie is selected
             model.setMovie(movie); // advice model to set the movie
+        }
         view.update();
     }
 
@@ -124,7 +138,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     private void licensePlateChanged() {
         System.out.println("DEBUG: ctrl: license plate changed"); // DEBUG
-        SeatingTab tab = (SeatingTab) view.tabs[3]; // get reference to the seating tab from the view
+
+        // get reference to the seating tab from the view
+        SeatingTab tab = (SeatingTab) view.tabs[KinoView.SEATING_TAB];
+
         List<JTextField> tfs = tab.getTextFields(); // get JTextFields from the tab
         
         List<String> lps = new ArrayList<>(); // create a new list to store the license plate input
@@ -142,7 +159,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     private void cateringChanged() { // TODO update this logic
         System.out.println("DEBUG: " + "ctrl: Catering chosen"); // DEBUG
-        CateringTab tab = (CateringTab) view.tabs[4]; // get reference to the catering tab from the view
+
+        // get reference to the catering tab from the view
+        CateringTab tab = (CateringTab) view.tabs[KinoView.CATERING_TAB];
+
         List<SpinnerModel> snms = tab.getSpinnerModels(); // get reference to all SpinnerModels from the view
         
         List<Integer> cateringAmounts = new ArrayList<>(); // create a new list to store the amount for each catering
@@ -162,7 +182,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         System.out.println("DEBUG: " + "ctrl: placing order..."); // DEBUG
         model.order(); // advice the model to order
         view.finish(); // advice the view to finish
-        model.reset(4); // adivice the model to reset everything
+        model.reset(KinoModel.RESET_MOVIES_AND_ABOVE); // adivice the model to reset everything
         view.update();
     }
 }

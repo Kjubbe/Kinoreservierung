@@ -16,19 +16,24 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import controller.*;
-import model.*;
+import controller.KinoController;
+import model.BeachChairSeat;
+import model.CarSeat;
+import model.KinoModel;
+import model.Seat;
+import model.Vocabulary;
 
 /**
  * the seating tab contains components for displaying information about the available seats,
- * this tab is the fourth tab in the view, it contains JCheckBoxes to choose seats and JTextFields for typing in license plates,
+ * this tab is the fourth tab in the view, it contains JCheckBoxes to choose seats,
+ * and JTextFields for typing in license plates,
  * inherites from the Tab class
  * @author Kjell Treder
  * @author Marcel Sauer
  */
 
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
-public class SeatingTab extends Tab {
+public class SeatingTab extends AbstractTab {
 
     // JPanels which contain JCheckBoxes and JTextFields
     private JPanel legendPanel;
@@ -54,10 +59,10 @@ public class SeatingTab extends Tab {
     /**
      * invoked from view when switching to this tab via the proceed JButton in another tab,
      * adds JCheckBox for every seat from the model in a grid layout
-     * @throws NullPointerException from buildSeatingPanel() when the amount of rows or columns of seats is 0
+     * @throws IllegalArgumentException from buildSeatingPanel() when the amount of rows or columns of seats is 0
      */
     @Override
-    protected void build() throws NullPointerException { 
+    protected void build() throws IllegalArgumentException { 
         System.out.println("DEBUG: tab: building seating tab..."); // DEBUG
         reset(); // reset before building to avoid duplications
 
@@ -124,18 +129,21 @@ public class SeatingTab extends Tab {
 
     /**
      * build the movie panel containing the dropdown for choosing a movie
-     * @throws NullPointerException when the amount of rows or columns of seats is 0
+     * @throws IllegalArgumentException when the amount of rows or columns of seats is 0
      */
-    private void buildSeatingPanel() throws NullPointerException {
+    private void buildSeatingPanel() throws IllegalArgumentException {
         Seat[][] seats = model.getAvailableSeats(); // get the available seats from the model
         int seatRowAmount = seats.length; // amount of rows of seats
-        if (seatRowAmount == 0) // no rows -> no seats
-            throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
+        if (seatRowAmount == 0) { // no rows -> no seats
+            throw new IllegalArgumentException(Vocabulary.NO_SEATS_ERROR);
+        }
         int seatColumnAmount = seats[0].length; // amount of columns of seats
-        if (seatColumnAmount == 0) // no columns -> no seats
-            throw new NullPointerException(Vocabulary.NO_SEATS_ERROR);
+        if (seatColumnAmount == 0) { // no columns -> no seats
+            throw new IllegalArgumentException(Vocabulary.NO_SEATS_ERROR);
+        }
 
-        seatingPanel = new JPanel(new GridLayout(seatRowAmount, seatColumnAmount)); // new JPanel, contains all JCheckBoxes
+        // new JPanel, contains all JCheckBoxes
+        seatingPanel = new JPanel(new GridLayout(seatRowAmount, seatColumnAmount));
         seatingPanel.setBorder(new LineBorder(Color.BLACK, 1));
 
         for (int row = 0; row < seatRowAmount; row++) { // every row
@@ -150,25 +158,27 @@ public class SeatingTab extends Tab {
                 cb.setActionCommand(row + Vocabulary.SPLITTER_STRING + column);
 
                 // Coloring
-                Color color = Color.LIGHT_GRAY; // default Color is light gray
+                Color color;
                 if (currentSeat.isReserved()) {
                     color = lightRed; // if seat is reserved the color is set to light red
                     cb.setEnabled(false); // disable the JCheckBox
                     cb.setToolTipText(Vocabulary.RESERVED_TOOLTIP); // new tooltip
-                }
-                else if (currentSeat instanceof BeachChairSeat)
+                } else if (currentSeat instanceof BeachChairSeat) {
                     color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
-                else if (currentSeat instanceof CarSeat && ((CarSeat)currentSeat).isForSUV) { // else if the seat is a CarSeat and for suv
+                } else if (currentSeat instanceof CarSeat && ((CarSeat)currentSeat).isForSUV) {
                     color = Color.GRAY; // color is set to gray
                     cb.setBorder(new EmptyBorder(7, 7, 7, 7)); // car seat is bigger
                    // normal non-suv car seats have no special color > standard light gray
+                } else {
+                    color = Color.LIGHT_GRAY; // default Color is light gray
                 }
                 cb.setBackground(color); // set background color of the JCheckBox to the color specified
 
                 // build the JPanel
                 JPanel container = putInContainer(cb); // get the container of the checkbox
-                if (currentSeat.isVip) // check if the seat is vip
+                if (currentSeat.isVip) { // check if the seat is vip
                     container.setBorder(new LineBorder(Color.ORANGE, 3)); // give the checkbox an orange border
+                }
                 seatingPanel.add(putInContainer(container));
             }
         }
@@ -187,7 +197,7 @@ public class SeatingTab extends Tab {
      * invoked from controller when clicking a JCheckbox,
      * adds JTextFields proportionally to the number of chosen car seats,
      * updates background color of JTextFields,
-     * user is able to proceed, if a at least one seat is chosen and no displayed JTextField is missing a license plate input
+     * user is able to proceed, if a at least one seat is chosen and no JTextField is missing a license plate input
      */
     @Override
     protected void update() {
@@ -209,8 +219,9 @@ public class SeatingTab extends Tab {
             if (!model.checkInput(tf.getText())) { // check for unsufficient textfield
                 lpMissing = true; // unsufficient textfield found
                 tf.getParent().setBackground(lightRed); // input does no suffice -> red background
-            } else
+            } else {
                 tf.getParent().setBackground(lightGreen); // input suffices -> green background
+            }
 
         }
 
@@ -238,16 +249,20 @@ public class SeatingTab extends Tab {
             tf.addKeyListener(ctrl); // add listener
 
             JPanel container = new JPanel(new FlowLayout()); // new container, contains JLabel and JTextField
-            container.add(new JLabel(Vocabulary.LICENSE_PLATE_LABEL[1] + ":")); // add new JLabel with the text from the model
+
+            // add new JLabel with the text from the model
+            container.add(new JLabel(Vocabulary.getLicensePlateLabel()[1] + ":"));
             container.add(tf); // add the JTextField
 
             licensePlatePanel.add(container); // add the container to the JPanel
 
         }
         // possibility 2
-        else if (tfs.size() > targetCount) { // there are more JCheckBoxes than needed
+        if (tfs.size() > targetCount) { // there are more JCheckBoxes than needed
             System.out.println("DEBUG: " + "seat-tab: removing textfield..."); // DEBUG
-            licensePlatePanel.remove(licensePlatePanel.getComponentCount() - 1); // remove the last JTextField from the JPanel
+
+            // remove the last JTextField from the JPanel
+            licensePlatePanel.remove(licensePlatePanel.getComponentCount() - 1);
         }
     }
 
