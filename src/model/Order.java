@@ -14,7 +14,7 @@ import java.util.Map;
 public class Order {
 
     // data fields
-    protected static final List<Order> ALL_ORDERS = new ArrayList<>(); // contains all orders TODO maybe create a database class for these three?
+    protected static final List<Order> ALL_ORDERS = new ArrayList<>(); // contains all orders
 
     private final Movie movie;
     private final Showtime time;
