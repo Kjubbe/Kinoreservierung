@@ -318,7 +318,7 @@ public class KinoModel {
      * @param order the order which should be written to the file
      */
     public static void toFile(Order order) {
-        String path = "orders/order" + order.getOrderNumber() + ".txt"; // string with path // TODO maybe put the name of the file in the vocab
+        String path = "orders/order" + order.getOrderNumber() + ".txt"; // string with path
         int fixer = 1; // TODO maybe change this
         try {
             File file = new File(path); // create a File Object with the desired path
