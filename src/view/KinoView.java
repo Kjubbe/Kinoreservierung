@@ -49,7 +49,7 @@ public class KinoView {
     private final JTextField priceDisplay = new JTextField(Vocabulary.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocabulary.CURRENCY); // JTextField for displaying the price
     
     // This array contains all tabs
-    public final Tab[] tabs = // TODO visibility issue
+    public final Tab[] tabs =
     {
         new StartTab(model, ctrl, 0),
         new MovieTab(model, ctrl, 1),
