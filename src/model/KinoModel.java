@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import model.enums.Dates;
 import model.enums.FSKs;
@@ -417,7 +416,7 @@ public class KinoModel {
      */
     public Showtime[] getAvailableTimes() {
         if (availableTimes == null) {
-            return null;
+            return null; // TODO maybe return an empty collection instead of null
         }
         return availableTimes.clone();
     }
@@ -436,7 +435,7 @@ public class KinoModel {
      */
     public Seat[][] getAvailableSeats() {
         if (availableSeats == null) {
-            return null;
+            return null; // TODO maybe return an empty collection instead of null
         }
         return availableSeats.clone(); // return a copy
     }
@@ -463,7 +462,7 @@ public class KinoModel {
      */
     public List<String> getLicensePlates() {
         if (licensePlates == null) {
-            return null;
+            return null; // TODO maybe return an empty collection instead of null
         }
         return new ArrayList<>(licensePlates); // return a copy
     }
