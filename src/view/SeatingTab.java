@@ -41,7 +41,7 @@ public class SeatingTab extends AbstractTab {
     private JPanel seatingPanel;
     private JPanel licensePlatePanel;
 
-    // Colors
+    // colors
     private final Color lightRed = new Color(255, 100, 100);
     private final Color lightGreen = new Color(144, 238, 144);
     private final Color heavyWhite = new Color(220, 220, 220);
@@ -64,6 +64,7 @@ public class SeatingTab extends AbstractTab {
     @Override
     protected void build() throws IllegalArgumentException { 
         System.out.println("DEBUG: tab: building seating tab..."); // DEBUG
+        
         reset(); // reset before building to avoid duplications
 
         // build the JPanels
@@ -202,6 +203,7 @@ public class SeatingTab extends AbstractTab {
     @Override
     protected void update() {
         System.out.println("DEBUG: tab: updating seating tab..."); // DEBUG
+        
         changeTextFields(model.getCarSeatCount()); // update amount of textfields
 
         // condition 1: at least one JCheckBox must be selected

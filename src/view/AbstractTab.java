@@ -70,7 +70,7 @@ public abstract class AbstractTab extends JPanel {
         proceedButton.setActionCommand(Vocabulary.PROCEED_BUTTON);
         proceedButton.addActionListener(ctrl); // add listener
 
-         // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed
+        // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed
         proceedButton.setEnabled(false);
 
         // build the JPanel
@@ -90,9 +90,10 @@ public abstract class AbstractTab extends JPanel {
      */
     protected final void reset() {
         System.out.println("DEBUG: " + "tab: resetting tab..."); // DEBUG
+        
         super.removeAll(); // removes all components from the tab
 
-         // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed
+        // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed
         proceedButton.setEnabled(false);
     }
 
@@ -101,7 +102,7 @@ public abstract class AbstractTab extends JPanel {
      * @param comp the component which should be put in the container
      * @return container JPanel for the component
      */
-    protected static final JPanel putInContainer(Component comp) {
+    protected static final JPanel putInContainer(Component comp) { // TODO maybe put this in KinoView
         JPanel container = new JPanel(); // new container
         container.add(comp); // add component to the container
         return container; // return the container which contains the component
@@ -112,7 +113,7 @@ public abstract class AbstractTab extends JPanel {
      * @param pan JPanel which contains the desired components
      * @return the array of components
      */
-    protected static final List<Component> getComponentsFrom(JPanel pan) {
+    protected static final List<Component> getComponentsFrom(JPanel pan) { // TODO maybe put this in KinoView
         List<Component> finalComponents = new ArrayList<>(); // create a list which will contain all components
         
         List<Component> components = Arrays.asList(pan.getComponents()); // get all components from JPanel

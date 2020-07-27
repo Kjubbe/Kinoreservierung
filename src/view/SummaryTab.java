@@ -44,6 +44,7 @@ public class SummaryTab extends AbstractTab {
     @Override
     protected void build() {
         System.out.println("DEBUG: " + "tab: building summary tab..."); // DEBUG
+        
         reset(); // reset before building to avoid duplications
 
         // build the JPanel

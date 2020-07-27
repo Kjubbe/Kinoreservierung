@@ -53,10 +53,8 @@ public class CateringTab extends AbstractTab {
         reset(); // reset before building to avoid duplications
 
         // build the JPanel
-
         // proceed JButton is enabled by default, because the user does not have to choose anything
         proceedButton.setEnabled(true);
-
         buildCateringPanel();
 
         // build the tab
@@ -76,7 +74,6 @@ public class CateringTab extends AbstractTab {
         cateringPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // build the JSpinners
-
         // go through every catering // catch corrupted caterings missing a name or price
         for (Catering c : KinoModel.getAllCaterings()) {
             if (c == null || c.name == null || c.price == null) {

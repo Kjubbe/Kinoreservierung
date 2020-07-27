@@ -5,14 +5,13 @@ import model.enums.Times;
 
 /**
  * contains data for a showtime and seating
- * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
 
 public class Showtime { // TODO maybe add not only weekdays but dates aswell? (overkill!)
     
-    // Data fields
+    // data fields
     private final Dates date;
     private final Times time;
     private boolean isSoldOut; // showtime is not sold out by default

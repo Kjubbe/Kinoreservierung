@@ -26,7 +26,7 @@ import view.KinoView;
 import view.SeatingTab;
 
 /**
- * Controller class, acts as an intermediary between view and model,
+ * controller class, acts as an intermediary between view and model,
  * defines what should happen on user interaction,
  * manages calculations
  * @author Kjell Treder
@@ -35,12 +35,12 @@ import view.SeatingTab;
 
 public class KinoController extends KeyAdapter implements ActionListener, ItemListener, ChangeListener {
 
-    // References to view and model
+    // references to view and model
     private KinoView view;
     private KinoModel model;
 
     /**
-     * Constructor, assigns references to view and model
+     * constructor, assigns references to view and model
      * @param view reference to the view object
      * @param model reference to the model object
      */
@@ -78,7 +78,6 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
             // the action commands of the JRadioButtons from the times tab contain their index
             // this way, the time at the same index can be set as the chosen time
             model.setTime(cmd); // advice the model to set the time to the index in the action command
-
             view.update();
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
             System.out.println("DEBUG: ctrl: identified as checkbox"); // DEBUG
@@ -101,6 +100,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     public void itemStateChanged(ItemEvent e) {
         System.out.println("\n" + "DEBUG: ctrl: click registered..."); // DEBUG
         System.out.println("DEBUG: ctrl: identified as combobox"); // DEBUG
+        
         Movie movie = (Movie) e.getItem(); // get the selected movie from the event
         System.out.println("DEBUG: ctrl: Movie chosen"); // DEBUG
         if (movie != null) { // check if an actual movie is selected
@@ -117,6 +117,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     public void keyReleased(KeyEvent e) {
         System.out.println("\n" + "DEBUG: ctrl: key type registered..."); // DEBUG
         System.out.println("DEBUG: ctrl: identified as textfield"); // DEBUG
+        
         licensePlateChanged(); // source is from JTextField > source from seat tab
     }
 
@@ -128,6 +129,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     public void stateChanged(ChangeEvent e) {
         System.out.println("\n" + "DEBUG: ctrl: click registered..."); // DEBUG
         System.out.println("DEBUG: ctrl: identified as spinner"); // DEBUG
+        
         cateringChanged(); // source is from JSpinner > source from catering tab
     }
 
@@ -143,7 +145,6 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         SeatingTab tab = (SeatingTab) view.tabs[KinoView.SEATING_TAB];
 
         List<JTextField> tfs = tab.getTextFields(); // get JTextFields from the tab
-        
         List<String> lps = new ArrayList<>(); // create a new list to store the license plate input
         for (JTextField tf : tfs) { // check every JTextField
             lps.add(tf.getText().replaceAll("\\s+", "")); // add the (cleaned up) text from the JTextField to the list
@@ -164,7 +165,6 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         CateringTab tab = (CateringTab) view.tabs[KinoView.CATERING_TAB];
 
         List<SpinnerModel> snms = tab.getSpinnerModels(); // get reference to all SpinnerModels from the view
-        
         List<Integer> cateringAmounts = new ArrayList<>(); // create a new list to store the amount for each catering
         for (SpinnerModel snm : snms) { // check every SpinnerModel
             cateringAmounts.add((Integer)snm.getValue()); // add the value from the SpinnerModel to the list
@@ -180,6 +180,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     private void orderPlaced() {
         System.out.println("DEBUG: " + "ctrl: placing order..."); // DEBUG
+        
         model.order(); // advice the model to order
         view.finish(); // advice the view to finish
         model.reset(KinoModel.RESET_MOVIES_AND_ABOVE); // adivice the model to reset everything

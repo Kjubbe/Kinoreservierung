@@ -44,6 +44,7 @@ public class MovieTab extends AbstractTab {
     @Override
     protected void build() {
         System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG
+        
         reset(); // reset before building to avoid duplications
 
         // build the JPanels
@@ -105,6 +106,7 @@ public class MovieTab extends AbstractTab {
     @Override
     protected void update() {
         System.out.println("DEBUG: " + "tab: updating movie tab..."); // DEBUG
+        
         if (dropdown.getSelectedItem() != null) { // check if a film is selected
             proceedButton.setEnabled(true);
             descriptionLabel.setText(model.getChosenMovie().getDescription());

@@ -16,7 +16,7 @@ import model.enums.Prices;
 import model.enums.Times;
 
 /**
- * Model class, manages calculations and contains saves the information from the user input
+ * model class, manages calculations and contains saves the information from the user input
  * creates all movies and caterings and places orders
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -24,7 +24,7 @@ import model.enums.Times;
 
 public class KinoModel {
 
-    // Constants
+    // constants
     private static final int MIN_LICENSE_PLATE_LENGTH = 5;
     private static final int MAX_LICENSE_PLATE_LEGNTH = 10;
 
@@ -33,11 +33,11 @@ public class KinoModel {
     private static final int RESET_TIMES_AND_ABOVE = 3;
     public static final int RESET_MOVIES_AND_ABOVE = 4;
 
-    // Data
+    // data
     private static final List<Movie> ALL_MOVIES = new ArrayList<>(); // contains all existing movies
     private static final List<Catering> ALL_CATERINGS = new ArrayList<>(); // contains all existing caterings
 
-    // Datafields, which change during runtime
+    // datafields, which change during runtime
     private Movie chosenMovie; // set based on user input in the movie tab
     private Showtime[] availableTimes; // set based on the chosen movie
 
@@ -51,7 +51,7 @@ public class KinoModel {
     private Map<Catering, Integer> chosenCatering; // set based on user input in the catering tab
 
     /**
-     * Constructor, creates movies and caterings
+     * constructor, creates movies and caterings
      */
     public KinoModel() { 
         createMovies(); // create movies
@@ -172,6 +172,7 @@ public class KinoModel {
      */
     public void setMovie(Movie m) {
         System.out.println("DEBUG: model: Movie set, Movie: " + m); // DEBUG
+        
         chosenMovie = m; // set chosen movie
         availableTimes = m.showtimes; // set available times to the times contained in the movie
         reset(RESET_TIMES_AND_ABOVE);
@@ -189,8 +190,7 @@ public class KinoModel {
         
         // get the time at the index from the action command
         // this time is equivalent to the time displayed on the JRadioButton at the index
-        chosenTime = availableTimes[index]; 
-        
+        chosenTime = availableTimes[index];
         availableSeats = chosenTime.seats; // set available seats to the seats contained in the showtime
         reset(RESET_SEATS_AND_ABOVE);
     }
@@ -260,6 +260,7 @@ public class KinoModel {
      */
     public void setLicensePlates(List<String> lps) {
         System.out.println("DEBUG: model: License plate set, License plates: " + lps); // DEBUG
+        
         licensePlates = new ArrayList<>(lps); // store a copy
     }
 
@@ -270,6 +271,7 @@ public class KinoModel {
      */
     public boolean checkInput(String text) {
         System.out.println("DEBUG: model: checking input..."); // DEBUG
+        
         text = text.replaceAll("\\s+", ""); // remove all whitespaces
 
         // input only suffices if the length of the text is greater than min and less than max
@@ -283,6 +285,7 @@ public class KinoModel {
      */
     public void reset(int depth) {
         System.out.println("DEBUG: model: resetting input..."); // DEBUG
+        
         if (depth >= RESET_MOVIES_AND_ABOVE) { // this depth reaches to the movie tab
             chosenMovie = null;
             availableTimes = null;
@@ -307,6 +310,7 @@ public class KinoModel {
      */
     public void quit() {
         System.out.println("\n" + "DEBUG: model: quitting..."); // DEBUG
+        
         reset(RESET_MOVIES_AND_ABOVE); // reset the model
         System.exit(0); // terminate the program
     }

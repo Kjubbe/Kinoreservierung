@@ -5,7 +5,6 @@ import model.enums.Prices;
 /**
  * special type of seat, inherites from the Seat class, this seat can define if
  * it is for suvs, contains a license plate
- * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */

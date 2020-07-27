@@ -125,6 +125,7 @@ public class KinoView {
      */
     public void proceed() {
         System.out.println("DEBUG: view: proceeded"); // DEBUG
+        
         int activeTab = tabbedPane.getSelectedIndex(); // get index of the selected tab
         switchTabTo(activeTab + 1); // switch tab to index + 1
     }
@@ -135,6 +136,7 @@ public class KinoView {
      */
     public void back() {
         System.out.println("DEBUG: view: gone back"); // DEBUG
+        
         int activeTab = tabbedPane.getSelectedIndex(); // get index of the selected tab
         tabbedPane.setSelectedIndex(activeTab - 1); // set the previous tab as the selected tab
     }
@@ -146,6 +148,7 @@ public class KinoView {
      */
     private void switchTabTo(int index) {
         System.out.println("DEBUG: view: switched tab to index " + index); // DEBUG
+        
         try { // try to build the tab
             tabs[index].build(); // call the build function of the tab
         } catch (IllegalArgumentException ex) { // building the tab failed, inform the user
@@ -180,6 +183,7 @@ public class KinoView {
      */
     public void update() {
         System.out.println("DEBUG: view: forcing update..."); // DEBUG
+        
         int activeTab = tabbedPane.getSelectedIndex(); // get index of selected tab
         tabs[activeTab].update(); // force this tab to update
 
@@ -220,6 +224,7 @@ public class KinoView {
      */
     private JDialog createDialog(String title, String[] content) {
         System.out.println("DEBUG: " + "view: creating dialog..."); // DEBUG
+        
         JDialog dialog = new JDialog(frame, title); // create JDialog
         
         JPanel mainPanel = new JPanel(); // create a new JPanel for all JLabels

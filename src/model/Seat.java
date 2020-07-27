@@ -4,7 +4,6 @@ import model.enums.Prices;
 
 /**
  * parent class for custom seats, contains basic data for a seat
- * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */

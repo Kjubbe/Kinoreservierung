@@ -45,6 +45,7 @@ public class TimesTab extends AbstractTab { // TODO maybe add a table or list to
     @Override
     protected void build() throws IllegalArgumentException {
         System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG
+        
         reset(); // reset before building to avoid duplications
 
         // build the JPanel
@@ -104,6 +105,7 @@ public class TimesTab extends AbstractTab { // TODO maybe add a table or list to
     @Override
     protected void update() {
         System.out.println("DEBUG: " + "tab: updating times tab..."); // DEBUG
+        
         for (Component comp : getComponentsFrom(timesPanel)) { // go through every component of the JPanel
             if (((JRadioButton)comp).isSelected()) { // check if JRadioButton is selected
                 proceedButton.setEnabled(true); // proceed JButton gets enabled when a selected JRadioButton is found
