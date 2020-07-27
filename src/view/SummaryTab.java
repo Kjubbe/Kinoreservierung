@@ -130,6 +130,7 @@ public class SummaryTab extends AbstractTab {
                 builder.append(i + "x " + c.name + " (" + price + Vocabulary.CURRENCY + "), ");
             }
         }
+        
         JLabel cateringLabel;
         if (builder.toString().isEmpty()) {
             cateringLabel = new JLabel(Vocabulary.CATERING_LABEL + ": " + Vocabulary.NONE_LABEL);

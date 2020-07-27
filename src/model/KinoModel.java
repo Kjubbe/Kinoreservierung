@@ -416,6 +416,9 @@ public class KinoModel {
      * @return array of showtimes
      */
     public Showtime[] getAvailableTimes() {
+        if (availableTimes == null) {
+            return null;
+        }
         return availableTimes.clone();
     }
 
@@ -432,6 +435,9 @@ public class KinoModel {
      * @return array of seats
      */
     public Seat[][] getAvailableSeats() {
+        if (availableSeats == null) {
+            return null;
+        }
         return availableSeats.clone(); // return a copy
     }
 
@@ -456,6 +462,9 @@ public class KinoModel {
      * @return list of license plates
      */
     public List<String> getLicensePlates() {
+        if (licensePlates == null) {
+            return null;
+        }
         return new ArrayList<>(licensePlates); // return a copy
     }
 
@@ -464,7 +473,7 @@ public class KinoModel {
      * @return map with caterings and amounts
      */
     public Map<Catering, Integer> getChosenCatering() {
-        return new TreeMap<>(chosenCatering); // return a copy
+        return chosenCatering; // TODO return a copy
     }
 
     /**

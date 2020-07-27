@@ -73,13 +73,13 @@ public class TimesTab extends AbstractTab { // TODO maybe add a table or list to
         ButtonGroup group = new ButtonGroup();
 
         for (int i = 0; i < times.length; i++) { // go through all times
-            Showtime time = times[i];
-            if (time == null) {
+            Showtime showtime = times[i];
+            if (showtime == null || showtime.getDateAndTime() == null) {
                 continue; // skip this corrupted showtime
             }
-            JRadioButton rb = new JRadioButton(time.getDateAndTime()); // new JRadioButton with time as text
+            JRadioButton rb = new JRadioButton(showtime.getDateAndTime()); // new JRadioButton with time as text
                 
-            if (time.isSoldOut()) { // check if showtime is sold out
+            if (showtime.isSoldOut()) { // check if showtime is sold out
                 rb.setEnabled(false); // disable the JRadioButton
                 rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);
             }

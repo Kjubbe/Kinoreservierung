@@ -18,6 +18,7 @@ public class KinoMain {
         //like ALL_CATERINGS from the catering class?
     // TODO all: frame packing and resizing?
     // TODO check Hash- and TreeMap and Array- and LinkedList
+    // TODO check JavaDoc and all other comments
 
     // minor issues:
     // 1. the map for the catering can be null if no catering is chosen, but this is (actually) not a problem

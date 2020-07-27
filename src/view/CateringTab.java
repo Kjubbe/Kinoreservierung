@@ -79,7 +79,7 @@ public class CateringTab extends AbstractTab {
 
         // go through every catering // catch corrupted caterings missing a name or price
         for (Catering c : KinoModel.getAllCaterings()) {
-            if (c.name == null || c.price == null) {
+            if (c == null || c.name == null || c.price == null) {
                 continue; // skip the corrupted catering
             }
             SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel

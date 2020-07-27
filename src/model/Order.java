@@ -67,6 +67,7 @@ public class Order {
         // catering
         builder.append("\n" + Vocabulary.CATERING_LABEL + ": ");
         if (caterings != null) {
+            boolean none = true; // TODO maybe change this
             for (Map.Entry<Catering, Integer> entry : caterings.entrySet()) { // go through every entry of the map
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();
@@ -77,6 +78,10 @@ public class Order {
                 
                 // add the catering name and price with their amount to the print
                 builder.append("\n" + i + "x " + c.name + " (" + price + Vocabulary.CURRENCY + ")");
+                none = false;
+            }
+            if (none) {
+                builder.append(Vocabulary.NONE_LABEL);
             }
         } else {
             builder.append(Vocabulary.NONE_LABEL);
