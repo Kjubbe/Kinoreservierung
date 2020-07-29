@@ -19,6 +19,7 @@ public class KinoMain {
     // TODO all: frame packing and resizing?
     // TODO check Hash- and TreeMap and Array- and LinkedList
     // TODO check JavaDoc and all other comments
+    // TODO maybe put JPanel for buttons inside an Interface?
 
     // minor issues:
     // 1. the map for the catering can be null if no catering is chosen, but this is (actually) not a problem
