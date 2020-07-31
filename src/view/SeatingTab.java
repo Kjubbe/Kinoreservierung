@@ -21,7 +21,7 @@ import model.BeachChairSeat;
 import model.CarSeat;
 import model.KinoModel;
 import model.Seat;
-import model.Vocabulary;
+import model.enums.Vocab;
 
 /**
  * the seating tab contains components for displaying information about the available seats,
@@ -90,22 +90,22 @@ public class SeatingTab extends AbstractTab {
         legendPanel = new JPanel();
         legendPanel.setLayout(new BoxLayout(legendPanel, BoxLayout.Y_AXIS));
 
-        JLabel vipLabel = new JLabel(Vocabulary.VIP_TOOLTIP + " (" + Vocabulary.VIP_HINT + ")");
+        JLabel vipLabel = new JLabel(Vocab.VIP_TOOLTIP + " (" + Vocab.VIP_HINT + ")");
         vipLabel.setOpaque(true);
         vipLabel.setBackground(Color.ORANGE);
         vipLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         
-        JLabel beachChairLabel = new JLabel(Vocabulary.BEACH_CHAIR_TOOLTIP + " (" + Vocabulary.BEACH_CHAIR_HINT + ")");
+        JLabel beachChairLabel = new JLabel(Vocab.BEACH_CHAIR_TOOLTIP + " (" + Vocab.BEACH_CHAIR_HINT + ")");
         beachChairLabel.setOpaque(true);
         beachChairLabel.setBackground(Color.YELLOW);
         beachChairLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
-        JLabel pkwLabel = new JLabel(Vocabulary.PKW_TOOLTIP + " (" + Vocabulary.PKW_HINT + ")");
+        JLabel pkwLabel = new JLabel(Vocab.PKW_TOOLTIP + " (" + Vocab.PKW_HINT + ")");
         pkwLabel.setOpaque(true);
         pkwLabel.setBackground(Color.LIGHT_GRAY);
         pkwLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
-        JLabel suvLabel = new JLabel(Vocabulary.SUV_TOOLTIP + " (" + Vocabulary.SUV_HINT + ")");
+        JLabel suvLabel = new JLabel(Vocab.SUV_TOOLTIP + " (" + Vocab.SUV_HINT + ")");
         suvLabel.setOpaque(true);
         suvLabel.setBackground(Color.GRAY);
         suvLabel.setForeground(heavyWhite);
@@ -122,7 +122,7 @@ public class SeatingTab extends AbstractTab {
      * build the screen panel containing a JLabel for displaying the screen
      */
     private void buildScreenPanel() {
-        JLabel screenLabel = new JLabel(Vocabulary.SCREEN_LABEL);
+        JLabel screenLabel = new JLabel(Vocab.SCREEN_LABEL.toString());
         screenLabel.setForeground(Color.WHITE);
         screenPanel = putInContainer(screenLabel); // new JPanel, contains label for the screen
         screenPanel.setBackground(Color.BLACK);
@@ -136,11 +136,11 @@ public class SeatingTab extends AbstractTab {
         Seat[][] seats = model.getAvailableSeats(); // get the available seats from the model
         int seatRowAmount = seats.length; // amount of rows of seats
         if (seatRowAmount == 0) { // no rows -> no seats
-            throw new IllegalArgumentException(Vocabulary.NO_SEATS_ERROR);
+            throw new IllegalArgumentException(Vocab.NO_SEATS_ERROR.toString());
         }
         int seatColumnAmount = seats[0].length; // amount of columns of seats
         if (seatColumnAmount == 0) { // no columns -> no seats
-            throw new IllegalArgumentException(Vocabulary.NO_SEATS_ERROR);
+            throw new IllegalArgumentException(Vocab.NO_SEATS_ERROR.toString());
         }
 
         // new JPanel, contains all JCheckBoxes
@@ -156,14 +156,14 @@ public class SeatingTab extends AbstractTab {
                 
                 // this action command contains the position of the JCheckBox
                 // this way, the controller knows from which position the action came from
-                cb.setActionCommand(row + Vocabulary.SPLITTER_STRING + column);
+                cb.setActionCommand(row + Vocab.SPLITTER_STRING.toString() + column);
 
                 // Coloring
                 Color color;
                 if (currentSeat.isReserved()) {
                     color = lightRed; // if seat is reserved the color is set to light red
                     cb.setEnabled(false); // disable the JCheckBox
-                    cb.setToolTipText(Vocabulary.RESERVED_TOOLTIP); // new tooltip
+                    cb.setToolTipText(Vocab.RESERVED_TOOLTIP.toString()); // new tooltip
                 } else if (currentSeat instanceof BeachChairSeat) {
                     color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
                 } else if (currentSeat instanceof CarSeat && ((CarSeat)currentSeat).isForSUV) {
@@ -253,7 +253,7 @@ public class SeatingTab extends AbstractTab {
             JPanel container = new JPanel(new FlowLayout()); // new container, contains JLabel and JTextField
 
             // add new JLabel with the text from the model
-            container.add(new JLabel(Vocabulary.getLicensePlateLabel()[1] + ":"));
+            container.add(new JLabel(Vocab.LICENSE_PLATE_LABEL.getStrings()[1] + ":"));
             container.add(tf); // add the JTextField
 
             licensePlatePanel.add(container); // add the container to the JPanel

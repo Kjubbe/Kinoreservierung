@@ -17,7 +17,7 @@ import javax.swing.SpinnerNumberModel;
 import controller.KinoController;
 import model.Catering;
 import model.KinoModel;
-import model.Vocabulary;
+import model.enums.Vocab;
 
 /**
  * the catering tab contains components for displaying information about the caterings,
@@ -88,7 +88,7 @@ public class CateringTab extends AbstractTab {
             // build the JPanel
             JPanel container = new JPanel(new FlowLayout());
             container.add(putInContainer(spinner));
-            container.add(new JLabel(c.name + " (" + c.price.getPrice() + Vocabulary.CURRENCY + ")"));
+            container.add(new JLabel(c.name + " (" + c.price.getPrice() + Vocab.CURRENCY + ")"));
                 
             cateringPanel.add(container);
         }

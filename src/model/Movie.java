@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 
 import model.enums.FSKs;
 import model.enums.Genres;
+import model.enums.Vocab;
 
 /**
  * contains all information for a movie,
@@ -58,13 +59,13 @@ public class Movie {
     public String getDescription() {
         StringBuilder builder = new StringBuilder();
         if (genre != null) {
-            builder.append(Vocabulary.GENRE_LABEL + ": " + genre);
+            builder.append(Vocab.GENRE_LABEL.toString() + ": " + genre.getGenre());
         }
         if (genre != null && fsk != null) {
             builder.append(", ");
         }
         if (fsk != null) {
-            builder.append(fsk.getFSK());
+            builder.append(fsk.getFsk());
         }
         return builder.toString();
     }

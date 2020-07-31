@@ -11,7 +11,7 @@ import javax.swing.JRadioButton;
 import controller.KinoController;
 import model.KinoModel;
 import model.Showtime;
-import model.Vocabulary;
+import model.enums.Vocab;
 
 /**
  * the times tab contains components for displaying information about the available times,
@@ -68,7 +68,7 @@ public class TimesTab extends AbstractTab { // TODO maybe add a table or list to
         
         Showtime[] times = model.getAvailableTimes(); // get the available showtimes from the model
         if (times == null) { // no times set
-            throw new IllegalArgumentException(Vocabulary.NO_TIMES_ERROR);
+            throw new IllegalArgumentException(Vocab.NO_TIMES_ERROR.toString());
         }
         // new ButtonGroup, because only one JRadioButton should be selected at a time
         ButtonGroup group = new ButtonGroup();
@@ -82,7 +82,7 @@ public class TimesTab extends AbstractTab { // TODO maybe add a table or list to
                 
             if (showtime.isSoldOut()) { // check if showtime is sold out
                 rb.setEnabled(false); // disable the JRadioButton
-                rb.setToolTipText(Vocabulary.SOLD_OUT_TOOLTIP);
+                rb.setToolTipText(Vocab.SOLD_OUT_TOOLTIP.toString());
             }
             rb.addActionListener(ctrl); // add listener
             rb.setAlignmentX(JComponent.CENTER_ALIGNMENT); // set alignment

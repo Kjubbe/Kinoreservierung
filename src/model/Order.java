@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import model.enums.Vocab;
+
 /**
  * contains all information of an order,
  * can display all information in a string
@@ -46,26 +48,26 @@ public class Order {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(Vocabulary.getOrderMsgs()[0] + " " + orderNumber + "\n"); // msg with order number
-        builder.append(Vocabulary.getOrderMsgs()[1] + "\n"); // second msg
-        builder.append("\n" + Vocabulary.MOVIE_LABEL + ": " + movie + "\n"); // movie
-        builder.append("\n" + Vocabulary.TIME_LABEL + ": " + time.getDateAndTime() + "\n"); // time
+        builder.append(Vocab.ORDER_MSGS.getStrings()[0] + " " + orderNumber + "\n"); // msg with order number
+        builder.append(Vocab.ORDER_MSGS.getStrings()[1] + "\n"); // second msg
+        builder.append("\n" + Vocab.MOVIE_LABEL + ": " + movie + "\n"); // movie
+        builder.append("\n" + Vocab.TIME_LABEL + ": " + time.getDateAndTime() + "\n"); // time
         
         // seats
-        builder.append("\n" + Vocabulary.SEATS_LABEL + ": " + "\n");
+        builder.append("\n" + Vocab.SEATS_LABEL + ": " + "\n");
         for (Seat s : seats) {
-            builder.append("- " + s.name + " (" + s.price.getPrice() + Vocabulary.CURRENCY + "), "); // seat
+            builder.append("- " + s.name + " (" + s.price.getPrice() + Vocab.CURRENCY + "), "); // seat
             if (s instanceof BeachChairSeat) {
                 // add ticket
-                builder.append(Vocabulary.TICKET_LABEL + ": " + ((BeachChairSeat)s).getTicket() + "\n");
+                builder.append(Vocab.TICKET_LABEL + ": " + ((BeachChairSeat)s).getTicket() + "\n");
             } else {
                 // add license plate
-                builder.append(Vocabulary.getLicensePlateLabel()[0] + ": \"" + ((CarSeat)s).licensePlateNr + "\"" + "\n");
+                builder.append(Vocab.LICENSE_PLATE_LABEL.getStrings()[0] + ": \"" + ((CarSeat)s).licensePlateNr + "\"" + "\n");
             }
         }
 
         // catering
-        builder.append("\n" + Vocabulary.CATERING_LABEL + ": ");
+        builder.append("\n" + Vocab.CATERING_LABEL + ": ");
         if (caterings != null) {
             boolean none = true; // TODO maybe change this
             for (Map.Entry<Catering, Integer> entry : caterings.entrySet()) { // go through every entry of the map
@@ -77,17 +79,17 @@ public class Order {
                 double price = Math.round(c.price.getPrice() * i * 100.0) / 100.0; // calculate and round the price
                 
                 // add the catering name and price with their amount to the print
-                builder.append("\n" + i + "x " + c.name + " (" + price + Vocabulary.CURRENCY + ")");
+                builder.append("\n" + i + "x " + c.name + " (" + price + Vocab.CURRENCY + ")");
                 none = false;
             }
             if (none) {
-                builder.append(Vocabulary.NONE_LABEL);
+                builder.append(Vocab.NONE_LABEL);
             }
         } else {
-            builder.append(Vocabulary.NONE_LABEL);
+            builder.append(Vocab.NONE_LABEL);
         }
 
-        builder.append("\n" + "\n" + Vocabulary.TOTAL_PRICE_LABEL + ": " + totalPrice + Vocabulary.CURRENCY); // price
+        builder.append("\n" + "\n" + Vocab.TOTAL_PRICE_LABEL + ": " + totalPrice + Vocab.CURRENCY); // price
         
         return builder.toString();
     }

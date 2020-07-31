@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import model.enums.Vocab;
 import model.enums.Prices;
 
 /**
@@ -16,7 +17,6 @@ import model.enums.Prices;
 public class BeachChairSeat extends Seat {
 
     // Data fields
-    private static final String BEACH_CHAIR_NAME = Vocabulary.BEACH_CHAIR_TOOLTIP;
     private static final List<Integer> tickets = new ArrayList<>(); // this list holds all tickets for every seat
     private String ticket; // holds the ticket "number" for this seat
 
@@ -30,7 +30,9 @@ public class BeachChairSeat extends Seat {
      */
     public BeachChairSeat(boolean isVip) {
         // price is determined by the isVip boolean
-        super(isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT, isVip, BEACH_CHAIR_NAME);
+        super(isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT,
+            isVip,
+            Vocab.BEACH_CHAIR_TOOLTIP.toString());
     }
 
     /**
@@ -38,7 +40,7 @@ public class BeachChairSeat extends Seat {
      * gets a random number between the local min value (included) and the local max value (excluded),
      * checks if the ticket number is unique before assigning it
      */
-    protected void assignTicket() {
+    protected void assignTicket() { // TODO Ticket generator class
         boolean isDuplicate;
         int ticketNr; // holds the ticket number
         do {

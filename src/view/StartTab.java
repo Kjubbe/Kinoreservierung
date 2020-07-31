@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import controller.KinoController;
 import model.KinoModel;
-import model.Vocabulary;
+import model.enums.Vocab;
 
 /**
  * the start tab contains components for displaying information about the starting screen,
@@ -43,7 +43,7 @@ public class StartTab extends AbstractTab {
 
         // build the JPanel
         backButton.setEnabled(false); // can not go back on the first JPanel
-        quitButton.setText(Vocabulary.EXIT_BUTTON); // this JButton has a different label
+        quitButton.setText(Vocab.EXIT_BUTTON.toString()); // this JButton has a different label
 
         // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
         proceedButton.setEnabled(true);
@@ -60,7 +60,7 @@ public class StartTab extends AbstractTab {
      * build the message panel containing the JLabel for the message
      */
     private void buildMessagePanel() {
-        messagePanel = putInContainer(new JLabel(Vocabulary.START_MSG)); // new JPanel, contains label
+        messagePanel = putInContainer(new JLabel(Vocab.START_MSG.toString())); // new JPanel, contains label
         messagePanel.setBorder(KinoView.NORMAL_Y_SPACING);
     }
 

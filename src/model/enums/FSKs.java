@@ -8,33 +8,29 @@ package model.enums;
  */
 
 public enum FSKs {
-	FSK_0,
-	FSK_6,
-	FSK_12,
-	FSK_16,
-	FSK_18,
-	FSK_UNRATED;
+	FSK_0("ab 0"),
+	FSK_6("ab 6"),
+	FSK_12("ab 12"),
+	FSK_16("ab 16"),
+	FSK_18("ab 18"),
+	FSK_UNRATED("/");
+
+	// data field, contains readable fsk as a String
+	private final String fsk;
 
 	/**
-	 * converts the enum to a string
-	 * @return FSK as a readable String
+     * constructor, assigns data field
+     * @param fsk String with the fsk
+     */
+	private FSKs(String fsk) {
+		this.fsk = fsk;
+	}
+
+	/**
+	 * get the String for the enum
+	 * @return a String with the fsk
 	 */
-	public String getFSK() {
-		switch (this) {
-			case FSK_0:
-				return "FSK: ab 0";
-			case FSK_6:
-				return "FSK: ab 6";
-			case FSK_12:
-				return "FSK: ab 12";
-			case FSK_16:
-				return "FSK: ab 16";
-			case FSK_18:
-				return "FSK: ab 18";
-			case FSK_UNRATED:
-				return "FSK: /";
-			default:
-				return "FSK: /";
-		}
+	public String getFsk() {
+		return "FSK: " + fsk;
 	}
 }

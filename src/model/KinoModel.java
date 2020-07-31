@@ -14,6 +14,7 @@ import model.enums.FSKs;
 import model.enums.Genres;
 import model.enums.Prices;
 import model.enums.Times;
+import model.enums.Vocab;
 
 /**
  * model class, manages calculations and contains saves the information from the user input
@@ -64,82 +65,82 @@ public class KinoModel {
      */
     private static void createMovies() {
         Movie[] f = new Movie[] { // create array with all movies
-            new Movie("The Fermentor", Genres.Action, FSKs.FSK_18, "images/the_fermentor.jpg", new Showtime[] {
-                new Showtime(Dates.Mo, Times.PM_8, 5, 7),
-                new Showtime(Dates.Di, Times.PM_10, 4, 7),
-                new Showtime(Dates.Do, Times.PM_9_30, 5, 8),
-                new Showtime(Dates.Fr, Times.PM_10, 4, 9),
-                new Showtime(Dates.Sa, Times.PM_7, 5, 6),
-                new Showtime(Dates.Sa, Times.PM_10, 4, 9),
-                new Showtime(Dates.So, Times.PM_3, 5, 7),
-                new Showtime(Dates.So, Times.PM_5, 5, 8)
+            new Movie("The Fermentor", Genres.ACTION, FSKs.FSK_18, "images/the_fermentor.jpg", new Showtime[] {
+                new Showtime(Dates.MONDAY, Times.PM_08_00, 5, 7),
+                new Showtime(Dates.TUESDAY, Times.PM_10_00, 4, 7),
+                new Showtime(Dates.THURSDAY, Times.PM_09_30, 5, 8),
+                new Showtime(Dates.FRIDAY, Times.PM_10_00, 4, 9),
+                new Showtime(Dates.SATURDAY, Times.PM_07_00, 5, 6),
+                new Showtime(Dates.SATURDAY, Times.PM_10_00, 4, 9),
+                new Showtime(Dates.SUNDAY, Times.PM_03_00, 5, 7),
+                new Showtime(Dates.SUNDAY, Times.PM_05_00, 5, 8)
             }),
-            new Movie("Suchet Nerno", Genres.Familie, FSKs.FSK_0, "images/suchet_nerno.jpg", new Showtime[] {
-                new Showtime(Dates.Mi, Times.PM_5, 4, 8),
-                new Showtime(Dates.Fr, Times.PM_4, 5, 7),
-                new Showtime(Dates.Fr, Times.PM_6_30, 4, 9),
-                new Showtime(Dates.Sa, Times.PM_3, 6, 8),
-                new Showtime(Dates.Sa, Times.PM_4_30, 5, 7),
-                new Showtime(Dates.So, Times.PM_3, 4, 9),
+            new Movie("Suchet Nerno", Genres.FAMILY, FSKs.FSK_0, "images/suchet_nerno.jpg", new Showtime[] {
+                new Showtime(Dates.WEDNESDAY, Times.PM_05_00, 4, 8),
+                new Showtime(Dates.FRIDAY, Times.PM_04_00, 5, 7),
+                new Showtime(Dates.FRIDAY, Times.PM_06_30, 4, 9),
+                new Showtime(Dates.SATURDAY, Times.PM_03_00, 6, 8),
+                new Showtime(Dates.SATURDAY, Times.PM_04_30, 5, 7),
+                new Showtime(Dates.SUNDAY, Times.PM_03_00, 4, 9),
             }),
-            new Movie("Abduction 2", Genres.Thriller, FSKs.FSK_12, "images/abduction_2.jpg", new Showtime[] {
-                new Showtime(Dates.Mi, Times.PM_7, 5, 7),
-                new Showtime(Dates.Fr, Times.PM_8_30, 6, 7),
-                new Showtime(Dates.Sa, Times.PM_5, 5, 8),
-                new Showtime(Dates.Sa, Times.PM_7_30, 4, 6),
-                new Showtime(Dates.So, Times.PM_7, 5, 8)
+            new Movie("Abduction 2", Genres.THRILLER, FSKs.FSK_12, "images/abduction_2.jpg", new Showtime[] {
+                new Showtime(Dates.WEDNESDAY, Times.PM_07_00, 5, 7),
+                new Showtime(Dates.FRIDAY, Times.PM_08_30, 6, 7),
+                new Showtime(Dates.SATURDAY, Times.PM_05_00, 5, 8),
+                new Showtime(Dates.SATURDAY, Times.PM_07_30, 4, 6),
+                new Showtime(Dates.SUNDAY, Times.PM_07_00, 5, 8)
             }),
-            new Movie("Wintertime", Genres.Familie, FSKs.FSK_6, "images/wintertime.jpg", new Showtime[] {
-                new Showtime(Dates.Mo, Times.PM_5, 4, 7),
-                new Showtime(Dates.Fr, Times.PM_6_30, 5, 8),
-                new Showtime(Dates.So, Times.PM_5, 6, 7),
-                new Showtime(Dates.So, Times.PM_7, 4, 6),
-                new Showtime(Dates.So, Times.PM_7_30, 5, 6)
+            new Movie("Wintertime", Genres.FAMILY, FSKs.FSK_6, "images/wintertime.jpg", new Showtime[] {
+                new Showtime(Dates.MONDAY, Times.PM_05_00, 4, 7),
+                new Showtime(Dates.FRIDAY, Times.PM_06_30, 5, 8),
+                new Showtime(Dates.SUNDAY, Times.PM_05_00, 6, 7),
+                new Showtime(Dates.SUNDAY, Times.PM_07_00, 4, 6),
+                new Showtime(Dates.SUNDAY, Times.PM_07_30, 5, 6)
             }),
-            new Movie("Dueness", Genres.Horror, FSKs.FSK_18, "images/dueness.jpg", new Showtime[] {
-                new Showtime(Dates.Mo, Times.PM_10, 5, 6),
-                new Showtime(Dates.Sa, Times.PM_9_30, 4, 9),
-                new Showtime(Dates.Sa, Times.PM_10, 5, 7)
+            new Movie("Dueness", Genres.HORROR, FSKs.FSK_18, "images/dueness.jpg", new Showtime[] {
+                new Showtime(Dates.MONDAY, Times.PM_10_00, 5, 6),
+                new Showtime(Dates.SATURDAY, Times.PM_09_30, 4, 9),
+                new Showtime(Dates.SATURDAY, Times.PM_10_00, 5, 7)
             }),
-            new Movie("Missing Throne", Genres.Western, FSKs.FSK_12, "images/missing_throne.jpg", new Showtime[] {
-                new Showtime(Dates.Mi, Times.PM_6_30, 4, 9),
-                new Showtime(Dates.Mi, Times.PM_8, 5, 7),
-                new Showtime(Dates.Do, Times.PM_5_30, 5, 9),
-                new Showtime(Dates.Do, Times.PM_7, 5, 8),
-                new Showtime(Dates.Sa, Times.PM_8, 4, 9)
+            new Movie("Missing Throne", Genres.WESTERN, FSKs.FSK_12, "images/missing_throne.jpg", new Showtime[] {
+                new Showtime(Dates.WEDNESDAY, Times.PM_06_30, 4, 9),
+                new Showtime(Dates.WEDNESDAY, Times.PM_08_00, 5, 7),
+                new Showtime(Dates.THURSDAY, Times.PM_05_30, 5, 9),
+                new Showtime(Dates.THURSDAY, Times.PM_07_00, 5, 8),
+                new Showtime(Dates.SATURDAY, Times.PM_08_00, 4, 9)
             }),
             null, // test movie
             new Movie("Corrupted Movie 1", null, FSKs.FSK_12, "images/yellow.jpg", new Showtime[] { // test movie
-                new Showtime(Dates.Mi, Times.PM_6_30, 15, 19),
-                new Showtime(Dates.Mi, Times.PM_8, 6, 7),
-                new Showtime(Dates.Do, Times.PM_5_30, 4, 9),
-                new Showtime(Dates.Do, Times.PM_7, 5, 8),
-                new Showtime(Dates.Sa, Times.PM_8, 5, 9)
+                new Showtime(Dates.WEDNESDAY, Times.PM_06_30, 15, 19),
+                new Showtime(Dates.WEDNESDAY, Times.PM_08_00, 6, 7),
+                new Showtime(Dates.THURSDAY, Times.PM_05_30, 4, 9),
+                new Showtime(Dates.THURSDAY, Times.PM_07_00, 5, 8),
+                new Showtime(Dates.SATURDAY, Times.PM_08_00, 5, 9)
             }),
-            new Movie("Corrupted Movie 2", Genres.Western, null, "images/does-not-exist-test.jpg", null // test movie
+            new Movie("Corrupted Movie 2", Genres.WESTERN, null, "images/does-not-exist-test.jpg", null // test movie
             ),
-            new Movie(null, Genres.Western, FSKs.FSK_12, "images/yellow.jpg", null // test movie
+            new Movie(null, Genres.WESTERN, FSKs.FSK_12, "images/yellow.jpg", null // test movie
             ),
-            new Movie("Corrupted Movie 4", Genres.Western, FSKs.FSK_12, null, new Showtime[] { // test movie
-                new Showtime(null, Times.PM_6_30, 4, 9),
-                new Showtime(Dates.Mi, null, 5, 7),
+            new Movie("Corrupted Movie 4", Genres.WESTERN, FSKs.FSK_12, null, new Showtime[] { // test movie
+                new Showtime(null, Times.PM_06_30, 4, 9),
+                new Showtime(Dates.WEDNESDAY, null, 5, 7),
                 null,
                 new Showtime(null, null, 5, 8),
-                new Showtime(Dates.Sa, Times.PM_8, 0, 9),
-                new Showtime(Dates.Sa, Times.PM_8, 0, 0),
+                new Showtime(Dates.SATURDAY, Times.PM_08_00, 0, 9),
+                new Showtime(Dates.SATURDAY, Times.PM_08_00, 0, 0),
                 new Showtime(null, null, 0, 0),
             }),
             new Movie("Corrupted Movie 5", null, null, "images/green.jpg", new Showtime[] { // test movie
-                new Showtime(Dates.Fr, Times.PM_6_30, 8, 9),
+                new Showtime(Dates.FRIDAY, Times.PM_06_30, 8, 9),
             }),
             null, // test movie
-            new Movie("The Operator", Genres.Action, FSKs.FSK_16, "images/the_operator.jpg", new Showtime[] {
-                new Showtime(Dates.Di, Times.PM_7_30, 5, 6),
-                new Showtime(Dates.Do, Times.PM_8_30, 5, 6),
-                new Showtime(Dates.Fr, Times.PM_5, 4, 6),
-                new Showtime(Dates.Sa, Times.PM_8_30, 5, 9),
-                new Showtime(Dates.Sa, Times.PM_10, 5, 6),
-                new Showtime(Dates.So, Times.PM_7_30, 5, 5)
+            new Movie("The Operator", Genres.ACTION, FSKs.FSK_16, "images/the_operator.jpg", new Showtime[] {
+                new Showtime(Dates.TUESDAY, Times.PM_07_30, 5, 6),
+                new Showtime(Dates.THURSDAY, Times.PM_08_30, 5, 6),
+                new Showtime(Dates.FRIDAY, Times.PM_05_00, 4, 6),
+                new Showtime(Dates.SATURDAY, Times.PM_08_30, 5, 9),
+                new Showtime(Dates.SATURDAY, Times.PM_10_00, 5, 6),
+                new Showtime(Dates.SUNDAY, Times.PM_07_30, 5, 5)
             }),
         };
         ALL_MOVIES.addAll(Arrays.asList(f)); // add array in the list
@@ -203,7 +204,7 @@ public class KinoModel {
      * @param remove determines if an seat should be removed, if not, one gets added
      */
     public void changeSeats(String cmd, boolean remove) {
-        String[] pos = cmd.split(Vocabulary.SPLITTER_STRING); // get the position from the action command
+        String[] pos = cmd.split(Vocab.SPLITTER_STRING.toString()); // get the position from the action command
         
         // get the seat at the position from the action command
         // this seat is equivalent to the seat displayed on the JCheckBox at the position
@@ -377,10 +378,10 @@ public class KinoModel {
         for (Seat s : chosenSeats) { // go through the chosen seats
             if (s instanceof BeachChairSeat) {
                 // get the ticket from the seat and add it to the string
-                builder.append(((BeachChairSeat)s).getTicket() + Vocabulary.SPLITTER_STRING);
+                builder.append(((BeachChairSeat)s).getTicket() + Vocab.SPLITTER_STRING.toString());
             }
         }
-        return builder.toString().split(Vocabulary.SPLITTER_STRING); // split the string
+        return builder.toString().split(Vocab.SPLITTER_STRING.toString()); // split the string
     }
 
     /**

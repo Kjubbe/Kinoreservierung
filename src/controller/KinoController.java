@@ -20,7 +20,7 @@ import javax.swing.event.ChangeListener;
 
 import model.KinoModel;
 import model.Movie;
-import model.Vocabulary;
+import model.enums.Vocab;
 import view.CateringTab;
 import view.KinoView;
 import view.SeatingTab;
@@ -60,13 +60,13 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         String cmd = e.getActionCommand(); // get the action command
         if (source instanceof JButton) { // source is either back-, quit-, proceed- or finish- JButton
             System.out.println("DEBUG: ctrl: identified as button"); // DEBUG
-            if (cmd.equals(Vocabulary.BACK_BUTTON)) {// back JButton
+            if (cmd.equals(Vocab.BACK_BUTTON.toString())) {// back JButton
                 view.back();
-            } else if (cmd.equals(Vocabulary.QUIT_BUTTON)) { // quit JButton
+            } else if (cmd.equals(Vocab.QUIT_BUTTON.toString())) { // quit JButton
                 model.quit();
-            } else if (cmd.equals(Vocabulary.PROCEED_BUTTON)) { // proceed JButton
+            } else if (cmd.equals(Vocab.PROCEED_BUTTON.toString())) { // proceed JButton
                 view.proceed();
-            } else if (cmd.equals(Vocabulary.FINISH_BUTTON)) { // finish JButton
+            } else if (cmd.equals(Vocab.FINISH_BUTTON.toString())) { // finish JButton
                 orderPlaced();
             } else {
                 throw new IllegalStateException("This JButton has no method assigned");

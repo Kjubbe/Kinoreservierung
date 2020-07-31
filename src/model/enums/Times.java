@@ -8,60 +8,38 @@ package model.enums;
  */
 
 public enum Times {
-    PM_3,
-    PM_3_30,
-    PM_4,
-    PM_4_30,
-    PM_5,
-    PM_5_30,
-    PM_6,
-    PM_6_30,
-    PM_7,
-    PM_7_30,
-    PM_8,
-    PM_8_30,
-    PM_9,
-    PM_9_30,
-    PM_10;
+    PM_03_00("15:00"),
+    PM_03_30("15:30"),
+    PM_04_00("16:00"),
+    PM_04_30("16:30"),
+    PM_05_00("17:00"),
+    PM_05_30("17:30"),
+    PM_06_00("18:00"),
+    PM_06_30("18:30"),
+    PM_07_00("19:00"),
+    PM_07_30("19:30"),
+    PM_08_00("20:00"),
+    PM_08_30("20:30"),
+    PM_09_00("21:00"),
+    PM_09_30("21:30"),
+    PM_10_00("22:00");
+
+    // data field, contains readable date as a String
+    private final String time;
 
     /**
-	 * converts the enum to a string
-	 * @return time as a readable String in "HH:MM Uhr" format
-	 */
+     * constructor, assigns data field
+     * @param time String with the time
+     */
+    private Times(String time) {
+        this.time = time;
+    }
+
+    /**
+     * get the String for the enum
+     * @return a String with the time
+     */
     public String getTime() {
-		switch (this) {
-            case PM_3:
-                return "15:00 Uhr";
-            case PM_3_30:
-                return "15:30 Uhr";
-            case PM_4:
-                return "16:00 Uhr";
-            case PM_4_30:
-                return "16:30 Uhr";
-            case PM_5:
-                return "17:00 Uhr";
-            case PM_5_30:
-                return "17:30 Uhr";
-            case PM_6:
-                return "18:00 Uhr";
-            case PM_6_30:
-                return "18:30 Uhr";
-            case PM_7:
-                return "19:00 Uhr";
-            case PM_7_30:
-                return "19:30 Uhr";
-            case PM_8:
-                return "20:00 Uhr";
-            case PM_8_30:
-                return "20:30 Uhr";
-            case PM_9:
-                return "21:00 Uhr";
-            case PM_9_30:
-                return "21:30 Uhr";
-            case PM_10:
-                return "22:00 Uhr";
-            default:
-                return "/ Uhr";
-        }
+        return time + " Uhr";
     }
 }

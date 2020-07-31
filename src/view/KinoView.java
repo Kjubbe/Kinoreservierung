@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.KinoController;
 import model.KinoModel;
-import model.Vocabulary;
+import model.enums.Vocab;
 
 /**
  * View class, manages and generates UI Components,
@@ -43,13 +43,13 @@ public class KinoView {
     protected static final EmptyBorder SMALL_Y_SPACING = new EmptyBorder(5, 0, 5, 0);
 
     // Create JFrame and JTabbedPane
-    private final JFrame frame = new JFrame(Vocabulary.FRAME_NAME);
+    private final JFrame frame = new JFrame(Vocab.FRAME_NAME.toString());
     private final JTabbedPane tabbedPane = new JTabbedPane(); // JTabbedPane manages tabs
 
     private final JPanel pricePanel = new JPanel(); // this JPanel contains the price
 
     // JTextField for displaying the price
-    private final JTextField priceDisplay = new JTextField(Vocabulary.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocabulary.CURRENCY);
+    private final JTextField priceDisplay = new JTextField(Vocab.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocab.CURRENCY);
     
     // Indexes for Tabs
     public static final int START_TAB = 0;
@@ -78,11 +78,11 @@ public class KinoView {
         
         // part 1: preparing tabs
         for (int i = 0; i < tabs.length; i++) { // go through the tabs            
-            String[] names = Vocabulary.getTabNames();
+            String[] names = Vocab.TAB_NAMES.getStrings();
             if (i < names.length) {
                 addTab(names[i], tabs[i]); // add the tab with the name
             } else {
-                addTab(Vocabulary.DEFAULT_TAB_NAME + i, tabs[i]); // add the tab with the default name
+                addTab(Vocab.DEFAULT_TAB_NAME.toString() + i, tabs[i]); // add the tab with the default name
             }
         }
 
@@ -155,7 +155,7 @@ public class KinoView {
             String errorMsg = ex.getMessage();
 
             // create a JDialog displaying the error
-            createDialog(Vocabulary.ERROR_DIALOG_NAME, new String[] {errorMsg});
+            createDialog(Vocab.ERROR_DIALOG_NAME.toString(), new String[] {errorMsg});
 
             return; // skip the following code
         }
@@ -188,7 +188,7 @@ public class KinoView {
         tabs[activeTab].update(); // force this tab to update
 
         // update the price
-        priceDisplay.setText(Vocabulary.TOTAL_PRICE_LABEL + ": " + model.getTotalPrice() + Vocabulary.CURRENCY);
+        priceDisplay.setText(Vocab.TOTAL_PRICE_LABEL + ": " + model.getTotalPrice() + Vocab.CURRENCY);
 
         disableFollowingTabs(activeTab); // disable all following tabs
         frame.pack();
@@ -201,16 +201,16 @@ public class KinoView {
     public void finish() {
         System.out.println("DEBUG: view: finishing..."); // DEBUG
         StringBuilder builder = new StringBuilder();
-        for (String s : Vocabulary.getFinishMsgs()) {
-            builder.append(s + Vocabulary.SPLITTER_STRING);
+        for (String s : Vocab.FINISH_MSGS.getStrings()) {
+            builder.append(s + Vocab.SPLITTER_STRING);
         }
         for (String s : model.getTicketStrings()) {
             if (!s.isBlank()) {
-                builder.append(Vocabulary.TICKET_LABEL + ": " + s + Vocabulary.SPLITTER_STRING);
+                builder.append(Vocab.TICKET_LABEL + ": " + s + Vocab.SPLITTER_STRING);
             }
         }
         // create a new JDialog with array of strings
-        createDialog(Vocabulary.FINISH_DIALOG_NAME, builder.toString().split(Vocabulary.SPLITTER_STRING));
+        createDialog(Vocab.FINISH_DIALOG_NAME.toString(), builder.toString().split(Vocab.SPLITTER_STRING.toString()));
 
         resetTabs(); // reset all tabs
         switchTabTo(0); // switch back to the first tab

@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 import controller.KinoController;
 import model.KinoModel;
-import model.Vocabulary;
+import model.enums.Vocab;
 
 /**
  * parent class for custom tabs, contains basic data for a tab,
@@ -50,24 +50,24 @@ public abstract class AbstractTab extends JPanel {
         this.ctrl = ctrl;
 
         // add instructions from the model
-        String[] texts = Vocabulary.getInstructionTexts();
+        String[] texts = Vocab.INSTRUCTION_TEXTS.getStrings();
         if (index < texts.length) {
             instructionPanel.add(new JLabel(texts[index]));
         }
 
         // back JButton
-        backButton = new JButton(Vocabulary.BACK_BUTTON); // set the label to the String from the model
-        backButton.setActionCommand(Vocabulary.BACK_BUTTON);
+        backButton = new JButton(Vocab.BACK_BUTTON.toString()); // set the label to the String from the model
+        backButton.setActionCommand(Vocab.BACK_BUTTON.toString());
         backButton.addActionListener(ctrl); // add listener
         
         // quit JButton
-        quitButton = new JButton(Vocabulary.QUIT_BUTTON); // set the label to the String from the model
-        quitButton.setActionCommand(Vocabulary.QUIT_BUTTON);
+        quitButton = new JButton(Vocab.QUIT_BUTTON.toString()); // set the label to the String from the model
+        quitButton.setActionCommand(Vocab.QUIT_BUTTON.toString());
         quitButton.addActionListener(ctrl); // add listener
         
         // proceed JButton
-        proceedButton = new JButton(Vocabulary.PROCEED_BUTTON); // set the label to the String from the model
-        proceedButton.setActionCommand(Vocabulary.PROCEED_BUTTON);
+        proceedButton = new JButton(Vocab.PROCEED_BUTTON.toString()); // set the label to the String from the model
+        proceedButton.setActionCommand(Vocab.PROCEED_BUTTON.toString());
         proceedButton.addActionListener(ctrl); // add listener
 
         // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed

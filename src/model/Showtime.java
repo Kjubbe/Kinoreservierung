@@ -70,7 +70,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
         if (date == null || time == null) {
             return null;
         }
-        return date.toString() + ", " + time.getTime();
+        return date.getDate() + ", " + time.getTime();
     }
 
     /**

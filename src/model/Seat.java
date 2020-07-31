@@ -1,6 +1,7 @@
 package model;
 
 import model.enums.Prices;
+import model.enums.Vocab;
 
 /**
  * parent class for custom seats, contains basic data for a seat
@@ -8,7 +9,7 @@ import model.enums.Prices;
  * @author Marcel Sauer
  */
 
-public class Seat {
+public class Seat { // TODO abstract reserve method?
     
     // Data fields
     protected boolean isReserved;
@@ -27,7 +28,7 @@ public class Seat {
         this.isVip = isVip;
         if (isVip) {
             // update name to give more information when seat is vip
-            this.name = "[" + Vocabulary.VIP_TOOLTIP + "] " + name;
+            this.name = "[" + Vocab.VIP_TOOLTIP + "] " + name;
         } else {
             this.name = name;
         }
