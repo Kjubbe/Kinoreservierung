@@ -16,7 +16,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     private final Times time;
     private boolean isSoldOut; // showtime is not sold out by default
 
-    protected final Seat[][] seats; // contains all available seats for this showtime
+    protected final AbstractSeat[][] seats; // contains all available seats for this showtime
     
     /**
      * constructor, assigns data fields,
@@ -29,7 +29,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     public Showtime(Dates date, Times time, int seatRowAmount, int seatColumnAmount) {
         this.date = date;
         this.time = time;
-        seats = new Seat[seatRowAmount][seatColumnAmount]; // create seat array with row- and column count
+        seats = new AbstractSeat[seatRowAmount][seatColumnAmount]; // create seat array with row- and column count
         createSeats(seatRowAmount, seatColumnAmount);
     }
 
@@ -43,7 +43,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
             for (int column = 0; column < columnAmount; column++) { // checks every column of every row
                 boolean vip = row == 0; // first row is vip
                 boolean suv = row == rowAmount - 1; // last row is for suv
-                Seat seat; // this variable will hold the seat
+                AbstractSeat seat; // this variable will hold the seat
 
                 // beach chair seats and car seats make up a checkerboard like pattern
                 // beach chair seats get placed on on
@@ -79,11 +79,11 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
      */
     protected void updateAvailability() {
         System.out.println("DEBUG: " + "Showtime: updating availibility..."); // DEBUG
-        if (!isSoldOut) { // only check is the show is not sold out already
+        if (isSoldOut) { // only check is the show is not sold out already
             return;
         }
-        for (Seat[] column : seats) {
-            for (Seat s : column) { // check every seat
+        for (AbstractSeat[] column : seats) {
+            for (AbstractSeat s : column) { // check every seat
                 if (!s.isReserved) {
                     return; // unreserved seat found > return, because show is not sold out
                 }

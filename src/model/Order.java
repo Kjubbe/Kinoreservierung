@@ -20,10 +20,11 @@ public class Order {
 
     private final Movie movie;
     private final Showtime time;
-    private final List<Seat> seats;
+    private final List<AbstractSeat> seats;
     private final Map<Catering, Integer> caterings;
     private final double totalPrice;
-    private final int orderNumber; // TODO maybe change this
+
+    protected final int orderNumber;
 
     /**
      * constructor, assigns data fields // TODO store clones
@@ -32,13 +33,15 @@ public class Order {
      * @param seats the chosen seats for the time
      * @param caterings chosen caterings
      */
-    public Order(Movie movie, Showtime time, List<Seat> seats, Map<Catering, Integer> caterings, double totalPrice) {
+    public Order(Movie movie, Showtime time, List<AbstractSeat> seats, Map<Catering, Integer> caterings, double totalPrice) {
         this.movie = movie;
         this.time = time;
         this.seats = seats;
         this.caterings = caterings;
         this.totalPrice = totalPrice;
-        this.orderNumber = ALL_ORDERS.size(); // TODO maybe change this
+        this.orderNumber = NumberManager.createOrderNumber();
+
+        ALL_ORDERS.add(this); // create and add a new order with all information
     }
 
     /**
@@ -48,14 +51,14 @@ public class Order {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(Vocab.ORDER_MSGS.getStrings()[0] + " " + orderNumber + "\n"); // msg with order number
+        builder.append(Vocab.ORDER_MSGS.getStrings()[0] + " " + orderNumber + "\n"); // first msg
         builder.append(Vocab.ORDER_MSGS.getStrings()[1] + "\n"); // second msg
         builder.append("\n" + Vocab.MOVIE_LABEL + ": " + movie + "\n"); // movie
         builder.append("\n" + Vocab.TIME_LABEL + ": " + time.getDateAndTime() + "\n"); // time
         
         // seats
         builder.append("\n" + Vocab.SEATS_LABEL + ": " + "\n");
-        for (Seat s : seats) {
+        for (AbstractSeat s : seats) {
             builder.append("- " + s.name + " (" + s.price.getPrice() + Vocab.CURRENCY + "), "); // seat
             if (s instanceof BeachChairSeat) {
                 // add ticket
@@ -92,13 +95,5 @@ public class Order {
         builder.append("\n" + "\n" + Vocab.TOTAL_PRICE_LABEL + ": " + totalPrice + Vocab.CURRENCY); // price
         
         return builder.toString();
-    }
-
-    /**
-     * get the order number for this order
-     * @return order number of this order
-     */
-    public int getOrderNumber() {
-        return orderNumber;
     }
 }

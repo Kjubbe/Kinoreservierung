@@ -123,7 +123,7 @@ public enum Vocab {
 
     /**
      * get the array of strings for this enum
-     * @return the strings in an array
+     * @return the strings in a cloned array
      */
     public String[] getStrings() {
         return strings.clone();

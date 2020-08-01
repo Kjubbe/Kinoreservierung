@@ -9,7 +9,7 @@ import model.enums.Vocab;
  * @author Marcel Sauer
  */
 
-public class Seat { // TODO abstract reserve method?
+public abstract class AbstractSeat {
     
     // Data fields
     protected boolean isReserved;
@@ -23,7 +23,7 @@ public class Seat { // TODO abstract reserve method?
      * @param isVip if the seat is a vip seat
      * @param name name shows when hovering over a seat
      */
-    public Seat(Prices price, boolean isVip, String name) {
+    public AbstractSeat(Prices price, boolean isVip, String name) {
         this.price = price;
         this.isVip = isVip;
         if (isVip) {
@@ -38,7 +38,13 @@ public class Seat { // TODO abstract reserve method?
      * get if the seat is reserved
      * @return if this seat is reserved
      */
-    public boolean isReserved() {
+    public final boolean isReserved() {
         return isReserved;
     }
+
+    /**
+     * abstract method reserve is invoked from model when placing the order,
+     * this method should set all important data fields
+     */
+    protected abstract void reserve();
 }

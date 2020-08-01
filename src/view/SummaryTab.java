@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import controller.KinoController;
 import model.Catering;
 import model.KinoModel;
-import model.Seat;
+import model.AbstractSeat;
 import model.enums.Vocab;
 
 /**
@@ -87,7 +87,7 @@ public class SummaryTab extends AbstractTab {
 
         // part 3: the seats
         builder = new StringBuilder();
-        for (Seat s : model.getChosenSeats()) { // go through every seat
+        for (AbstractSeat s : model.getChosenSeats()) { // go through every seat
             builder.append("1x " + s.name + " (" + s.price.getPrice() + Vocab.CURRENCY + "), ");
         }
         length = builder.length();

@@ -10,11 +10,11 @@ import model.enums.Vocab;
  * @author Marcel Sauer
  */
 
-public class CarSeat extends Seat {
+public class CarSeat extends AbstractSeat {
 
     // Data fields
     public final boolean isForSUV; // determines if the seat is meant for suvs
-    protected String licensePlateNr; // holds license plate number
+    protected String licensePlateNr; // holds license plate number // TODO change visibility to protected and provide accessors
 
     /**
      * constructor, calls super constructor and sets suv data field
@@ -28,5 +28,11 @@ public class CarSeat extends Seat {
             isVip,
             isForSUV ? Vocab.SUV_TOOLTIP.toString() : Vocab.PKW_TOOLTIP.toString());
         this.isForSUV = isForSUV;
+    }
+
+    @Override
+    protected void reserve() {
+        isReserved = true;
+        // TODO assign license plate
     }
 }

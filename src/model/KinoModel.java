@@ -1,8 +1,5 @@
 package model;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,9 +40,9 @@ public class KinoModel {
     private Showtime[] availableTimes; // set based on the chosen movie
 
     private Showtime chosenTime; // set based on user input in the times tab
-    private Seat[][] availableSeats; // set based on the chosen time
+    private AbstractSeat[][] availableSeats; // set based on the chosen time
 
-    private List<Seat> chosenSeats; // set based on user input in the seat tab
+    private List<AbstractSeat> chosenSeats; // set based on user input in the seat tab
     private int carSeatCount; // contains number of CarSeats in chosenSeats
     private List<String> licensePlates; // contains inputted license plates for CarSeats
 
@@ -166,6 +163,22 @@ public class KinoModel {
     }
 
     /**
+     * add an movie to the list
+     * @param movie the movie which should be added
+     */
+    protected static void addMovie(Movie movie) {
+        ALL_MOVIES.add(movie);
+    }
+
+    /**
+     * add an catering to the list
+     * @param catering the catering which should be added
+     */
+    protected static void addCatering(Catering catering) {
+        ALL_CATERINGS.add(catering);
+    }
+
+    /**
      * invoked from controller when movie got chosen
      * assigns the chosen movie
      * assigns available showtimes from this movie
@@ -208,7 +221,7 @@ public class KinoModel {
         
         // get the seat at the position from the action command
         // this seat is equivalent to the seat displayed on the JCheckBox at the position
-        Seat s = availableSeats[Integer.parseInt(pos[0])][Integer.parseInt(pos[1])]; 
+        AbstractSeat s = availableSeats[Integer.parseInt(pos[0])][Integer.parseInt(pos[1])]; 
         
         if (remove) {
             System.out.println("DEBUG: model: Seat removed " + s); // DEBUG
@@ -324,7 +337,7 @@ public class KinoModel {
      */
     public void order() {
         int index = 0; // local index counter
-        for (Seat s : chosenSeats) { // check every seat
+        for (AbstractSeat s : chosenSeats) { // check every seat
             System.out.println("DEBUG: model: reserved seat " + s); // DEBUG
             s.isReserved = true; // reserve the seat
             if (s instanceof BeachChairSeat) {
@@ -338,35 +351,21 @@ public class KinoModel {
             chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
         }
         Order order = new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, getTotalPrice());
-        Order.ALL_ORDERS.add(order); // create and add a new order with all information
-        toFile(order); // TODO write the order to a file
+        
+        String name = "order";
+        while (!FileManager.newFile("orders", name + order.orderNumber, order.toString())) {
+            name += "_";
+        }
+
         System.out.println("\n" + "DEBUG: model: All orders are: \n" + Order.ALL_ORDERS + "\n"); // DEBUGs
     }
 
     /**
-     * write the order to a file
-     * @param order the order which should be written to the file
+     * remove and return a license plate from the list
+     * @return the license plate at the first position
      */
-    public static void toFile(Order order) {
-        String path = "orders/order" + order.getOrderNumber() + ".txt"; // string with path
-        int fixer = 1; // TODO maybe change this
-        try {
-            File file = new File(path); // create a File Object with the desired path
-            while (!file.createNewFile()) { // create a new file, if this failes, change the path and try again
-                path = "orders/order" + (order.getOrderNumber() + fixer) + ".txt"; // fix the path and try again
-                file = new File(path);
-                fixer++;
-            }
-        } catch (IOException ex) { // error catched
-            ex.printStackTrace();
-            return; // skip following code
-        }
-        try (FileWriter writer = new FileWriter(path) // try-with-resources guarantees the writer is closed
-            ) {
-            writer.write(order.toString()); // try writing to the file
-        } catch (IOException ex) { // error catched
-            ex.printStackTrace();
-        }
+    protected String giveLicensePlate() { // TODO change this
+        return licensePlates.remove(0);
     }
     
     /**
@@ -375,7 +374,7 @@ public class KinoModel {
      */
     public String[] getTicketStrings() {
         StringBuilder builder = new StringBuilder();
-        for (Seat s : chosenSeats) { // go through the chosen seats
+        for (AbstractSeat s : chosenSeats) { // go through the chosen seats
             if (s instanceof BeachChairSeat) {
                 // get the ticket from the seat and add it to the string
                 builder.append(((BeachChairSeat)s).getTicket() + Vocab.SPLITTER_STRING.toString());
@@ -393,7 +392,7 @@ public class KinoModel {
         System.out.println("DEBUG: " + "model: calculating price..."); // DEBUG
         double price = 0.0; // local variable, holds the price
         if (!chosenSeats.isEmpty()) { // check, if there are chosen seats
-            for (Seat s : chosenSeats) { // check every seat
+            for (AbstractSeat s : chosenSeats) { // check every seat
                 price += s.price.getPrice(); // add price of the seat to the total amount
             }
         }
@@ -438,7 +437,7 @@ public class KinoModel {
      * get the available seats
      * @return array of seats
      */
-    public Seat[][] getAvailableSeats() {
+    public AbstractSeat[][] getAvailableSeats() {
         if (availableSeats == null) {
             return null; // TODO maybe return an empty collection instead of null
         }
@@ -449,7 +448,7 @@ public class KinoModel {
      * get the chosen seats
      * @return list of seats
      */
-    public List<Seat> getChosenSeats() {
+    public List<AbstractSeat> getChosenSeats() {
         return new ArrayList<>(chosenSeats); // return a copy
     }
 

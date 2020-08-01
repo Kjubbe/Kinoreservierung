@@ -20,7 +20,7 @@ import controller.KinoController;
 import model.BeachChairSeat;
 import model.CarSeat;
 import model.KinoModel;
-import model.Seat;
+import model.AbstractSeat;
 import model.enums.Vocab;
 
 /**
@@ -133,7 +133,7 @@ public class SeatingTab extends AbstractTab {
      * @throws IllegalArgumentException when the amount of rows or columns of seats is 0
      */
     private void buildSeatingPanel() throws IllegalArgumentException {
-        Seat[][] seats = model.getAvailableSeats(); // get the available seats from the model
+        AbstractSeat[][] seats = model.getAvailableSeats(); // get the available seats from the model
         int seatRowAmount = seats.length; // amount of rows of seats
         if (seatRowAmount == 0) { // no rows -> no seats
             throw new IllegalArgumentException(Vocab.NO_SEATS_ERROR.toString());
@@ -149,7 +149,7 @@ public class SeatingTab extends AbstractTab {
 
         for (int row = 0; row < seatRowAmount; row++) { // every row
             for (int column = 0; column < seatColumnAmount; column++) { // checks every column of every row
-                Seat currentSeat = seats[row][column]; // get the seat at the current position
+                AbstractSeat currentSeat = seats[row][column]; // get the seat at the current position
                 JCheckBox cb = new JCheckBox(); // create a new JCheckBox
                 cb.addActionListener(ctrl); // add listener
                 cb.setToolTipText(currentSeat.name); // add tooltip from the current seat
