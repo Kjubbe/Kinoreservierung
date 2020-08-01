@@ -150,6 +150,7 @@ public class KinoView {
         System.out.println("DEBUG: view: switched tab to index " + index); // DEBUG
         
         try { // try to build the tab
+            tabs[index].reset(); // reset the tab
             tabs[index].build(); // call the build function of the tab
         } catch (IllegalArgumentException ex) { // building the tab failed, inform the user
             String errorMsg = ex.getMessage();
@@ -201,12 +202,12 @@ public class KinoView {
     public void finish() {
         System.out.println("DEBUG: view: finishing..."); // DEBUG
         StringBuilder builder = new StringBuilder();
-        for (String s : Vocab.FINISH_MSGS.getStrings()) {
-            builder.append(s + Vocab.SPLITTER_STRING);
+        for (String msg : Vocab.FINISH_MSGS.getStrings()) {
+            builder.append(msg + Vocab.SPLITTER_STRING);
         }
-        for (String s : model.getTicketStrings()) {
-            if (!s.isBlank()) {
-                builder.append(Vocab.TICKET_LABEL + ": " + s + Vocab.SPLITTER_STRING);
+        for (String ticket : model.getTicketStrings()) {
+            if (ticket != null && !ticket.isBlank()) {
+                builder.append(Vocab.TICKET_LABEL + ": " + ticket + Vocab.SPLITTER_STRING);
             }
         }
         // create a new JDialog with array of strings
@@ -232,11 +233,11 @@ public class KinoView {
         mainPanel.setBorder(DEFAULT_BORDER);
         
         // build the JPanel
-        for (String s : content) {
-            JLabel label = new JLabel(s);
-            label.setBorder(SMALL_Y_SPACING);
-            label.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-            mainPanel.add(label); // add the JPanel with the JLabel
+        for (String msg : content) {
+            JLabel msgLabel = new JLabel(msg);
+            msgLabel.setBorder(SMALL_Y_SPACING);
+            msgLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+            mainPanel.add(msgLabel); // add the JPanel with the JLabel
         }
 
         // build the JDialog
@@ -252,8 +253,8 @@ public class KinoView {
      * resets all tabs
      */
     private void resetTabs() {
-        for (AbstractTab t : tabs) { // go through all tabs
-            t.reset(); // reset all tabs
+        for (AbstractTab tab : tabs) { // go through all tabs
+            tab.reset(); // reset all tabs
         }
     }
 }

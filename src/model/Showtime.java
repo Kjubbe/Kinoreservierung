@@ -1,6 +1,6 @@
 package model;
 
-import model.enums.Dates;
+import model.enums.Days;
 import model.enums.Times;
 
 /**
@@ -12,7 +12,7 @@ import model.enums.Times;
 public class Showtime { // TODO maybe add not only weekdays but dates aswell? (overkill!)
     
     // data fields
-    private final Dates date;
+    private final Days date;
     private final Times time;
     private boolean isSoldOut; // showtime is not sold out by default
 
@@ -26,10 +26,10 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
      * @param seatRowAmount amount of rows of seats for the showtime
      * @param seatColumnAmount amount of columns of seats for the showtime
      */
-    public Showtime(Dates date, Times time, int seatRowAmount, int seatColumnAmount) {
+    public Showtime(Days date, Times time, int seatRowAmount, int seatColumnAmount) {
         this.date = date;
         this.time = time;
-        seats = new AbstractSeat[seatRowAmount][seatColumnAmount]; // create seat array with row- and column count
+        this.seats = new AbstractSeat[seatRowAmount][seatColumnAmount]; // create seat array with row- and column count
         createSeats(seatRowAmount, seatColumnAmount);
     }
 
@@ -70,7 +70,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
         if (date == null || time == null) {
             return null;
         }
-        return date.getDate() + ", " + time.getTime();
+        return date.getDay() + ", " + time.getTime();
     }
 
     /**
@@ -100,5 +100,4 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     public boolean isSoldOut() {
         return isSoldOut;
     }
-
 }

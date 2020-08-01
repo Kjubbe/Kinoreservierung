@@ -16,6 +16,7 @@ import javax.swing.SpinnerNumberModel;
 
 import controller.KinoController;
 import model.Catering;
+import model.Database;
 import model.KinoModel;
 import model.enums.Vocab;
 
@@ -50,7 +51,6 @@ public class CateringTab extends AbstractTab {
     @Override
     protected void build() {
         System.out.println("DEBUG: " + "tab: building catering tab..."); // DEBUG
-        reset(); // reset before building to avoid duplications
 
         // build the JPanel
         // proceed JButton is enabled by default, because the user does not have to choose anything
@@ -75,7 +75,7 @@ public class CateringTab extends AbstractTab {
 
         // build the JSpinners
         // go through every catering // catch corrupted caterings missing a name or price
-        for (Catering c : KinoModel.getAllCaterings()) {
+        for (Catering c : Database.getAllCaterings()) {
             if (c == null || c.name == null || c.price == null) {
                 continue; // skip the corrupted catering
             }

@@ -1,9 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import model.enums.Vocab;
 import model.enums.Prices;
 
@@ -46,7 +42,9 @@ public class BeachChairSeat extends AbstractSeat {
      * checks if the ticket number is unique before assigning it
      */
     protected void assignTicket() {
-        String ticketString = String.valueOf(NumberManager.createTicketNumber()); // get the number as a string
+        // generate and assign the number as a string
+        String ticketString = String.valueOf(NumberManager.createTicketNumber());
+
         int length = ticketString.length(); // get the length of the string
 
         // assign the ticketString with a dash in the middle
@@ -55,7 +53,6 @@ public class BeachChairSeat extends AbstractSeat {
         ticket = part1 + "-" + part2; 
 
         System.out.println("DEBUG: Seat: ticket assigned: " + ticket); // DEBUG
-        
     }
 
     /**

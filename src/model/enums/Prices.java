@@ -8,6 +8,7 @@ package model.enums;
  */
 
 public enum Prices {
+    
     NORMAL_CAR_SEAT(13.99),
     VIP_CAR_SEAT(16.49),
     NORMAL_BEACH_CHAIR_SEAT(9.99),
@@ -26,7 +27,7 @@ public enum Prices {
      * constructor, assigns data field
      * @param price double with the price
      */
-    private Prices(double price) {
+    Prices(double price) {
         this.price = price;
     }
 

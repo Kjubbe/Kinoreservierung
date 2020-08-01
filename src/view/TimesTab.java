@@ -46,8 +46,6 @@ public class TimesTab extends AbstractTab { // TODO maybe add a table or list to
     protected void build() throws IllegalArgumentException {
         System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG
         
-        reset(); // reset before building to avoid duplications
-
         // build the JPanel
         buildTimesPanel();
 

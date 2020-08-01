@@ -7,7 +7,8 @@ package model.enums;
  * @author Marcel Sauer
  */
 
-public enum Dates {
+public enum Days {
+    
     MONDAY("Mo"),
     TUESDAY("Di"),
     WEDNESDAY("Mi"),
@@ -16,22 +17,22 @@ public enum Dates {
     SATURDAY("Sa"),
     SUNDAY("So");
 
-    // data field, contains readable date as a String
-    private final String date;
+    // data field, contains readable day as a String
+    private final String day;
 
     /**
      * constructor, assigns data field
-     * @param date String with the date
+     * @param day String with the day
      */
-    private Dates(String date) {
-        this.date = date;
+    Days(String day) {
+        this.day = day;
     }
 
     /**
      * get the String for the enum
-     * @return a String with the date
+     * @return a String with the day
      */
-    public String getDate() {
-        return date;
+    public String getDay() {
+        return day;
     }
 }

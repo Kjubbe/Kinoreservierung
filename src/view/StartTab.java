@@ -39,8 +39,6 @@ public class StartTab extends AbstractTab {
     protected void build() {
         System.out.println("DEBUG: " + "tab: building start tab..."); // DEBUG
         
-        reset(); // reset before building to avoid duplications
-
         // build the JPanel
         backButton.setEnabled(false); // can not go back on the first JPanel
         quitButton.setText(Vocab.EXIT_BUTTON.toString()); // this JButton has a different label

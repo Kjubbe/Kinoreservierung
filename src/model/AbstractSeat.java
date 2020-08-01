@@ -11,7 +11,7 @@ import model.enums.Vocab;
 
 public abstract class AbstractSeat {
     
-    // Data fields
+    // data fields
     protected boolean isReserved;
     public final String name; // name for hovering over a seat
     public final Prices price;
@@ -26,12 +26,9 @@ public abstract class AbstractSeat {
     public AbstractSeat(Prices price, boolean isVip, String name) {
         this.price = price;
         this.isVip = isVip;
-        if (isVip) {
-            // update name to give more information when seat is vip
-            this.name = "[" + Vocab.VIP_TOOLTIP + "] " + name;
-        } else {
-            this.name = name;
-        }
+
+        // update name to give more information when seat is vip
+        this.name = (isVip ? ("[" + Vocab.VIP_TOOLTIP + "] ") : "") + name;
     }
 
     /**

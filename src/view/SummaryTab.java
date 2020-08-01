@@ -44,9 +44,7 @@ public class SummaryTab extends AbstractTab {
     @Override
     protected void build() {
         System.out.println("DEBUG: " + "tab: building summary tab..."); // DEBUG
-        
-        reset(); // reset before building to avoid duplications
-
+    
         // build the JPanel
         proceedButton.setText(Vocab.FINISH_BUTTON.toString()); // other label, since you can not proceed, only finish
         proceedButton.setActionCommand(Vocab.FINISH_BUTTON.toString()); // update the action command
@@ -74,13 +72,13 @@ public class SummaryTab extends AbstractTab {
         summaryPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // part 1: the movie
-        JLabel movieLabel = new JLabel(Vocab.MOVIE_LABEL + ": " + model.getChosenMovie());
+        JLabel movieLabel = new JLabel(Vocab.MOVIE_LABEL + ": " + model.getChosenMovieDescription());
         movieLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         movieLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(movieLabel);
 
         // part 2: the time
-        JLabel timeLabel = new JLabel(Vocab.TIME_LABEL + ": " + model.getChosenTime().getDateAndTime());
+        JLabel timeLabel = new JLabel(Vocab.TIME_LABEL + ": " + model.getChosenDateAndTime());
         timeLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         timeLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(timeLabel);

@@ -58,6 +58,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         System.out.println("\n" + "DEBUG: ctrl: click registered.."); // DEBUG
         Object source = e.getSource(); // store the source object
         String cmd = e.getActionCommand(); // get the action command
+
         if (source instanceof JButton) { // source is either back-, quit-, proceed- or finish- JButton
             System.out.println("DEBUG: ctrl: identified as button"); // DEBUG
             if (cmd.equals(Vocab.BACK_BUTTON.toString())) {// back JButton
@@ -72,21 +73,9 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
                 throw new IllegalStateException("This JButton has no method assigned");
             }
         } else if (source instanceof JRadioButton) { // source from JRadioButton > source is from time tab
-            System.out.println("DEBUG: ctrl: identified as radio-button"); // DEBUG
-            System.out.println("DEBUG: ctrl: Time chosen"); // DEBUG
-
-            // the action commands of the JRadioButtons from the times tab contain their index
-            // this way, the time at the same index can be set as the chosen time
-            model.setTime(cmd); // advice the model to set the time to the index in the action command
-            view.update();
+            timeChanged(cmd);
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
-            System.out.println("DEBUG: ctrl: identified as checkbox"); // DEBUG
-            boolean remove = !((JCheckBox) source).isSelected(); // remove when JCheckBox is deselected
-            
-            // the action commands of the JCheckBoxes from the seating tab contain their position
-            // this way, the seat at the same position can either be removed or added to the list of chosen seats
-            model.changeSeats(cmd, remove); // adivice model to change seats based on the information
-            view.update();
+            seatChanged(source, cmd);
         } else {
             throw new IllegalStateException("This action has no method assigned");
         }
@@ -98,15 +87,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
-        System.out.println("\n" + "DEBUG: ctrl: click registered..."); // DEBUG
-        System.out.println("DEBUG: ctrl: identified as combobox"); // DEBUG
-        
-        Movie movie = (Movie) e.getItem(); // get the selected movie from the event
-        System.out.println("DEBUG: ctrl: Movie chosen"); // DEBUG
-        if (movie != null) { // check if an actual movie is selected
-            model.setMovie(movie); // advice model to set the movie
-        }
-        view.update();
+        movieChanged(e);
     }
 
     /**
@@ -131,6 +112,55 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         System.out.println("DEBUG: ctrl: identified as spinner"); // DEBUG
         
         cateringChanged(); // source is from JSpinner > source from catering tab
+    }
+
+    /**
+     * invoked from event
+     * advises model to time based on the action command,
+     * updates view
+     * @param cmd action command from the event
+     */
+    private void movieChanged(ItemEvent e) {
+        System.out.println("\n" + "DEBUG: ctrl: click registered..."); // DEBUG
+        System.out.println("DEBUG: ctrl: identified as combobox"); // DEBUG
+        
+        Movie movie = (Movie) e.getItem(); // get the selected movie from the event
+        System.out.println("DEBUG: ctrl: Movie chosen"); // DEBUG
+        model.setMovie(movie); // advice model to set the movie
+        view.update();
+    }
+
+    /**
+     * invoked from event
+     * advises model to change time based on the action command,
+     * updates view
+     * @param cmd action command from the event
+     */
+    private void timeChanged(String cmd) {
+        System.out.println("DEBUG: ctrl: identified as radio-button"); // DEBUG
+        System.out.println("DEBUG: ctrl: Time chosen"); // DEBUG
+
+        // the action commands of the JRadioButtons from the times tab contain their index
+        // this way, the time at the same index can be set as the chosen time
+        model.setTime(cmd); // advice the model to set the time to the index in the action command
+        view.update();
+    }
+
+    /**
+     * invoked from event
+     * advises model to change seats based on the selection and command,
+     * updates view
+     * @param source object which created the event
+     * @param cmd action command from the event
+     */
+    private void seatChanged(Object source, String cmd) {
+        System.out.println("DEBUG: ctrl: identified as checkbox"); // DEBUG
+        boolean removeElseAdd = !((JCheckBox) source).isSelected(); // remove when JCheckBox is deselected
+            
+        // the action commands of the JCheckBoxes from the seating tab contain their position
+        // this way, the seat at the same position can either be removed or added to the list of chosen seats
+        model.setSeat(cmd, removeElseAdd); // adivice model to change seats based on the information
+        view.update();
     }
 
     /**
@@ -181,9 +211,9 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
     private void orderPlaced() {
         System.out.println("DEBUG: " + "ctrl: placing order..."); // DEBUG
         
-        model.order(); // advice the model to order
+        model.placeOrder(); // advice the model to order
         view.finish(); // advice the view to finish
-        model.reset(KinoModel.RESET_MOVIES_AND_ABOVE); // adivice the model to reset everything
+        model.reset(); // advice the model to reset everything
         view.update();
     }
 }

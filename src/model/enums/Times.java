@@ -8,6 +8,7 @@ package model.enums;
  */
 
 public enum Times {
+    
     PM_03_00("15:00"),
     PM_03_30("15:30"),
     PM_04_00("16:00"),
@@ -31,7 +32,7 @@ public enum Times {
      * constructor, assigns data field
      * @param time String with the time
      */
-    private Times(String time) {
+    Times(String time) {
         this.time = time;
     }
 

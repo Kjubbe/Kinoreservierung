@@ -51,21 +51,21 @@ public class Order {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(Vocab.ORDER_MSGS.getStrings()[0] + " " + orderNumber + "\n"); // first msg
-        builder.append(Vocab.ORDER_MSGS.getStrings()[1] + "\n"); // second msg
+        builder.append(Vocab.ORDER_MSGS.getStrings()[0] + "\n"); // first msg
+        builder.append(Vocab.ORDER_MSGS.getStrings()[1] + ": " + orderNumber + "\n"); // second msg
         builder.append("\n" + Vocab.MOVIE_LABEL + ": " + movie + "\n"); // movie
         builder.append("\n" + Vocab.TIME_LABEL + ": " + time.getDateAndTime() + "\n"); // time
         
         // seats
         builder.append("\n" + Vocab.SEATS_LABEL + ": " + "\n");
-        for (AbstractSeat s : seats) {
-            builder.append("- " + s.name + " (" + s.price.getPrice() + Vocab.CURRENCY + "), "); // seat
-            if (s instanceof BeachChairSeat) {
+        for (AbstractSeat seat : seats) {
+            builder.append("- " + seat.name + " (" + seat.price.getPrice() + Vocab.CURRENCY + "), "); // seat
+            if (seat instanceof BeachChairSeat) {
                 // add ticket
-                builder.append(Vocab.TICKET_LABEL + ": " + ((BeachChairSeat)s).getTicket() + "\n");
+                builder.append(Vocab.TICKET_LABEL + ": " + ((BeachChairSeat)seat).getTicket() + "\n");
             } else {
                 // add license plate
-                builder.append(Vocab.LICENSE_PLATE_LABEL.getStrings()[0] + ": \"" + ((CarSeat)s).licensePlateNr + "\"" + "\n");
+                builder.append(Vocab.LICENSE_PLATE_LABEL.getStrings()[0] + ": \"" + ((CarSeat)seat).getLicensePlateNr() + "\"" + "\n");
             }
         }
 

@@ -1,7 +1,7 @@
 package model.enums;
 
 /**
- * this enum defines and contains all strings for the software
+ * this enum defines and contains all important strings for the software
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -49,8 +49,8 @@ public enum Vocab {
     
     ORDER_MSGS( new String[] // String for the order file
     {
-        "Im Folgenden finden Sie die Informationen zu ihrer Reservierung; Bestellnummer",
-        "Vielen Dank, dass Sie unseren Service genutzt haben!"
+        "Vielen Dank, dass Sie unseren Service nutzen!",
+        "Im Folgenden finden Sie die Informationen zu ihrer Reservierung; Bestellnummer"
     }),
 
     TOTAL_PRICE_LABEL("Gesamtpreis"), // String for the price JTextField
@@ -105,20 +105,20 @@ public enum Vocab {
 
     /**
      * constructor, assigns data field
-     * @param data array of strings
+     * @param strings array of strings
      */
-    private Vocab(String[] strings) {
+    Vocab(String[] strings) {
         this.strings = strings;
         this.string = null;
     }
 
     /**
      * constructor, assigns data field
-     * @param data data as a string
+     * @param string data as a string
      */
-    private Vocab(String string) {
-        this.string = string;
+    Vocab(String string) {
         this.strings = null;
+        this.string = string;
     }
 
     /**

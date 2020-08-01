@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.enums.Prices;
 import model.enums.Vocab;
 
@@ -14,7 +17,9 @@ public class CarSeat extends AbstractSeat {
 
     // Data fields
     public final boolean isForSUV; // determines if the seat is meant for suvs
-    protected String licensePlateNr; // holds license plate number // TODO change visibility to protected and provide accessors
+
+    private static List<String> openLicensePlates;
+    private String licensePlateNr; // holds license plate number
 
     /**
      * constructor, calls super constructor and sets suv data field
@@ -30,9 +35,29 @@ public class CarSeat extends AbstractSeat {
         this.isForSUV = isForSUV;
     }
 
+    /**
+     * invoked from model when placing the order,
+     * assigns a license plate and reserves a seat
+     */
     @Override
     protected void reserve() {
+        licensePlateNr = openLicensePlates.remove(0);
         isReserved = true;
-        // TODO assign license plate
+    }
+
+    /**
+     * assign the list of license plates
+     * @param openLicensePlates the list with license plates
+     */
+    public static void setOpenLicensePlates(List<String> openLicensePlates) {
+        CarSeat.openLicensePlates = openLicensePlates == null ? null : new ArrayList<>(openLicensePlates);
+    }
+
+    /**
+     * get the license plate for this seat
+     * @return the license plate nr
+     */
+    public String getLicensePlateNr() {
+        return licensePlateNr;
     }
 }

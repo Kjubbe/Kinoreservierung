@@ -1,11 +1,6 @@
 package model;
 
-import java.awt.image.BufferedImage;
-
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 import model.enums.FSKs;
 import model.enums.Genres;
@@ -24,7 +19,7 @@ public class Movie {
     private final String title;
     private final Genres genre;
     private final FSKs fsk;
-    private final String picPath;
+    private final Icon image;
     protected final Showtime[] showtimes; // contains all available showtimes for this movie
     
     /**
@@ -32,14 +27,14 @@ public class Movie {
      * @param title title of the movie
      * @param genre genre of the movie
      * @param fsk rated fsk
-     * @param picPath name of the picture
+     * @param picPath path of the picture
      * @param showtimes the available showtimes for movie
      */
     public Movie(String title, Genres genre, FSKs fsk, String picPath, Showtime[] showtimes) {
         this.title = title;
         this.genre = genre;
         this.fsk = fsk;
-        this.picPath = picPath;
+        this.image = FileManager.loadImage(picPath);
         this.showtimes = showtimes;
     }
 
@@ -69,18 +64,12 @@ public class Movie {
         }
         return builder.toString();
     }
-
+    
     /**
-     * read the picture from the files
-     * @return icon with the picture
+     * get the picture for this movie
+     * @return the picture
      */
     public Icon getImage() {
-		BufferedImage pic = null;
-		try {
-			pic = ImageIO.read(new File(picPath));
-		} catch (Exception ex) {
-			return null;
-        }
-        return new ImageIcon(pic);
+        return image;
     }
 }

@@ -7,6 +7,7 @@ package model.enums;
  */
 
 public enum Genres {
+    
     ACTION("Action"),
     FAMILY("Familie"),
     WESTERN("Western"),
@@ -24,7 +25,7 @@ public enum Genres {
      * constructor, assigns data field
      * @param genre String with the genre
      */
-    private Genres(String genre) {
+    Genres(String genre) {
         this.genre = genre;
     }
 

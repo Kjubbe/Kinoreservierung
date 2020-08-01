@@ -8,6 +8,7 @@ package model.enums;
  */
 
 public enum FSKs {
+	
 	FSK_0("ab 0"),
 	FSK_6("ab 6"),
 	FSK_12("ab 12"),
@@ -22,7 +23,7 @@ public enum FSKs {
      * constructor, assigns data field
      * @param fsk String with the fsk
      */
-	private FSKs(String fsk) {
+	FSKs(String fsk) {
 		this.fsk = fsk;
 	}
 

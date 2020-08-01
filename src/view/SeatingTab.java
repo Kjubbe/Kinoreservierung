@@ -64,8 +64,6 @@ public class SeatingTab extends AbstractTab {
     @Override
     protected void build() throws IllegalArgumentException { 
         System.out.println("DEBUG: tab: building seating tab..."); // DEBUG
-        
-        reset(); // reset before building to avoid duplications
 
         // build the JPanels
         instructionPanel.setBorder(KinoView.NORMAL_Y_SPACING);
@@ -204,7 +202,7 @@ public class SeatingTab extends AbstractTab {
     protected void update() {
         System.out.println("DEBUG: tab: updating seating tab..."); // DEBUG
         
-        changeTextFields(model.getCarSeatCount()); // update amount of textfields
+        changeTextFields(model.getCarSeatAmount()); // update amount of textfields
 
         // condition 1: at least one JCheckBox must be selected
         boolean cbSelected = false; // assume that no JCheckBox is selected

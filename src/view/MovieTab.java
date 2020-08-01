@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.KinoController;
+import model.Database;
 import model.KinoModel;
 import model.Movie;
 
@@ -45,8 +46,6 @@ public class MovieTab extends AbstractTab {
     protected void build() {
         System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG
         
-        reset(); // reset before building to avoid duplications
-
         // build the JPanels
         buildMoviePanel();
         buildImageLabel();
@@ -70,7 +69,7 @@ public class MovieTab extends AbstractTab {
         moviePanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // build the dropdown
-        for (Movie m : KinoModel.getAllMovies()) { // go through all movies
+        for (Movie m : Database.getAllMovies()) { // go through all movies
             if (m != null && m.toString() != null) { // check if movie and the title is not null
                 dropdown.addItem(m); // add movie to the JComboBox
             }
@@ -109,10 +108,10 @@ public class MovieTab extends AbstractTab {
         
         if (dropdown.getSelectedItem() != null) { // check if a film is selected
             proceedButton.setEnabled(true);
-            descriptionLabel.setText(model.getChosenMovie().getDescription());
+            descriptionLabel.setText(model.getChosenMovieDescription());
 
             // set JLabel for description to display the description of the movie
-            imageLabel.setIcon(model.getChosenMovie().getImage());
+            imageLabel.setIcon(model.getChosenMovieImage());
         } else { // no film selected
             proceedButton.setEnabled(false);
         }
