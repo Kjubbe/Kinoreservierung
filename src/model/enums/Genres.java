@@ -1,7 +1,7 @@
 package model.enums;
 
 /**
- * This enum defines the genres for movies
+ * this enum defines the genres for movies
  * @author Kjell Treder
  * @author Marcel Sauer
  */

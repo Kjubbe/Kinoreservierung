@@ -3,8 +3,15 @@ package model;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * creates random numbers for ticket and order numbers
+ * @author Kjell Treder
+ * @author Marcel Sauer
+ */
+
 public final class NumberManager {
 
+    // data fields
     private static final int MIN = 10_000_000; // inclusive min value for the ticket number
     private static final int MAX = 100_000_000; // exclusive max value for the ticket number
 
