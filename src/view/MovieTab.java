@@ -44,7 +44,7 @@ public class MovieTab extends AbstractTab {
      */
     @Override
     protected void build() {
-        System.out.println("DEBUG: " + "tab: building movie tab..."); // DEBUG
+        System.out.println("DEBUG: movie-tab: building movie tab..."); // DEBUG
         
         // build the JPanels
         buildMoviePanel();
@@ -63,6 +63,8 @@ public class MovieTab extends AbstractTab {
      * build the movie panel containing the dropdown for choosing a movie
      */
     private void buildMoviePanel() {
+        System.out.println("DEBUG: movie-tab: building movie panel..."); // DEBUG
+        
         // build the JPanel for the dropdown
         dropdown = new JComboBox<>(); // new JComboBox for movies
         moviePanel = putInContainer(dropdown); // new JPanel, contains JComboBox for movies
@@ -72,6 +74,7 @@ public class MovieTab extends AbstractTab {
         for (Movie movie : Database.getAllMovies()) { // go through all movies
             if (movie != null && movie.toString() != null) { // check if movie and the title is not null
                 dropdown.addItem(movie); // add movie to the JComboBox
+                System.out.println("DEBUG: movie-tab: added movie to the dropdown"); // DEBUG
             }
         }
         dropdown.setSelectedItem(null); // no selected movie
@@ -82,6 +85,8 @@ public class MovieTab extends AbstractTab {
      * build the JLabel for the images of the movies
      */
     private void buildImageLabel() {
+        System.out.println("DEBUG: movie-tab: building image label..."); // DEBUG
+        
         // build the image JLabel
         imageLabel = new JLabel(); // new JLabel for the description
         imageLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -91,6 +96,8 @@ public class MovieTab extends AbstractTab {
      * build the JLabel for the descriptions of the movies
      */
     private void buildDescriptionLabel() {
+        System.out.println("DEBUG: movie-tab: building desciption label..."); // DEBUG
+        
         // build the description JLabel
         descriptionLabel = new JLabel(); // new JLabel for the description
         descriptionLabel.setBorder(KinoView.NORMAL_Y_SPACING);
@@ -104,16 +111,20 @@ public class MovieTab extends AbstractTab {
      */
     @Override
     protected void update() {
-        System.out.println("DEBUG: " + "tab: updating movie tab..."); // DEBUG
+        System.out.println("DEBUG: movie-tab: updating movie tab..."); // DEBUG
+        System.out.println("DEBUG: movie-tab: checking for selected movie..."); // DEBUG
         
         if (dropdown.getSelectedItem() != null) { // check if a film is selected
+            System.out.println("DEBUG: movie-tab: selected movie found"); // DEBUG
             proceedButton.setEnabled(true);
             descriptionLabel.setText(model.getChosenMovieDescription());
 
             // set JLabel for description to display the description of the movie
             imageLabel.setIcon(model.getChosenMovieImage());
+            
         } else { // no film selected
             proceedButton.setEnabled(false);
+            System.out.println("DEBUG: movie-tab: no selected movie found"); // DEBUG
         }
     }
 }

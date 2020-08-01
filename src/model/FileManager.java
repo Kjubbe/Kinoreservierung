@@ -25,7 +25,7 @@ public final class FileManager {
      * @throws IllegalStateException when instantiating this class
      */
     private FileManager() throws IllegalStateException {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("This Utility class can not be instantiated");
     }
     
     /**
@@ -39,21 +39,29 @@ public final class FileManager {
         if (!path.contains(".txt")) {
             path += ".txt"; // add suffix
         }
+        System.out.println("DEBUG: file-manager: creating file at " + path); // DEBUG
         try {
             File file = new File(path); // create a File Object with the desired path
             if (!file.createNewFile()) { // create a new file, if this failes return
+                System.out.println("DEBUG: file-manager: creation failed at " + path); // DEBUG
                 return false;
             }
         } catch (IOException ex) { // error catched
             ex.printStackTrace();
+            System.out.println("DEBUG: file-manager: error while creating file at " + path); // DEBUG
             return false; // skip following code
         }
+        System.out.println("DEBUG: file-manager: file created at " + path); // DEBUG
+        System.out.println("DEBUG: file-manager: writing to file " + path); // DEBUG
         try (FileWriter writer = new FileWriter(path)) { // try-with-resources guarantees the writer is closed
             writer.write(content); // try writing to the file
+            
         } catch (IOException ex) { // error catched
+            System.out.println("DEBUG error when writing to file to " + path);
             ex.printStackTrace();
             return false;
         }
+        System.out.println("DEBUG: file-manager: file written to " + path); // DEBUG
         return true;
     }
 
@@ -63,10 +71,12 @@ public final class FileManager {
      * @return if deleting the file was successful
      */
     protected static boolean deleteTXTFile(String path) {
+        System.out.println("DEBUG: file-manager: deleting file..."); // DEBUG
         if (!path.contains(".txt")) {
             path += ".txt"; // add suffix
         }
         File file = new File(path); // create a File Object with the desired path
+        System.out.println("DEBUG: file-manager: file deleted"); // DEBUG
         return !file.delete();
     }
 
@@ -75,12 +85,15 @@ public final class FileManager {
      * @return icon with the image
      */
     protected static Icon loadImage(String path) {
-		BufferedImage pic = null;
+        System.out.println("DEBUG: file-manager: loading image..."); // DEBUG
+        BufferedImage pic = null;
 		try {
 			pic = ImageIO.read(new File(path));
 		} catch (Exception ex) {
-			return null;
+            System.out.println("DEBUG: file-manager: image loading failed"); // DEBUG
+            return null;
         }
+        System.out.println("DEBUG: file-manager: image loaded"); // DEBUG
         return new ImageIcon(pic);
     }
 }

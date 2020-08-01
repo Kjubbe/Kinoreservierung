@@ -89,7 +89,7 @@ public abstract class AbstractTab extends JPanel {
      * this method should be called before building a tab (again)
      */
     protected final void reset() {
-        System.out.println("DEBUG: " + "tab: resetting tab..."); // DEBUG
+        System.out.println("DEBUG: abstract-tab: resetting tab..."); // DEBUG
         
         super.removeAll(); // removes all components from the tab
 

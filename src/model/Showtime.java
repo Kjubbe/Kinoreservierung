@@ -100,4 +100,13 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     public boolean isSoldOut() {
         return isSoldOut;
     }
+
+    /**
+     * toString
+     * @return the day and time of this showtime
+     */
+    @Override
+    public String toString() {
+        return getDayAndTime();
+    }
 }

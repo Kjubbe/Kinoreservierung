@@ -85,6 +85,7 @@ public class SeatingTab extends AbstractTab {
      * build the legend panel containing the JLabels for information about the seats
      */
     private void buildLegendPanel() {
+        System.out.println("DEBUG: seating-tab: building legend panel..."); // DEBUG
         legendPanel = new JPanel();
         legendPanel.setLayout(new BoxLayout(legendPanel, BoxLayout.Y_AXIS));
 
@@ -120,6 +121,7 @@ public class SeatingTab extends AbstractTab {
      * build the screen panel containing a JLabel for displaying the screen
      */
     private void buildScreenPanel() {
+        System.out.println("DEBUG: seating-tab: building screen panel..."); // DEBUG
         JLabel screenLabel = new JLabel(Vocab.SCREEN_LABEL.toString());
         screenLabel.setForeground(Color.WHITE);
         
@@ -132,6 +134,7 @@ public class SeatingTab extends AbstractTab {
      * @throws IllegalArgumentException when the amount of rows or columns of seats is 0
      */
     private void buildSeatingPanel() throws IllegalArgumentException {
+        System.out.println("DEBUG: seating-tab: building seating panel..."); // DEBUG
         AbstractSeat[][] seats = model.getAvailableSeats(); // get the available seats from the model
         int seatRowAmount = seats.length; // amount of rows of seats
         if (seatRowAmount == 0) { // no rows -> no seats
@@ -179,6 +182,7 @@ public class SeatingTab extends AbstractTab {
                 if (currentSeat.isVip) { // check if the seat is vip
                     container.setBorder(new LineBorder(Color.ORANGE, 3)); // give the checkbox an orange border
                 }
+                System.out.println("DEBUG: seating-tab: checkbox added..."); // DEBUG
                 seatingPanel.add(putInContainer(container));
             }
         }
@@ -188,6 +192,7 @@ public class SeatingTab extends AbstractTab {
      * build the license plate panel containing the JTextFields for typing
      */
     private void buildLicensePlatePanel() {
+        System.out.println("DEBUG: seating-tab: building license plate panel..."); // DEBUG
         licensePlatePanel = new JPanel(); // new JPanel, contains JTextFields for license plates
         licensePlatePanel.setLayout(new BoxLayout(licensePlatePanel, BoxLayout.Y_AXIS));
         licensePlatePanel.setBorder(KinoView.NORMAL_Y_SPACING);
@@ -201,27 +206,32 @@ public class SeatingTab extends AbstractTab {
      */
     @Override
     protected void update() {
-        System.out.println("DEBUG: tab: updating seating tab..."); // DEBUG
+        System.out.println("DEBUG: seating-tab: updating seating tab..."); // DEBUG
         
         changeTextFields(model.getCarSeatAmount()); // update amount of textfields
 
+        System.out.println("DEBUG: seating-tab: checking for selected checkbox..."); // DEBUG
         // condition 1: at least one JCheckBox must be selected
         boolean cbSelected = false; // assume that no JCheckBox is selected
         for (Component comp : getComponentsFrom(seatingPanel)) {
             if (((JCheckBox)comp).isSelected()) { // check for selected JCheckBox
                 cbSelected = true; // selected JCheckBox found
+                System.out.println("DEBUG: seating-tab: selected checkbox found..."); // DEBUG
                 break;
             }
         }
 
+        System.out.println("DEBUG: seating-tab: checking input of textfields..."); // DEBUG
         // condition 2: all input for license plates must suffice
         boolean lpMissing = false; // assume that no license plate is missing
         for (JTextField tf : getTextFields()) {
             if (!model.checkInput(tf.getText())) { // check for unsufficient textfield
                 lpMissing = true; // unsufficient textfield found
                 tf.getParent().setBackground(lightRed); // input does no suffice -> red background
+                System.out.println("DEBUG: seating-tab: input does not suffice..."); // DEBUG
             } else {
                 tf.getParent().setBackground(lightGreen); // input suffices -> green background
+                System.out.println("DEBUG: seating-tab: input suffices..."); // DEBUG
             }
 
         }
@@ -241,11 +251,12 @@ public class SeatingTab extends AbstractTab {
      * @param targetCount the amount of textfields which are supposed to exist
      */
     private void changeTextFields(int targetCount) {
+        System.out.println("DEBUG: seating-tab: changing amount of textfields..."); // DEBUG
         List<JTextField> tfs = getTextFields(); // get the textfields
         
         // possibility 1
         if (tfs.size() < targetCount) { // there are less JCheckBoxes than needed
-            System.out.println("DEBUG: " + "seat-tab: adding textfield..."); // DEBUG
+            System.out.println("DEBUG: " + "seating-tab: adding textfield..."); // DEBUG
             JTextField tf = new JTextField(10); // create a new JTextField
             tf.addKeyListener(ctrl); // add listener
 
@@ -260,7 +271,7 @@ public class SeatingTab extends AbstractTab {
         }
         // possibility 2
         if (tfs.size() > targetCount) { // there are more JCheckBoxes than needed
-            System.out.println("DEBUG: " + "seat-tab: removing textfield..."); // DEBUG
+            System.out.println("DEBUG: " + "seating-tab: removing textfield..."); // DEBUG
 
             // remove the last JTextField from the JPanel
             licensePlatePanel.remove(licensePlatePanel.getComponentCount() - 1);

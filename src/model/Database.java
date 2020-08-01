@@ -124,7 +124,7 @@ public final class Database {
      * @throws IllegalStateException when instantiating this class
      */
     private Database() throws IllegalStateException {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("This Utility class can not be instantiated");
     }
 
     /**
@@ -141,6 +141,7 @@ public final class Database {
      */
     protected static void addMovie(Movie movie) {
         ALL_MOVIES.add(movie);
+        System.out.println("DEBUG: database: added movie"); // DEBUG
     }
 
     /**
@@ -149,6 +150,7 @@ public final class Database {
      */
     protected static void removeMovie(Movie movie) {
         ALL_MOVIES.remove(movie);
+        System.out.println("DEBUG: database: removed movie"); // DEBUG
     }
 
     /**
@@ -165,6 +167,7 @@ public final class Database {
      */
     protected static void addCatering(Catering catering) {
         ALL_CATERINGS.add(catering);
+        System.out.println("DEBUG: database: added catering"); // DEBUG
     }
 
     /**
@@ -173,6 +176,7 @@ public final class Database {
      */
     protected static void removeCatering(Catering catering) {
         ALL_CATERINGS.remove(catering);
+        System.out.println("DEBUG: database: removed catering"); // DEBUG
     }
 
     /**
@@ -189,7 +193,7 @@ public final class Database {
      */
     protected static void addOrder(Order order) {
         ALL_ORDERS.add(order);
-        System.out.println("DEBUG DATABASE: all orders are " + ALL_ORDERS);
+        System.out.println("DEBUG: database: added order to the list: " + ALL_ORDERS); // DEBUG
     }
 
     /**
@@ -206,7 +210,7 @@ public final class Database {
      */
     protected static void addTicketNumber(int ticketNumber) {
         ALL_TICKET_NUMBERS.add(ticketNumber);
-        System.out.println("DEBUG DATABASE: all ticket numbers are " + ALL_TICKET_NUMBERS);
+        System.out.println("DEBUG: database: added ticket number to the list: " + ALL_TICKET_NUMBERS); // DEBUG
     }
 
     /**
@@ -223,7 +227,7 @@ public final class Database {
      */
     protected static void addLicensePlate(String licensePlate) {
         ALL_LICENSE_PLATES.add(licensePlate);
-        System.out.println("DEBUG DATABASE: all license plates are " + ALL_LICENSE_PLATES);
+        System.out.println("DEBUG: database: added license plate to the list: " + ALL_LICENSE_PLATES); // DEBUG
     }
 
     /**
@@ -240,6 +244,6 @@ public final class Database {
      */
     protected static void addOrderNumber(int orderNumber) {
         ALL_ORDER_NUMBERS.add(orderNumber);
-        System.out.println("DEBUG DATABASE: all order numbers are " + ALL_ORDER_NUMBERS);
+        System.out.println("DEBUG: database: added order number to the list: " + ALL_ORDER_NUMBERS); // DEBUG
     }
 }

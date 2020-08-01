@@ -1,5 +1,6 @@
 package view;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -64,6 +65,7 @@ public class SummaryTab extends AbstractTab {
      * build the summary panel containing JLabels for information
      */
     private void buildSummaryPanel() {
+        System.out.println("DEBUG: summary-tab: building summarypanel..."); // DEBUG
         StringBuilder builder;
         int length;
         
@@ -98,9 +100,10 @@ public class SummaryTab extends AbstractTab {
 
         // part 4: the license plate numbers
         builder = new StringBuilder();
-        if (model.getLicensePlates() != null) {
-            for (String licensePlate : model.getLicensePlates()) { // go through every seat
-                builder.append("\"" + licensePlate + "\", ");
+        List<String> lps = model.getLicensePlates();
+        if (lps != null) {
+            for (String lp : lps) { // go through every seat
+                builder.append("\"" + lp + "\", ");
             } 
         }
         if (!builder.toString().isEmpty()) {
@@ -114,10 +117,11 @@ public class SummaryTab extends AbstractTab {
 
         // part 5: the catering
         builder = new StringBuilder();
-        if (model.getChosenCatering() != null) { // check if catering was chosen
+        Map<Catering, Integer> caterings = model.getChosenCatering();
+        if (caterings != null) { // check if catering was chosen
             
             // go through every entry of the map
-            for (Map.Entry<Catering, Integer> entry : model.getChosenCatering().entrySet()) {
+            for (Map.Entry<Catering, Integer> entry : caterings.entrySet()) {
                 Catering catering = entry.getKey();
                 Integer amount = entry.getValue();
                 if (amount == 0) { // check if the catering is chosen, if not skip
@@ -156,5 +160,6 @@ public class SummaryTab extends AbstractTab {
     @Override
     protected void update() {
         // Does nothing
+        System.out.println("DEBUG: summary-tab: updating (nothing)..."); // DEBUG
     } 
 }

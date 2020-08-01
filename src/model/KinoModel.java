@@ -81,6 +81,7 @@ public class KinoModel {
      * @param removeElseAdd determines if an seat should be removed, if not, one gets added
      */
     public void setSeat(String cmd, boolean removeElseAdd) {
+        System.out.println("DEBUG: model: changing seats..."); // DEBUG
         String[] xyPos = cmd.split(Vocab.SPLITTER_STRING.toString()); // get the position from the action command
         
         // get the seat at the position from the action command
@@ -88,10 +89,10 @@ public class KinoModel {
         AbstractSeat seat = availableSeats[Integer.parseInt(xyPos[0])][Integer.parseInt(xyPos[1])]; 
         
         if (removeElseAdd) {
-            System.out.println("DEBUG: model: Seat removed " + seat); // DEBUG
+            System.out.println("DEBUG: model: Seat removed: " + seat); // DEBUG
             chosenSeats.remove(seat); // remove the seat from the list
         } else {
-            System.out.println("DEBUG: model: Seat added " + seat); // DEBUG
+            System.out.println("DEBUG: model: Seat added: " + seat); // DEBUG
             chosenSeats.add(seat); // add the seat to the list
         }
         if (seat instanceof CarSeat) { // check if seat is an instance of CarSeat
@@ -100,7 +101,7 @@ public class KinoModel {
             } else {
                 carSeatAmount++;
             }
-            System.out.println("DEBUG: model: Car seat count changed to " + carSeatAmount); // DEBUG
+            System.out.println("DEBUG: model: Car seat count is " + carSeatAmount); // DEBUG
         }
         System.out.println("DEBUG: model: List of seats " + chosenSeats); // DEBUG
         reset(RESET_ABOVE_SEATS);
@@ -112,6 +113,7 @@ public class KinoModel {
      * @param cateringAmounts list of amounts for each catering
      */
     public void setCatering(List<Integer> cateringAmounts) { // TODO update this logic
+        System.out.println("DEBUG: model: changing caterings..."); // DEBUG
         int index = 0; // local index counter
         // create a new map, which will contain every catering option with their specified amount
         chosenCatering = new HashMap<>();
@@ -120,6 +122,7 @@ public class KinoModel {
             // get the catering at the index, which is equivalent to the index of the amount for this catering
             Catering equivalentCatering = Database.getAllCaterings().get(i); 
             if (equivalentCatering == null || equivalentCatering.name == null || equivalentCatering.price == null) {
+                System.out.println("DEBUG: model: corrupt catering skipped"); // DEBUG
                 continue; // catering corrupted, skip
             } 
 
@@ -166,18 +169,22 @@ public class KinoModel {
         if (depth >= RESET_ABOVE_START) { // this depth reaches to the movie tab
             chosenMovie = null;
             availableTimes = null;
+            System.out.println("DEBUG: model: resetted above start"); // DEBUG
         }
         if (depth >= RESET_ABOVE_MOVIE) { // this depth reaches to the times tab
             chosenTime = null;
             availableSeats = null;
+            System.out.println("DEBUG: model: resetted above movie"); // DEBUG
         }
         if (depth >= RESET_ABOVE_TIME) { // this depth reaches to the seat tab
             chosenSeats = new LinkedList<>();
             licensePlates = null;
             carSeatAmount = 0;
+            System.out.println("DEBUG: model: resetted above time"); // DEBUG
         }
         if (depth >= RESET_ABOVE_SEATS) { // this depth reaches to the catering tab
             chosenCatering = null;
+            System.out.println("DEBUG: model: resetted above seats"); // DEBUG
         }
     }
 
@@ -185,6 +192,7 @@ public class KinoModel {
      * resets all user input
      */
     public void reset() {
+        System.out.println("DEBUG: model: resetting everything"); // DEBUG
         reset(Integer.MAX_VALUE);
     }
 
@@ -195,7 +203,7 @@ public class KinoModel {
     public void quit() {
         System.out.println("\n" + "DEBUG: model: quitting..."); // DEBUG
         
-        reset(RESET_ABOVE_START); // reset the model
+        reset(); // reset the model
         System.exit(0); // terminate the program
     }
 
@@ -206,17 +214,22 @@ public class KinoModel {
      * creates and adds a new order object to the list
      */
     public void placeOrder() {
+        System.out.println("DEBUG: model: placing order..."); // DEBUG
         CarSeat.setOpenLicensePlates(licensePlates);
+        chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
         for (AbstractSeat seat : chosenSeats) { // check every seat
-            System.out.println("DEBUG: model: reserved seat " + seat); // DEBUG
-            seat.reserve();
-            chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
+            System.out.println("DEBUG: model: reserving seat...: " + seat); // DEBUG
+            seat.reserve();   
         }
+        System.out.println("DEBUG: model: creating order object"); // DEBUG
         Order order = new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, getTotalPrice());
         Database.addOrder(order); // create and add a new order with all information
         
-        String path = "orders/order" + order.orderNumber;
-        System.out.println(FileManager.createTXTFile(path, order.toString()));
+        String path = "orders/Bestellung-" + order.orderNumber;
+        System.out.println("DEBUG: model: creating file"); // DEBUG
+        while (!FileManager.createTXTFile(path, order.orderDescription)) {
+            path += "_";
+        }
     }
     
     /**
@@ -327,6 +340,13 @@ public class KinoModel {
      * @return map with caterings and amounts
      */
     public Map<Catering, Integer> getChosenCatering() {
-        return chosenCatering; // TODO return a copy
+        if (chosenCatering != null) {
+            Map<Catering, Integer> copy = new HashMap<>();
+            for (Map.Entry<Catering, Integer> entry : chosenCatering.entrySet()) { 
+                copy.put(entry.getKey(), entry.getValue()); 
+            } 
+            return copy; // return a copy
+        }
+        return null;
     }
 }

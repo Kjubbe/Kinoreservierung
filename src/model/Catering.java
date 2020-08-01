@@ -25,6 +25,10 @@ public class Catering {
         this.name = name;
     }
 
+    /**
+     * toString
+     * @return the name of the catering
+     */
     @Override
     public String toString() {
         return name;

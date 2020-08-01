@@ -44,4 +44,13 @@ public abstract class AbstractSeat {
      * this method should set all important data fields
      */
     protected abstract void reserve();
+
+    /**
+     * toString
+     * @return the name of the seat
+     */
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -22,6 +22,7 @@ public class Order {
     private final double totalPrice;
 
     protected final int orderNumber;
+    protected final String orderDescription;
 
     /**
      * constructor, assigns data fields // TODO store clones
@@ -37,14 +38,10 @@ public class Order {
         this.caterings = caterings;
         this.totalPrice = totalPrice;
         this.orderNumber = NumberManager.createOrderNumber();
+        this.orderDescription = createDescription();
     }
 
-    /**
-     * toString
-     * @return string with all information
-     */
-    @Override
-    public String toString() {
+    private final String createDescription() {
         StringBuilder builder = new StringBuilder();
         builder.append(Vocab.ORDER_MSGS.getStrings()[0] + "\n"); // first msg
         builder.append(Vocab.ORDER_MSGS.getStrings()[1] + ": " + orderNumber + "\n"); // second msg
@@ -90,5 +87,22 @@ public class Order {
         builder.append("\n" + "\n" + Vocab.TOTAL_PRICE_LABEL + ": " + totalPrice + Vocab.CURRENCY); // price
         
         return builder.toString();
+    }
+
+    /**
+     * get the description for this order
+     * @return string with description
+     */
+    public String getDescription() {
+        return orderDescription;
+    }
+    
+    /**
+     * toString
+     * @return the description of this order
+     */
+    @Override
+    public String toString() {
+        return getDescription();
     }
 }

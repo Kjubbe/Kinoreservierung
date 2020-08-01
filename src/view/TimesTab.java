@@ -44,7 +44,7 @@ public class TimesTab extends AbstractTab {
      */
     @Override
     protected void build() throws IllegalArgumentException {
-        System.out.println("DEBUG: " + "tab: building times tab..."); // DEBUG
+        System.out.println("DEBUG: times-tab: building times tab..."); // DEBUG
         
         // build the JPanel
         buildTimesPanel();
@@ -60,12 +60,14 @@ public class TimesTab extends AbstractTab {
      * @throws IllegalArgumentException when there a no times set
      */
     private void buildTimesPanel() throws IllegalArgumentException {
+        System.out.println("DEBUG: times-tab: building times panel..."); // DEBUG
         timesPanel = new JPanel(); // new JPanel, contains JRadioButtons
         timesPanel.setLayout(new BoxLayout(timesPanel, BoxLayout.Y_AXIS)); // set layout for the JPanel
         timesPanel.setBorder(KinoView.NORMAL_Y_SPACING);
         
         Showtime[] times = model.getAvailableTimes(); // get the available showtimes from the model
         if (times == null) { // no times set
+            System.out.println("DEBUG: times-tab: error! times is null..."); // DEBUG
             throw new IllegalArgumentException(Vocab.NO_TIMES_ERROR.toString());
         }
         // new ButtonGroup, because only one JRadioButton should be selected at a time
@@ -74,6 +76,7 @@ public class TimesTab extends AbstractTab {
         for (int i = 0; i < times.length; i++) { // go through all times
             Showtime showtime = times[i];
             if (showtime == null || showtime.getDayAndTime() == null) {
+                System.out.println("DEBUG: times-tab: corrupted showtime found..."); // DEBUG
                 continue; // skip this corrupted showtime
             }
             JRadioButton rb = new JRadioButton(showtime.getDayAndTime()); // new JRadioButton with time as text
@@ -93,6 +96,7 @@ public class TimesTab extends AbstractTab {
 
             // build the JPanel
             timesPanel.add(rb);
+            System.out.println("DEBUG: times-tab: added radio-button..."); // DEBUG
         }
     }
 
@@ -102,15 +106,18 @@ public class TimesTab extends AbstractTab {
      */
     @Override
     protected void update() {
-        System.out.println("DEBUG: " + "tab: updating times tab..."); // DEBUG
+        System.out.println("DEBUG: times-tab: updating times tab..."); // DEBUG
+        System.out.println("DEBUG: times-tab: checking for selected radio button..."); // DEBUG
         
         for (Component comp : getComponentsFrom(timesPanel)) { // go through every component of the JPanel
             if (((JRadioButton)comp).isSelected()) { // check if JRadioButton is selected
                 proceedButton.setEnabled(true); // proceed JButton gets enabled when a selected JRadioButton is found
+                System.out.println("DEBUG: times-tab: selected radio button found"); // DEBUG
                 return;
             }
         }
         // no selected JRadioButton found
+        System.out.println("DEBUG: times-tab: no selected radio button found"); // DEBUG
         proceedButton.setEnabled(false);
     } 
 }

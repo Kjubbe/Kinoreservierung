@@ -58,6 +58,7 @@ public class StartTab extends AbstractTab {
      * build the message panel containing the JLabel for the message
      */
     private void buildMessagePanel() {
+        System.out.println("DEBUG: start-tab: building message panel..."); // DEBUG
         messagePanel = putInContainer(new JLabel(Vocab.START_MSG.toString())); // new JPanel, contains label
         messagePanel.setBorder(KinoView.NORMAL_Y_SPACING);
     }
@@ -69,5 +70,6 @@ public class StartTab extends AbstractTab {
     @Override
     protected void update() {
         // Does nothing
+        System.out.println("DEBUG: start-tab: updating (nothing)..."); // DEBUG
     } 
 }

@@ -43,8 +43,10 @@ public class CarSeat extends AbstractSeat {
     protected void reserve() {
         if (!isReserved) {
             licensePlate = openLicensePlates.remove(0);
+            System.out.println("DEBUG: car-seat: license plate set: " + licensePlate); // DEBUG
             Database.addLicensePlate(licensePlate);
             isReserved = true;
+            System.out.println("DEBUG: car-seat: reserved: " + this); // DEBUG
         }
     }
 
@@ -54,6 +56,7 @@ public class CarSeat extends AbstractSeat {
      */
     protected static void setOpenLicensePlates(List<String> openLicensePlates) {
         CarSeat.openLicensePlates = openLicensePlates == null ? null : new LinkedList<>(openLicensePlates);
+        System.out.println("DEBUG: car-seat: list of open license plates set: " + openLicensePlates); // DEBUG
     }
 
     /**

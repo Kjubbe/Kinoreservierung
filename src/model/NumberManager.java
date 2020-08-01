@@ -23,7 +23,7 @@ public final class NumberManager {
      * @throws IllegalStateException when instantiating this class
      */
     private NumberManager() throws IllegalStateException {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("This Utility class can not be instantiated");
     }
 
     /**
@@ -41,7 +41,7 @@ public final class NumberManager {
      * @return the generated ticket number
      */
     protected static int createTicketNumber(int min, int max) {
-        System.out.println("DEBUG: Seat: all tickets: " + Database.getAllTicketNumbers()); // DEBUG
+        System.out.println("DEBUG: number manager: generating unique ticket number"); // DEBUG
         int ticketNumber = nextFor(Database.getAllTicketNumbers(), min, max);
         Database.addTicketNumber(ticketNumber);
         return ticketNumber;
@@ -62,6 +62,7 @@ public final class NumberManager {
      * @return the generated order number
      */
     protected static int createOrderNumber(int min, int max) {
+        System.out.println("DEBUG: number manager: generating unique order number"); // DEBUG
         int orderNumber = nextFor(Database.getAllOrderNumbers(), min, max);
         Database.addOrderNumber(orderNumber);
         return orderNumber;
@@ -75,20 +76,28 @@ public final class NumberManager {
      * @return the randomly generated number
      */
     private static int nextFor(List<Integer> list, int min, int max) {
+        System.out.println("DEBUG: number manager: generating number in range " + min + " - " + max); // DEBUG
         boolean duplicate;
         int number; // holds the ticket number
+        int iterations = 0;
+        int bound = max - min;
         do {
             // get a random number in the specified range
-            number = min + RNG.nextInt(max - min);
+            if (iterations >= 1000) {
+                throw new StackOverflowError("No unique random number can be generated");
+            }
+            number = min + (bound > 0 ? RNG.nextInt(bound) : RNG.nextInt(MAX - MIN)); // if bound is not positive use the default 
             duplicate = false; // assume, that it is not a duplicate
-            for (Integer t : list) { // check every ticket
-                if (t == number) { // check for duplication
-                    System.out.println("DEBUG: rng: duplicate found: " + t); // DEBUG
+            for (Integer num : list) { // check every ticket
+                if (num == number) { // check for duplication
+                    System.out.println("DEBUG: number manager: duplicate found: " + num); // DEBUG
+                    System.out.println("DEBUG: number manager: iteration count: " + iterations); // DEBUG
                     duplicate = true; // duplication found
+                    iterations++;
                     break;
                 }
             }
-        } while (duplicate); // randomly generate ticket numbers until there is no duplication
+        } while (duplicate); // repeat until there is no duplication or limit reached
         return number;
     }
 }

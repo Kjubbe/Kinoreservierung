@@ -87,6 +87,9 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     @Override
     public void itemStateChanged(ItemEvent e) {
+        System.out.println("\n" + "DEBUG: ctrl: click registered..."); // DEBUG
+        System.out.println("DEBUG: ctrl: identified as combobox"); // DEBUG
+        
         movieChanged(e);
     }
 
@@ -120,12 +123,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * updates view
      * @param cmd action command from the event
      */
-    private void movieChanged(ItemEvent e) {
-        System.out.println("\n" + "DEBUG: ctrl: click registered..."); // DEBUG
-        System.out.println("DEBUG: ctrl: identified as combobox"); // DEBUG
-        
+    private void movieChanged(ItemEvent e) {    
         Movie movie = (Movie) e.getItem(); // get the selected movie from the event
         System.out.println("DEBUG: ctrl: Movie chosen"); // DEBUG
+        System.out.println("DEBUG: ctrl: giving movie to model"); // DEBUG
         model.setMovie(movie); // advice model to set the movie
         view.update();
     }
@@ -155,6 +156,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     private void seatChanged(Object source, String cmd) {
         System.out.println("DEBUG: ctrl: identified as checkbox"); // DEBUG
+        System.out.println("DEBUG: ctrl: giving seat info to model"); // DEBUG
         boolean removeElseAdd = !((JCheckBox) source).isSelected(); // remove when JCheckBox is deselected
             
         // the action commands of the JCheckBoxes from the seating tab contain their position
@@ -170,6 +172,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     private void licensePlateChanged() {
         System.out.println("DEBUG: ctrl: license plate changed"); // DEBUG
+        System.out.println("DEBUG: ctrl: giving license plates to model"); // DEBUG
 
         // get reference to the seating tab from the view
         SeatingTab tab = (SeatingTab) view.tabs[KinoView.SEATING_TAB];
@@ -190,6 +193,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      */
     private void cateringChanged() { // TODO update this logic
         System.out.println("DEBUG: " + "ctrl: Catering chosen"); // DEBUG
+        System.out.println("DEBUG: ctrl: giving catering to model"); // DEBUG
 
         // get reference to the catering tab from the view
         CateringTab tab = (CateringTab) view.tabs[KinoView.CATERING_TAB];

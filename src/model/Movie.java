@@ -39,19 +39,11 @@ public class Movie {
     }
 
     /**
-     * toString
-     * @return the title of this movie
-     */
-    @Override
-    public String toString() {
-        return title;
-    }
-
-    /**
      * get the description of the movie, (ideally) containing the genre and fsk
      * @return (ideally) genre and fsk in one string
      */
     public String getDescription() {
+        System.out.println("DEBUG: movie: getting description for " + this); // DEBUG
         StringBuilder builder = new StringBuilder();
         if (genre != null) {
             builder.append(Vocab.GENRE_LABEL.toString() + ": " + genre.getGenre());
@@ -79,5 +71,14 @@ public class Movie {
      */
     public Showtime[] getShowtimes() {
         return showtimes == null ? null : showtimes.clone(); // return a copy
+    }
+
+    /**
+     * toString
+     * @return the title of this movie
+     */
+    @Override
+    public String toString() {
+        return title;
     }
 }

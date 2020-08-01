@@ -32,6 +32,7 @@ public class KinoMain {
      * @param args cmd parameters, unused
      */
     public static void main(String[] args) {
+        System.out.println("DEBUG: main: created view..."); // DEBUG
         new KinoView();
     }
 }

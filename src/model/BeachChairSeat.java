@@ -35,6 +35,7 @@ public class BeachChairSeat extends AbstractSeat {
         if (!isReserved) {
             assignTicket();
             isReserved = true;
+            System.out.println("DEBUG: beach-chair-seat: reserved: " + this); // DEBUG
         }
     }
 
@@ -55,7 +56,7 @@ public class BeachChairSeat extends AbstractSeat {
         String part2 = ticketString.substring(length / 2, ticketString.length());
         ticket = part1 + "-" + part2; 
 
-        System.out.println("DEBUG: Seat: ticket assigned: " + ticket); // DEBUG
+        System.out.println("DEBUG: beach-chair-seat: ticket assigned: " + ticket); // DEBUG
     }
 
     /**

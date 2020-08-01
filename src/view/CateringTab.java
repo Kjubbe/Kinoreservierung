@@ -50,7 +50,7 @@ public class CateringTab extends AbstractTab {
      */
     @Override
     protected void build() {
-        System.out.println("DEBUG: " + "tab: building catering tab..."); // DEBUG
+        System.out.println("DEBUG: catering-tab: building catering tab..."); // DEBUG
 
         // build the JPanel
         // proceed JButton is enabled by default, because the user does not have to choose anything
@@ -67,6 +67,8 @@ public class CateringTab extends AbstractTab {
      * build the catering panel
      */
     private void buildCateringPanel() {
+        System.out.println("DEBUG: catering-tab: building catering panel..."); // DEBUG
+        
         // build the JPanel for the JSpinners
         // FIXME the layout does not work well for this, another layout should be used instead
         cateringPanel = new JPanel(); // new JPanel, contains all JSpinners
@@ -77,6 +79,7 @@ public class CateringTab extends AbstractTab {
         // go through every catering // catch corrupted caterings missing a name or price
         for (Catering catering : Database.getAllCaterings()) {
             if (catering == null || catering.name == null || catering.price == null) {
+                System.out.println("DEBUG: catering-tab: corrupted catering found..."); // DEBUG
                 continue; // skip the corrupted catering
             }
             SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
@@ -91,6 +94,7 @@ public class CateringTab extends AbstractTab {
             container.add(new JLabel(catering.name + " (" + catering.price.getPrice() + Vocab.CURRENCY + ")"));
                 
             cateringPanel.add(container);
+            System.out.println("DEBUG: catering-tab: spinner added..."); // DEBUG
         }
     }
 

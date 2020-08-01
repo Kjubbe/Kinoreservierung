@@ -73,7 +73,7 @@ public class KinoView {
      * Constructor, builds the JFrame
      */
     public KinoView() {
-        System.out.println("DEBUG: view: setting up view"); // DEBUG
+        System.out.println("DEBUG: view: setting up view..."); // DEBUG
         
         // part 1: preparing tabs
         for (int i = 0; i < tabs.length; i++) { // go through the tabs            
@@ -105,6 +105,7 @@ public class KinoView {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
+        System.out.println("DEBUG: view: frame building complete"); // DEBUG
     }
 
     /**
@@ -146,21 +147,21 @@ public class KinoView {
      * @param index the index of the tab which should be switched to
      */
     private void switchTabTo(int index) {
-        System.out.println("DEBUG: view: switched tab to index " + index); // DEBUG
+        System.out.println("DEBUG: view: switching tab to index " + index + "..."); // DEBUG
         
+        tabs[index].reset(); // reset the tab
         try { // try to build the tab
-            tabs[index].reset(); // reset the tab
             tabs[index].build(); // call the build function of the tab
         } catch (IllegalArgumentException ex) { // building the tab failed, inform the user
             String errorMsg = ex.getMessage();
 
             // create a JDialog displaying the error
             createDialog(Vocab.ERROR_DIALOG_NAME.toString(), new String[] {errorMsg});
-
             return; // skip the following code
         }
         tabbedPane.setSelectedIndex(index); // set tab as selected
         tabbedPane.setEnabledAt(index, true); // enable tab
+        System.out.println("DEBUG: view: set selected tab to index " + index); // DEBUG
         disableFollowingTabs(index); // disable all following tabs
         frame.pack();
     }
@@ -252,6 +253,7 @@ public class KinoView {
      * resets all tabs
      */
     private void resetTabs() {
+        System.out.println("DEBUG: kino-view: resetting all tabs"); // DEBUG
         for (AbstractTab tab : tabs) { // go through all tabs
             tab.reset(); // reset all tabs
         }
