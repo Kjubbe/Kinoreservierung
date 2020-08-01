@@ -46,10 +46,9 @@ public class KinoView {
     private final JFrame frame = new JFrame(Vocab.FRAME_NAME.toString());
     private final JTabbedPane tabbedPane = new JTabbedPane(); // JTabbedPane manages tabs
 
-    private final JPanel pricePanel = new JPanel(); // this JPanel contains the price
-
     // JTextField for displaying the price
     private final JTextField priceDisplay = new JTextField(Vocab.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocab.CURRENCY);
+    private final JPanel pricePanel = new JPanel(); // this JPanel contains the price
     
     // Indexes for Tabs
     public static final int START_TAB = 0;

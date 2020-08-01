@@ -194,10 +194,10 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         // get reference to the catering tab from the view
         CateringTab tab = (CateringTab) view.tabs[KinoView.CATERING_TAB];
 
-        List<SpinnerModel> snms = tab.getSpinnerModels(); // get reference to all SpinnerModels from the view
+        List<SpinnerModel> sms = tab.getSpinnerModels(); // get reference to all SpinnerModels from the view
         List<Integer> cateringAmounts = new ArrayList<>(); // create a new list to store the amount for each catering
-        for (SpinnerModel snm : snms) { // check every SpinnerModel
-            cateringAmounts.add((Integer)snm.getValue()); // add the value from the SpinnerModel to the list
+        for (SpinnerModel sm : sms) { // check every SpinnerModel
+            cateringAmounts.add((Integer)sm.getValue()); // add the value from the SpinnerModel to the list
         }
         model.setCatering(cateringAmounts); // advice model to set the catering
         view.update();

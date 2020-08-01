@@ -41,9 +41,11 @@ public class CarSeat extends AbstractSeat {
      */
     @Override
     protected void reserve() {
-        licensePlate = openLicensePlates.remove(0);
-        Database.addLicensePlate(licensePlate);
-        isReserved = true;
+        if (!isReserved) {
+            licensePlate = openLicensePlates.remove(0);
+            Database.addLicensePlate(licensePlate);
+            isReserved = true;
+        }
     }
 
     /**

@@ -73,10 +73,10 @@ public class TimesTab extends AbstractTab {
 
         for (int i = 0; i < times.length; i++) { // go through all times
             Showtime showtime = times[i];
-            if (showtime == null || showtime.getDateAndTime() == null) {
+            if (showtime == null || showtime.getDayAndTime() == null) {
                 continue; // skip this corrupted showtime
             }
-            JRadioButton rb = new JRadioButton(showtime.getDateAndTime()); // new JRadioButton with time as text
+            JRadioButton rb = new JRadioButton(showtime.getDayAndTime()); // new JRadioButton with time as text
                 
             if (showtime.isSoldOut()) { // check if showtime is sold out
                 rb.setEnabled(false); // disable the JRadioButton

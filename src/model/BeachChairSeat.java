@@ -32,8 +32,10 @@ public class BeachChairSeat extends AbstractSeat {
      */
     @Override
     protected void reserve() {
-        assignTicket();
-        isReserved = true;
+        if (!isReserved) {
+            assignTicket();
+            isReserved = true;
+        }
     }
 
     /**

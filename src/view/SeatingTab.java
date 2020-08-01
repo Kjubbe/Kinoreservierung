@@ -122,6 +122,7 @@ public class SeatingTab extends AbstractTab {
     private void buildScreenPanel() {
         JLabel screenLabel = new JLabel(Vocab.SCREEN_LABEL.toString());
         screenLabel.setForeground(Color.WHITE);
+        
         screenPanel = putInContainer(screenLabel); // new JPanel, contains label for the screen
         screenPanel.setBackground(Color.BLACK);
     }

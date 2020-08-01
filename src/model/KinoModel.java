@@ -23,10 +23,10 @@ public class KinoModel {
     private static final int MIN_LICENSE_PLATE_LENGTH = 5;
     private static final int MAX_LICENSE_PLATE_LEGNTH = 10;
 
-    private static final int RESET_CATERING_AND_ABOVE = 1;
-    private static final int RESET_SEATS_AND_ABOVE = 2;
-    private static final int RESET_TIMES_AND_ABOVE = 3;
-    public static final int RESET_MOVIES_AND_ABOVE = 4;
+    private static final int RESET_ABOVE_SEATS = 1;
+    private static final int RESET_ABOVE_TIME = 2;
+    private static final int RESET_ABOVE_MOVIE = 3;
+    private static final int RESET_ABOVE_START = 4;
 
     // datafields, which change during runtime
     private Movie chosenMovie; // set based on user input in the movie tab
@@ -52,7 +52,7 @@ public class KinoModel {
         if (movie != null) {
             chosenMovie = movie; // set chosen movie
             availableTimes = movie.getShowtimes(); // set available times to the times contained in the movie
-            reset(RESET_TIMES_AND_ABOVE);
+            reset(RESET_ABOVE_MOVIE);
         }
     }
 
@@ -70,7 +70,7 @@ public class KinoModel {
         // this time is equivalent to the time displayed on the JRadioButton at the index
         chosenTime = availableTimes[index];
         availableSeats = chosenTime.seats; // set available seats to the seats contained in the showtime
-        reset(RESET_SEATS_AND_ABOVE);
+        reset(RESET_ABOVE_TIME);
     }
 
     /**
@@ -103,7 +103,7 @@ public class KinoModel {
             System.out.println("DEBUG: model: Car seat count changed to " + carSeatAmount); // DEBUG
         }
         System.out.println("DEBUG: model: List of seats " + chosenSeats); // DEBUG
-        reset(RESET_CATERING_AND_ABOVE);
+        reset(RESET_ABOVE_SEATS);
     }
 
     /**
@@ -163,20 +163,20 @@ public class KinoModel {
     public void reset(int depth) {
         System.out.println("DEBUG: model: resetting input..."); // DEBUG
         
-        if (depth >= RESET_MOVIES_AND_ABOVE) { // this depth reaches to the movie tab
+        if (depth >= RESET_ABOVE_START) { // this depth reaches to the movie tab
             chosenMovie = null;
             availableTimes = null;
         }
-        if (depth >= RESET_TIMES_AND_ABOVE) { // this depth reaches to the times tab
+        if (depth >= RESET_ABOVE_MOVIE) { // this depth reaches to the times tab
             chosenTime = null;
             availableSeats = null;
         }
-        if (depth >= RESET_SEATS_AND_ABOVE) { // this depth reaches to the seat tab
+        if (depth >= RESET_ABOVE_TIME) { // this depth reaches to the seat tab
             chosenSeats = new LinkedList<>();
             licensePlates = null;
             carSeatAmount = 0;
         }
-        if (depth >= RESET_CATERING_AND_ABOVE) { // this depth reaches to the catering tab
+        if (depth >= RESET_ABOVE_SEATS) { // this depth reaches to the catering tab
             chosenCatering = null;
         }
     }
@@ -195,7 +195,7 @@ public class KinoModel {
     public void quit() {
         System.out.println("\n" + "DEBUG: model: quitting..."); // DEBUG
         
-        reset(RESET_MOVIES_AND_ABOVE); // reset the model
+        reset(RESET_ABOVE_START); // reset the model
         System.exit(0); // terminate the program
     }
 
@@ -286,8 +286,8 @@ public class KinoModel {
      * get the chosen time
      * @return chosen time
      */
-    public String getChosenDateAndTime() {
-        return chosenTime.getDateAndTime();
+    public String getChosenDayAndTime() {
+        return chosenTime.getDayAndTime();
     }
 
     /**

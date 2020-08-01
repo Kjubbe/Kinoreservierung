@@ -75,8 +75,8 @@ public class CateringTab extends AbstractTab {
 
         // build the JSpinners
         // go through every catering // catch corrupted caterings missing a name or price
-        for (Catering c : Database.getAllCaterings()) {
-            if (c == null || c.name == null || c.price == null) {
+        for (Catering catering : Database.getAllCaterings()) {
+            if (catering == null || catering.name == null || catering.price == null) {
                 continue; // skip the corrupted catering
             }
             SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0, 0, 9, 1); // create a new SpinnerNumberModel
@@ -88,7 +88,7 @@ public class CateringTab extends AbstractTab {
             // build the JPanel
             JPanel container = new JPanel(new FlowLayout());
             container.add(putInContainer(spinner));
-            container.add(new JLabel(c.name + " (" + c.price.getPrice() + Vocab.CURRENCY + ")"));
+            container.add(new JLabel(catering.name + " (" + catering.price.getPrice() + Vocab.CURRENCY + ")"));
                 
             cateringPanel.add(container);
         }

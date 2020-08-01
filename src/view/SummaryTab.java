@@ -78,15 +78,15 @@ public class SummaryTab extends AbstractTab {
         summaryPanel.add(movieLabel);
 
         // part 2: the time
-        JLabel timeLabel = new JLabel(Vocab.TIME_LABEL + ": " + model.getChosenDateAndTime());
+        JLabel timeLabel = new JLabel(Vocab.TIME_LABEL + ": " + model.getChosenDayAndTime());
         timeLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         timeLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(timeLabel);
 
         // part 3: the seats
         builder = new StringBuilder();
-        for (AbstractSeat s : model.getChosenSeats()) { // go through every seat
-            builder.append("1x " + s.name + " (" + s.price.getPrice() + Vocab.CURRENCY + "), ");
+        for (AbstractSeat seat : model.getChosenSeats()) { // go through every seat
+            builder.append("1x " + seat.name + " (" + seat.price.getPrice() + Vocab.CURRENCY + "), ");
         }
         length = builder.length();
         builder.delete(length - 2, length); // remove last comma
@@ -99,8 +99,8 @@ public class SummaryTab extends AbstractTab {
         // part 4: the license plate numbers
         builder = new StringBuilder();
         if (model.getLicensePlates() != null) {
-            for (String s : model.getLicensePlates()) { // go through every seat
-                builder.append("\"" + s + "\", ");
+            for (String licensePlate : model.getLicensePlates()) { // go through every seat
+                builder.append("\"" + licensePlate + "\", ");
             } 
         }
         if (!builder.toString().isEmpty()) {
@@ -118,15 +118,15 @@ public class SummaryTab extends AbstractTab {
             
             // go through every entry of the map
             for (Map.Entry<Catering, Integer> entry : model.getChosenCatering().entrySet()) {
-                Catering c = entry.getKey();
-                Integer i = entry.getValue();
-                if (i == 0) { // check if the catering is chosen, if not skip
+                Catering catering = entry.getKey();
+                Integer amount = entry.getValue();
+                if (amount == 0) { // check if the catering is chosen, if not skip
                     continue; // skip this entry
                 }
                 
                 // add the catering name and price with their amount to the print
-                double price = Math.round(c.price.getPrice() * i * 100.0) / 100.0;
-                builder.append(i + "x " + c.name + " (" + price + Vocab.CURRENCY + "), ");
+                double price = Math.round(catering.price.getPrice() * amount * 100.0) / 100.0;
+                builder.append(amount + "x " + catering.name + " (" + price + Vocab.CURRENCY + "), ");
             }
         }
         

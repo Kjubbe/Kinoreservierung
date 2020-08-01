@@ -49,7 +49,7 @@ public class Order {
         builder.append(Vocab.ORDER_MSGS.getStrings()[0] + "\n"); // first msg
         builder.append(Vocab.ORDER_MSGS.getStrings()[1] + ": " + orderNumber + "\n"); // second msg
         builder.append("\n" + Vocab.MOVIE_LABEL + ": " + movie + "\n"); // movie
-        builder.append("\n" + Vocab.TIME_LABEL + ": " + time.getDateAndTime() + "\n"); // time
+        builder.append("\n" + Vocab.TIME_LABEL + ": " + time.getDayAndTime() + "\n"); // time
         
         // seats
         builder.append("\n" + Vocab.SEATS_LABEL + ": " + "\n");
@@ -69,15 +69,15 @@ public class Order {
         if (caterings != null) {
             boolean none = true;
             for (Map.Entry<Catering, Integer> entry : caterings.entrySet()) { // go through every entry of the map
-                Catering c = entry.getKey();
-                Integer i = entry.getValue();
-                if (i == 0) { // check if the catering is chosen, if not skip
+                Catering catering = entry.getKey();
+                Integer amount = entry.getValue();
+                if (amount == 0) { // check if the catering is chosen, if not skip
                     continue; // skip this entry
                 }
-                double price = Math.round(c.price.getPrice() * i * 100.0) / 100.0; // calculate and round the price
+                double price = Math.round(catering.price.getPrice() * amount * 100.0) / 100.0; // calculate and round the price
                 
                 // add the catering name and price with their amount to the print
-                builder.append("\n" + i + "x " + c.name + " (" + price + Vocab.CURRENCY + ")");
+                builder.append("\n" + amount + "x " + catering.name + " (" + price + Vocab.CURRENCY + ")");
                 none = false;
             }
             if (none) {

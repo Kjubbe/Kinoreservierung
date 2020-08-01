@@ -36,8 +36,8 @@ public final class NumberManager {
 
     /**
      * create and return a ticket number
-     * @param min the minimum of the number range
-     * @param max the maximum of the number range
+     * @param min the minimum of the number range, included
+     * @param max the maximum of the number range, excluded
      * @return the generated ticket number
      */
     protected static int createTicketNumber(int min, int max) {
@@ -57,8 +57,8 @@ public final class NumberManager {
 
     /**
      * create and return an order number
-     * @param min the minimum of the number range
-     * @param max the maximum of the number range
+     * @param min the minimum of the number range, included
+     * @param max the maximum of the number range, excluded
      * @return the generated order number
      */
     protected static int createOrderNumber(int min, int max) {
@@ -70,8 +70,8 @@ public final class NumberManager {
     /**
      * generate a random number in the range for the specified list
      * @param list the list for the number
-     * @param min the minimum of the number range
-     * @param max the maximum of the number range
+     * @param min the minimum of the number range, included
+     * @param max the maximum of the number range, excluded
      * @return the randomly generated number
      */
     private static int nextFor(List<Integer> list, int min, int max) {

@@ -25,7 +25,7 @@ public enum Times {
     PM_09_30("21:30"),
     PM_10_00("22:00");
 
-    // data field, contains readable date as a String
+    // data field, contains readable time as a String
     private final String time;
 
     /**

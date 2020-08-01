@@ -69,9 +69,9 @@ public class MovieTab extends AbstractTab {
         moviePanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // build the dropdown
-        for (Movie m : Database.getAllMovies()) { // go through all movies
-            if (m != null && m.toString() != null) { // check if movie and the title is not null
-                dropdown.addItem(m); // add movie to the JComboBox
+        for (Movie movie : Database.getAllMovies()) { // go through all movies
+            if (movie != null && movie.toString() != null) { // check if movie and the title is not null
+                dropdown.addItem(movie); // add movie to the JComboBox
             }
         }
         dropdown.setSelectedItem(null); // no selected movie
