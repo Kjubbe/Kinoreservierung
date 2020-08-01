@@ -41,9 +41,10 @@ public class BeachChairSeat extends AbstractSeat {
      * gets a random number between the local min value (included) and the local max value (excluded),
      * checks if the ticket number is unique before assigning it
      */
-    protected void assignTicket() {
+    private void assignTicket() {
         // generate and assign the number as a string
-        String ticketString = String.valueOf(NumberManager.createTicketNumber());
+        int ticketNumber = NumberManager.createTicketNumber();
+        String ticketString = String.valueOf(ticketNumber);
 
         int length = ticketString.length(); // get the length of the string
 

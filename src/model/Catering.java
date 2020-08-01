@@ -24,4 +24,9 @@ public class Catering {
         this.price = price;
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

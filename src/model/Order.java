@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +15,6 @@ import model.enums.Vocab;
 public class Order {
 
     // data fields
-    protected static final List<Order> ALL_ORDERS = new ArrayList<>(); // contains all orders
-
     private final Movie movie;
     private final Showtime time;
     private final List<AbstractSeat> seats;
@@ -40,8 +37,6 @@ public class Order {
         this.caterings = caterings;
         this.totalPrice = totalPrice;
         this.orderNumber = NumberManager.createOrderNumber();
-
-        ALL_ORDERS.add(this); // create and add a new order with all information
     }
 
     /**
@@ -65,14 +60,14 @@ public class Order {
                 builder.append(Vocab.TICKET_LABEL + ": " + ((BeachChairSeat)seat).getTicket() + "\n");
             } else {
                 // add license plate
-                builder.append(Vocab.LICENSE_PLATE_LABEL.getStrings()[0] + ": \"" + ((CarSeat)seat).getLicensePlateNr() + "\"" + "\n");
+                builder.append(Vocab.LICENSE_PLATE_LABEL.getStrings()[0] + ": \"" + ((CarSeat)seat).getLicensePlate() + "\"" + "\n");
             }
         }
 
         // catering
         builder.append("\n" + Vocab.CATERING_LABEL + ": ");
         if (caterings != null) {
-            boolean none = true; // TODO maybe change this
+            boolean none = true;
             for (Map.Entry<Catering, Integer> entry : caterings.entrySet()) { // go through every entry of the map
                 Catering c = entry.getKey();
                 Integer i = entry.getValue();

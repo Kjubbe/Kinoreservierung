@@ -1,6 +1,6 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import model.enums.Prices;
@@ -19,7 +19,7 @@ public class CarSeat extends AbstractSeat {
     public final boolean isForSUV; // determines if the seat is meant for suvs
 
     private static List<String> openLicensePlates;
-    private String licensePlateNr; // holds license plate number
+    private String licensePlate; // holds license plate number
 
     /**
      * constructor, calls super constructor and sets suv data field
@@ -41,7 +41,8 @@ public class CarSeat extends AbstractSeat {
      */
     @Override
     protected void reserve() {
-        licensePlateNr = openLicensePlates.remove(0);
+        licensePlate = openLicensePlates.remove(0);
+        Database.addLicensePlate(licensePlate);
         isReserved = true;
     }
 
@@ -49,15 +50,15 @@ public class CarSeat extends AbstractSeat {
      * assign the list of license plates
      * @param openLicensePlates the list with license plates
      */
-    public static void setOpenLicensePlates(List<String> openLicensePlates) {
-        CarSeat.openLicensePlates = openLicensePlates == null ? null : new ArrayList<>(openLicensePlates);
+    protected static void setOpenLicensePlates(List<String> openLicensePlates) {
+        CarSeat.openLicensePlates = openLicensePlates == null ? null : new LinkedList<>(openLicensePlates);
     }
 
     /**
      * get the license plate for this seat
      * @return the license plate nr
      */
-    public String getLicensePlateNr() {
-        return licensePlateNr;
+    protected String getLicensePlate() {
+        return licensePlate;
     }
 }

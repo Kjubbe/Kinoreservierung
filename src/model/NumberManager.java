@@ -1,16 +1,12 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public final class NumberManager {
 
-    private static final List<Integer> ALL_TICKET_NUMBERS = new ArrayList<>(); // this list holds all tickets for every seat
-    private static final List<Integer> ALL_ORDER_NUMBERS = new ArrayList<>(); // this list holds all tickets for every seat
-
-    protected static final int MIN = 10_000_000; // inclusive min value for the ticket number
-    protected static final int MAX = 100_000_000; // exclusive max value for the ticket number
+    private static final int MIN = 10_000_000; // inclusive min value for the ticket number
+    private static final int MAX = 100_000_000; // exclusive max value for the ticket number
 
     private static final Random RNG = new Random(); // create a random number generator
 
@@ -38,8 +34,10 @@ public final class NumberManager {
      * @return the generated ticket number
      */
     protected static int createTicketNumber(int min, int max) {
-        System.out.println("DEBUG: Seat: all tickets: " + ALL_TICKET_NUMBERS); // DEBUG
-        return nextFor(ALL_TICKET_NUMBERS, min, max);
+        System.out.println("DEBUG: Seat: all tickets: " + Database.getAllTicketNumbers()); // DEBUG
+        int ticketNumber = nextFor(Database.getAllTicketNumbers(), min, max);
+        Database.addTicketNumber(ticketNumber);
+        return ticketNumber;
     }
 
     /**
@@ -57,7 +55,9 @@ public final class NumberManager {
      * @return the generated order number
      */
     protected static int createOrderNumber(int min, int max) {
-        return nextFor(ALL_ORDER_NUMBERS, min, max);
+        int orderNumber = nextFor(Database.getAllOrderNumbers(), min, max);
+        Database.addOrderNumber(orderNumber);
+        return orderNumber;
     }
     
     /**

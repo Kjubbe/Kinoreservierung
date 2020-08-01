@@ -20,7 +20,7 @@ public class Movie {
     private final Genres genre;
     private final FSKs fsk;
     private final Icon image;
-    protected final Showtime[] showtimes; // contains all available showtimes for this movie
+    private final Showtime[] showtimes; // contains all available showtimes for this movie
     
     /**
      * constructor, sets data fields
@@ -71,5 +71,13 @@ public class Movie {
      */
     public Icon getImage() {
         return image;
+    }
+
+    /**
+     * get the showtimes
+     * @return the showtimes for this movie
+     */
+    public Showtime[] getShowtimes() {
+        return showtimes.clone(); // return a copy
     }
 }

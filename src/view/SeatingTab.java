@@ -88,22 +88,22 @@ public class SeatingTab extends AbstractTab {
         legendPanel = new JPanel();
         legendPanel.setLayout(new BoxLayout(legendPanel, BoxLayout.Y_AXIS));
 
-        JLabel vipLabel = new JLabel(Vocab.VIP_TOOLTIP + " (" + Vocab.VIP_HINT + ")");
+        JLabel vipLabel = new JLabel(" " + Vocab.VIP_TOOLTIP + " (" + Vocab.VIP_HINT + ") ");
         vipLabel.setOpaque(true);
         vipLabel.setBackground(Color.ORANGE);
         vipLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         
-        JLabel beachChairLabel = new JLabel(Vocab.BEACH_CHAIR_TOOLTIP + " (" + Vocab.BEACH_CHAIR_HINT + ")");
+        JLabel beachChairLabel = new JLabel(" " + Vocab.BEACH_CHAIR_TOOLTIP + " (" + Vocab.BEACH_CHAIR_HINT + ") ");
         beachChairLabel.setOpaque(true);
         beachChairLabel.setBackground(Color.YELLOW);
         beachChairLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
-        JLabel pkwLabel = new JLabel(Vocab.PKW_TOOLTIP + " (" + Vocab.PKW_HINT + ")");
+        JLabel pkwLabel = new JLabel(" " + Vocab.PKW_TOOLTIP + " (" + Vocab.PKW_HINT + ") ");
         pkwLabel.setOpaque(true);
         pkwLabel.setBackground(Color.LIGHT_GRAY);
         pkwLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
-        JLabel suvLabel = new JLabel(Vocab.SUV_TOOLTIP + " (" + Vocab.SUV_HINT + ")");
+        JLabel suvLabel = new JLabel(" " + Vocab.SUV_TOOLTIP + " (" + Vocab.SUV_HINT + ") ");
         suvLabel.setOpaque(true);
         suvLabel.setBackground(Color.GRAY);
         suvLabel.setForeground(heavyWhite);

@@ -16,12 +16,11 @@ public class KinoMain {
     // TODO all: should the vocabulary be part of the view?
     // TODO all: can the view get data from other classes other than the model?
         //like ALL_CATERINGS from the catering class?
-    // TODO all: frame packing and resizing?
-    // TODO check Hash- and TreeMap and Array- and LinkedList
     // TODO check JavaDoc and all other comments
 
     // minor issues:
     // 1. the map for the catering can be null if no catering is chosen, but this is (actually) not a problem
+    // 2. the license plates and catering change all the time, they should only be set when proceeding
 
     // other:
     // the proceed JButton disables all following tabs,

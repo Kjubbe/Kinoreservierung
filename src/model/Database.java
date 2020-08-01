@@ -18,6 +18,12 @@ import model.enums.Times;
 
 public final class Database {
 
+    // these list contain all orders, numbers and license plates
+    private static final List<Order> ALL_ORDERS = new ArrayList<>(); // contains all orders
+    private static final List<Integer> ALL_TICKET_NUMBERS = new ArrayList<>(); // this list holds all tickets for every seat
+    private static final List<String> ALL_LICENSE_PLATES = new ArrayList<>(); // this list holds all tickets for every seat
+    private static final List<Integer> ALL_ORDER_NUMBERS = new ArrayList<>(); // this list holds all tickets for every seat
+
     // this list contains all movies
     private static final List<Movie> ALL_MOVIES = new ArrayList<>(Arrays.asList( // create array with all movies
         new Movie("The Fermentor", Genres.ACTION, FSKs.FSK_18, "images/the_fermentor.jpg", new Showtime[] {
@@ -122,38 +128,6 @@ public final class Database {
     }
 
     /**
-     * add a movie to the list
-     * @param movie the movie which should be added
-     */
-    public static void addMovie(Movie movie) {
-        ALL_MOVIES.add(movie);
-    }
-
-    /**
-     * remove a movie from the list
-     * @param movie the movie to be removed
-     */
-    public static void removeMovie(Movie movie) {
-        ALL_MOVIES.remove(movie);
-    }
-
-    /**
-     * add a catering to the list
-     * @param catering the catering which should be added
-     */
-    public static void addCatering(Catering catering) {
-        ALL_CATERINGS.add(catering);
-    }
-
-    /**
-     * remove a catering from the list
-     * @param movie the movie to be removed
-     */
-    public static void removeCatering(Catering catering) {
-        ALL_CATERINGS.remove(catering);
-    }
-
-    /**
      * get all movies
      * @return a list with all movies
      */
@@ -162,10 +136,110 @@ public final class Database {
     }
 
     /**
+     * add a movie to the list
+     * @param movie the movie which should be added
+     */
+    protected static void addMovie(Movie movie) {
+        ALL_MOVIES.add(movie);
+    }
+
+    /**
+     * remove a movie from the list
+     * @param movie the movie to be removed
+     */
+    protected static void removeMovie(Movie movie) {
+        ALL_MOVIES.remove(movie);
+    }
+
+    /**
      * get all caterings
      * @return a list with all movies
      */
     public static List<Catering> getAllCaterings() {
         return new ArrayList<>(ALL_CATERINGS); // return a copy
+    }
+
+    /**
+     * add a catering to the list
+     * @param catering the catering which should be added
+     */
+    protected static void addCatering(Catering catering) {
+        ALL_CATERINGS.add(catering);
+    }
+
+    /**
+     * remove a catering from the list
+     * @param movie the movie to be removed
+     */
+    protected static void removeCatering(Catering catering) {
+        ALL_CATERINGS.remove(catering);
+    }
+
+    /**
+     * get all orders
+     * @return a list with all orders
+     */
+    protected static List<Order> getAllOrders() {
+        return new ArrayList<>(ALL_ORDERS); // return a copy
+    }
+
+    /**
+     * add an order to the list
+     * @param order the order to be added
+     */
+    protected static void addOrder(Order order) {
+        ALL_ORDERS.add(order);
+        System.out.println("DEBUG DATABASE: all orders are " + ALL_ORDERS);
+    }
+
+    /**
+     * get all ticket numbers
+     * @return a list with all ticket numbers
+     */
+    protected static List<Integer> getAllTicketNumbers() {
+        return new ArrayList<>(ALL_TICKET_NUMBERS); // return a copy
+    }
+
+    /**
+     * add a ticket number to the list
+     * @param ticketNumber the number to be added
+     */
+    protected static void addTicketNumber(int ticketNumber) {
+        ALL_TICKET_NUMBERS.add(ticketNumber);
+        System.out.println("DEBUG DATABASE: all ticket numbers are " + ALL_TICKET_NUMBERS);
+    }
+
+    /**
+     * get all license plates
+     * @return a list with all license plates
+     */
+    protected static List<String> getAllLicensePlates() {
+        return new ArrayList<>(ALL_LICENSE_PLATES); // return a copy
+    }
+
+    /**
+     * add a license plate to the list
+     * @param orderNumber the license plate to be added
+     */
+    protected static void addLicensePlate(String licensePlate) {
+        ALL_LICENSE_PLATES.add(licensePlate);
+        System.out.println("DEBUG DATABASE: all license plates are " + ALL_LICENSE_PLATES);
+    }
+
+    /**
+     * get all order numbers
+     * @return a list with all order numbers
+     */
+    protected static List<Integer> getAllOrderNumbers() {
+        return new ArrayList<>(ALL_ORDER_NUMBERS); // return a copy
+    }
+
+    /**
+     * add a ticket number to the list
+     * @param orderNumber the number to be added
+     */
+    protected static void addOrderNumber(int orderNumber) {
+        ALL_ORDER_NUMBERS.add(orderNumber);
+        System.out.println("DEBUG DATABASE: all order numbers are " + ALL_ORDER_NUMBERS);
     }
 }

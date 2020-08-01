@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class KinoModel {
     private Showtime chosenTime; // set based on user input in the times tab
     private AbstractSeat[][] availableSeats; // set based on the chosen time
 
-    private List<AbstractSeat> chosenSeats; // set based on user input in the seat tab
+    private List<AbstractSeat> chosenSeats = new LinkedList<>(); // set based on user input in the seat tab
     private int carSeatAmount; // contains number of CarSeats in chosenSeats
     private List<String> licensePlates; // contains inputted license plates for CarSeats
 
@@ -50,7 +51,7 @@ public class KinoModel {
         System.out.println("DEBUG: model: Movie set, Movie: " + movie); // DEBUG
         if (movie != null) {
             chosenMovie = movie; // set chosen movie
-            availableTimes = movie.showtimes; // set available times to the times contained in the movie
+            availableTimes = movie.getShowtimes(); // set available times to the times contained in the movie
             reset(RESET_TIMES_AND_ABOVE);
         }
     }
@@ -111,6 +112,7 @@ public class KinoModel {
      * @param cateringAmounts list of amounts for each catering
      */
     public void setCatering(List<Integer> cateringAmounts) { // TODO update this logic
+        int index = 0; // local index counter
         // create a new map, which will contain every catering option with their specified amount
         chosenCatering = new HashMap<>();
         for (int i = 0; i < Database.getAllCaterings().size(); i++) { // check every Catering of the list
@@ -122,7 +124,8 @@ public class KinoModel {
             } 
 
             // put catering as key with the selected amount as a value in the map
-            chosenCatering.put(equivalentCatering, cateringAmounts.get(i));
+            chosenCatering.put(equivalentCatering, cateringAmounts.get(index));
+            index++;
         }
         System.out.println("DEBUG: model: Catering set, Caterings: " + chosenCatering); // DEBUG
     }
@@ -169,7 +172,7 @@ public class KinoModel {
             availableSeats = null;
         }
         if (depth >= RESET_SEATS_AND_ABOVE) { // this depth reaches to the seat tab
-            chosenSeats = new ArrayList<>();
+            chosenSeats = new LinkedList<>();
             licensePlates = null;
             carSeatAmount = 0;
         }
@@ -210,13 +213,10 @@ public class KinoModel {
             chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
         }
         Order order = new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, getTotalPrice());
+        Database.addOrder(order); // create and add a new order with all information
         
-        String path = "orders/order";
-        while (!FileManager.createTXTFile(path + order.orderNumber, order.toString())) {
-            path += "_";
-        }
-
-        System.out.println("\n" + "DEBUG: model: All orders are: \n" + Order.ALL_ORDERS + "\n"); // DEBUGs
+        String path = "orders/order" + order.orderNumber;
+        System.out.println(FileManager.createTXTFile(path, order.toString()));
     }
     
     /**

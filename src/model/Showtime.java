@@ -38,7 +38,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
      * @param rowAmount the amount of rows of seats
      * @param columnAmount the amount of columns of seats
      */
-    private void createSeats(int rowAmount, int columnAmount) {
+    private void createSeats(int rowAmount, int columnAmount) { // TODO maybe make this more variable with a SeatCreator class
         for (int row = 0; row < rowAmount; row++) { // every row
             for (int column = 0; column < columnAmount; column++) { // checks every column of every row
                 boolean vip = row == 0; // first row is vip
@@ -83,8 +83,8 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
             return;
         }
         for (AbstractSeat[] column : seats) {
-            for (AbstractSeat s : column) { // check every seat
-                if (!s.isReserved) {
+            for (AbstractSeat seat : column) { // check every seat
+                if (!seat.isReserved) {
                     return; // unreserved seat found > return, because show is not sold out
                 }
             }

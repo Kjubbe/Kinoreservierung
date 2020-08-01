@@ -4,15 +4,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-
-import java.util.Map;
-import java.util.TreeMap;
-
 import java.awt.image.BufferedImage;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 
 /**
  * manages, generates and contains order and ticket numbers
@@ -22,9 +18,6 @@ import javax.swing.ImageIcon;
  */
 
 public final class FileManager {
-
-    // this map contains keys with paths for values with content string
-    private static final Map<String, String> ALL_FILES = new TreeMap<>();
     
     /**
      * private constructor to restrict access
@@ -42,7 +35,7 @@ public final class FileManager {
      * @param content content for the file
      * @return if creating a new file was successful
      */
-    public static boolean createTXTFile(String path, String content) {
+    protected static boolean createTXTFile(String path, String content) {
         if (!path.contains(".txt")) {
             path += ".txt"; // add suffix
         }
@@ -55,14 +48,12 @@ public final class FileManager {
             ex.printStackTrace();
             return false; // skip following code
         }
-        try (FileWriter writer = new FileWriter(path) // try-with-resources guarantees the writer is closed
-            ) {
+        try (FileWriter writer = new FileWriter(path)) { // try-with-resources guarantees the writer is closed
             writer.write(content); // try writing to the file
         } catch (IOException ex) { // error catched
             ex.printStackTrace();
             return false;
         }
-        ALL_FILES.put(path, content);
         return true;
     }
 
@@ -71,24 +62,20 @@ public final class FileManager {
      * @param path the path of the file to be deleted
      * @return if deleting the file was successful
      */
-    public static boolean deleteTXTFile(String path) {
+    protected static boolean deleteTXTFile(String path) {
         if (!path.contains(".txt")) {
             path += ".txt"; // add suffix
         }
         File file = new File(path); // create a File Object with the desired path
-        if (!file.delete()) { // delete the file, if this failes return
-            return false;
-        }
-        ALL_FILES.remove(path);
-        return true;
+        return !file.delete();
     }
 
     /**
      * read an image from a file
      * @return icon with the image
      */
-    public static Icon loadImage(String path) {
-		BufferedImage pic;
+    protected static Icon loadImage(String path) {
+		BufferedImage pic = null;
 		try {
 			pic = ImageIO.read(new File(path));
 		} catch (Exception ex) {

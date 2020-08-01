@@ -22,7 +22,7 @@ import model.enums.Vocab;
  */
 
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
-public class TimesTab extends AbstractTab { // TODO maybe add a table or list to choose from? (overkill!)
+public class TimesTab extends AbstractTab {
 
     // JPanel which contains all JRadioButtons
     private JPanel timesPanel;

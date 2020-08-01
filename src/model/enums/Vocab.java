@@ -126,7 +126,7 @@ public enum Vocab {
      * @return the strings in a cloned array
      */
     public String[] getStrings() {
-        return strings.clone();
+        return strings == null ? null : strings.clone();
     }
 
     /**
