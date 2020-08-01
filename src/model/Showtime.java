@@ -38,7 +38,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
      * @param rowAmount the amount of rows of seats
      * @param columnAmount the amount of columns of seats
      */
-    private void createSeats(int rowAmount, int columnAmount) { // TODO maybe make this more variable with a SeatCreator class
+    private void createSeats(int rowAmount, int columnAmount) {
         for (int row = 0; row < rowAmount; row++) { // every row
             for (int column = 0; column < columnAmount; column++) { // checks every column of every row
                 boolean isVip = row == 0; // first row is vip

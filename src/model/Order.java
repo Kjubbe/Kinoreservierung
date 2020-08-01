@@ -25,7 +25,7 @@ public class Order {
     protected final String orderDescription;
 
     /**
-     * constructor, assigns data fields // TODO store clones
+     * constructor, assigns data fields
      * @param movie the chosen movie
      * @param time the chosen time of the movie
      * @param seats the chosen seats for the time
@@ -37,7 +37,7 @@ public class Order {
         this.seats = seats;
         this.caterings = caterings;
         this.totalPrice = totalPrice;
-        this.orderNumber = NumberManager.createOrderNumber();
+        this.orderNumber = NumberManager.generateOrderNumber();
         this.orderDescription = createDescription();
     }
 

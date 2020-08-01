@@ -30,8 +30,8 @@ public final class NumberManager {
      * create and return a ticket number with default range
      * @return the generated ticket number
      */
-    protected static int createTicketNumber() {
-        return createTicketNumber(MIN, MAX);
+    protected static int generateTicketNumber() {
+        return generateTicketNumber(MIN, MAX);
     }
 
     /**
@@ -40,7 +40,7 @@ public final class NumberManager {
      * @param max the maximum of the number range, excluded
      * @return the generated ticket number
      */
-    protected static int createTicketNumber(int min, int max) {
+    protected static int generateTicketNumber(int min, int max) {
         System.out.println("DEBUG: number manager: generating unique ticket number"); // DEBUG
         int ticketNumber = nextFor(Database.getAllTicketNumbers(), min, max);
         Database.addTicketNumber(ticketNumber);
@@ -51,8 +51,8 @@ public final class NumberManager {
      * create and return a ticket number with default range
      * @return the generated ticket number
      */
-    protected static int createOrderNumber() {
-        return createOrderNumber(MIN, MAX);
+    protected static int generateOrderNumber() {
+        return generateOrderNumber(MIN, MAX);
     }
 
     /**
@@ -61,7 +61,7 @@ public final class NumberManager {
      * @param max the maximum of the number range, excluded
      * @return the generated order number
      */
-    protected static int createOrderNumber(int min, int max) {
+    protected static int generateOrderNumber(int min, int max) {
         System.out.println("DEBUG: number manager: generating unique order number"); // DEBUG
         int orderNumber = nextFor(Database.getAllOrderNumbers(), min, max);
         Database.addOrderNumber(orderNumber);
@@ -84,7 +84,7 @@ public final class NumberManager {
         do {
             // get a random number in the specified range
             if (iterations >= 1000) {
-                throw new StackOverflowError("No unique random number can be generated");
+                throw new StackOverflowError("No unique, random number can be generated");
             }
             number = min + (bound > 0 ? RNG.nextInt(bound) : RNG.nextInt(MAX - MIN)); // if bound is not positive use the default 
             duplicate = false; // assume, that it is not a duplicate
@@ -97,7 +97,7 @@ public final class NumberManager {
                     break;
                 }
             }
-        } while (duplicate); // repeat until there is no duplication or limit reached
+        } while (duplicate); // repeat until there is no duplication
         return number;
     }
 }

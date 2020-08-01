@@ -21,8 +21,8 @@ public final class Database {
     // these list contain all orders, numbers and license plates
     private static final List<Order> ALL_ORDERS = new ArrayList<>(); // contains all orders
     private static final List<Integer> ALL_TICKET_NUMBERS = new ArrayList<>(); // this list holds all tickets for every seat
-    private static final List<String> ALL_LICENSE_PLATES = new ArrayList<>(); // this list holds all tickets for every seat
-    private static final List<Integer> ALL_ORDER_NUMBERS = new ArrayList<>(); // this list holds all tickets for every seat
+    private static final List<String> ALL_LICENSE_PLATES = new ArrayList<>(); // this list holds all license plates
+    private static final List<Integer> ALL_ORDER_NUMBERS = new ArrayList<>(); // this list holds all order numbers
 
     // this list contains all movies
     private static final List<Movie> ALL_MOVIES = new ArrayList<>(Arrays.asList( // create array with all movies

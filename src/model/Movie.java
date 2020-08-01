@@ -19,8 +19,10 @@ public class Movie {
     private final String title;
     private final Genres genre;
     private final FSKs fsk;
-    private final Icon image;
+    private final String picPath;
     private final Showtime[] showtimes; // contains all available showtimes for this movie
+
+    private Icon image;
     
     /**
      * constructor, sets data fields
@@ -34,7 +36,7 @@ public class Movie {
         this.title = title;
         this.genre = genre;
         this.fsk = fsk;
-        this.image = FileManager.loadImage(picPath);
+        this.picPath = picPath;
         this.showtimes = showtimes;
     }
 
@@ -62,6 +64,9 @@ public class Movie {
      * @return the picture
      */
     public Icon getImage() {
+        if (image == null) {
+            image = FileManager.loadImage(picPath);
+        }
         return image;
     }
 

@@ -46,7 +46,7 @@ public class BeachChairSeat extends AbstractSeat {
      */
     private void assignTicket() {
         // generate and assign the number as a string
-        int ticketNumber = NumberManager.createTicketNumber();
+        int ticketNumber = NumberManager.generateTicketNumber();
         String ticketString = String.valueOf(ticketNumber);
 
         int length = ticketString.length(); // get the length of the string
