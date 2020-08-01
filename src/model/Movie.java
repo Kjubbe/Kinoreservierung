@@ -78,6 +78,6 @@ public class Movie {
      * @return the showtimes for this movie
      */
     public Showtime[] getShowtimes() {
-        return showtimes.clone(); // return a copy
+        return showtimes == null ? null : showtimes.clone(); // return a copy
     }
 }
