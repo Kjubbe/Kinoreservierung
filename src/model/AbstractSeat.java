@@ -43,9 +43,6 @@ public abstract class AbstractSeat {
     }
 
     /**
-     * @param toString(
-     */
-    /**
      * abstract method reserve is invoked from model when placing the order, this
      * method should set all important data fields
      */
