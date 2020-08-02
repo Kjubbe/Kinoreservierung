@@ -1,10 +1,9 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;

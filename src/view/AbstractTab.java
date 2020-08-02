@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

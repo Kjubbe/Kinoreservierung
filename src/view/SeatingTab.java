@@ -1,11 +1,11 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Component;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -17,10 +17,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import controller.KinoController;
+import model.AbstractSeat;
 import model.BeachChairSeat;
 import model.CarSeat;
 import model.KinoModel;
-import model.AbstractSeat;
 import model.enums.Vocab;
 
 /**

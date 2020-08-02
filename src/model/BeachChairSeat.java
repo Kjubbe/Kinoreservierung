@@ -1,7 +1,7 @@
 package model;
 
-import model.enums.Vocab;
 import model.enums.Prices;
+import model.enums.Vocab;
 
 /**
  * special type of seat, inherits from the Seat class, contains a ticket number

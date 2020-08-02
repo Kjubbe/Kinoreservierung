@@ -1,14 +1,13 @@
 package model;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.awt.image.BufferedImage;
-
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.imageio.ImageIO;
 
 /**
  * manages, generates and contains order and ticket numbers loads pictures from

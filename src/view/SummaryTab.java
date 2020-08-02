@@ -9,9 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.KinoController;
+import model.AbstractSeat;
 import model.Catering;
 import model.KinoModel;
-import model.AbstractSeat;
 import model.enums.Vocab;
 
 /**
