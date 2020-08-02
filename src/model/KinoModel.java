@@ -22,7 +22,7 @@ public class KinoModel {
 
     // constants
     private static final int MIN_LICENSE_PLATE_LENGTH = 5;
-    private static final int MAX_LICENSE_PLATE_LEGNTH = 10;
+    private static final int MAX_LICENSE_PLATE_LENGTH = 10;
 
     private static final int RESET_ABOVE_SEATS = 1;
     private static final int RESET_ABOVE_TIME = 2;
@@ -167,7 +167,7 @@ public class KinoModel {
 
         // input only suffices if the length of the text is greater than min and less
         // than max
-        return input.length() >= MIN_LICENSE_PLATE_LENGTH && input.length() <= MAX_LICENSE_PLATE_LEGNTH;
+        return input.length() >= MIN_LICENSE_PLATE_LENGTH && input.length() <= MAX_LICENSE_PLATE_LENGTH;
     }
 
     /**
