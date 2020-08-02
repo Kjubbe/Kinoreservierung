@@ -19,7 +19,7 @@ import model.enums.Vocab;
 /**
  * parent class for custom tabs, contains basic data for a tab, contains three
  * JButtons for proceeding, exiting or going back, contains an instructional
- * JPanel with a JLabel (optional), inherites from JPanel
+ * JPanel with a JLabel (optional), inherits from JPanel
  * 
  * @author Kjell Treder
  * @author Marcel Sauer

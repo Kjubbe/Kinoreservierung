@@ -4,7 +4,7 @@ import model.enums.Vocab;
 import model.enums.Prices;
 
 /**
- * special type of seat, inherites from the Seat class, contains a ticket number
+ * special type of seat, inherits from the Seat class, contains a ticket number
  * and list of all tickets
  * 
  * @author Kjell Treder

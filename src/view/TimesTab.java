@@ -16,7 +16,7 @@ import model.enums.Vocab;
 /**
  * the times tab contains components for displaying information about the
  * available times, this tab is the third tab in the view, contains
- * JRadioButtons to choose one of the showtimes from the chosen movie, inherites
+ * JRadioButtons to choose one of the showtimes from the chosen movie, inherits
  * from the Tab class
  * 
  * @author Kjell Treder

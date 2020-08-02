@@ -77,11 +77,11 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     }
 
     /**
-     * updates the availibility of this showtime, if no seat is available the show
+     * updates the availability of this showtime, if no seat is available the show
      * is sold out
      */
     protected void updateAvailability() {
-        System.out.println("DEBUG: " + "Showtime: updating availibility..."); // DEBUG
+        System.out.println("DEBUG: " + "Showtime: updating availability..."); // DEBUG
         if (isSoldOut) { // only check is the show is not sold out already
             return;
         }

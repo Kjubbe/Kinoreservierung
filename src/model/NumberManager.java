@@ -93,8 +93,8 @@ public final class NumberManager {
             if (iterations >= 1000) {
                 throw new StackOverflowError("No unique, random number can be generated");
             }
-            number = min + (bound > 0 ? RNG.nextInt(bound) : RNG.nextInt(MAX - MIN)); // if bound is not positive use
-                                                                                      // the default
+            // if bound is not positive use the default bound
+            number = min + (bound > 0 ? RNG.nextInt(bound) : RNG.nextInt(MAX - MIN));
             duplicate = false; // assume, that it is not a duplicate
             for (Integer num : list) { // check every ticket
                 if (num == number) { // check for duplication

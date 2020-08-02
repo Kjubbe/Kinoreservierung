@@ -170,7 +170,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         // position
         // this way, the seat at the same position can either be removed or added to the
         // list of chosen seats
-        model.setSeat(cmd, removeElseAdd); // adivice model to change seats based on the information
+        model.setSeat(cmd, removeElseAdd); // advice model to change seats based on the information
         view.update();
     }
 

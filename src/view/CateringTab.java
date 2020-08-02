@@ -23,7 +23,7 @@ import model.enums.Vocab;
 /**
  * the catering tab contains components for displaying information about the
  * caterings, this tab is the fifth tab in the view, it contains JSpinners to
- * choose the amount of caterings, inherites from the Tab class
+ * choose the amount of caterings, inherits from the Tab class
  * 
  * @author Kjell Treder
  * @author Marcel Sauer

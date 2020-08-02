@@ -14,16 +14,25 @@ public enum Vocab {
     ERROR_DIALOG_NAME("Hoppla..."), // String for error JDialogs
 
     // instruction text for tabs
-    INSTRUCTION_TEXTS(new String[] // Strings for instructions on every tab in order
-    { "Willkommen zum Autokinoreservierungssystem der TH Lübeck!", "Bitte wählen Sie einen Film aus:",
-            "Bitte wählen Sie eine Vorstellungszeit für ihren Film aus:",
-            "Bitte wählen Sie die Plätze aus, die Sie reservieren möchten:", "Möchten Sie noch etwas dazubestellen?",
-            "Bitte überprüfen Sie ihre Bestellung:" }),
+    INSTRUCTION_TEXTS(new String[] { // Strings for instructions on every tab in order
+        "Willkommen bei der Reservierung für das TH-Lübeck Autokino!",
+        "Bitte wählen Sie einen Film aus:",
+        "Bitte wählen Sie eine Vorstellungszeit für ihren Film aus:",
+        "Bitte wählen Sie die Plätze aus, die Sie reservieren möchten:",
+        "Möchten Sie noch etwas dazubestellen?",
+        "Bitte überprüfen Sie ihre Bestellung:"
+    }),
 
     // tab names
     DEFAULT_TAB_NAME("Tab"), // String for default tab name, used, when no name is set
-    TAB_NAMES(new String[] // Strings for names of the tab in order
-    { "Start", "Filme", "Zeiten", "Plätze", "Essen", "Bestellen" }),
+    TAB_NAMES(new String[] { // Strings for names of the tab in order
+        "Start",
+        "Filme",
+        "Zeiten",
+        "Plätze",
+        "Essen",
+        "Bestellen"
+    }),
 
     // misc
     NONE_LABEL("keins"), // String for showing nothing is chosen
@@ -32,11 +41,15 @@ public enum Vocab {
     START_MSG("Bitte fahren Sie fort, um mit der Reservierung zu beginnen."),
 
     // String for the finishing msg JLabels
-    FINISH_MSGS(new String[] { "Ihre Reservierung war erfolgreich.", "Wir freuen uns auf ihren Besuch!" }),
+    FINISH_MSGS(new String[] {
+        "Ihre Reservierung war erfolgreich.",
+        "Wir freuen uns auf ihren Besuch!"
+    }),
 
-    ORDER_MSGS(new String[] // String for the order file
-    { "Vielen Dank, dass Sie unseren Service nutzen!",
-            "Im Folgenden finden Sie die Informationen zu ihrer Reservierung; Bestellnummer" }),
+    ORDER_MSGS(new String[] { // String for the order file
+        "Vielen Dank, dass Sie unseren Service nutzen!",
+        "Im Folgenden finden Sie die Informationen zu ihrer Reservierung; Bestellnummer"
+    }),
 
     TOTAL_PRICE_LABEL("Gesamtpreis"), // String for the price JTextField
     CURRENCY("€"), // String for the currency
@@ -74,7 +87,10 @@ public enum Vocab {
     TIME_LABEL("Zeit"), // time
     SEATS_LABEL("Plätze"), // seats
 
-    LICENSE_PLATE_LABEL(new String[] { "Kennz.", "Bitte Kennz. eingeben" }),
+    LICENSE_PLATE_LABEL(new String[] {
+        "Kennz.",
+        "Bitte Kennz. eingeben"
+    }),
 
     TICKET_LABEL("Ihr Ticket"), // tickets
     CATERING_LABEL("Essen"); // catering

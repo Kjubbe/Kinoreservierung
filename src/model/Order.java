@@ -76,9 +76,8 @@ public class Order {
                 if (amount == 0) { // check if the catering is chosen, if not skip
                     continue; // skip this entry
                 }
-                double price = Math.round(catering.price.getPrice() * amount * 100.0) / 100.0; // calculate and round
-                                                                                               // the price
-
+                double price = Math.round(catering.price.getPrice() * amount * 100.0) / 100.0; // calculate and round the price
+                
                 // add the catering name and price with their amount to the print
                 builder.append("\n" + amount + "x " + catering.name + " (" + price + Vocab.CURRENCY + ")");
                 none = false;

@@ -10,7 +10,7 @@ import model.enums.Vocab;
 /**
  * the start tab contains components for displaying information about the
  * starting screen, this tab is the first tab in the view, it contains a JLabel
- * to display information, inherites from the Tab class
+ * to display information, inherits from the Tab class
  * 
  * @author Kjell Treder
  * @author Marcel Sauer

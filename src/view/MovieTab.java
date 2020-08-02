@@ -13,7 +13,7 @@ import model.Movie;
 /**
  * the movie tab contains components for displaying information about the
  * movies, this tab is the second tab in the view, it contains a JComboBox to
- * choose a movie, inherites from the Tab class
+ * choose a movie, inherits from the Tab class
  * 
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -98,7 +98,7 @@ public class MovieTab extends AbstractTab {
      * build the JLabel for the descriptions of the movies
      */
     private void buildDescriptionLabel() {
-        System.out.println("DEBUG: movie-tab: building desciption label..."); // DEBUG
+        System.out.println("DEBUG: movie-tab: building description label..."); // DEBUG
 
         // build the description JLabel
         descriptionLabel = new JLabel(); // new JLabel for the description

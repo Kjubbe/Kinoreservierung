@@ -45,7 +45,7 @@ public final class FileManager {
         System.out.println("DEBUG: file-manager: creating file at " + path); // DEBUG
         try {
             File file = new File(path); // create a File Object with the desired path
-            if (!file.createNewFile()) { // create a new file, if this failes return
+            if (!file.createNewFile()) { // create a new file, if this failed return
                 System.out.println("DEBUG: file-manager: creation failed at " + path); // DEBUG
                 return false;
             }

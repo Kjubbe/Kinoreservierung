@@ -27,7 +27,7 @@ import model.enums.Vocab;
  * the seating tab contains components for displaying information about the
  * available seats, this tab is the fourth tab in the view, it contains
  * JCheckBoxes to choose seats, and JTextFields for typing in license plates,
- * inherites from the Tab class
+ * inherits from the Tab class
  * 
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -231,8 +231,8 @@ public class SeatingTab extends AbstractTab {
         // condition 2: all input for license plates must suffice
         boolean lpMissing = false; // assume that no license plate is missing
         for (JTextField tf : getTextFields()) {
-            if (!model.checkInput(tf.getText())) { // check for unsufficient textfield
-                lpMissing = true; // unsufficient textfield found
+            if (!model.checkInput(tf.getText())) { // check for insufficient textfield
+                lpMissing = true; // insufficient textfield found
                 tf.getParent().setBackground(lightRed); // input does no suffice -> red background
                 System.out.println("DEBUG: seating-tab: input does not suffice..."); // DEBUG
             } else {
