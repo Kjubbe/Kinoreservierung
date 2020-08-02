@@ -17,17 +17,17 @@ import model.KinoModel;
 import model.enums.Vocab;
 
 /**
- * parent class for custom tabs, contains basic data for a tab,
- * contains three JButtons for proceeding, exiting or going back,
- * contains an instructional JPanel with a JLabel (optional),
- * inherites from JPanel
+ * parent class for custom tabs, contains basic data for a tab, contains three
+ * JButtons for proceeding, exiting or going back, contains an instructional
+ * JPanel with a JLabel (optional), inherites from JPanel
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
 
 @SuppressWarnings("serial") // no serialVersionUID field of type long needed
 public abstract class AbstractTab extends JPanel {
-    
+
     // references
     protected final KinoModel model;
     protected final KinoController ctrl;
@@ -41,8 +41,9 @@ public abstract class AbstractTab extends JPanel {
 
     /**
      * constructor, assigns data references and an index
+     * 
      * @param model reference to the model object
-     * @param ctrl reference to the ctrl object
+     * @param ctrl  reference to the ctrl object
      * @param index position of the tab in the JTabbedPane from the view
      */
     public AbstractTab(KinoModel model, KinoController ctrl, int index) {
@@ -59,18 +60,19 @@ public abstract class AbstractTab extends JPanel {
         backButton = new JButton(Vocab.BACK_BUTTON.toString()); // set the label to the String from the model
         backButton.setActionCommand(Vocab.BACK_BUTTON.toString());
         backButton.addActionListener(ctrl); // add listener
-        
+
         // quit JButton
         quitButton = new JButton(Vocab.QUIT_BUTTON.toString()); // set the label to the String from the model
         quitButton.setActionCommand(Vocab.QUIT_BUTTON.toString());
         quitButton.addActionListener(ctrl); // add listener
-        
+
         // proceed JButton
         proceedButton = new JButton(Vocab.PROCEED_BUTTON.toString()); // set the label to the String from the model
         proceedButton.setActionCommand(Vocab.PROCEED_BUTTON.toString());
         proceedButton.addActionListener(ctrl); // add listener
 
-        // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed
+        // proceed JButton is disabled, since there is (most often) a condition that is
+        // needed to be met to proceed
         proceedButton.setEnabled(false);
 
         // build the JPanel
@@ -84,21 +86,22 @@ public abstract class AbstractTab extends JPanel {
     }
 
     /**
-     * reset the tab, removes all components,
-     * disables JButton to proceed,
-     * this method should be called before building a tab (again)
+     * reset the tab, removes all components, disables JButton to proceed, this
+     * method should be called before building a tab (again)
      */
     protected final void reset() {
         System.out.println("DEBUG: abstract-tab: resetting tab..."); // DEBUG
-        
+
         super.removeAll(); // removes all components from the tab
 
-        // proceed JButton is disabled, since there is (most often) a condition that is needed to be met to proceed
+        // proceed JButton is disabled, since there is (most often) a condition that is
+        // needed to be met to proceed
         proceedButton.setEnabled(false);
     }
 
     /**
      * put an component inside a JPanel for better alignment
+     * 
      * @param comp the component which should be put in the container
      * @return container JPanel for the component
      */
@@ -110,16 +113,17 @@ public abstract class AbstractTab extends JPanel {
 
     /**
      * get components from a JPanel
+     * 
      * @param pan JPanel which contains the desired components
      * @return the array of components
      */
     protected static final List<Component> getComponentsFrom(JPanel pan) {
         List<Component> finalComponents = new ArrayList<>(); // create a list which will contain all components
-        
+
         List<Component> components = Arrays.asList(pan.getComponents()); // get all components from JPanel
         for (Component comp : components) {
             if (comp instanceof JPanel) { // the component is instance of JPanel
-                finalComponents.addAll(getComponentsFrom((JPanel)comp)); // get all components from the JPanel
+                finalComponents.addAll(getComponentsFrom((JPanel) comp)); // get all components from the JPanel
             } else { // the component is not a JPanel
                 finalComponents.add(comp); // add the component to the list
             }
@@ -128,17 +132,21 @@ public abstract class AbstractTab extends JPanel {
     }
 
     /**
-     * abstract method build is invoked from view when switching to a tab via the proceed JButton in another tab,
-     * building of each tab can differ, thus the abstract method
-     * @throws IllegalArgumentException when information is missing, exception is caught in KinoView
+     * abstract method build is invoked from view when switching to a tab via the
+     * proceed JButton in another tab, building of each tab can differ, thus the
+     * abstract method
+     * 
+     * @throws IllegalArgumentException when information is missing, exception is
+     *                                  caught in KinoView
      */
     protected abstract void build() throws IllegalArgumentException;
 
     /**
-     * abstract method update is invoked from controller when changing something / interacting on the tab,
-     * this method should manage conditions to proceed (enable the proceed JButton),
-     * displaying and updating can differ, thus the abstract method
+     * abstract method update is invoked from controller when changing something /
+     * interacting on the tab, this method should manage conditions to proceed
+     * (enable the proceed JButton), displaying and updating can differ, thus the
+     * abstract method
      */
     protected abstract void update();
-    
+
 }

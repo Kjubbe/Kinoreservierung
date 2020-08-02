@@ -7,8 +7,8 @@ import model.enums.Genres;
 import model.enums.Vocab;
 
 /**
- * contains all information for a movie,
- * contains the showtimes for the movie
+ * contains all information for a movie, contains the showtimes for the movie
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -23,13 +23,14 @@ public class Movie {
     private final Showtime[] showtimes; // contains all available showtimes for this movie
 
     private Icon image;
-    
+
     /**
      * constructor, sets data fields
-     * @param title title of the movie
-     * @param genre genre of the movie
-     * @param fsk rated fsk
-     * @param picPath path of the picture
+     * 
+     * @param title     title of the movie
+     * @param genre     genre of the movie
+     * @param fsk       rated fsk
+     * @param picPath   path of the picture
      * @param showtimes the available showtimes for movie
      */
     public Movie(String title, Genres genre, FSKs fsk, String picPath, Showtime[] showtimes) {
@@ -42,6 +43,7 @@ public class Movie {
 
     /**
      * get the description of the movie, (ideally) containing the genre and fsk
+     * 
      * @return (ideally) genre and fsk in one string
      */
     public String getDescription() {
@@ -58,9 +60,10 @@ public class Movie {
         }
         return builder.toString();
     }
-    
+
     /**
      * get the picture for this movie
+     * 
      * @return the picture
      */
     public Icon getImage() {
@@ -72,6 +75,7 @@ public class Movie {
 
     /**
      * get the showtimes
+     * 
      * @return the showtimes for this movie
      */
     public Showtime[] getShowtimes() {
@@ -80,6 +84,7 @@ public class Movie {
 
     /**
      * toString
+     * 
      * @return the title of this movie
      */
     @Override

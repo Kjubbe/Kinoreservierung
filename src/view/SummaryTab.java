@@ -15,9 +15,10 @@ import model.AbstractSeat;
 import model.enums.Vocab;
 
 /**
- * the summary tab contains components for displaying information about the summary,
- * this tab is the last tab in the view, it contains JLabels to display order information,
- * inherites from the Tab class
+ * the summary tab contains components for displaying information about the
+ * summary, this tab is the last tab in the view, it contains JLabels to display
+ * order information, inherites from the Tab class
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -30,8 +31,9 @@ public class SummaryTab extends AbstractTab {
 
     /**
      * constructor, calls super constructor
+     * 
      * @param model reference to the model object
-     * @param ctrl reference to the ctrl object
+     * @param ctrl  reference to the ctrl object
      * @param index position of the tab in the JTabbedPane from the view
      */
     public SummaryTab(KinoModel model, KinoController ctrl, int index) {
@@ -39,18 +41,20 @@ public class SummaryTab extends AbstractTab {
     }
 
     /**
-     * invoked from view when switching to this tab via the proceed JButton in another tab,
-     * adds JLabels for displaying all information about the order from the model
+     * invoked from view when switching to this tab via the proceed JButton in
+     * another tab, adds JLabels for displaying all information about the order from
+     * the model
      */
     @Override
     protected void build() {
         System.out.println("DEBUG: " + "tab: building summary tab..."); // DEBUG
-    
+
         // build the JPanel
         proceedButton.setText(Vocab.FINISH_BUTTON.toString()); // other label, since you can not proceed, only finish
         proceedButton.setActionCommand(Vocab.FINISH_BUTTON.toString()); // update the action command
 
-        // proceed JButton is enabled by default, because the user does not have to do anything to be able to proceed
+        // proceed JButton is enabled by default, because the user does not have to do
+        // anything to be able to proceed
         proceedButton.setEnabled(true);
 
         buildSummaryPanel();
@@ -68,7 +72,7 @@ public class SummaryTab extends AbstractTab {
         System.out.println("DEBUG: summary-tab: building summarypanel..."); // DEBUG
         StringBuilder builder;
         int length;
-        
+
         summaryPanel = new JPanel(); // new JPanel, contains all JLabels
         summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS)); // set layout for the JPanel
         summaryPanel.setBorder(KinoView.NORMAL_Y_SPACING);
@@ -93,7 +97,7 @@ public class SummaryTab extends AbstractTab {
         length = builder.length();
         builder.delete(length - 2, length); // remove last comma
         JLabel seatsLabel = new JLabel(Vocab.SEATS_LABEL + ": " + builder.toString());
-        
+
         seatsLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         seatsLabel.setBorder(KinoView.SMALL_Y_SPACING);
         summaryPanel.add(seatsLabel);
@@ -104,12 +108,13 @@ public class SummaryTab extends AbstractTab {
         if (lps != null) {
             for (String lp : lps) { // go through every seat
                 builder.append("\"" + lp + "\", ");
-            } 
+            }
         }
         if (!builder.toString().isEmpty()) {
             length = builder.length();
             builder.delete(length - 2, length); // remove last comma
-            JLabel licensePlateLabel = new JLabel(Vocab.LICENSE_PLATE_LABEL.getStrings()[0] + ": " + builder.toString());
+            JLabel licensePlateLabel = new JLabel(
+                    Vocab.LICENSE_PLATE_LABEL.getStrings()[0] + ": " + builder.toString());
             licensePlateLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
             licensePlateLabel.setBorder(KinoView.SMALL_Y_SPACING);
             summaryPanel.add(licensePlateLabel);
@@ -119,7 +124,7 @@ public class SummaryTab extends AbstractTab {
         builder = new StringBuilder();
         Map<Catering, Integer> caterings = model.getChosenCatering();
         if (caterings != null) { // check if catering was chosen
-            
+
             // go through every entry of the map
             for (Map.Entry<Catering, Integer> entry : caterings.entrySet()) {
                 Catering catering = entry.getKey();
@@ -127,13 +132,13 @@ public class SummaryTab extends AbstractTab {
                 if (amount == 0) { // check if the catering is chosen, if not skip
                     continue; // skip this entry
                 }
-                
+
                 // add the catering name and price with their amount to the print
                 double price = Math.round(catering.price.getPrice() * amount * 100.0) / 100.0;
                 builder.append(amount + "x " + catering.name + " (" + price + Vocab.CURRENCY + "), ");
             }
         }
-        
+
         JLabel cateringLabel;
         if (builder.toString().isEmpty()) {
             cateringLabel = new JLabel(Vocab.CATERING_LABEL + ": " + Vocab.NONE_LABEL);
@@ -154,12 +159,13 @@ public class SummaryTab extends AbstractTab {
     }
 
     /**
-     * invoked from controller when changing something / interacting with something on the tab,
-     * does nothing, because the summary tab has no conditions for proceeding or new information to update/display
+     * invoked from controller when changing something / interacting with something
+     * on the tab, does nothing, because the summary tab has no conditions for
+     * proceeding or new information to update/display
      */
     @Override
     protected void update() {
         // Does nothing
         System.out.println("DEBUG: summary-tab: updating (nothing)..."); // DEBUG
-    } 
+    }
 }

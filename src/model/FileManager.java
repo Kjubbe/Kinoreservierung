@@ -11,27 +11,30 @@ import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 
 /**
- * manages, generates and contains order and ticket numbers
- * loads pictures from path
+ * manages, generates and contains order and ticket numbers loads pictures from
+ * path
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
 
 public final class FileManager {
-    
+
     /**
-     * private constructor to restrict access
-     * throws exception because this class is not meant to be instantiated
+     * private constructor to restrict access throws exception because this class is
+     * not meant to be instantiated
+     * 
      * @throws IllegalStateException when instantiating this class
      */
     private FileManager() throws IllegalStateException {
         throw new IllegalStateException("This Utility class can not be instantiated");
     }
-    
+
     /**
      * write a string to a file
-     * @param folder folder in which the file should be created
-     * @param name name of the file
+     * 
+     * @param folder  folder in which the file should be created
+     * @param name    name of the file
      * @param content content for the file
      * @return if creating a new file was successful
      */
@@ -55,7 +58,7 @@ public final class FileManager {
         System.out.println("DEBUG: file-manager: writing to file " + path); // DEBUG
         try (FileWriter writer = new FileWriter(path)) { // try-with-resources guarantees the writer is closed
             writer.write(content); // try writing to the file
-            
+
         } catch (IOException ex) { // error catched
             System.out.println("DEBUG error when writing to file to " + path);
             ex.printStackTrace();
@@ -67,6 +70,7 @@ public final class FileManager {
 
     /**
      * delete a file at the desired path
+     * 
      * @param path the path of the file to be deleted
      * @return if deleting the file was successful
      */
@@ -82,14 +86,15 @@ public final class FileManager {
 
     /**
      * read an image from a file
+     * 
      * @return icon with the image
      */
     protected static Icon loadImage(String path) {
         System.out.println("DEBUG: file-manager: loading image..."); // DEBUG
         BufferedImage pic = null;
-		try {
-			pic = ImageIO.read(new File(path));
-		} catch (Exception ex) {
+        try {
+            pic = ImageIO.read(new File(path));
+        } catch (Exception ex) {
             System.out.println("DEBUG: file-manager: image loading failed"); // DEBUG
             return null;
         }
