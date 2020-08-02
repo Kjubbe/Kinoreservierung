@@ -1,31 +1,32 @@
 # Kinoreservierung
-The project contains three main parts:
+This software allows the user to reserve seats for a drive-in cinema.
+The user chooses a movie, the desired time for the movie, seats and catering options.
+
+The project is build on the mvc pattern and therefore consists of three main parts:
 1. the view
 2. the model
 3. the controller
+which can be found in packages of the same name.
 
-those can be found in their packages of the same name
+the view consists of six different "tab-classes" containing various swing components.
+all tab classes inherit from an abstract-tab-class, which contains the foundation for every tab.
+each tab contains build and update functions, which are managed by the view.
+building and updating varies between the tabs.
 
-1. the view:
-the view consists of different tab-classes containing components and information,
-each tab is build differently and managed by the KinoView.java
+the model holds all data from the current user input and manages calculations.
+other classes for the model contain more information, a few examples are:
+1. movie, containing showtimes
+2. showtime, containing seats
+3. database, containing consistent data like caterings and movies
+4. catering, containing primitive data types
+5. file- and number managers for orders
+6. order, saving data from the model
+and various enums used by these classes, like a vocabulary storing strings.
 
-2. the model:
-the model (KinoModel.java) contains all important data for the current user input, aswell as consistent data, like movies and catering options,
-other classes make up the complete "Kino":
-
-each movie has showtimes,
-each showtime has seats
-
-enums found in the enums package are used to build these classes,
-the Vocabulary class contains all important strings for building the view,
-an order is saved in a list in KinoModel, saved as an Order object
-
-3. the controller:
-the controller manages input from the view and changes the model and view accordingly,
-there is only one class - KinoController - in the controller package
+the controller receives the input from the view and changes the model accordingly,
+the view gets the new information from the model.
 
 IMPORTANT:
 - KinoMain.java is used to run the program
 - KinoMain.java contains important TODOs and FIXMEs for the whole project
-- Other comments containing "TODO" and "FIXME" are important on what changes and additions need to be added, please use them!
+- Note that other comments can also contain important "TODO"s and "FIXME"s
