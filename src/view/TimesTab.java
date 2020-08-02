@@ -45,8 +45,7 @@ public class TimesTab extends AbstractTab {
      * another tab, adds JRadioButtons for time options from the movie from the
      * model
      * 
-     * @throws IllegalArgumentException from buildTimesPanel() when there a no times
-     *                                  set
+     * @throws IllegalArgumentException from buildTimesPanel() when there a no times set                        
      */
     @Override
     protected void build() throws IllegalArgumentException {

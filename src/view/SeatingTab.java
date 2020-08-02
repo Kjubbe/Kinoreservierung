@@ -136,8 +136,7 @@ public class SeatingTab extends AbstractTab {
     /**
      * build the movie panel containing the dropdown for choosing a movie
      * 
-     * @throws IllegalArgumentException when the amount of rows or columns of seats
-     *                                  is 0
+     * @throws IllegalArgumentException when the amount of rows or columns of seats is 0                               
      */
     private void buildSeatingPanel() throws IllegalArgumentException {
         System.out.println("DEBUG: seating-tab: building seating panel..."); // DEBUG

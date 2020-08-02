@@ -61,9 +61,14 @@ public class KinoView {
     public static final int SUMMARY_TAB = 5;
 
     // This array contains all tabs
-    public final AbstractTab[] tabs = { new StartTab(model, ctrl, START_TAB), new MovieTab(model, ctrl, MOVIE_TAB),
-            new TimesTab(model, ctrl, TIMES_TAB), new SeatingTab(model, ctrl, SEATING_TAB),
-            new CateringTab(model, ctrl, CATERING_TAB), new SummaryTab(model, ctrl, SUMMARY_TAB) };
+    public final AbstractTab[] tabs = {
+        new StartTab(model, ctrl, START_TAB),
+        new MovieTab(model, ctrl, MOVIE_TAB),
+        new TimesTab(model, ctrl, TIMES_TAB),
+        new SeatingTab(model, ctrl, SEATING_TAB),
+        new CateringTab(model, ctrl, CATERING_TAB),
+        new SummaryTab(model, ctrl, SUMMARY_TAB)
+    };
 
     /**
      * Constructor, builds the JFrame
