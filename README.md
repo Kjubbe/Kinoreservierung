@@ -29,4 +29,4 @@ the view gets the new information from the model.
 IMPORTANT:
 - KinoMain.java is used to run the program
 - KinoMain.java contains important TODOs and FIXMEs for the whole project
-- Note, that other comments also contain "TODO" and "FIXME"
+- Note that other comments can also contain important "TODO"s and "FIXME"s
