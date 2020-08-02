@@ -17,7 +17,7 @@ import model.enums.Vocab;
 /**
  * the summary tab contains components for displaying information about the
  * summary, this tab is the last tab in the view, it contains JLabels to display
- * order information, inherites from the Tab class
+ * order information, inherits from the Tab class
  * 
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -69,7 +69,7 @@ public class SummaryTab extends AbstractTab {
      * build the summary panel containing JLabels for information
      */
     private void buildSummaryPanel() {
-        System.out.println("DEBUG: summary-tab: building summarypanel..."); // DEBUG
+        System.out.println("DEBUG: summary-tab: building summary panel..."); // DEBUG
         StringBuilder builder;
         int length;
 
