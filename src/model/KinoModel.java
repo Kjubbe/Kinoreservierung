@@ -11,8 +11,10 @@ import javax.swing.Icon;
 import model.enums.Vocab;
 
 /**
- * model class, manages calculations and contains saves the information from the
- * user input creates all movies and caterings and places orders
+ * model class, manages calculations and 
+ * contains saves the information from the user input,
+ * calculates price,
+ * manages quitting the application
  * 
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -20,10 +22,11 @@ import model.enums.Vocab;
 
 public class KinoModel {
 
-    // constants
+    // license plate constants
     private static final int MIN_LICENSE_PLATE_LENGTH = 5;
     private static final int MAX_LICENSE_PLATE_LENGTH = 10;
 
+    // resetter constants
     private static final int RESET_ABOVE_SEATS = 1;
     private static final int RESET_ABOVE_TIME = 2;
     private static final int RESET_ABOVE_MOVIE = 3;
@@ -43,7 +46,8 @@ public class KinoModel {
     private Map<Catering, Integer> chosenCatering; // set based on user input in the catering tab
 
     /**
-     * invoked from controller when movie got chosen assigns the chosen movie
+     * invoked from controller when movie got chosen,
+     * assigns the chosen movie,
      * assigns available showtimes from this movie
      * 
      * @param movie movie which was chosen
@@ -58,40 +62,37 @@ public class KinoModel {
     }
 
     /**
-     * invoked from controller when time got chosen assigns the chosen time from the
-     * available times assigns the available seats from this time
+     * invoked from controller when time got chosen,
+     * assigns the chosen time from the index in the action command
+     * assigns available seats from this time
      * 
-     * @param cmd action command from the JRadioButton, contains the index for the
-     *            time
+     * @param cmd action command from the JRadioButton, contains the index for the time
      */
     public void setTime(String cmd) {
         int index = Integer.parseInt(cmd); // get the index from the action command
         System.out.println("DEBUG: model: Time set, Time: " + availableTimes[index]); // DEBUG
 
         // get the time at the index from the action command
-        // this time is equivalent to the time displayed on the JRadioButton at the
-        // index
+        // this time is equivalent to the time displayed on the JRadioButton at the index
         chosenTime = availableTimes[index];
         availableSeats = chosenTime.seats; // set available seats to the seats contained in the showtime
         reset(RESET_ABOVE_TIME);
     }
 
     /**
-     * invoked from controller when seats got chosen adds or removes seats based on
-     * the remove boolean increments or decrements the amount of CarSeats
+     * invoked from controller when seats got chosen,
+     * adds or removes seats from the list of chosen seats based on the boolean,
+     * changes the amount of CarSeats
      * 
-     * @param cmd           action command from the JCheckBox, contains the position
-     *                      of the seat
-     * @param removeElseAdd determines if an seat should be removed, if not, one
-     *                      gets added
+     * @param cmd           action command from the JCheckBox, contains the position of the seat                   
+     * @param removeElseAdd determines if an seat should be removed, if not, one gets added                
      */
     public void setSeat(String cmd, boolean removeElseAdd) {
         System.out.println("DEBUG: model: changing seats..."); // DEBUG
         String[] xyPos = cmd.split(Vocab.SPLITTER_STRING.toString()); // get the position from the action command
 
         // get the seat at the position from the action command
-        // this seat is equivalent to the seat displayed on the JCheckBox at the
-        // position
+        // this seat is equivalent to the seat displayed on the JCheckBox at the position
         AbstractSeat seat = availableSeats[Integer.parseInt(xyPos[0])][Integer.parseInt(xyPos[1])];
 
         if (removeElseAdd) {
@@ -114,8 +115,8 @@ public class KinoModel {
     }
 
     /**
-     * invoked from controller when catering got chosen assigns map with catering as
-     * key and amount as value
+     * invoked from controller when catering got chosen,
+     * assigns map with catering (key) and amount (value)
      * 
      * @param cateringAmounts list of amounts for each catering
      */
@@ -143,8 +144,8 @@ public class KinoModel {
     }
 
     /**
-     * invoked from controller when text got typed in the textfield assigns list
-     * with the text from the textfields
+     * invoked from controller when text got typed in the textfield,
+     * assigns list with the text from the textfields
      * 
      * @param lps list of license plate Strings
      */
@@ -155,9 +156,9 @@ public class KinoModel {
     }
 
     /**
-     * checks if the text has an acceptable length
+     * checks if the input has an acceptable length
      * 
-     * @param tf the JTextField to be checked
+     * @param input String to be checked
      * @return if the input suffices
      */
     public boolean checkInput(String input) {
@@ -165,14 +166,13 @@ public class KinoModel {
 
         input = input.replaceAll("\\s+", ""); // remove all whitespaces
 
-        // input only suffices if the length of the text is greater than min and less
-        // than max
+        // input only suffices if the length of the text is greater than min and less than max
         return input.length() >= MIN_LICENSE_PLATE_LENGTH && input.length() <= MAX_LICENSE_PLATE_LENGTH;
     }
 
     /**
-     * resets all user input specified by a depth value, a higher depth value = a
-     * deeper reset
+     * resets all user input specified by a depth value,
+     * a higher depth value = a deeper reset
      * 
      * @param depth the depth of the reset
      */
@@ -210,8 +210,9 @@ public class KinoModel {
     }
 
     /**
-     * quit the application, invoked from controller by pressing the JButton for
-     * exiting
+     * invoked from controller by pressing the JButton for exiting,
+     * resets input,
+     * quit the application
      */
     public void quit() {
         System.out.println("\n" + "DEBUG: model: quitting..."); // DEBUG
@@ -221,9 +222,10 @@ public class KinoModel {
     }
 
     /**
-     * place an order, assigns a ticket to every chosen beach chair, assigns the
-     * license plate numbers to the chosen car seat, creates and adds a new order
-     * object to the list
+     * place an order,
+     * reserves every chosen seat,
+     * creates and adds a new order object to the database
+     * creates a file with the order
      */
     public void placeOrder() {
         System.out.println("DEBUG: model: placing order..."); // DEBUG
@@ -262,8 +264,9 @@ public class KinoModel {
     }
 
     /**
-     * get the total price adds all prices from chosen seats and caterings together
-     * to calculate the total price
+     * get the total price,
+     * adds all prices from chosen seats and caterings
+     * together to calculate the total price
      * 
      * @return total price
      */
@@ -297,7 +300,7 @@ public class KinoModel {
     /**
      * get the image of the chosen movie
      * 
-     * @return image of chosen movie
+     * @return icon image of chosen movie
      */
     public Icon getChosenMovieImage() {
         return chosenMovie.getImage();
@@ -305,6 +308,7 @@ public class KinoModel {
 
     /**
      * get the available times
+     * the array is passed by value, not reference!
      * 
      * @return array of showtimes
      */
@@ -313,9 +317,9 @@ public class KinoModel {
     }
 
     /**
-     * get the chosen time
+     * get the chosen day and time
      * 
-     * @return chosen time
+     * @return chosen day and time
      */
     public String getChosenDayAndTime() {
         return chosenTime.getDayAndTime();
@@ -323,6 +327,7 @@ public class KinoModel {
 
     /**
      * get the available seats
+     * the array is passed by value, not reference!
      * 
      * @return array of seats
      */
@@ -332,11 +337,12 @@ public class KinoModel {
 
     /**
      * get the chosen seats
+     * the list is passed by value, not reference!
      * 
      * @return list of seats
      */
     public List<AbstractSeat> getChosenSeats() {
-        return new ArrayList<>(chosenSeats); // return a copy
+        return chosenSeats == null ? null : new ArrayList<>(chosenSeats); // return a copy
     }
 
     /**
@@ -350,6 +356,7 @@ public class KinoModel {
 
     /**
      * get the license plates
+     * the list is passed by value, not reference!
      * 
      * @return list of license plates
      */
@@ -359,17 +366,18 @@ public class KinoModel {
 
     /**
      * get the caterings
+     * the map is passed by value, not reference!
      * 
      * @return map with caterings and amounts
      */
     public Map<Catering, Integer> getChosenCatering() {
         if (chosenCatering != null) {
-            Map<Catering, Integer> copy = new HashMap<>();
+            Map<Catering, Integer> copy = new HashMap<>(); // create a new map
             for (Map.Entry<Catering, Integer> entry : chosenCatering.entrySet()) {
-                copy.put(entry.getKey(), entry.getValue());
+                copy.put(entry.getKey(), entry.getValue()); // put every entry in the new map
             }
-            return copy; // return a copy
+            return copy; // return the copy
         }
-        return null;
+        return null; // if null return null
     }
 }

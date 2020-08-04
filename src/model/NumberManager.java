@@ -19,7 +19,7 @@ public final class NumberManager {
     private static final Random RNG = new Random(); // create a random number generator
 
     /**
-     * private constructor to restrict access throws exception because this class is
+     * private constructor to restrict access, throws exception because this class is
      * not meant to be instantiated
      * 
      * @throws IllegalStateException when instantiating this class
@@ -29,7 +29,7 @@ public final class NumberManager {
     }
 
     /**
-     * create and return a ticket number with default range
+     * create and return a ticket number with the default range
      * 
      * @return the generated ticket number
      */
@@ -38,7 +38,7 @@ public final class NumberManager {
     }
 
     /**
-     * create and return a ticket number
+     * generate and return a ticket number
      * 
      * @param min the minimum of the number range, included
      * @param max the maximum of the number range, excluded
@@ -52,16 +52,16 @@ public final class NumberManager {
     }
 
     /**
-     * create and return a ticket number with default range
+     * generate and return a order number with default range
      * 
-     * @return the generated ticket number
+     * @return the generated order number
      */
     protected static int generateOrderNumber() {
         return generateOrderNumber(MIN, MAX);
     }
 
     /**
-     * create and return an order number
+     * generate and return an order number
      * 
      * @param min the minimum of the number range, included
      * @param max the maximum of the number range, excluded
@@ -75,7 +75,7 @@ public final class NumberManager {
     }
 
     /**
-     * generate a random number in the range for the specified list
+     * generate a unique, random number in the range for the specified list
      * 
      * @param list the list for the number
      * @param min  the minimum of the number range, included
@@ -90,7 +90,7 @@ public final class NumberManager {
         int bound = max - min;
         do {
             // get a random number in the specified range
-            if (iterations >= 1000) {
+            if (iterations >= 1000) { // too many iterations
                 throw new StackOverflowError("No unique, random number can be generated");
             }
             // if bound is not positive use the default bound

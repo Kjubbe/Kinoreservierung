@@ -4,7 +4,8 @@ import model.enums.Days;
 import model.enums.Times;
 
 /**
- * contains data for a showtime and seating
+ * contains data for this showtime and seats
+ * creates seats based on column and row count
  * 
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -77,8 +78,8 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     }
 
     /**
-     * updates the availability of this showtime, if no seat is available the show
-     * is sold out
+     * updates the availability of this showtime,
+     * if no seat is available the show is sold out
      */
     protected void updateAvailability() {
         System.out.println("DEBUG: " + "Showtime: updating availability..."); // DEBUG
@@ -99,7 +100,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     /**
      * get if the showtime is sold out
      * 
-     * @return if sold out
+     * @return if the show is sold out
      */
     public boolean isSoldOut() {
         return isSoldOut;

@@ -7,8 +7,11 @@ import model.enums.Prices;
 import model.enums.Vocab;
 
 /**
- * special type of seat, inherits from the Seat class, this seat can define if
- * it is for suvs, contains a license plate
+ * special type of seat, inherits from the Seat class,
+ * this seat can define if it is for suvs,
+ * contains a license plate,
+ * reserving the seat assigns a license plate
+ * from the list of open license plates
  * 
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -19,7 +22,7 @@ public class CarSeat extends AbstractSeat {
     // Data fields
     public final boolean isForSUV; // determines if the seat is meant for suvs
 
-    private static List<String> openLicensePlates;
+    private static List<String> openLicensePlates; // this list contains license plates to be assigned to seats
     private String licensePlate; // holds license plate number
 
     /**
@@ -31,14 +34,18 @@ public class CarSeat extends AbstractSeat {
     public CarSeat(boolean isVip, boolean isForSUV) {
         // price is determined by the isVip boolean
         // name is determined by the isForSUV boolean
-        super(isVip ? Prices.VIP_CAR_SEAT : Prices.NORMAL_CAR_SEAT, isVip,
-                isForSUV ? Vocab.SUV_TOOLTIP.toString() : Vocab.PKW_TOOLTIP.toString());
+        super(
+            isVip ? Prices.VIP_CAR_SEAT : Prices.NORMAL_CAR_SEAT,
+            isVip,
+            isForSUV ? Vocab.SUV_TOOLTIP.toString() : Vocab.PKW_TOOLTIP.toString()
+        );
         this.isForSUV = isForSUV;
     }
 
     /**
-     * invoked from model when placing the order, assigns a license plate and
-     * reserves a seat
+     * invoked from model when placing the order,
+     * assigns a license plate from the list
+     * reserves the seat
      */
     @Override
     protected void reserve() {
@@ -64,7 +71,7 @@ public class CarSeat extends AbstractSeat {
     /**
      * get the license plate for this seat
      * 
-     * @return the license plate nr
+     * @return the license plate
      */
     protected String getLicensePlate() {
         return licensePlate;

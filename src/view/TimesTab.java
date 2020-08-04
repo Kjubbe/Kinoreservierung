@@ -63,7 +63,7 @@ public class TimesTab extends AbstractTab {
     /**
      * build the times panel containing JRadioButtons for choosing a time
      * 
-     * @throws IllegalArgumentException when there a no times set
+     * @throws IllegalArgumentException when there are no times set
      */
     private void buildTimesPanel() throws IllegalArgumentException {
         System.out.println("DEBUG: times-tab: building times panel..."); // DEBUG

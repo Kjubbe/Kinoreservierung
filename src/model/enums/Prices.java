@@ -19,7 +19,7 @@ public enum Prices {
     /**
      * constructor, assigns data field
      * 
-     * @param price double with the price
+     * @param price price as a double
      */
     Prices(double price) {
         this.price = price;

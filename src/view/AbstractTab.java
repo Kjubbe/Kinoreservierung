@@ -86,7 +86,7 @@ public abstract class AbstractTab extends JPanel {
 
     /**
      * reset the tab, removes all components, disables JButton to proceed, this
-     * method should be called before building a tab (again)
+     * method is called before building a tab
      */
     protected final void reset() {
         System.out.println("DEBUG: abstract-tab: resetting tab..."); // DEBUG
@@ -101,7 +101,7 @@ public abstract class AbstractTab extends JPanel {
     /**
      * put an component inside a JPanel for better alignment
      * 
-     * @param comp the component which should be put in the container
+     * @param comp the component to be put in the container
      * @return container JPanel for the component
      */
     protected static final JPanel putInContainer(Component comp) {
@@ -135,8 +135,7 @@ public abstract class AbstractTab extends JPanel {
      * proceed JButton in another tab, building of each tab can differ, thus the
      * abstract method
      * 
-     * @throws IllegalArgumentException when information is missing, exception is
-     *                                  caught in KinoView
+     * @throws IllegalArgumentException when information is missing, this exception is caught in KinoView
      */
     protected abstract void build() throws IllegalArgumentException;
 

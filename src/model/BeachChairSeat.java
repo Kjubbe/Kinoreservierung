@@ -4,8 +4,9 @@ import model.enums.Prices;
 import model.enums.Vocab;
 
 /**
- * special type of seat, inherits from the Seat class, contains a ticket number
- * and list of all tickets
+ * special type of seat, inherits from the Seat class,
+ * contains a ticket number,
+ * reserving the seat assigns the ticket number
  * 
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -23,13 +24,16 @@ public class BeachChairSeat extends AbstractSeat {
      */
     public BeachChairSeat(boolean isVip) {
         // price is determined by the isVip boolean
-        super(isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT, isVip,
-                Vocab.BEACH_CHAIR_TOOLTIP.toString());
+        super(
+            isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT,
+            isVip,
+            Vocab.BEACH_CHAIR_TOOLTIP.toString()
+        );
     }
 
     /**
-     * invoked from model when placing the order, assigns a ticket and reserves a
-     * seat
+     * invoked from model when placing the order,
+     * assigns a ticket and reserves the seat
      */
     @Override
     protected void reserve() {
@@ -41,9 +45,8 @@ public class BeachChairSeat extends AbstractSeat {
     }
 
     /**
-     * sets the ticket for this seat, gets a random number between the local min
-     * value (included) and the local max value (excluded), checks if the ticket
-     * number is unique before assigning it
+     * sets the ticket for this seat.
+     * the NumberManager generates a unique ticket number
      */
     private void assignTicket() {
         // generate and assign the number as a string

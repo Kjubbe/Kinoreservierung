@@ -2,6 +2,7 @@ import view.KinoView;
 
 /**
  * main, creates the view
+ * TODO explain the program
  * 
  * @author Kjell Treder
  * @author Marcel Sauer

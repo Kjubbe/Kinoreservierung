@@ -6,7 +6,8 @@ import java.util.Map;
 import model.enums.Vocab;
 
 /**
- * contains all information of an order, can display all information in a string
+ * contains all information of an order,
+ * can display all information in a string
  * 
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -38,11 +39,12 @@ public class Order {
         this.seats = seats;
         this.caterings = caterings;
         this.totalPrice = totalPrice;
-        this.orderNumber = NumberManager.generateOrderNumber();
+        this.orderNumber = NumberManager.generateOrderNumber(); // generate a new order number
         this.orderDescription = createDescription();
     }
 
     /**
+     * create a description for this order
      * @return String
      */
     private final String createDescription() {

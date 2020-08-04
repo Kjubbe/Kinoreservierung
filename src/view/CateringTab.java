@@ -72,15 +72,13 @@ public class CateringTab extends AbstractTab {
         System.out.println("DEBUG: catering-tab: building catering panel..."); // DEBUG
 
         // build the JPanel for the JSpinners
-        // FIXME the layout does not work well for this, another layout should be used
-        // instead
+        // FIXME the layout does not work well for this, another layout should be used instead
         cateringPanel = new JPanel(); // new JPanel, contains all JSpinners
         cateringPanel.setLayout(new BoxLayout(cateringPanel, BoxLayout.Y_AXIS));
         cateringPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // build the JSpinners
-        // go through every catering // catch corrupted caterings missing a name or
-        // price
+        // go through every catering and catch corrupted caterings missing a name or price
         for (Catering catering : Database.getAllCaterings()) {
             if (catering == null || catering.name == null || catering.price == null) {
                 System.out.println("DEBUG: catering-tab: corrupted catering found..."); // DEBUG

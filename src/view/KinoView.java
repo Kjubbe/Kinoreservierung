@@ -147,7 +147,7 @@ public class KinoView {
      * switch an tab to the index specified, the tab that is switched to is then
      * forced to build itself
      * 
-     * @param index the index of the tab which should be switched to
+     * @param index the index of the tab to be switched to
      */
     private void switchTabTo(int index) {
         System.out.println("DEBUG: view: switching tab to index " + index + "..."); // DEBUG

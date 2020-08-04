@@ -10,8 +10,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
- * manages, generates and contains order and ticket numbers loads pictures from
- * path
+ * class for everything with file management
+ * manages, generates and contains order and ticket numbers,
+ * loads images from path
  * 
  * @author Kjell Treder
  * @author Marcel Sauer
@@ -20,7 +21,7 @@ import javax.swing.ImageIcon;
 public final class FileManager {
 
     /**
-     * private constructor to restrict access throws exception because this class is
+     * private constructor to restrict access, throws exception because this class is
      * not meant to be instantiated
      * 
      * @throws IllegalStateException when instantiating this class
@@ -30,10 +31,9 @@ public final class FileManager {
     }
 
     /**
-     * write a string to a file
+     * write a string to a new txt file at a desired path
      * 
-     * @param folder  folder in which the file should be created
-     * @param name    name of the file
+     * @param path    path of the file
      * @param content content for the file
      * @return if creating a new file was successful
      */
