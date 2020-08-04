@@ -1,7 +1,7 @@
 package model.enums;
 
 /**
- * this enum defines the available prices, contains times from 3pm to 10pm in
+ * this enum defines the available times, contains times from 3pm to 10pm in
  * 30min steps
  * 
  * @author Kjell Treder
