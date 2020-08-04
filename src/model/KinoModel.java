@@ -307,10 +307,10 @@ public class KinoModel {
     }
 
     /**
-     * get the available times
+     * get the available times,
      * the array is passed by value, not reference!
      * 
-     * @return array of showtimes
+     * @return copy of array of showtimes
      */
     public Showtime[] getAvailableTimes() {
         return availableTimes == null ? null : availableTimes.clone(); // return a copy
@@ -326,20 +326,20 @@ public class KinoModel {
     }
 
     /**
-     * get the available seats
+     * get the available seats,
      * the array is passed by value, not reference!
      * 
-     * @return array of seats
+     * @return copy of array of seats
      */
     public AbstractSeat[][] getAvailableSeats() {
         return availableSeats == null ? null : availableSeats.clone(); // return a copy
     }
 
     /**
-     * get the chosen seats
+     * get the chosen seats,
      * the list is passed by value, not reference!
      * 
-     * @return list of seats
+     * @return copy of list of seats
      */
     public List<AbstractSeat> getChosenSeats() {
         return chosenSeats == null ? null : new ArrayList<>(chosenSeats); // return a copy
@@ -355,20 +355,20 @@ public class KinoModel {
     }
 
     /**
-     * get the license plates
+     * get the license plates,
      * the list is passed by value, not reference!
      * 
-     * @return list of license plates
+     * @return copy of list of license plates
      */
     public List<String> getLicensePlates() {
         return licensePlates == null ? null : new ArrayList<>(licensePlates); // return a copy
     }
 
     /**
-     * get the caterings
+     * get the caterings,
      * the map is passed by value, not reference!
      * 
-     * @return map with caterings and amounts
+     * @return copy of map with caterings and amounts
      */
     public Map<Catering, Integer> getChosenCatering() {
         if (chosenCatering != null) {

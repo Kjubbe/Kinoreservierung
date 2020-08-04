@@ -114,7 +114,7 @@ public abstract class AbstractTab extends JPanel {
      * get components from a JPanel
      * 
      * @param pan JPanel which contains the desired components
-     * @return the array of components
+     * @return the list of components
      */
     protected static final List<Component> getComponentsFrom(JPanel pan) {
         List<Component> finalComponents = new ArrayList<>(); // create a list which will contain all components

@@ -31,7 +31,7 @@ public class Movie {
      * @param genre     genre of the movie
      * @param fsk       rated fsk
      * @param picPath   path of the picture
-     * @param showtimes array with the available showtimes for movie
+     * @param showtimes array with the available showtimes for the movie
      */
     public Movie(String title, Genres genre, FSKs fsk, String picPath, Showtime[] showtimes) {
         this.title = title;
@@ -75,10 +75,10 @@ public class Movie {
     }
 
     /**
-     * get the showtimes
+     * get the showtimes,
      * the array is passed by value, not reference!
      * 
-     * @return the showtimes for this movie
+     * @return a copy of the array with showtimes for this movie
      */
     public Showtime[] getShowtimes() {
         return showtimes == null ? null : showtimes.clone(); // return a copy

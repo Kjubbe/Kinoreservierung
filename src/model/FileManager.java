@@ -86,6 +86,7 @@ public final class FileManager {
     /**
      * read an image from a file
      * 
+     * @param path the path of the image
      * @return icon with the image
      */
     protected static Icon loadImage(String path) {

@@ -127,7 +127,7 @@ public final class Database {
     }
 
     /**
-     * get all movies
+     * get all movies,
      * the list is passed by value, not reference!
      * 
      * @return a new list with all movies
@@ -158,7 +158,7 @@ public final class Database {
     }
 
     /**
-     * get all caterings
+     * get all caterings,
      * the list is passed by value, not reference!
      * 
      * @return a new list with all movies
@@ -189,7 +189,7 @@ public final class Database {
     }
 
     /**
-     * get all orders
+     * get all orders,
      * the list is passed by value, not reference!
      * 
      * @return a new list with all orders
@@ -209,7 +209,7 @@ public final class Database {
     }
 
     /**
-     * get all ticket numbers
+     * get all ticket numbers,
      * the list is passed by value, not reference!
      * 
      * @return a new list with all ticket numbers
@@ -229,7 +229,7 @@ public final class Database {
     }
 
     /**
-     * get all license plates
+     * get all license plates,
      * the list is passed by value, not reference!
      * 
      * @return a list with all license plates
@@ -241,7 +241,7 @@ public final class Database {
     /**
      * add a license plate to the list
      * 
-     * @param orderNumber the license plate to be added
+     * @param licensePlate the license plate to be added
      */
     protected static void addLicensePlate(String licensePlate) {
         ALL_LICENSE_PLATES.add(licensePlate);
@@ -249,7 +249,7 @@ public final class Database {
     }
 
     /**
-     * get all order numbers
+     * get all order numbers,
      * the list is passed by value, not reference!
      * 
      * @return a list with all order numbers

@@ -120,7 +120,7 @@ public enum Vocab {
     }
 
     /**
-     * get a cloned array of the strings for this enum
+     * get a cloned array of the strings for this enum,
      * the array is passed by value, not reference!
      * 
      * @return the strings in a cloned array
