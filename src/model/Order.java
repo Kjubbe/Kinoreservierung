@@ -16,12 +16,6 @@ import model.enums.Vocab;
 public class Order {
 
     // data fields
-    private final Movie movie;
-    private final Showtime time;
-    private final List<AbstractSeat> seats;
-    private final Map<Catering, Integer> caterings;
-    private final double totalPrice;
-
     protected final int orderNumber;
     protected final String orderDescription;
 
@@ -32,22 +26,18 @@ public class Order {
      * @param time      the chosen time of the movie
      * @param seats     the chosen seats for the time
      * @param caterings chosen caterings
+     * @param totalPrice total price of the order
      */
     public Order(Movie movie, Showtime time, List<AbstractSeat> seats, Map<Catering, Integer> caterings, double totalPrice) {
-        this.movie = movie;
-        this.time = time;
-        this.seats = seats;
-        this.caterings = caterings;
-        this.totalPrice = totalPrice;
         this.orderNumber = NumberManager.generateOrderNumber(); // generate a new order number
-        this.orderDescription = createDescription();
+        this.orderDescription = createDescription(movie, time, seats, caterings, totalPrice);
     }
 
     /**
      * create a description for this order
-     * @return String
+     * @return String with description
      */
-    private final String createDescription() {
+    private final String createDescription(Movie movie, Showtime time, List<AbstractSeat> seats, Map<Catering, Integer> caterings, double totalPrice) {
         StringBuilder builder = new StringBuilder();
         builder.append(Vocab.ORDER_MSGS.getStrings()[0] + "\n"); // first msg
         builder.append(Vocab.ORDER_MSGS.getStrings()[1] + ": " + orderNumber + "\n"); // second msg
