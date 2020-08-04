@@ -80,7 +80,7 @@ public final class FileManager {
         }
         File file = new File(path); // create a File Object with the desired path
         System.out.println("DEBUG: file-manager: file deleted"); // DEBUG
-        return !file.delete();
+        return file.delete();
     }
 
     /**
