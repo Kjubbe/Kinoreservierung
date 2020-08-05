@@ -7,8 +7,8 @@ import model.enums.Genres;
 import model.enums.Vocab;
 
 /**
- * contains all information for a movie, contains the showtimes for the movie
- * 
+ * contains all information for a movie,
+ * contains the showtimes for the movie
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -23,15 +23,14 @@ public class Movie {
     private final Showtime[] showtimes; // contains all available showtimes for this movie
 
     private Icon image;
-
+    
     /**
      * constructor, sets data fields
-     * 
-     * @param title     title of the movie
-     * @param genre     genre of the movie
-     * @param fsk       rated fsk
-     * @param picPath   path of the picture
-     * @param showtimes array with the available showtimes for the movie
+     * @param title title of the movie
+     * @param genre genre of the movie
+     * @param fsk rated fsk
+     * @param picPath path of the picture
+     * @param showtimes the available showtimes for movie
      */
     public Movie(String title, Genres genre, FSKs fsk, String picPath, Showtime[] showtimes) {
         this.title = title;
@@ -43,8 +42,7 @@ public class Movie {
 
     /**
      * get the description of the movie, (ideally) containing the genre and fsk
-     * 
-     * @return genre and/or fsk (or empty) in one string
+     * @return (ideally) genre and fsk in one string
      */
     public String getDescription() {
         System.out.println("DEBUG: movie: getting description for " + this); // DEBUG
@@ -60,12 +58,10 @@ public class Movie {
         }
         return builder.toString();
     }
-
+    
     /**
-     * get the image for this movie
-     * if no image is set, load it with the file manager
-     * 
-     * @return the image as an icon
+     * get the picture for this movie
+     * @return the picture
      */
     public Icon getImage() {
         if (image == null) {
@@ -75,10 +71,8 @@ public class Movie {
     }
 
     /**
-     * get the showtimes,
-     * the array is passed by value, not reference!
-     * 
-     * @return a copy of the array with showtimes for this movie
+     * get the showtimes
+     * @return the showtimes for this movie
      */
     public Showtime[] getShowtimes() {
         return showtimes == null ? null : showtimes.clone(); // return a copy
@@ -86,7 +80,6 @@ public class Movie {
 
     /**
      * toString
-     * 
      * @return the title of this movie
      */
     @Override

@@ -1,11 +1,10 @@
 package test;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.Before; 
 
 /**
  * testing class for testing main
- * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -16,10 +15,10 @@ public class MainTest {
      * setup before each method
      */
     @Before
-    public void setup() {
+    public void setup(){
         // setup goes here
     }
-
+    
     /**
      * test
      */

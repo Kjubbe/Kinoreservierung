@@ -4,28 +4,26 @@ import model.enums.Days;
 import model.enums.Times;
 
 /**
- * contains data for this showtime and seats
- * creates seats based on column and row count
- * 
+ * contains data for a showtime and seating
  * @author Kjell Treder
  * @author Marcel Sauer
  */
 
 public class Showtime { // TODO maybe add not only weekdays but dates aswell? (overkill!)
-
+    
     // data fields
     private final Days day;
     private final Times time;
     private boolean isSoldOut; // showtime is not sold out by default
 
     protected final AbstractSeat[][] seats; // contains all available seats for this showtime
-
+    
     /**
-     * constructor, assigns data fields, builds rows and columns of seats
-     * 
-     * @param day              day for the showtime
-     * @param time             time for the showtime
-     * @param seatRowAmount    amount of rows of seats for the showtime
+     * constructor, assigns data fields,
+     * builds rows and columns of seats
+     * @param day day for the showtime
+     * @param time time for the showtime
+     * @param seatRowAmount amount of rows of seats for the showtime
      * @param seatColumnAmount amount of columns of seats for the showtime
      */
     public Showtime(Days day, Times time, int seatRowAmount, int seatColumnAmount) {
@@ -37,8 +35,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
 
     /**
      * create a seat for every position in the seat array
-     * 
-     * @param rowAmount    the amount of rows of seats
+     * @param rowAmount the amount of rows of seats
      * @param columnAmount the amount of columns of seats
      */
     private void createSeats(int rowAmount, int columnAmount) {
@@ -67,7 +64,6 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
 
     /**
      * get the day and time for this showtime
-     * 
      * @return day and time in one string
      */
     public String getDayAndTime() {
@@ -78,11 +74,11 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
     }
 
     /**
-     * updates the availability of this showtime,
+     * updates the availibility of this showtime,
      * if no seat is available the show is sold out
      */
     protected void updateAvailability() {
-        System.out.println("DEBUG: " + "Showtime: updating availability..."); // DEBUG
+        System.out.println("DEBUG: " + "Showtime: updating availibility..."); // DEBUG
         if (isSoldOut) { // only check is the show is not sold out already
             return;
         }
@@ -99,8 +95,7 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
 
     /**
      * get if the showtime is sold out
-     * 
-     * @return if the show is sold out
+     * @return if sold out
      */
     public boolean isSoldOut() {
         return isSoldOut;
@@ -108,7 +103,6 @@ public class Showtime { // TODO maybe add not only weekdays but dates aswell? (o
 
     /**
      * toString
-     * 
      * @return the day and time of this showtime
      */
     @Override

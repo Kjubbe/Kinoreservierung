@@ -5,13 +5,12 @@ import model.enums.Vocab;
 
 /**
  * parent class for custom seats, contains basic data for a seat
- * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
 
 public abstract class AbstractSeat {
-
+    
     // data fields
     protected boolean isReserved;
     public final String name; // name for hovering over a seat
@@ -20,10 +19,9 @@ public abstract class AbstractSeat {
 
     /**
      * constructor, assigns data fields
-     * 
      * @param price price for the seat
      * @param isVip if the seat is a vip seat
-     * @param name  name shows when hovering over a seat
+     * @param name name shows when hovering over a seat
      */
     public AbstractSeat(Prices price, boolean isVip, String name) {
         this.price = price;
@@ -35,7 +33,6 @@ public abstract class AbstractSeat {
 
     /**
      * get if the seat is reserved
-     * 
      * @return if this seat is reserved
      */
     public final boolean isReserved() {
@@ -43,14 +40,13 @@ public abstract class AbstractSeat {
     }
 
     /**
-     * abstract method reserve is invoked from model when placing the order, this
-     * method should set all important data fields
+     * abstract method reserve is invoked from model when placing the order,
+     * this method should set all important data fields
      */
     protected abstract void reserve();
 
     /**
      * toString
-     * 
      * @return the name of the seat
      */
     @Override

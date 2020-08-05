@@ -18,17 +18,15 @@ import model.KinoModel;
 import model.enums.Vocab;
 
 /**
- * View class, manages and generates UI Components, UI consists of a JTabbedPane
- * with different tabs and a JTextField displaying the total price above, the
- * user is able to switch between and interact with the tabs, on the first tab
- * the user can proceed with a JButton to make their reservation, on the second
- * tab the user can choose a movie from a JComboBox, on the third tab the user
- * can choose a time from a list of JRadioButtons, on the fourth tab the user
- * can choose any amount of seats with JCheckBoxes and type in license plates in
- * JTextFields, on the fifth tab the user can choose the amount of caterings
- * with JSpinners, the sixth tab shows a summary of the order in JLabels and a
- * JButton to place the order
- * 
+ * View class, manages and generates UI Components,
+ * UI consists of a JTabbedPane with different tabs and a JTextField displaying the total price above,
+ * the user is able to switch between and interact with the tabs,
+ * on the first tab the user can proceed with a JButton to make their reservation,
+ * on the second tab the user can choose a movie from a JComboBox,
+ * on the third tab the user can choose a time from a list of JRadioButtons,
+ * on the fourth tab the user can choose any amount of seats with JCheckBoxes and type in license plates in JTextFields,
+ * on the fifth tab the user can choose the amount of caterings with JSpinners,
+ * the sixth tab shows a summary of the order in JLabels and a JButton to place the order
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -51,7 +49,7 @@ public class KinoView {
     // JTextField for displaying the price
     private final JTextField priceDisplay = new JTextField(Vocab.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocab.CURRENCY);
     private final JPanel pricePanel = new JPanel(); // this JPanel contains the price
-
+    
     // Indexes for Tabs
     public static final int START_TAB = 0;
     public static final int MOVIE_TAB = 1;
@@ -61,7 +59,8 @@ public class KinoView {
     public static final int SUMMARY_TAB = 5;
 
     // This array contains all tabs
-    public final AbstractTab[] tabs = {
+    public final AbstractTab[] tabs =
+    {
         new StartTab(model, ctrl, START_TAB),
         new MovieTab(model, ctrl, MOVIE_TAB),
         new TimesTab(model, ctrl, TIMES_TAB),
@@ -75,9 +74,9 @@ public class KinoView {
      */
     public KinoView() {
         System.out.println("DEBUG: view: setting up view..."); // DEBUG
-
+        
         // part 1: preparing tabs
-        for (int i = 0; i < tabs.length; i++) { // go through the tabs
+        for (int i = 0; i < tabs.length; i++) { // go through the tabs            
             String[] names = Vocab.TAB_NAMES.getStrings();
             if (i < names.length) {
                 addTab(names[i], tabs[i]); // add the tab with the name
@@ -111,9 +110,8 @@ public class KinoView {
 
     /**
      * adds an tab to the JTabbedPane and disables it by default
-     * 
      * @param title title of the tab
-     * @param tab   tab for this JTabbedPane
+     * @param tab tab for this JTabbedPane
      */
     private void addTab(String title, AbstractTab tab) {
         System.out.println("DEBUG: view: added tab " + title); // DEBUG
@@ -122,36 +120,35 @@ public class KinoView {
     }
 
     /**
-     * invoked from controller by the proceed JButton, changes the active tab to the
-     * following tab
+     * invoked from controller by the proceed JButton,
+     * changes the active tab to the following tab
      */
     public void proceed() {
         System.out.println("DEBUG: view: proceeded"); // DEBUG
-
+        
         int activeTab = tabbedPane.getSelectedIndex(); // get index of the selected tab
         switchTabTo(activeTab + 1); // switch tab to index + 1
     }
 
     /**
-     * invoked from controller by the back JButton, changes the active tab to the
-     * previous tab
+     * invoked from controller by the back JButton,
+     * changes the active tab to the previous tab
      */
     public void back() {
         System.out.println("DEBUG: view: gone back"); // DEBUG
-
+        
         int activeTab = tabbedPane.getSelectedIndex(); // get index of the selected tab
         tabbedPane.setSelectedIndex(activeTab - 1); // set the previous tab as the selected tab
     }
 
     /**
-     * switch an tab to the index specified, the tab that is switched to is then
-     * forced to build itself
-     * 
-     * @param index the index of the tab to be switched to
+     * switch an tab to the index specified,
+     * the tab that is switched to is then forced to build itself
+     * @param index the index of the tab which should be switched to
      */
     private void switchTabTo(int index) {
         System.out.println("DEBUG: view: switching tab to index " + index + "..."); // DEBUG
-
+        
         tabs[index].reset(); // reset the tab
         try { // try to build the tab
             tabs[index].build(); // call the build function of the tab
@@ -159,7 +156,7 @@ public class KinoView {
             String errorMsg = ex.getMessage();
 
             // create a JDialog displaying the error
-            createDialog(Vocab.ERROR_DIALOG_NAME.toString(), new String[] { errorMsg });
+            createDialog(Vocab.ERROR_DIALOG_NAME.toString(), new String[] {errorMsg});
             return; // skip the following code
         }
         tabbedPane.setSelectedIndex(index); // set tab as selected
@@ -171,7 +168,6 @@ public class KinoView {
 
     /**
      * disables all tabs followed by the tab at the index specified
-     * 
      * @param index index of the tab of which all following tabs should be disabled
      */
     private void disableFollowingTabs(int index) {
@@ -182,12 +178,13 @@ public class KinoView {
     }
 
     /**
-     * invoked from controller by user interaction, updates information displayed on
-     * the JFrame, forces an update on the active tab aswell
+     * invoked from controller by user interaction,
+     * updates information displayed on the JFrame,
+     * forces an update on the active tab aswell
      */
     public void update() {
         System.out.println("DEBUG: view: forcing update..."); // DEBUG
-
+        
         int activeTab = tabbedPane.getSelectedIndex(); // get index of selected tab
         tabs[activeTab].update(); // force this tab to update
 
@@ -199,8 +196,8 @@ public class KinoView {
     }
 
     /**
-     * invoked from the controller when finishing the order, shows JDialog for
-     * feedback
+     * invoked from the controller when finishing the order,
+     * shows JDialog for feedback
      */
     public void finish() {
         System.out.println("DEBUG: view: finishing..."); // DEBUG
@@ -221,22 +218,20 @@ public class KinoView {
     }
 
     /**
-     * creates a JDialog with the JFrame as the owner with the specified title and
-     * content in JLabels
-     * 
-     * @param title   title of the JDialog
+     * creates a JDialog with the JFrame as the owner with the specified title and content in JLabels
+     * @param title title of the JDialog
      * @param content array of content which gets put in JLabels
      * @return the created JDialog
      */
     private JDialog createDialog(String title, String[] content) {
         System.out.println("DEBUG: " + "view: creating dialog..."); // DEBUG
-
+        
         JDialog dialog = new JDialog(frame, title); // create JDialog
-
+        
         JPanel mainPanel = new JPanel(); // create a new JPanel for all JLabels
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(DEFAULT_BORDER);
-
+        
         // build the JPanel
         for (String msg : content) {
             JLabel msgLabel = new JLabel(msg);
@@ -250,7 +245,7 @@ public class KinoView {
         dialog.setVisible(true);
         dialog.pack();
         dialog.setLocationRelativeTo(frame); // set the JDialog in the middle of the JFrame
-
+        
         return dialog;
     }
 
