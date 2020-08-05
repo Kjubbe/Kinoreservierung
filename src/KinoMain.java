@@ -13,14 +13,15 @@ public class KinoMain {
     // TODO all: remove test movies and caterings when finished with the project
     // TODO all: check if ALL final variables should actually be final
     // TODO all: private static final <- this is not needed? also check if public
-    // visibility is okay
-    // TODO all: check if all parts are there, where they belong: model stuff in
-    // model (calculations),
-    // view only for displaying information and controller only for changing both!
-    // ESPECIALLY string building
+    //           visibility is okay
+    // TODO all: check if all parts are there, where they belong: 
+    //           - model stuff in model (calculations),
+    //           - view only for displaying information and 
+    //           - controller only for changing both!
+    //           -- ESPECIALLY string building
     // TODO all: should the vocabulary be part of the view?
     // TODO all: can the view get data from other classes other than the model?
-    // like ALL_CATERINGS from the catering class?
+    //           like ALL_CATERINGS from the catering class?
     // TODO check JavaDoc and all other comments
 
     // minor issues:
