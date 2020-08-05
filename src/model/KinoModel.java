@@ -230,11 +230,11 @@ public class KinoModel {
     public void placeOrder() {
         System.out.println("DEBUG: model: placing order..."); // DEBUG
         CarSeat.setOpenLicensePlates(licensePlates);
-        chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
         for (AbstractSeat seat : chosenSeats) { // check every seat
             System.out.println("DEBUG: model: reserving seat...: " + seat); // DEBUG
             seat.reserve();
         }
+        chosenTime.updateAvailability(); // update the availability of the showtime, because seats got reserved
         System.out.println("DEBUG: model: creating order object"); // DEBUG
         Order order = new Order(chosenMovie, chosenTime, chosenSeats, chosenCatering, getTotalPrice());
         Database.addOrder(order); // create and add a new order with all information
