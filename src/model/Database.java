@@ -12,6 +12,8 @@ import model.enums.Times;
 
 /**
  * holds the data for movies and caterings
+ * it is possible to remove and add movies + caterings
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -25,7 +27,7 @@ public final class Database {
     private static final List<Integer> ALL_ORDER_NUMBERS = new ArrayList<>(); // this list holds all order numbers
 
     // this list contains all movies
-    private static final List<Movie> ALL_MOVIES = new ArrayList<>(Arrays.asList( // create array with all movies
+    private static final List<Movie> ALL_MOVIES = new ArrayList<>(Arrays.asList(
         new Movie("The Fermentor", Genres.ACTION, FSKs.FSK_18, "images/the_fermentor.jpg", new Showtime[] {
             new Showtime(Days.MONDAY, Times.PM_08_00, 5, 7),
             new Showtime(Days.TUESDAY, Times.PM_10_00, 4, 7),
@@ -42,7 +44,7 @@ public final class Database {
             new Showtime(Days.FRIDAY, Times.PM_06_30, 4, 9),
             new Showtime(Days.SATURDAY, Times.PM_03_00, 6, 8),
             new Showtime(Days.SATURDAY, Times.PM_04_30, 5, 7),
-            new Showtime(Days.SUNDAY, Times.PM_03_00, 4, 9),
+            new Showtime(Days.SUNDAY, Times.PM_03_00, 4, 9)
         }),
         new Movie("Abduction 2", Genres.THRILLER, FSKs.FSK_12, "images/abduction_2.jpg", new Showtime[] {
             new Showtime(Days.WEDNESDAY, Times.PM_07_00, 5, 7),
@@ -83,16 +85,13 @@ public final class Database {
         new Movie(null, Genres.WESTERN, FSKs.FSK_12, "images/yellow.jpg", null // test movie
         ),
         new Movie("Corrupted Movie 4", Genres.WESTERN, FSKs.FSK_12, null, new Showtime[] { // test movie
-            new Showtime(null, Times.PM_06_30, 4, 9),
-            new Showtime(Days.WEDNESDAY, null, 5, 7),
-            null,
-            new Showtime(null, null, 5, 8),
-            new Showtime(Days.SATURDAY, Times.PM_08_00, 0, 9),
+            new Showtime(null, Times.PM_06_30, 4, 9), new Showtime(Days.WEDNESDAY, null, 5, 7), null,
+            new Showtime(null, null, 5, 8), new Showtime(Days.SATURDAY, Times.PM_08_00, 0, 9),
             new Showtime(Days.SATURDAY, Times.PM_08_00, 0, 0),
-            new Showtime(null, null, 0, 0),
+            new Showtime(null, null, 0, 0)
         }),
         new Movie("Corrupted Movie 5", null, null, "images/green.jpg", new Showtime[] { // test movie
-            new Showtime(Days.FRIDAY, Times.PM_06_30, 8, 9),
+            new Showtime(Days.FRIDAY, Times.PM_06_30, 8, 9)
         }),
         null, // test movie
         new Movie("The Operator", Genres.ACTION, FSKs.FSK_16, "images/the_operator.jpg", new Showtime[] {
@@ -106,11 +105,10 @@ public final class Database {
     ));
 
     // this list contains all caterings
-    private static final List<Catering> ALL_CATERINGS = new ArrayList<>(Arrays.asList( // create array with all caterings
+    private static final List<Catering> ALL_CATERINGS = new ArrayList<>(Arrays.asList(                                                                     
         new Catering("Cola", Prices.MEDIUM_DRINK),
         new Catering("Popcorn", Prices.LARGE_SNACK),
-        new Catering("1l Wasser", Prices.MEDIUM_DRINK),
-        null, // test catering
+        new Catering("1l Wasser", Prices.MEDIUM_DRINK), null, // test catering
         new Catering("Eis", Prices.SMALL_SNACK),
         new Catering(null, null), // test catering
         new Catering("Corrupted honey", null), // test catering
@@ -119,8 +117,9 @@ public final class Database {
     ));
 
     /**
-     * private constructor to restrict access
-     * throws exception because this class is not meant to be instantiated
+     * private constructor to restrict access, throws exception because this class is
+     * not meant to be instantiated
+     * 
      * @throws IllegalStateException when instantiating this class
      */
     private Database() throws IllegalStateException {
@@ -128,8 +127,10 @@ public final class Database {
     }
 
     /**
-     * get all movies
-     * @return a list with all movies
+     * get all movies,
+     * the list is passed by value, not reference!
+     * 
+     * @return a new list with all movies
      */
     public static List<Movie> getAllMovies() {
         return new ArrayList<>(ALL_MOVIES); // return a copy
@@ -137,7 +138,8 @@ public final class Database {
 
     /**
      * add a movie to the list
-     * @param movie the movie which should be added
+     * 
+     * @param movie the movie to be added
      */
     protected static void addMovie(Movie movie) {
         ALL_MOVIES.add(movie);
@@ -146,16 +148,20 @@ public final class Database {
 
     /**
      * remove a movie from the list
+     * 
      * @param movie the movie to be removed
+     * @return if the movie was in the list
      */
-    protected static void removeMovie(Movie movie) {
-        ALL_MOVIES.remove(movie);
+    protected static boolean removeMovie(Movie movie) {
         System.out.println("DEBUG: database: removed movie"); // DEBUG
+        return ALL_MOVIES.remove(movie);
     }
 
     /**
-     * get all caterings
-     * @return a list with all movies
+     * get all caterings,
+     * the list is passed by value, not reference!
+     * 
+     * @return a new list with all movies
      */
     public static List<Catering> getAllCaterings() {
         return new ArrayList<>(ALL_CATERINGS); // return a copy
@@ -163,7 +169,8 @@ public final class Database {
 
     /**
      * add a catering to the list
-     * @param catering the catering which should be added
+     * 
+     * @param catering the catering which to be added
      */
     protected static void addCatering(Catering catering) {
         ALL_CATERINGS.add(catering);
@@ -172,16 +179,20 @@ public final class Database {
 
     /**
      * remove a catering from the list
-     * @param movie the movie to be removed
+     * 
+     * @param catering the catering to be removed
+     * @return if the catering was in the list
      */
-    protected static void removeCatering(Catering catering) {
-        ALL_CATERINGS.remove(catering);
+    protected static boolean removeCatering(Catering catering) {
         System.out.println("DEBUG: database: removed catering"); // DEBUG
+        return ALL_CATERINGS.remove(catering);
     }
 
     /**
-     * get all orders
-     * @return a list with all orders
+     * get all orders,
+     * the list is passed by value, not reference!
+     * 
+     * @return a new list with all orders
      */
     protected static List<Order> getAllOrders() {
         return new ArrayList<>(ALL_ORDERS); // return a copy
@@ -189,6 +200,7 @@ public final class Database {
 
     /**
      * add an order to the list
+     * 
      * @param order the order to be added
      */
     protected static void addOrder(Order order) {
@@ -197,8 +209,10 @@ public final class Database {
     }
 
     /**
-     * get all ticket numbers
-     * @return a list with all ticket numbers
+     * get all ticket numbers,
+     * the list is passed by value, not reference!
+     * 
+     * @return a new list with all ticket numbers
      */
     protected static List<Integer> getAllTicketNumbers() {
         return new ArrayList<>(ALL_TICKET_NUMBERS); // return a copy
@@ -206,6 +220,7 @@ public final class Database {
 
     /**
      * add a ticket number to the list
+     * 
      * @param ticketNumber the number to be added
      */
     protected static void addTicketNumber(int ticketNumber) {
@@ -214,7 +229,9 @@ public final class Database {
     }
 
     /**
-     * get all license plates
+     * get all license plates,
+     * the list is passed by value, not reference!
+     * 
      * @return a list with all license plates
      */
     protected static List<String> getAllLicensePlates() {
@@ -223,7 +240,8 @@ public final class Database {
 
     /**
      * add a license plate to the list
-     * @param orderNumber the license plate to be added
+     * 
+     * @param licensePlate the license plate to be added
      */
     protected static void addLicensePlate(String licensePlate) {
         ALL_LICENSE_PLATES.add(licensePlate);
@@ -231,7 +249,9 @@ public final class Database {
     }
 
     /**
-     * get all order numbers
+     * get all order numbers,
+     * the list is passed by value, not reference!
+     * 
      * @return a list with all order numbers
      */
     protected static List<Integer> getAllOrderNumbers() {
@@ -240,6 +260,7 @@ public final class Database {
 
     /**
      * add a ticket number to the list
+     * 
      * @param orderNumber the number to be added
      */
     protected static void addOrderNumber(int orderNumber) {

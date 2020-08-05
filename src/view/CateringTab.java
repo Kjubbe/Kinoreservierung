@@ -1,10 +1,9 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -21,9 +20,10 @@ import model.KinoModel;
 import model.enums.Vocab;
 
 /**
- * the catering tab contains components for displaying information about the caterings,
- * this tab is the fifth tab in the view, it contains JSpinners to choose the amount of caterings,
- * inherites from the Tab class
+ * the catering tab contains components for displaying information about the
+ * caterings, this tab is the fifth tab in the view, it contains JSpinners to
+ * choose the amount of caterings, inherits from the Tab class
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -36,8 +36,9 @@ public class CateringTab extends AbstractTab {
 
     /**
      * constructor, calls super constructor
+     * 
      * @param model reference to the model object
-     * @param ctrl reference to the ctrl object
+     * @param ctrl  reference to the ctrl object
      * @param index position of the tab in the JTabbedPane from the view
      */
     public CateringTab(KinoModel model, KinoController ctrl, int index) {
@@ -45,15 +46,16 @@ public class CateringTab extends AbstractTab {
     }
 
     /**
-     * invoked from view when switching to this tab via the proceed JButton in another tab,
-     * adds JSpinner for caterings from the model
+     * invoked from view when switching to this tab via the proceed JButton in
+     * another tab, adds JSpinner for caterings from the model
      */
     @Override
     protected void build() {
         System.out.println("DEBUG: catering-tab: building catering tab..."); // DEBUG
 
         // build the JPanel
-        // proceed JButton is enabled by default, because the user does not have to choose anything
+        // proceed JButton is enabled by default, because the user does not have to
+        // choose anything
         proceedButton.setEnabled(true);
         buildCateringPanel();
 
@@ -68,7 +70,7 @@ public class CateringTab extends AbstractTab {
      */
     private void buildCateringPanel() {
         System.out.println("DEBUG: catering-tab: building catering panel..."); // DEBUG
-        
+
         // build the JPanel for the JSpinners
         // FIXME the layout does not work well for this, another layout should be used instead
         cateringPanel = new JPanel(); // new JPanel, contains all JSpinners
@@ -76,7 +78,7 @@ public class CateringTab extends AbstractTab {
         cateringPanel.setBorder(KinoView.NORMAL_Y_SPACING);
 
         // build the JSpinners
-        // go through every catering // catch corrupted caterings missing a name or price
+        // go through every catering and catch corrupted caterings missing a name or price
         for (Catering catering : Database.getAllCaterings()) {
             if (catering == null || catering.name == null || catering.price == null) {
                 System.out.println("DEBUG: catering-tab: corrupted catering found..."); // DEBUG
@@ -92,15 +94,16 @@ public class CateringTab extends AbstractTab {
             JPanel container = new JPanel(new FlowLayout());
             container.add(putInContainer(spinner));
             container.add(new JLabel(catering.name + " (" + catering.price.getPrice() + Vocab.CURRENCY + ")"));
-                
+
             cateringPanel.add(container);
             System.out.println("DEBUG: catering-tab: spinner added..."); // DEBUG
         }
     }
 
     /**
-     * invoked from controller when changing something / interacting with something on the tab,
-     * does nothing, because the catering tab has no conditions for proceeding or new information to update/display
+     * invoked from controller when changing something / interacting with something
+     * on the tab, does nothing, because the catering tab has no conditions for
+     * proceeding or new information to update/display
      */
     @Override
     protected void update() {
@@ -109,13 +112,14 @@ public class CateringTab extends AbstractTab {
 
     /**
      * get the list of SpinnerModels
+     * 
      * @return list with SpinnerModels
      */
     public List<SpinnerModel> getSpinnerModels() {
         List<SpinnerModel> snms = new ArrayList<>(); // create a new list
         for (Component comp : getComponentsFrom(cateringPanel)) { // go through every component of the JPanel
             if (comp instanceof JSpinner) { // check if component is instance of JSpinner
-                snms.add(((JSpinner)comp).getModel()); // add the model of the JSpinner to the list
+                snms.add(((JSpinner) comp).getModel()); // add the model of the JSpinner to the list
             }
         }
         return snms;
