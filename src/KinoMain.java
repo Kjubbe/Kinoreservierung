@@ -46,5 +46,3 @@ public class KinoMain {
         new KinoView();
     }
 }
-
-//test
