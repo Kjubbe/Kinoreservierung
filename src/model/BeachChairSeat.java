@@ -1,11 +1,13 @@
 package model;
 
-import model.enums.Vocab;
 import model.enums.Prices;
+import model.enums.Vocab;
 
 /**
- * special type of seat, inherites from the Seat class,
- * contains a ticket number and list of all tickets
+ * special type of seat, inherits from the Seat class,
+ * contains a ticket number,
+ * reserving the seat assigns the ticket number
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -17,18 +19,21 @@ public class BeachChairSeat extends AbstractSeat {
 
     /**
      * constructor, calls super constructor
+     * 
      * @param isVip if the seat is a vip seat
      */
     public BeachChairSeat(boolean isVip) {
         // price is determined by the isVip boolean
-        super(isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT,
+        super(
+            isVip ? Prices.VIP_BEACH_CHAIR_SEAT : Prices.NORMAL_BEACH_CHAIR_SEAT,
             isVip,
-            Vocab.BEACH_CHAIR_TOOLTIP.toString());
+            Vocab.BEACH_CHAIR_TOOLTIP.toString()
+        );
     }
 
     /**
      * invoked from model when placing the order,
-     * assigns a ticket and reserves a seat
+     * assigns a ticket and reserves the seat
      */
     @Override
     protected void reserve() {
@@ -40,9 +45,8 @@ public class BeachChairSeat extends AbstractSeat {
     }
 
     /**
-     * sets the ticket for this seat,
-     * gets a random number between the local min value (included) and the local max value (excluded),
-     * checks if the ticket number is unique before assigning it
+     * sets the ticket for this seat.
+     * the NumberManager generates a unique ticket number
      */
     private void assignTicket() {
         // generate and assign the number as a string
@@ -54,13 +58,14 @@ public class BeachChairSeat extends AbstractSeat {
         // assign the ticketString with a dash in the middle
         String part1 = ticketString.substring(0, length / 2);
         String part2 = ticketString.substring(length / 2, ticketString.length());
-        ticket = part1 + "-" + part2; 
+        ticket = part1 + "-" + part2;
 
         System.out.println("DEBUG: beach-chair-seat: ticket assigned: " + ticket); // DEBUG
     }
 
     /**
      * get the ticket for this seat
+     * 
      * @return ticket as String
      */
     protected String getTicket() {

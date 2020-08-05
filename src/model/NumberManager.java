@@ -5,6 +5,7 @@ import java.util.Random;
 
 /**
  * creates random numbers for ticket and order numbers
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
@@ -18,8 +19,9 @@ public final class NumberManager {
     private static final Random RNG = new Random(); // create a random number generator
 
     /**
-     * private constructor to restrict access
-     * throws exception because this class is not meant to be instantiated
+     * private constructor to restrict access, throws exception because this class is
+     * not meant to be instantiated
+     * 
      * @throws IllegalStateException when instantiating this class
      */
     private NumberManager() throws IllegalStateException {
@@ -27,7 +29,8 @@ public final class NumberManager {
     }
 
     /**
-     * create and return a ticket number with default range
+     * create and return a ticket number with the default range
+     * 
      * @return the generated ticket number
      */
     protected static int generateTicketNumber() {
@@ -35,7 +38,8 @@ public final class NumberManager {
     }
 
     /**
-     * create and return a ticket number
+     * generate and return a ticket number
+     * 
      * @param min the minimum of the number range, included
      * @param max the maximum of the number range, excluded
      * @return the generated ticket number
@@ -48,15 +52,17 @@ public final class NumberManager {
     }
 
     /**
-     * create and return a ticket number with default range
-     * @return the generated ticket number
+     * generate and return a order number with default range
+     * 
+     * @return the generated order number
      */
     protected static int generateOrderNumber() {
         return generateOrderNumber(MIN, MAX);
     }
 
     /**
-     * create and return an order number
+     * generate and return an order number
+     * 
      * @param min the minimum of the number range, included
      * @param max the maximum of the number range, excluded
      * @return the generated order number
@@ -67,12 +73,13 @@ public final class NumberManager {
         Database.addOrderNumber(orderNumber);
         return orderNumber;
     }
-    
+
     /**
-     * generate a random number in the range for the specified list
+     * generate a unique, random number in the range for the specified list
+     * 
      * @param list the list for the number
-     * @param min the minimum of the number range, included
-     * @param max the maximum of the number range, excluded
+     * @param min  the minimum of the number range, included
+     * @param max  the maximum of the number range, excluded
      * @return the randomly generated number
      */
     private static int nextFor(List<Integer> list, int min, int max) {
@@ -83,10 +90,11 @@ public final class NumberManager {
         int bound = max - min;
         do {
             // get a random number in the specified range
-            if (iterations >= 1000) {
+            if (iterations >= 1000) { // too many iterations
                 throw new StackOverflowError("No unique, random number can be generated");
             }
-            number = min + (bound > 0 ? RNG.nextInt(bound) : RNG.nextInt(MAX - MIN)); // if bound is not positive use the default 
+            // if bound is not positive use the default bound
+            number = min + (bound > 0 ? RNG.nextInt(bound) : RNG.nextInt(MAX - MIN));
             duplicate = false; // assume, that it is not a duplicate
             for (Integer num : list) { // check every ticket
                 if (num == number) { // check for duplication

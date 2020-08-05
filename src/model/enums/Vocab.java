@@ -2,20 +2,20 @@ package model.enums;
 
 /**
  * this enum defines and contains all important strings for the software
+ * 
  * @author Kjell Treder
  * @author Marcel Sauer
  */
 
 public enum Vocab {
-    
+
     FRAME_NAME("Kinoreservierung"), // String for the JFrame
     FINISH_DIALOG_NAME("Vielen Dank!"), // String for the JDialog at the end
     ERROR_DIALOG_NAME("Hoppla..."), // String for error JDialogs
 
     // instruction text for tabs
-    INSTRUCTION_TEXTS( new String[] // Strings for instructions on every tab in order
-    {
-        "Willkommen zum Autokinoreservierungssystem der TH Lübeck!",
+    INSTRUCTION_TEXTS(new String[] { // Strings for instructions on every tab in order
+        "Willkommen bei der Reservierung für das TH-Lübeck Autokino!",
         "Bitte wählen Sie einen Film aus:",
         "Bitte wählen Sie eine Vorstellungszeit für ihren Film aus:",
         "Bitte wählen Sie die Plätze aus, die Sie reservieren möchten:",
@@ -25,8 +25,7 @@ public enum Vocab {
 
     // tab names
     DEFAULT_TAB_NAME("Tab"), // String for default tab name, used, when no name is set
-    TAB_NAMES( new String[] // Strings for names of the tab in order
-    {
+    TAB_NAMES(new String[] { // Strings for names of the tab in order
         "Start",
         "Filme",
         "Zeiten",
@@ -40,15 +39,14 @@ public enum Vocab {
     SCREEN_LABEL("Leinwand"), // String for screen JLabel
 
     START_MSG("Bitte fahren Sie fort, um mit der Reservierung zu beginnen."),
-    
-    FINISH_MSGS( new String[]
-    {
+
+    // String for the finishing msg JLabels
+    FINISH_MSGS(new String[] {
         "Ihre Reservierung war erfolgreich.",
         "Wir freuen uns auf ihren Besuch!"
-    }), // String for the finishing msg JLabels
-    
-    ORDER_MSGS( new String[] // String for the order file
-    {
+    }),
+
+    ORDER_MSGS(new String[] { // String for the order file
         "Vielen Dank, dass Sie unseren Service nutzen!",
         "Im Folgenden finden Sie die Informationen zu ihrer Reservierung; Bestellnummer"
     }),
@@ -64,7 +62,7 @@ public enum Vocab {
     // tooltips
     SOLD_OUT_TOOLTIP("Ausverkauft"), // sold out
     RESERVED_TOOLTIP("Reserviert"), // reserved
-    
+
     VIP_TOOLTIP("VIP"), // vip
     PKW_TOOLTIP("PKW-Stellplatz"), // pkw
     SUV_TOOLTIP("SUV-Stellplatz"), // suv
@@ -75,7 +73,6 @@ public enum Vocab {
     BEACH_CHAIR_HINT("für max. 3 Personen"), // beach chair
     PKW_HINT("für normalgroße Autos"), // pkw
     SUV_HINT("nur für SUV o.ä."), // suv
-    
 
     // button labels
     BACK_BUTTON("Zurück"), // back
@@ -89,9 +86,8 @@ public enum Vocab {
     GENRE_LABEL("Genre"), // genre
     TIME_LABEL("Zeit"), // time
     SEATS_LABEL("Plätze"), // seats
-    
-    LICENSE_PLATE_LABEL( new String[]
-    {
+
+    LICENSE_PLATE_LABEL(new String[] {
         "Kennz.",
         "Bitte Kennz. eingeben"
     }),
@@ -105,6 +101,7 @@ public enum Vocab {
 
     /**
      * constructor, assigns data field
+     * 
      * @param strings array of strings
      */
     Vocab(String[] strings) {
@@ -114,6 +111,7 @@ public enum Vocab {
 
     /**
      * constructor, assigns data field
+     * 
      * @param string data as a string
      */
     Vocab(String string) {
@@ -122,7 +120,9 @@ public enum Vocab {
     }
 
     /**
-     * get the array of strings for this enum
+     * get a cloned array of the strings for this enum,
+     * the array is passed by value, not reference!
+     * 
      * @return the strings in a cloned array
      */
     public String[] getStrings() {
@@ -131,6 +131,7 @@ public enum Vocab {
 
     /**
      * toString
+     * 
      * @return the string for this enum
      */
     @Override
