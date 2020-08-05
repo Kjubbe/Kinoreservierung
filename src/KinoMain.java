@@ -29,6 +29,8 @@ public class KinoMain {
     // 2. the license plates and catering change all the time, they should only be
     // set when proceeding
 
+    // license plates are not limited -> use RegEx to validate
+
     // other:
     // the proceed JButton disables all following tabs,
     // this is because of the design of the tabs with the build function,
