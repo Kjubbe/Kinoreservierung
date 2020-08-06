@@ -24,6 +24,8 @@ public class KinoMain {
     //           like ALL_CATERINGS from the catering class?
     // TODO check JavaDoc and all other comments
 
+
+    // -> In projetbericht! ///////////////////////////////////////////////////////////////////
     // minor issues:
     // 1. the map for the catering can be null if no catering is chosen, but this is
     // (actually) not a problem
@@ -36,6 +38,8 @@ public class KinoMain {
     // the proceed JButton disables all following tabs,
     // this is because of the design of the tabs with the build function,
     // but could be better in future projects (for project desc. pdf)
+
+    // -> In projetbericht! ///////////////////////////////////////////////////////////////////
 
     /**
      * main method, gets called when program runs, creates new view

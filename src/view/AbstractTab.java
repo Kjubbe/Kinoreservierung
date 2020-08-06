@@ -34,9 +34,9 @@ public abstract class AbstractTab extends JPanel {
     protected final JPanel instructionPanel = new JPanel(); // JPanel for JLabel displaying instruction text
     protected final JPanel buttonPanel = new JPanel(new FlowLayout()); // JPanel for all three JButtons
 
-    protected final JButton backButton; // back
-    protected final JButton quitButton; // quit
-    protected final JButton proceedButton; // proceed
+    protected final JButton backButton;     // back
+    protected final JButton quitButton;     // quit
+    protected final JButton proceedButton;  // proceed
 
     /**
      * constructor, assigns data references and an index

@@ -30,6 +30,8 @@ public final class FileManager {
         throw new IllegalStateException("This Utility class can not be instantiated");
     }
 
+    private static String defaultPath = "images/defaultImage.jpg";
+
     /**
      * write a string to a new txt file at a desired path
      * 
@@ -95,8 +97,13 @@ public final class FileManager {
         try {
             pic = ImageIO.read(new File(path));
         } catch (Exception ex) {
-            System.out.println("DEBUG: file-manager: image loading failed"); // DEBUG
-            return null;
+            System.out.println("DEBUG: file-manager: image loading failed - loading default image"); // DEBUG
+            try {
+                pic = ImageIO.read(new File(defaultPath));
+            } catch (Exception ex2) {
+                System.out.println("DEBUG: file-manager: default image loading failed"); // DEBUG
+                return null;
+            }
         }
         System.out.println("DEBUG: file-manager: image loaded"); // DEBUG
         return new ImageIcon(pic);
