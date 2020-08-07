@@ -11,7 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 
 import controller.KinoController;
 import model.KinoModel;
@@ -52,6 +54,10 @@ public class KinoView {
     private final JTextField priceDisplay = new JTextField(Vocab.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocab.CURRENCY);
     private final JPanel pricePanel = new JPanel(); // this JPanel contains the price
 
+    // university logo
+    private final ImageIcon thLogo = new ImageIcon("images/thlogo.jpg"); // new ImageIcon for the logo
+    private final JLabel logoLabel = new JLabel(thLogo);
+
     // Indexes for Tabs
     public static final int START_TAB = 0;
     public static final int MOVIE_TAB = 1;
@@ -91,6 +97,7 @@ public class KinoView {
 
         // part 3: adjust the price JTextField
         priceDisplay.setEditable(false);
+        pricePanel.add(logoLabel);
         pricePanel.add(priceDisplay);
         pricePanel.setBorder(SMALL_Y_SPACING);
 
