@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.swing.Icon;
 
@@ -24,7 +25,7 @@ public class KinoModel {
 
     // license plate constants
     private static final int MIN_LICENSE_PLATE_LENGTH = 5;
-    private static final int MAX_LICENSE_PLATE_LENGTH = 10;
+    private static final int MAX_LICENSE_PLATE_LENGTH = 9;  // 8 + separator
 
     // resetter constants
     private static final int RESET_ABOVE_SEATS = 1;
@@ -102,7 +103,7 @@ public class KinoModel {
             System.out.println("DEBUG: model: Seat added: " + seat); // DEBUG
             chosenSeats.add(seat); // add the seat to the list
         }
-        if (seat instanceof CarSeat) { // check if seat is an instance of CarSeat
+        if (seat instanceof CarSeat) { // check if seat is an instance of CarSeat                                                       //TODO // MARCEL // carSeatAmount fuer Anzahl License Felder!!
             if (removeElseAdd) { // increase when adding a CarSeat, decrease when removing
                 carSeatAmount--;
             } else {
@@ -150,7 +151,7 @@ public class KinoModel {
      * @param lps list of license plate Strings
      */
     public void setLicensePlates(List<String> lps) {
-        System.out.println("DEBUG: model: License plate set, License plates: " + lps); // DEBUG
+        System.out.println("DEBUG: model: License plate set, License plate: " + lps); // DEBUG
 
         licensePlates = new ArrayList<>(lps); // store a copy
     }
@@ -165,6 +166,12 @@ public class KinoModel {
         System.out.println("DEBUG: model: checking input..."); // DEBUG
 
         input = input.replaceAll("\\s+", ""); // remove all whitespaces
+
+        String pattern = "^[a-zA-Z]{1,3}-?[a-zA-Z]{1,2}\\d{1,4}$";
+
+        if(!Pattern.matches(pattern, input)){
+            return false;
+        }
 
         // input only suffices if the length of the text is greater than min and less than max
         return input.length() >= MIN_LICENSE_PLATE_LENGTH && input.length() <= MAX_LICENSE_PLATE_LENGTH;
