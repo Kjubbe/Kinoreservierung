@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -99,6 +100,7 @@ public class KinoView {
         // part 3: adjust the price JTextField
         priceDisplay.setEditable(false);
         priceDisplay.setBorder(BorderFactory.createMatteBorder(0,40,0,0, new Color (0, 0, 0, 0)));
+        priceDisplay.setFont(priceDisplay.getFont().deriveFont(Font.BOLD, 12f));
         pricePanel.setLayout(new BorderLayout());
         
         pricePanel.add(logoLabel, BorderLayout.WEST);
