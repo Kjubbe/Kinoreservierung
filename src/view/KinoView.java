@@ -1,7 +1,9 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -11,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 
@@ -88,7 +89,7 @@ public class KinoView {
             if (i < names.length) {
                 addTab(names[i], tabs[i]); // add the tab with the name
             } else {
-                addTab(Vocab.DEFAULT_TAB_NAME.toString() + i, tabs[i]); // add the tab with the default name
+                addTab(Vocab.DEFAULT_TAB_NAME.toString() + i, tabs[i]);
             }
         }
 
@@ -97,13 +98,16 @@ public class KinoView {
 
         // part 3: adjust the price JTextField
         priceDisplay.setEditable(false);
-        pricePanel.add(logoLabel);
-        pricePanel.add(priceDisplay);
+        priceDisplay.setBorder(BorderFactory.createMatteBorder(0,40,0,0, new Color (0, 0, 0, 0)));
+        pricePanel.setLayout(new BorderLayout());
+        
+        pricePanel.add(logoLabel, BorderLayout.WEST);
+        pricePanel.add(priceDisplay, BorderLayout.CENTER);
         pricePanel.setBorder(SMALL_Y_SPACING);
 
         // part 4: set up the JFrame
         frame.setLayout(new BorderLayout());
-
+        
         // add JPanels
         frame.add(tabbedPane, BorderLayout.CENTER);
         frame.add(pricePanel, BorderLayout.NORTH);

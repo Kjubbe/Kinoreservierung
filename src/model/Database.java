@@ -108,7 +108,8 @@ public final class Database {
     private static final List<Catering> ALL_CATERINGS = new ArrayList<>(Arrays.asList(                                                                     
         new Catering("Cola", Prices.MEDIUM_DRINK),
         new Catering("Popcorn", Prices.LARGE_SNACK),
-        new Catering("1l Wasser", Prices.MEDIUM_DRINK), null, // test catering
+        new Catering("1l Wasser", Prices.MEDIUM_DRINK), 
+            null, // test catering
         new Catering("Eis", Prices.SMALL_SNACK),
         new Catering(null, null), // test catering
         new Catering("Corrupted honey", null), // test catering
