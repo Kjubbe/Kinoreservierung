@@ -6,7 +6,9 @@ Wichtige Hinweise:
 Diese Filme und Caterings sind zum Testen gedacht und sollen zeigen, dass der Code auch mit solchen Fehlern umgehen kann.
 Filme dieser Art heißen "Corrupted x"
 
-2. Alle System.out.println() sind ausschließlich für Debug Prints gedacht, um den Code besser zu durchblicken.
+2. Der Ordner "orders" beinhaltet bereits ein paar Beispielbestellungen, diese sind für die Anwendung nicht essentiell.
+
+3. Alle System.out.println() sind ausschließlich für Debug Prints gedacht, um den Code besser zu durchblicken.
 Mithilfe der Konsole kann der Programmablauf gut nachvollzogen werden um ein besseres Verständnis dafür zu bekommen,
 wie die Klassen miteinander kommunizieren, welche Methoden ausgeführt werden und welche Daten zu welcher Zeit gespeichert werden.
 
