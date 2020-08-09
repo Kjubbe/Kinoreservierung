@@ -26,7 +26,7 @@ public class KinoModel {
     // license plate constants
     private static final int MIN_LICENSE_PLATE_LENGTH = 5;
     private static final int MAX_LICENSE_PLATE_LENGTH = 9;  // 8 + separator
-    private static String LICENSE_PLATE_REGEX_PATTERN = "^[a-zA-Z]{1,3}-?[a-zA-Z]{1,2}\\d{1,4}$";
+    private static final String LICENSE_PLATE_REGEX_PATTERN = "^[a-zA-Z]{1,3}-?[a-zA-Z]{1,2}\\d{1,4}$";
 
     // resetter constants
     private static final int RESET_ABOVE_SEATS = 1;
