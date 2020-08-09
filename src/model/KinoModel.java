@@ -26,6 +26,7 @@ public class KinoModel {
     // license plate constants
     private static final int MIN_LICENSE_PLATE_LENGTH = 5;
     private static final int MAX_LICENSE_PLATE_LENGTH = 9;  // 8 + separator
+    private static String LICENSE_PLATE_REGEX_PATTERN = "^[a-zA-Z]{1,3}-?[a-zA-Z]{1,2}\\d{1,4}$";
 
     // resetter constants
     private static final int RESET_ABOVE_SEATS = 1;
@@ -103,7 +104,7 @@ public class KinoModel {
             System.out.println("DEBUG: model: Seat added: " + seat); // DEBUG
             chosenSeats.add(seat); // add the seat to the list
         }
-        if (seat instanceof CarSeat) { // check if seat is an instance of CarSeat                                                       //TODO // MARCEL // carSeatAmount fuer Anzahl License Felder!!
+        if (seat instanceof CarSeat) { // check if seat is an instance of CarSeat
             if (removeElseAdd) { // increase when adding a CarSeat, decrease when removing
                 carSeatAmount--;
             } else {
@@ -167,9 +168,7 @@ public class KinoModel {
 
         input = input.replaceAll("\\s+", ""); // remove all whitespaces
 
-        String pattern = "^[a-zA-Z]{1,3}-?[a-zA-Z]{1,2}\\d{1,4}$";
-
-        if(!Pattern.matches(pattern, input)){
+        if(!Pattern.matches(LICENSE_PLATE_REGEX_PATTERN, input)){
             return false;
         }
 
