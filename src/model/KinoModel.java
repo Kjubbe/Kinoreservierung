@@ -122,7 +122,7 @@ public class KinoModel {
      * 
      * @param cateringAmounts list of amounts for each catering
      */
-    public void setCatering(List<Integer> cateringAmounts) { // TODO update this logic
+    public void setCatering(List<Integer> cateringAmounts) {
         System.out.println("DEBUG: model: changing caterings..."); // DEBUG
         int index = 0; // local index counter
         // create a new map, which will contain every catering option with their
@@ -133,7 +133,7 @@ public class KinoModel {
             // get the catering at the index, which is equivalent to the index of the amount
             // for this catering
             Catering equivalentCatering = Database.getAllCaterings().get(i);
-            if (equivalentCatering == null || equivalentCatering.name == null || equivalentCatering.price == null) {
+            if (equivalentCatering == null || equivalentCatering.getName()== null || equivalentCatering.getPrice() == null) {
                 System.out.println("DEBUG: model: corrupt catering skipped"); // DEBUG
                 continue; // catering corrupted, skip
             }
@@ -281,14 +281,14 @@ public class KinoModel {
         double price = 0.0; // local variable, holds the price
         if (!chosenSeats.isEmpty()) { // check, if there are chosen seats
             for (AbstractSeat seat : chosenSeats) { // check every seat
-                price += seat.price.getPrice(); // add price of the seat to the total amount
+                price += seat.getPrice().getPrice(); // add price of the seat to the total amount
             }
         }
         if (chosenCatering != null) { // check, if there are chosen caterings
             for (Map.Entry<Catering, Integer> entry : chosenCatering.entrySet()) { // check every entry of the map
                 Catering catering = entry.getKey();
                 Integer amount = entry.getValue();
-                price += catering.price.getPrice() * amount; // price is equal to the price multiplied by the amount
+                price += catering.getPrice().getPrice() * amount; // price is equal to the price multiplied by the amount
             }
         }
         return Math.round(price * 100.0) / 100.0; // round price to two decimal places

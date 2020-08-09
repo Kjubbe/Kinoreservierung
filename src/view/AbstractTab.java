@@ -50,7 +50,7 @@ public abstract class AbstractTab extends JPanel {
         this.ctrl = ctrl;
 
         // add instructions from the model
-        String[] texts = Vocab.INSTRUCTION_TEXTS.getStrings();                                                                  //TODO //MARCEL// weisst einem Tab einen Instruction-Text nach Index Nummer zu 
+        String[] texts = Vocab.INSTRUCTION_TEXTS.getStrings();
         if (index < texts.length) {
             instructionPanel.add(new JLabel(texts[index]));
         }

@@ -20,7 +20,7 @@ import model.enums.Vocab;
 public class CarSeat extends AbstractSeat {
 
     // Data fields
-    public final boolean isForSUV; // determines if the seat is meant for suvs
+    private boolean isForSUV; // determines if the seat is meant for suvs
 
     private static List<String> openLicensePlates; // this list contains license plates to be assigned to seats
     private String licensePlate; // holds license plate number
@@ -75,5 +75,14 @@ public class CarSeat extends AbstractSeat {
      */
     protected String getLicensePlate() {
         return licensePlate;
+    }
+
+    /**
+     * get if the seat is for suv
+     * 
+     * @return if the seat is for suv
+     */
+    public boolean isForSUV() {
+        return isForSUV;
     }
 }

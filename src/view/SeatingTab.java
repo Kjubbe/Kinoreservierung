@@ -159,7 +159,7 @@ public class SeatingTab extends AbstractTab {
                 AbstractSeat currentSeat = seats[row][column]; // get the seat at the current position
                 JCheckBox cb = new JCheckBox(); // create a new JCheckBox
                 cb.addActionListener(ctrl); // add listener
-                cb.setToolTipText(currentSeat.name); // add tooltip from the current seat
+                cb.setToolTipText(currentSeat.getName()); // add tooltip from the current seat
 
                 // this action command contains the position of the JCheckBox
                 // this way, the controller knows from which position the action came from
@@ -173,7 +173,7 @@ public class SeatingTab extends AbstractTab {
                     cb.setToolTipText(Vocab.RESERVED_TOOLTIP.toString()); // new tooltip
                 } else if (currentSeat instanceof BeachChairSeat) {
                     color = Color.YELLOW; // else if the seat is a BeachChairSeat the color is set to yellow
-                } else if (currentSeat instanceof CarSeat && ((CarSeat) currentSeat).isForSUV) {
+                } else if (currentSeat instanceof CarSeat && ((CarSeat) currentSeat).isForSUV()) {
                     color = Color.GRAY; // color is set to gray
                     cb.setBorder(new EmptyBorder(7, 7, 7, 7)); // car seat is bigger
                     // normal non-suv car seats have no special color > standard light gray
@@ -184,7 +184,7 @@ public class SeatingTab extends AbstractTab {
 
                 // build the JPanel
                 JPanel container = putInContainer(cb); // get the container of the checkbox
-                if (currentSeat.isVip) { // check if the seat is vip
+                if (currentSeat.isVip()) { // check if the seat is vip
                     container.setBorder(new LineBorder(Color.ORANGE, 3)); // give the checkbox an orange border
                 }
                 System.out.println("DEBUG: seating-tab: checkbox added..."); // DEBUG
@@ -232,7 +232,7 @@ public class SeatingTab extends AbstractTab {
         for (JTextField tf : getTextFields()) {
             if (!model.checkInput(tf.getText())) { // check for insufficient textfield
                 lpMissing = true; // insufficient textfield found
-                tf.getParent().setBackground(lightRed); // input does no suffice -> red background                          //TODO // MARCEL // Uebergeordneteder Frame aufrufen.
+                tf.getParent().setBackground(lightRed); // input does no suffice -> red background
                 System.out.println("DEBUG: seating-tab: input does not suffice..."); // DEBUG
             } else {
                 tf.getParent().setBackground(lightGreen); // input suffices -> green background

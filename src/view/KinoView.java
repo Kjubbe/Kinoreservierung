@@ -66,7 +66,7 @@ public class KinoView {
     public static final int SUMMARY_TAB = 5;
 
     // This array contains all tabs
-    public final AbstractTab[] tabs = {
+    private AbstractTab[] tabs = {
         new StartTab(model, ctrl, START_TAB),
         new MovieTab(model, ctrl, MOVIE_TAB),
         new TimesTab(model, ctrl, TIMES_TAB),
@@ -97,7 +97,7 @@ public class KinoView {
         // part 3: adjust the price JTextField
         priceDisplay.setEditable(false);
         priceDisplay.setBorder(new EmptyBorder(0, 40, 0, 0));
-        priceDisplay.setFont(priceDisplay.getFont().deriveFont(Font.BOLD, 12f));
+        priceDisplay.setFont(priceDisplay.getFont().deriveFont(Font.BOLD, 12F));
         pricePanel.setLayout(new BorderLayout());
         
         pricePanel.add(logoLabel, BorderLayout.WEST);
@@ -272,5 +272,14 @@ public class KinoView {
         for (AbstractTab tab : tabs) { // go through all tabs
             tab.reset(); // reset all tabs
         }
+    }
+
+    /**
+     * get a tab at the index
+     * 
+     * @return the tab at the specified index
+     */
+    public AbstractTab getTabAt(int index) {
+        return tabs[index];
     }
 }

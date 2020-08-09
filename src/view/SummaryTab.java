@@ -92,7 +92,7 @@ public class SummaryTab extends AbstractTab {
         // part 3: the seats
         builder = new StringBuilder();
         for (AbstractSeat seat : model.getChosenSeats()) { // go through every seat
-            builder.append("1x " + seat.name + " (" + seat.price.getPrice() + Vocab.CURRENCY + "), ");
+            builder.append("1x " + seat.getName() + " (" + seat.getPrice().getPrice() + Vocab.CURRENCY + "), ");
         }
         length = builder.length();
         builder.delete(length - 2, length); // remove last comma
@@ -134,8 +134,8 @@ public class SummaryTab extends AbstractTab {
                 }
 
                 // add the catering name and price with their amount to the print
-                double price = Math.round(catering.price.getPrice() * amount * 100.0) / 100.0;
-                builder.append(amount + "x " + catering.name + " (" + price + Vocab.CURRENCY + "), ");
+                double price = Math.round(catering.getPrice().getPrice() * amount * 100.0) / 100.0;
+                builder.append(amount + "x " + catering.getName() + " (" + price + Vocab.CURRENCY + "), ");
             }
         }
 

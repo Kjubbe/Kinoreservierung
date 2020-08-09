@@ -16,11 +16,11 @@ import model.enums.Vocab;
 public class Movie {
 
     // Data fields
-    private final String title;
-    private final Genres genre;
-    private final FSKs fsk;
-    private final String picPath;
-    private final Showtime[] showtimes; // contains all available showtimes for this movie
+    private String title;
+    private Genres genre;
+    private FSKs fsk;
+    private String picPath;
+    private Showtime[] showtimes; // contains all available showtimes for this movie
 
     private Icon image;
 

@@ -11,7 +11,7 @@ import model.enums.Times;
  * @author Marcel Sauer
  */
 
-public class Showtime { // TODO maybe add not only weekdays but dates aswell? (overkill!)
+public class Showtime {
 
     // data fields
     private final Days day;

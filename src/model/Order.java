@@ -35,6 +35,12 @@ public class Order {
 
     /**
      * create a description for this order
+     * 
+     * @param movie     the chosen movie
+     * @param time      the chosen time of the movie
+     * @param seats     the chosen seats for the time
+     * @param caterings chosen caterings
+     * @param totalPrice total price of the order
      * @return String with description
      */
     private final String createDescription(Movie movie, Showtime time, List<AbstractSeat> seats, Map<Catering, Integer> caterings, double totalPrice) {
@@ -47,7 +53,7 @@ public class Order {
         // seats
         builder.append("\n" + Vocab.SEATS_LABEL + ": " + "\n");
         for (AbstractSeat seat : seats) {
-            builder.append("- " + seat.name + " (" + seat.price.getPrice() + Vocab.CURRENCY + "), "); // seat
+            builder.append("- " + seat.getName() + " (" + seat.getPrice().getPrice() + Vocab.CURRENCY + "), "); // seat
             if (seat instanceof BeachChairSeat) {
                 // add ticket
                 builder.append(Vocab.TICKET_LABEL + ": " + ((BeachChairSeat) seat).getTicket() + "\n");
@@ -68,10 +74,10 @@ public class Order {
                 if (amount == 0) { // check if the catering is chosen, if not skip
                     continue; // skip this entry
                 }
-                double price = Math.round(catering.price.getPrice() * amount * 100.0) / 100.0; // calculate and round the price
+                double price = Math.round(catering.getPrice().getPrice() * amount * 100.0) / 100.0; // calculate and round the price
                 
                 // add the catering name and price with their amount to the print
-                builder.append("\n" + amount + "x " + catering.name + " (" + price + Vocab.CURRENCY + ")");
+                builder.append("\n" + amount + "x " + catering.getName() + " (" + price + Vocab.CURRENCY + ")");
                 none = false;
             }
             if (none) {

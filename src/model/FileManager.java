@@ -20,6 +20,8 @@ import javax.swing.ImageIcon;
 
 public final class FileManager {
 
+    private static final String DEFAULT_PATH = "images/defaultImage.jpg";
+
     /**
      * private constructor to restrict access, throws exception because this class is
      * not meant to be instantiated
@@ -29,8 +31,6 @@ public final class FileManager {
     private FileManager() throws IllegalStateException {
         throw new IllegalStateException("This Utility class can not be instantiated");
     }
-
-    private static final String DEFAULT_PATH = "images/defaultImage.jpg";
 
     /**
      * write a string to a new txt file at a desired path

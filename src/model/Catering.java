@@ -13,8 +13,8 @@ import model.enums.Prices;
 public class Catering {
 
     // Data fields
-    public final Prices price;
-    public final String name;
+    private Prices price;
+    private String name;
 
     /**
      * constructor, sets data fields
@@ -34,6 +34,24 @@ public class Catering {
      */
     @Override
     public String toString() {
+        return name;
+    }
+
+    /**
+     * get the price of this catering
+     * 
+     * @return the price
+     */
+    public Prices getPrice() {
+        return price;
+    }
+
+    /**
+     * get the name of this catering
+     * 
+     * @return the name
+     */
+    public String getName() {
         return name;
     }
 }

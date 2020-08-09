@@ -77,7 +77,7 @@ public class TimesTab extends AbstractTab {
             throw new IllegalArgumentException(Vocab.NO_TIMES_ERROR.toString());
         }
         // new ButtonGroup, because only one JRadioButton should be selected at a time
-        ButtonGroup group = new ButtonGroup();                                                                          //TODO // MARCEL // Button Group = Java Komponente um nur einen Button auswaehlen zu koennen
+        ButtonGroup group = new ButtonGroup();
 
         for (int i = 0; i < times.length; i++) { // go through all times
             Showtime showtime = times[i];

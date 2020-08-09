@@ -188,7 +188,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
         System.out.println("DEBUG: ctrl: giving license plates to model"); // DEBUG
 
         // get reference to the seating tab from the view
-        SeatingTab tab = (SeatingTab) view.tabs[KinoView.SEATING_TAB];
+        SeatingTab tab = (SeatingTab) view.getTabAt(KinoView.SEATING_TAB);
 
         List<JTextField> tfs = tab.getTextFields(); // get JTextFields from the tab
         List<String> lps = new ArrayList<>(); // create a new list to store the license plate input
@@ -204,12 +204,12 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
      * advises model to set caterings,
      * updates view
      */
-    private void cateringChanged() { // TODO update this logic
+    private void cateringChanged() {
         System.out.println("DEBUG: " + "ctrl: Catering chosen"); // DEBUG
         System.out.println("DEBUG: ctrl: giving catering to model"); // DEBUG
 
         // get reference to the catering tab from the view
-        CateringTab tab = (CateringTab) view.tabs[KinoView.CATERING_TAB];
+        CateringTab tab = (CateringTab) view.getTabAt(KinoView.CATERING_TAB);
 
         List<SpinnerModel> sms = tab.getSpinnerModels(); // get reference to all SpinnerModels from the view
         List<Integer> cateringAmounts = new ArrayList<>(); // create a new list to store the amount for each catering

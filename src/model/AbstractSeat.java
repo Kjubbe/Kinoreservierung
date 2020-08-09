@@ -14,9 +14,9 @@ public abstract class AbstractSeat {
 
     // data fields
     protected boolean isReserved;
-    public final String name; // name for hovering over a seat
-    public final Prices price;
-    public final boolean isVip;
+    private String name; // name for hovering over a seat
+    private Prices price;
+    private boolean isVip;
 
     /**
      * constructor, assigns data fields
@@ -47,6 +47,33 @@ public abstract class AbstractSeat {
      * method should set all important data fields
      */
     protected abstract void reserve();
+
+    /**
+     * get the name for this seat
+     * 
+     * @return the name for this seat
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * get the price for this seat
+     * 
+     * @return the price for this seat
+     */
+    public Prices getPrice() {
+        return price;
+    }
+
+    /**
+     * get if the seat is vip
+     * 
+     * @return if the seat is vip
+     */
+    public boolean isVip() {
+        return isVip;
+    }
 
     /**
      * toString
