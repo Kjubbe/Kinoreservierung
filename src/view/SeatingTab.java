@@ -232,7 +232,7 @@ public class SeatingTab extends AbstractTab {
         for (JTextField tf : getTextFields()) {
             if (!model.checkInput(tf.getText())) { // check for insufficient textfield
                 lpMissing = true; // insufficient textfield found
-                tf.getParent().setBackground(lightRed); // input does no suffice -> red background
+                tf.getParent().setBackground(lightRed); // input does no suffice -> red background                          //TODO // MARCEL // Uebergeordneteder Frame aufrufen.
                 System.out.println("DEBUG: seating-tab: input does not suffice..."); // DEBUG
             } else {
                 tf.getParent().setBackground(lightGreen); // input suffices -> green background

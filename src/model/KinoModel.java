@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.swing.Icon;
 
@@ -24,7 +25,8 @@ public class KinoModel {
 
     // license plate constants
     private static final int MIN_LICENSE_PLATE_LENGTH = 5;
-    private static final int MAX_LICENSE_PLATE_LENGTH = 10;
+    private static final int MAX_LICENSE_PLATE_LENGTH = 9;  // 8 + separator
+    private static final String LICENSE_PLATE_REGEX_PATTERN = "^[a-zA-Z]{1,3}-?[a-zA-Z]{1,2}\\d{1,4}$";
 
     // resetter constants
     private static final int RESET_ABOVE_SEATS = 1;
@@ -165,6 +167,10 @@ public class KinoModel {
         System.out.println("DEBUG: model: checking input..."); // DEBUG
 
         input = input.replaceAll("\\s+", ""); // remove all whitespaces
+
+        if(!Pattern.matches(LICENSE_PLATE_REGEX_PATTERN, input)){
+            return false;
+        }
 
         // input only suffices if the length of the text is greater than min and less than max
         return input.length() >= MIN_LICENSE_PLATE_LENGTH && input.length() <= MAX_LICENSE_PLATE_LENGTH;

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -16,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import controller.KinoController;
 import model.KinoModel;
 import model.enums.Vocab;
+import model.FileManager;
 
 /**
  * View class, manages and generates UI Components, UI consists of a JTabbedPane
@@ -51,6 +53,9 @@ public class KinoView {
     // JTextField for displaying the price
     private final JTextField priceDisplay = new JTextField(Vocab.TOTAL_PRICE_LABEL + ": " + 0.0 + Vocab.CURRENCY);
     private final JPanel pricePanel = new JPanel(); // this JPanel contains the price
+
+    // university logo
+    private final JLabel logoLabel = new JLabel(FileManager.loadImage("images/thlogo.jpg"));
 
     // Indexes for Tabs
     public static final int START_TAB = 0;
@@ -91,12 +96,17 @@ public class KinoView {
 
         // part 3: adjust the price JTextField
         priceDisplay.setEditable(false);
-        pricePanel.add(priceDisplay);
+        priceDisplay.setBorder(new EmptyBorder(0, 40, 0, 0));
+        priceDisplay.setFont(priceDisplay.getFont().deriveFont(Font.BOLD, 12f));
+        pricePanel.setLayout(new BorderLayout());
+        
+        pricePanel.add(logoLabel, BorderLayout.WEST);
+        pricePanel.add(priceDisplay, BorderLayout.CENTER);
         pricePanel.setBorder(SMALL_Y_SPACING);
 
         // part 4: set up the JFrame
         frame.setLayout(new BorderLayout());
-
+        
         // add JPanels
         frame.add(tabbedPane, BorderLayout.CENTER);
         frame.add(pricePanel, BorderLayout.NORTH);
