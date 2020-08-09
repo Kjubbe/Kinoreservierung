@@ -78,6 +78,7 @@ public class KinoController extends KeyAdapter implements ActionListener, ItemLi
             timeChanged(cmd);
         } else if (source instanceof JCheckBox) { // source from JCheckBox > source is from seat tab
             seatChanged(source, cmd);
+            licensePlateChanged();
         } else {
             throw new IllegalStateException("This action has no method assigned");
         }
