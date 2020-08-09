@@ -13,11 +13,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.ImageIcon;
 
 import controller.KinoController;
 import model.KinoModel;
 import model.enums.Vocab;
+import model.FileManager;
 
 /**
  * View class, manages and generates UI Components, UI consists of a JTabbedPane
@@ -55,8 +55,7 @@ public class KinoView {
     private final JPanel pricePanel = new JPanel(); // this JPanel contains the price
 
     // university logo
-    private final ImageIcon thLogo = new ImageIcon("images/thlogo.jpg"); // new ImageIcon for the logo
-    private final JLabel logoLabel = new JLabel(thLogo);
+    private final JLabel logoLabel = new JLabel(FileManager.loadImage("images/thlogo.jpg"));
 
     // Indexes for Tabs
     public static final int START_TAB = 0;
@@ -88,7 +87,7 @@ public class KinoView {
             if (i < names.length) {
                 addTab(names[i], tabs[i]); // add the tab with the name
             } else {
-                addTab(Vocab.DEFAULT_TAB_NAME.toString() + i, tabs[i]);
+                addTab(Vocab.DEFAULT_TAB_NAME.toString() + i, tabs[i]); // add the tab with the default name
             }
         }
 

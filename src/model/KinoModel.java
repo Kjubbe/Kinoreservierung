@@ -152,7 +152,7 @@ public class KinoModel {
      * @param lps list of license plate Strings
      */
     public void setLicensePlates(List<String> lps) {
-        System.out.println("DEBUG: model: License plate set, License plate: " + lps); // DEBUG
+        System.out.println("DEBUG: model: License plate set, License plates: " + lps); // DEBUG
 
         licensePlates = new ArrayList<>(lps); // store a copy
     }
