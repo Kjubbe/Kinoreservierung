@@ -82,7 +82,7 @@ public final class NumberManager {
      * @param max  the maximum of the number range, excluded
      * @return the randomly generated number
      */
-    private static int nextFor(List<Integer> list, int min, int max) {
+    protected static int nextFor(List<Integer> list, int min, int max) {
         System.out.println("DEBUG: number manager: generating number in range " + min + " - " + max); // DEBUG
         boolean duplicate;
         int number; // holds the ticket number
